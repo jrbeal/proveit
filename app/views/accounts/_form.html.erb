@@ -1,0 +1,105 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_name %><br>
+    <%= f.text_field :user_name %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :timezone %><br>
+    <%= f.text_field :timezone %>
+  </div>
+  <div class="field">
+    <%= f.label :language %><br>
+    <%= f.text_field :language %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :verbosity %><br>
+    <%= f.text_field :verbosity %>
+  </div>
+  <div class="field">
+    <%= f.label :default_filter %><br>
+    <%= f.text_field :default_filter %>
+  </div>
+  <div class="field">
+    <%= f.label :list %><br>
+    <%= f.text_field :list %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :occupation %><br>
+    <%= f.text_field :occupation %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :education %><br>
+    <%= f.text_field :education %>
+  </div>
+  <div class="field">
+    <%= f.label :about %><br>
+    <%= f.text_field :about %>
+  </div>
+  <div class="field">
+    <%= f.label :opinions %><br>
+    <%= f.text_field :opinions %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br>
+    <%= f.text_field :comments %>
+  </div>
+  <div class="field">
+    <%= f.label :initiators %><br>
+    <%= f.text_field :initiators %>
+  </div>
+  <div class="field">
+    <%= f.label :offspring %><br>
+    <%= f.text_field :offspring %>
+  </div>
+  <div class="field">
+    <%= f.label :rating %><br>
+    <%= f.text_field :rating %>
+  </div>
+  <div class="field">
+    <%= f.label :percentile %><br>
+    <%= f.text_field :percentile %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

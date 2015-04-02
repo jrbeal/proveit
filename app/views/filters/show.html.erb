@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @filter.name %>
+</p>
+
+<p>
+  <strong>Contested opinions:</strong>
+  <%= @filter.contested_opinions %>
+</p>
+
+<p>
+  <strong>Uncontested opinions:</strong>
+  <%= @filter.uncontested_opinions %>
+</p>
+
+<p>
+  <strong>Contested objections:</strong>
+  <%= @filter.contested_objections %>
+</p>
+
+<p>
+  <strong>Uncontested objections:</strong>
+  <%= @filter.uncontested_objections %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @filter.comments %>
+</p>
+
+<p>
+  <strong>Initiators:</strong>
+  <%= @filter.initiators %>
+</p>
+
+<p>
+  <strong>Following:</strong>
+  <%= @filter.following %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @filter.active %>
+</p>
+
+<p>
+  <strong>Bookmarks:</strong>
+  <%= @filter.bookmarks %>
+</p>
+
+<p>
+  <strong>Hot topics:</strong>
+  <%= @filter.hot_topics %>
+</p>
+
+<p>
+  <strong>Categories:</strong>
+  <%= @filter.categories %>
+</p>
+
+<p>
+  <strong>Key words:</strong>
+  <%= @filter.key_words %>
+</p>
+
+<p>
+  <strong>Levels:</strong>
+  <%= @filter.levels %>
+</p>
+
+<p>
+  <strong>Range:</strong>
+  <%= @filter.range %>
+</p>
+
+<p>
+  <strong>Today:</strong>
+  <%= @filter.today %>
+</p>
+
+<p>
+  <strong>Last week:</strong>
+  <%= @filter.last_week %>
+</p>
+
+<p>
+  <strong>Last month:</strong>
+  <%= @filter.last_month %>
+</p>
+
+<%= link_to 'Edit', edit_filter_path(@filter) %> |
+<%= link_to 'Back', filters_path %>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Posts</h1>
+<h1>ProveIt!</h1>
 
 <table>
   <thead>
@@ -10,8 +10,26 @@
   </thead>
 
   <tbody>
+    <div>
+    <span>
+    <%= link_to 'CreateOpinion', new_post_path %>
+    </span>
+    <span>
+    <%= link_to 'CreateInitiator', "." %>
+    </span>
+    <span>
+    <%= link_to 'CreateMessage', "." %>
+    </span>
+    <span>
+    <%= link_to 'More', "." %>
+    </span>
+    <span>
+    <%= link_to 'Less', "." %>
+    </span>
+    </div>
     <% @posts.each do |post| %>
       <tr>
+        <td><%= post.id %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,5 +39,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Post', new_post_path %>

@@ -1,0 +1,45 @@
+<%= form_for(@topic) do |f| %>
+  <% if @topic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+
+      <ul>
+      <% @topic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :topic_id %><br>
+    <%= f.number_field :topic_id %>
+  </div>
+  <div class="field">
+    <%= f.label :private %><br>
+    <%= f.check_box :private %>
+  </div>
+  <div class="field">
+    <%= f.label :lone_wolf %><br>
+    <%= f.check_box :lone_wolf %>
+  </div>
+  <div class="field">
+    <%= f.label :teams %><br>
+    <%= f.check_box :teams %>
+  </div>
+  <div class="field">
+    <%= f.label :public_viewing %><br>
+    <%= f.check_box :public_viewing %>
+  </div>
+  <div class="field">
+    <%= f.label :public_comments %><br>
+    <%= f.check_box :public_comments %>
+  </div>
+  <div class="field">
+    <%= f.label :post_id %><br>
+    <%= f.number_field :post_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

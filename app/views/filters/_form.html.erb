@@ -1,0 +1,89 @@
+<%= form_for(@filter) do |f| %>
+  <% if @filter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@filter.errors.count, "error") %> prohibited this filter from being saved:</h2>
+
+      <ul>
+      <% @filter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :contested_opinions %><br>
+    <%= f.check_box :contested_opinions %>
+  </div>
+  <div class="field">
+    <%= f.label :uncontested_opinions %><br>
+    <%= f.check_box :uncontested_opinions %>
+  </div>
+  <div class="field">
+    <%= f.label :contested_objections %><br>
+    <%= f.check_box :contested_objections %>
+  </div>
+  <div class="field">
+    <%= f.label :uncontested_objections %><br>
+    <%= f.check_box :uncontested_objections %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br>
+    <%= f.check_box :comments %>
+  </div>
+  <div class="field">
+    <%= f.label :initiators %><br>
+    <%= f.check_box :initiators %>
+  </div>
+  <div class="field">
+    <%= f.label :following %><br>
+    <%= f.check_box :following %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :bookmarks %><br>
+    <%= f.check_box :bookmarks %>
+  </div>
+  <div class="field">
+    <%= f.label :hot_topics %><br>
+    <%= f.check_box :hot_topics %>
+  </div>
+  <div class="field">
+    <%= f.label :categories %><br>
+    <%= f.check_box :categories %>
+  </div>
+  <div class="field">
+    <%= f.label :key_words %><br>
+    <%= f.check_box :key_words %>
+  </div>
+  <div class="field">
+    <%= f.label :levels %><br>
+    <%= f.check_box :levels %>
+  </div>
+  <div class="field">
+    <%= f.label :range %><br>
+    <%= f.check_box :range %>
+  </div>
+  <div class="field">
+    <%= f.label :today %><br>
+    <%= f.check_box :today %>
+  </div>
+  <div class="field">
+    <%= f.label :last_week %><br>
+    <%= f.check_box :last_week %>
+  </div>
+  <div class="field">
+    <%= f.label :last_month %><br>
+    <%= f.check_box :last_month %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

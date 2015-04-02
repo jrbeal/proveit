@@ -1,0 +1,1 @@
+json.extract! @account, :id, :user_id, :user_name, :first_name, :last_name, :email, :timezone, :language, :password, :verbosity, :default_filter, :list, :location, :occupation, :phone, :education, :about, :opinions, :comments, :initiators, :offspring, :rating, :percentile, :created_at, :updated_at

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  contested_opinions: false
+  uncontested_opinions: false
+  contested_objections: false
+  uncontested_objections: false
+  comments: false
+  initiators: false
+  following: false
+  active: false
+  bookmarks: false
+  hot_topics: false
+  categories: false
+  key_words: false
+  levels: false
+  range: false
+  today: false
+  last_week: false
+  last_month: false
+
+two:
+  name: MyString
+  contested_opinions: false
+  uncontested_opinions: false
+  contested_objections: false
+  uncontested_objections: false
+  comments: false
+  initiators: false
+  following: false
+  active: false
+  bookmarks: false
+  hot_topics: false
+  categories: false
+  key_words: false
+  levels: false
+  range: false
+  today: false
+  last_week: false
+  last_month: false

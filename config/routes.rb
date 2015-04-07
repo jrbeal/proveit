@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :filters
+
+  resources :groups
+
+  resources :topics
+
+  resources :accounts
+
   resources :posts
 
   # The priority is based upon order of creation: first created -> highest priority.

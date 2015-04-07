@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
-  belongs_to :topic
-  has_many :users, :class_name=>"Account"
+  has_and_belongs_to_many :users
+  
+  validates :name, :presence: true
+  validates :name, :length => { :maximum => 64 }
 end

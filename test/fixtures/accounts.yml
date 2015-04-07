@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  user_name: 
+  first_name: 
+  last_name: 
+  email: 
+  timezone: 
+  language: 
+  password: 
+  verbosity: 
+  default_filter: 
+  list: 
+  location: 
+  occupation: 
+  phone: 
+  education: 
+  about: 
+  opinions: 
+  comments: 
+  initiators: 
+  offspring: 
+  rating: 
+  percentile: 1.5
+
+two:
+  user_id: 
+  user_name: 
+  first_name: 
+  last_name: 
+  email: 
+  timezone: 
+  language: 
+  password: 
+  verbosity: 
+  default_filter: 
+  list: 
+  location: 
+  occupation: 
+  phone: 
+  education: 
+  about: 
+  opinions: 
+  comments: 
+  initiators: 
+  offspring: 
+  rating: 
+  percentile: 1.5

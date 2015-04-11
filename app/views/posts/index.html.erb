@@ -12,27 +12,27 @@
   <tbody>
     <div>
     <span>
-    <%= link_to 'CreateOpinion', new_post_path %>
+    <%= 'Create: ' %>
     </span>
     <span>
-    <%= link_to 'CreateInitiator', "." %>
+    <%= link_to 'Opinion', new_post_path %>
     </span>
     <span>
-    <%= link_to 'CreateMessage', "." %>
+    <%= link_to 'Initiator', "." %>
     </span>
     <span>
-    <%= link_to 'More', "." %>
-    </span>
-    <span>
-    <%= link_to 'Less', "." %>
+    <%= link_to 'Comment', "." %>
     </span>
     </div>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.id %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to post.message, post %></td>
+        <td><%= post.status %></td>
+        <td><%= post.children %></td>
+        <td><%= post.offspring %></td>
+        <td><%#link_to 'Show', post %></td>
+        <td><%#link_to 'Edit', edit_post_path(post) %></td>
+        <td><%#link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

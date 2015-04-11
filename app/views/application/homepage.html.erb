@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<style>
+          body {
+              background-color: rgb(255, 252, 225);
+          }
+          h1 {
+              color: black;
+              font-family: "Helvetica Neue", "Arial", sans-serif;
+              font-size: 48px;
+              font-weight: bold;
+              font-style: italic;
+              text-decoration: underline;
+          }
+          #feed {
+               top: 90px;
+               left: 90px;
+          }
+		</style>
+	</head>
+  <body>
+        <img src="/assets/Scales.jpg" height="80" width="120" />
+        <h1 style="display: inline">ProveIt!</h1>
+
+        <div id="feed">
+            <% @posts.each do |post| %>
+                <div> This is post <%= post.message %> Its parent is <%= post.parent %> </div>
+            <% end %>
+
+            <% @topics.each do |topic| %>
+                <div> This is a topic. Its id is <%= topic.id %> </div>
+            <% end %>
+        </div>
+	</body>
+
+
+</html>

@@ -11,13 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407001813) do
+ActiveRecord::Schema.define(version: 20150411163827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.integer "topic_id"
     t.boolean "religion"
     t.boolean "politics"
     t.boolean "software"
@@ -37,8 +36,6 @@ ActiveRecord::Schema.define(version: 20150407001813) do
     t.boolean "animals"
     t.boolean "school"
   end
-
-  add_index "categories", ["topic_id"], name: "index_categories_on_topic_id", using: :btree
 
   create_table "filters", force: :cascade do |t|
     t.string   "name"
@@ -83,8 +80,8 @@ ActiveRecord::Schema.define(version: 20150407001813) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean  "status"
     t.integer  "level"
     t.float    "score"
@@ -96,9 +93,8 @@ ActiveRecord::Schema.define(version: 20150407001813) do
     t.integer  "offspring"
     t.integer  "points"
     t.integer  "parent_id"
-    t.string   "type"
-    t.datetime "activity_at"
     t.integer  "user_id"
+    t.string   "kind"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -108,8 +104,7 @@ ActiveRecord::Schema.define(version: 20150407001813) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.integer "topic_id"
-    t.string  "type"
+    t.string "kind"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -120,10 +115,10 @@ ActiveRecord::Schema.define(version: 20150407001813) do
     t.boolean  "public_comments"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "categories"
-    t.integer  "root"
-    t.integer  "team1"
-    t.integer  "team2"
+    t.integer  "root_id"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.integer  "categories_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -162,17 +157,14 @@ ActiveRecord::Schema.define(version: 20150407001813) do
     t.integer "team_id"
   end
 
-  add_foreign_key "categories", "topics"
   add_foreign_key "filters", "users"
   add_foreign_key "posts", "posts", column: "parent_id"
   add_foreign_key "posts", "topics"
   add_foreign_key "posts", "users"
-  add_foreign_key "teams", "topics"
-  add_foreign_key "topics", "categories", column: "categories"
-  add_foreign_key "topics", "posts", column: "root"
-  add_foreign_key "topics", "posts", column: "root"
-  add_foreign_key "topics", "teams", column: "team1"
-  add_foreign_key "topics", "teams", column: "team2"
+  add_foreign_key "topics", "categories", column: "categories_id"
+  add_foreign_key "topics", "posts", column: "root_id"
+  add_foreign_key "topics", "teams", column: "team1_id"
+  add_foreign_key "topics", "teams", column: "team2_id"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "users"
   add_foreign_key "users_teams", "teams"

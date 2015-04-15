@@ -1,0 +1,1 @@
+Topic.delete_all

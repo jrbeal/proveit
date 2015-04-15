@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411163827) do
+ActiveRecord::Schema.define(version: 20150413222354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,9 +92,9 @@ ActiveRecord::Schema.define(version: 20150411163827) do
     t.integer  "children"
     t.integer  "offspring"
     t.integer  "points"
-    t.integer  "parent_id"
     t.integer  "user_id"
     t.string   "kind"
+    t.integer  "parent_id"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -158,9 +158,9 @@ ActiveRecord::Schema.define(version: 20150411163827) do
   end
 
   add_foreign_key "filters", "users"
-  add_foreign_key "posts", "posts", column: "parent_id"
-  add_foreign_key "posts", "topics"
-  add_foreign_key "posts", "users"
+  add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
+  add_foreign_key "posts", "topics", on_delete: :cascade
+  add_foreign_key "posts", "users", on_delete: :cascade
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
   add_foreign_key "topics", "teams", column: "team1_id"

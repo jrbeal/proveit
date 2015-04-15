@@ -1,7 +1,10 @@
 class Post < ActiveRecord::Base
-  has_one :topic
-	has_one :parent, :class_name=>"Post", :foreign_key => "parent_id"
-	has_one :user
+  belongs_to :topic, :class_name => "Topic"
+	belongs_to :parent, :class_name =>"Post", dependent: :destroy
+	belongs_to :user, :class_name => "User"
+
+  has_many :posts, dependent: :destroy
+  has_many :topics, dependent: :destroy
 
 	OPINION = "opinion"
 	INITIATOR = "initiator"
@@ -9,7 +12,7 @@ class Post < ActiveRecord::Base
 	
 	validates :message, :length => { :maximum => 140 }
 	validates :support, :length => { :maximum => 10000 }
-	validates_inclusion_of :kind, :in => %w( opinion initiator comment ), :message => "%s is not a valid post kind."
+	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."
 		
 	def determine_status(id)				# Determine the status for the given post by or'ing the statuses
 																	# of all its children and returning the inverse.

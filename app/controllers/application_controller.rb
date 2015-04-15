@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 		@topics = Topic.all
 		@posts = []
 		@topics.each do |topic|
-      @posts.push topic.root
+      @posts.push topic.root_id
 		end
 
     puts "We have #{@topics.count} topics and #{@posts.count} root posts."

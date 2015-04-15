@@ -163,10 +163,9 @@
     <orderEntry type="library" scope="PROVIDED" name="sass (v3.4.13, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v5.0.1, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sdoc (v0.4.1, RVM: ruby-2.2.0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="spring (v1.3.3, RVM: ruby-2.2.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="spring (v1.3.4, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.12.3, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.2.4, RVM: ruby-2.2.0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.3.10, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thread_safe (v0.3.5, RVM: ruby-2.2.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tilt (v1.4.1, RVM: ruby-2.2.0) [gem]" level="application" />

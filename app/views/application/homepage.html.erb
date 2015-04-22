@@ -15,7 +15,9 @@
           }
           #post {
               background-color: mistyrose;
-              margin-top: 5px;
+              border-radius: 10px;
+              padding: 5px;
+              margin-top: 10px;
               margin-left: auto;
               margin-right: auto;
           }
@@ -26,7 +28,7 @@
         <h1 style="margin-left: 30px; vertical-align: 100%">ProveIt!</h1></div>
 
         <div style="margin-top: 20px; margin-left: 150px; margin-right: 150px">
-          <div><span>
+          <div style="margin-left: 10px; margin-right: 10px"><span>
             <%= link_to 'Create', new_topic_path %>
           </span>
           <span style="float:right">
@@ -40,24 +42,24 @@
               <% user = post.user:quietly %>
               <div id=post>
                 <div>
-                  <%= user.user_name %>,
-                  <%= user.rating.round(2) %>,
-                  <%= link_to 'Follow', "." %>
-                  <span class="post_date"><%= post.created_at.strftime("%c") %></span>
+                     <%= user.user_name %>,
+                     <%= user.rating.round(2) %>,
+                     <%= link_to 'Follow', "." %>
+                   <span class="float_right"><%= post.created_at.strftime("%c") %></span>
                 </div>
                 <div>
                   <span style="font-size: 14px;"><%= link_to post.message,post %></span>
-                  <span class="post_date"><%= link_to 'More', "." %></span>
-                  <span class="post_date"><%= link_to 'Less', "." %></span>
+                  <span class="float_right"><%= link_to 'More', "." %></span>
+                  <span class="float_right"><%= link_to 'Less', "." %></span>
                 </div>
                 <div>
-                  (<%= post.children %> /
+                  Objections (<%= post.children %> /
                   <%= post.offspring %>),
                   <%= post.views %> views,
                   <%= post.points %> points,
-                  <%= link_to 'Bookmark', "." %>,
-                  level = <%= post.level %>
-                  <span class="post_date"><%= post.updated_at.strftime("%c") %></span>
+                  level = <%= post.level %>,
+                  <%= link_to 'Bookmark', "." %>
+                  <span class="float_right"><%= post.updated_at.strftime("%c") %></span>
                 </div>
               </div>
              <% end %>

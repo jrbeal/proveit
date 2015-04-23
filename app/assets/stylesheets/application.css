@@ -18,3 +18,19 @@
 .float_right {
     float: right;
 }
+
+.float_left {
+    float: left;
+}
+
+.submit_text {
+    display: inline-block;
+    width: 20%;
+    float: left;
+}
+
+
+textarea {
+    width: 75%;
+    margin-left: 20px;
+}

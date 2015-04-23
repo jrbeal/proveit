@@ -1,5 +1,5 @@
 module Constants
-  @@pctr = 0
+  @@pctr = 1
 
 	def self::pctr
 		@@pctr += 1
@@ -41,7 +41,7 @@ u4.rating = rand * 100
 u4.save!
 
 t1 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
-p1 = Post.create(:parent_id => nil, :topic_id => t1.id, :kind => "opinion", :message => "Opinion p#{Constants::pctr}", :user_id => u1.id)
+p1 = Post.create(:parent_id => nil, :topic_id => t1.id, :kind => "opinion", :message => "When you compare salaries for men and women who are similarly qualified and working similar jobs, no major wage gap exists.", :user_id => u1.id)
 p1.points = rand * 1000
 p1.views = rand * 1000
 p1.save!
@@ -173,7 +173,7 @@ c6.views = rand * 1000
 c6.save!
 
 t2 = Topic.create(:private => TRUE, :public_viewing => TRUE, :public_comments => TRUE)
-i1 = Post.create(:parent_id => nil, :topic_id => t2.id, :kind => "initiator", :message => "Initiator i#{Constants::ictr}", :user_id => u1.id)
+i1 = Post.create(:parent_id => nil, :topic_id => t2.id, :kind => "initiator", :message => "Should it be legal for parents to withhold medical treatment for their children for religious reasons?", :user_id => u1.id)
 i1.points = rand * 1000
 i1.views = rand * 1000
 i1.save!
@@ -201,7 +201,7 @@ c8.views = rand * 1000
 c8.save!
 
 t3 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
-c9 = Post.create(:parent_id => nil, :topic_id => t3.id, :kind => "comment", :message => "Comment c#{Constants::cctr}", :user_id => u1.id)
+c9 = Post.create(:parent_id => nil, :topic_id => t3.id, :kind => "comment", :message => "Is there a breaking point for USA debt?", :user_id => u1.id)
 c9.points = rand * 1000
 c9.views = rand * 1000
 c9.save!

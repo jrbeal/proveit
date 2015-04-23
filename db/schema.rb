@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413222354) do
+ActiveRecord::Schema.define(version: 20150423035344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20150413222354) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.boolean  "status"
     t.integer  "level"
     t.float    "score"
@@ -89,12 +89,14 @@ ActiveRecord::Schema.define(version: 20150413222354) do
     t.integer  "views"
     t.string   "message"
     t.integer  "topic_id"
-    t.integer  "children"
-    t.integer  "offspring"
     t.integer  "points"
     t.integer  "user_id"
     t.string   "kind"
     t.integer  "parent_id"
+    t.integer  "children_opinions"
+    t.integer  "offspring_opinions"
+    t.integer  "children_comments"
+    t.integer  "offspring_comments"
   end
 
   create_table "stories", force: :cascade do |t|

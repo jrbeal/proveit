@@ -2,38 +2,10 @@
 
 <p>
   <strong>Topic:</strong>
-  <%= @topic.topic_id %>
+  <%= @topic.id %>
 </p>
 
-<p>
-  <strong>Private:</strong>
-  <%= @topic.private %>
-</p>
 
-<p>
-  <strong>Lone wolf:</strong>
-  <%= @topic.lone_wolf %>
-</p>
-
-<p>
-  <strong>Teams:</strong>
-  <%= @topic.teams %>
-</p>
-
-<p>
-  <strong>Public viewing:</strong>
-  <%= @topic.public_viewing %>
-</p>
-
-<p>
-  <strong>Public comments:</strong>
-  <%= @topic.public_comments %>
-</p>
-
-<p>
-  <strong>Post:</strong>
-  <%= @topic.post_id %>
-</p>
 
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>

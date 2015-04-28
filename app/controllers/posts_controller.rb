@@ -11,16 +11,22 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+    @kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
+    @post.views += 1
+    @post.save!
+  end
 
-    puts @post.inspect
+  def reply
+    @post = Post.new
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    @users = User.all
   end
 
-  # GET /posts/1/edit
+    # GET /posts/1/edit
   def edit
   end
 

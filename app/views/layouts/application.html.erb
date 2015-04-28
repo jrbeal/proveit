@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Prove It!</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<title>Prove.it!</title>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= csrf_meta_tags %>
 
-<div style="background-color: white;"><img src="/assets/Scales.jpg" height="80" width="120">
-  <h1 style="margin-left: 30px; vertical-align: 100%">ProveIt!</h1></div>
+<div id="header">
+  <img src="/assets/Scales.jpg" height="80" width="120">
+  <p id="proveit">Prove.it!</p>
+  <div id="breadcrumbs">
+    <%= link_to 'Home', root_path%>
+    <%= link_to 'Help', help_path%>
+    <%= link_to 'About', about_path%>
+    <%= link_to 'Contact', contact_path%>
+  </div>
+</div>
 
+<div class="divider"><hr size="2" noshade></div>
 
-  <%= yield %>
-
-<h2> The footer goes here on every page.</h2>
-
-</body>
-</html>
+<%= yield %>

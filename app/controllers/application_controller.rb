@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 		@posts = []
 		@topics.each do |topic|
       @posts.push topic.root_id
-		end
+    end
+
+   @posts.sort! { |a,b| b.views <=> a.views }
+#    @posts.sort!(&:points)
+#    @posts.sort_by {|a| [a.views, a.points]}
 	end
 end

@@ -1,130 +1,43 @@
 <html xmlns="http://www.w3.org/1999/html">
-	<head>
-		<style>
-          body {
-              background-color: white;
-          }
-          h1 {
-              color: black;
-              font-family: "Helvetica Neue", "Arial", sans-serif;
-              font-size: 48px;
-              font-weight: bold;
-              font-style: italic;
-              text-decoration: underline;
-              display: inline;
-          }
-          #post {
-              background-color: mistyrose;
-              border-radius: 10px;
-              padding: 5px;
-              margin-top: 10px;
-              margin-left: auto;
-              margin-right: auto;
-          }
 
-          #post.lightgreen {
-              background-color: lightgreen;
-          }
-
-          #post.lightyellow {
-              background-color: lightyellow;
-          }
-
-          #post.lightred {
-              background-color: mistyrose;
-          }
-
-          #post.lightblue {
-              background-color: lightblue;
-          }
-
-          #create {
-              margin-left: 10px;
-          }
-
-		</style>
-
-        <script type="text/javascript">
-            $(function() {
-                $('#type_opinion').on("click", function() {
-                    console.log("Now we're in opinion mode.");
-                    $(".submit_text.title_text").text("In my opinion,");
-                    $(".submit_text.support_text").text("Support (Optional), ");
-                });
-
-                $('#type_initiator').on("click", function() {
-                    console.log("Now we're in initiator mode.");
-                    $(".submit_text.title_text").text("Starting a discussion");
-                    $(".submit_text.support_text").text("What do you think about this? ");
-                });
-
-                $('#type_comment').on("click", function() {
-                    console.log("Now we're in comment mode.");
-                    $(".submit_text.title_text").text("This is a comment headline,");
-                    $(".submit_text.support_text").text("Support for this comment (Optional), ");
-                });
-            });
-        </script>
-	</head>
-  <body>
-
+    <body>
         <div style="margin-top: 20px; margin-left: 150px; margin-right: 150px">
           <div style="margin-left: 10px; margin-right: 10px">
-            <span style="float:right">
-             <%= link_to 'Less', "." %>
-             <%= link_to 'More', "." %>
+            <%= link_to 'Create', posts_new_path %>
+            <span class="moreless">
+             <%= link_to 'Refresh(0)', '.'%>
+             <%= link_to 'More', '.' %>
+             <%= link_to 'Less', '.' %>
             </span>
           </div>
 
-          <div id="create">
-            <form action="<%= topics_path %>" method="post">
-              <b>Create: </b><%= radio_button_tag(:type, "opinion")%>
-              <%= label_tag(:type, "Opinion") %>
-              <%= radio_button_tag(:type, "initiator") %>
-              <%= label_tag(:type, "Initiator") %>
-              <%= radio_button_tag(:type, "comment") %>
-              <%= label_tag(:type, "Comment") %>
-
-            <div><span class="submit_text title_text">In my opinion,</span> <textarea rows="1" cols="100">Enter opinion here...</textarea></div>
-            <div><span class="submit_text support_text">Support (Optional), </span><textarea rows="3" cols="100">Enter attachments, supporting information, yada yada yada here...</textarea></div>
-
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-             <div>
-              <%= submit_tag %>
-            </div>
-
-            </form>
-          </div>
-
           <div style="margin-top: 10px;">
-            <% @topics.each do |topic| %>
-              <% post = topic.root_id %>
+            <% @posts.each do |post| %>
               <% user = post.user:quietly %>
               <div id=post class="<%= status_color(post) %>">
                 <div>
-                     <%= user.user_name %>,
+                  <%= user.first_name %>
+                  <%= user.last_name %> @
+                  <%= user.user_name %>,
                      <%= user.rating.round(2) %>,
-                     <%= link_to 'Follow', "." %>
-                   <span class="float_right"><%= post.created_at.strftime("%c") %></span>
+                     <%= link_to 'Follow', '.' %>
+                   <span class="right"><%= post.created_at.strftime("%c") %></span>
                 </div>
                 <div>
                   <em><span style="font-size: 12px;"><%= link_to post.message,post %></span></em>
-                  <span class="float_right"><%= link_to 'More', "." %></span>
-                  <span class="float_right"><%= link_to 'Less', "." %></span>
+                  <span class="moreless"><%= link_to 'More', "."%> <%= link_to 'Less', '.' %></span>
                 </div>
                 <div>
                   <%= offspring(post) %>
                   <%= post.views %> views,
                   <%= post.points %> points,
                   <%= level(post) %>
-                  <%= link_to 'Bookmark', "." %>
-                  <span class="float_right"><%= post.updated_at.strftime("%c") %></span>
+                  <%= link_to 'Bookmark', '.' %>
+                  <span class="right"><%= post.updated_at.strftime("%c") %></span>
                 </div>
               </div>
              <% end %>
           </div>
         </div>
-	</body>
-
-
+    </body>
 </html>

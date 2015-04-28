@@ -15,22 +15,106 @@
  */
 
 
-.float_right {
-    float: right;
-}
-
-.float_left {
-    float: left;
+.right {
+    display: inline;
+    position: absolute;
+    right: 150px;
+    padding-right: 10px;
 }
 
 .submit_text {
-    display: inline-block;
-    width: 20%;
+    display: inline;
+    width: 14%;
     float: left;
 }
 
-
 textarea {
-    width: 75%;
+    display: inline;
+    width: 86%;
+}
+
+body {
+    background-color: white;
+}
+
+h1 {
+    color: black;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    display: inline;
+}
+#post {
+    background-color: mistyrose;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#post.lightgreen {
+    background-color: lightgreen;
+}
+
+#post.lightyellow {
+    background-color: lightyellow;
+}
+
+#post.lightred {
+    background-color: mistyrose;
+}
+
+#post.lightblue {
+    background-color: lightblue;
+}
+
+#create {
+    margin-left: 10px;
+}
+
+#breadcrumbs {
+    display: inline;
+    position: absolute;
+    right: 150px;
+    padding-right: 10px;
+    word-spacing: 5px;
+}
+
+#header {
     margin-left: 20px;
+    margin-right: 20px;
+    display: inline;
+}
+
+#proveit {
+    margin-left: 30px;
+    vertical-align: 100%;
+    color: black;
+    font-family: fantasy;
+    font-size: 48px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    display: inline;
+}
+
+.moreless {
+    position: absolute;
+    right: 150px;
+    padding-right: 10px;
+    margin-right: 10px;
+    word-spacing: 5px;
+}
+
+.message {
+    font-size: 12px;
+}
+
+.divider {
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
 }

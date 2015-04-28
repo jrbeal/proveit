@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
 	OPINION = "opinion"
 	INITIATOR = "initiator"
 	COMMENT = "comment"
+
+  displaykind = OPINION
 	
 	validates :message, :length => { :maximum => 140 }
 	validates :support, :length => { :maximum => 10000 }

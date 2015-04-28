@@ -3,3 +3,51 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 h1 {
 }
+
+#mlr {
+  display: inline;
+  position: absolute;
+  right: 150px;
+  padding-right: 10px;
+  word-spacing: 5px;
+  margin-right: 10px;
+}
+
+#hpr {
+  margin-left: 10px;
+  display: inline;
+  word-spacing: 5px;
+}
+
+#postlayout {
+  margin-top: 20px;
+  margin-left: 150px;
+  margin-right: 150px
+}
+
+#kidbar {
+  margin-left: 10px;
+  margin-right: 10px;
+  word-spacing: 5px;
+}
+
+.create_submit {
+  right: 150px;
+}
+
+#public {
+  margin-top: 10px;
+  margin-left: 53px;
+}
+
+#private {
+  margin-top: 10px;
+  margin-left: 53px;
+}
+
+#kidtypeid {
+  display: inline;
+  position: absolute;
+  right: 150px;
+  padding-right: 10px;
+}

@@ -1,7 +1,106 @@
-<p id="notice">Hello<%= notice %></p>
+<script type="text/javascript">
 
-<%= link_to 'Back', posts_path %>
+  $(function() {
 
-<div style="margin-top: 10px;">
+      $('input[name="kidtype"]').on('click', function(e) {
+          console.log("click!");
+          var $tgt = $(e.target);
+          if($tgt.val() == 'comments') {
+              $('.opinion').hide();
+              $('.comment').show();
+          } else if($tgt.val() == 'opinions') {
+              $('.opinion').show();
+              $('.comment').hide();
+          } else {
+              console.log("displaying something unknown: " + $tgt.val());
+          }
+      });
 
+      $('input[name="kidtype"][value="opinions"]').click();
+
+      $('#kidtypeid').show();
+
+  });
+
+</script>
+
+<a href="#" onclick="this.style.backgroundColor='#990000'">Paint it red</a>
+<a href="#" onclick="this.style.backgroundColor='#009900';this.style.color='#FFFFFF';">Paint it green</a>
+<a href="#" onclick="paintIt(this, '#990000')">Paint it red</a>
+
+<div id="postlayout">
+  <div id="hpr">
+    <%= link_to 'Home', root_path %>
+    <%= link_to_unless @post.parent == nil, 'Parent', @post.parent %>
+    <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root_id %>
+  </div>
+  <div id="mlr">
+    <%= link_to 'Refresh(0)', '#'%>
+    <%= link_to 'More', '#'%>
+    <%= link_to 'Less', '#'%>
+  </div>
+  <div id="post" class="<%= status_color(@post) %>">
+    <div>
+      <% user = @post.user:quietly %>
+      <%= user.first_name %>
+      <%= user.last_name %> @
+      <%= user.user_name %>,
+      <%= user.rating.round(2) %>,
+      <%= link_to 'Follow', '.' %>
+      <span class="right"><%= @post.created_at.strftime("%c") %></span>
+    </div>
+    <div>
+      <b><em><span class="message"><%= @post.message %></span></em></b>
+      <span class="moreless"><%= link_to 'More', '.'%> <%= link_to 'Less', '.' %></span>
+    </div>
+    <div>
+      <%= offspring(@post) %>
+      <%= @post.views %> views,
+      <%= @post.points %> points,
+      <%= level(@post) %>
+      <%= link_to 'Bookmark', '.' %>
+      <span class="right"><%= @post.updated_at.strftime("%c") %></span>
+    </div>
+  </div>
+
+  <div class="divider"><hr size="2" noshade></div>
+
+  <div id="kidbar">
+    <%= link_to 'Create', posts_reply_path %>
+    <%= link_to 'Tree', '#' %>
+
+    <span id="kidtypeid">
+      <form action="<%= posts_path %>" method="get">
+        <%= genpostbuttons(@post) %>
+      </form>
+    </span>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <% @kids.each do |kid| %>
+      <% user = kid.user:quietly %>
+      <div id=post class="<%= status_color(kid) %> <%= kid.kind %>">
+        <div>
+          <%= user.first_name %>
+          <%= user.last_name %> @
+          <%= user.user_name %>,
+          <%= user.rating.round(2) %>,
+          <%= link_to 'Follow', '.' %>
+          <span class="right"><%= kid.created_at.strftime("%c") %></span>
+        </div>
+        <div>
+          <em><span style="font-size: 12px;"><%= link_to kid.message,kid %></span></em>
+          <span class="moreless"><%= link_to 'More', '.'%> <%= link_to 'Less', '.'%></span>
+        </div>
+        <div>
+          <%= offspring(kid) %>
+          <%= kid.views %> views,
+          <%= kid.points %> points,
+          <%= level(kid) %>
+          <%= link_to 'Bookmark', '.'%>
+          <span class="right"><%= kid.updated_at.strftime("%c") %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -5,28 +5,33 @@
       $('input[name="kidtype"]').on('click', function(e) {
           console.log("click!");
           var $tgt = $(e.target);
-          if($tgt.val() == 'comments') {
+          if($tgt.val() == 'comment') {
               $('.opinion').hide();
               $('.comment').show();
-          } else if($tgt.val() == 'opinions') {
+              $('#kidcreate').attr('href', '<%=posts_reply_path%>?type=comment');
+          } else if($tgt.val() == 'opinion') {
               $('.opinion').show();
               $('.comment').hide();
+              $('#kidcreate').attr('href', '<%=posts_reply_path%>?type=opinion');
           } else {
               console.log("displaying something unknown: " + $tgt.val());
           }
       });
 
-      $('input[name="kidtype"][value="opinions"]').click();
+      $('input[name="kidtype"][value="opinion"]').click();
 
       $('#kidtypeid').show();
+
+      var defaultKidType = $("input[name='kidtype']:checked").val();
+      if(!defaultKidType) {
+          defaultKidType = "comment";
+      }
+
+      $('#kidcreate').attr('href', '<%=posts_reply_path%>?type=' + defaultKidType);
 
   });
 
 </script>
-
-<a href="#" onclick="this.style.backgroundColor='#990000'">Paint it red</a>
-<a href="#" onclick="this.style.backgroundColor='#009900';this.style.color='#FFFFFF';">Paint it green</a>
-<a href="#" onclick="paintIt(this, '#990000')">Paint it red</a>
 
 <div id="postlayout">
   <div id="hpr">
@@ -66,8 +71,8 @@
   <div class="divider"><hr size="2" noshade></div>
 
   <div id="kidbar">
-    <%= link_to 'Create', posts_reply_path %>
-    <%= link_to 'Tree', '#' %>
+    <%= link_to 'Create', posts_reply_path, id: "kidcreate" %>
+    <%= link_to 'Tree', '#', id: "kidtree" %>
 
     <span id="kidtypeid">
       <form action="<%= posts_path %>" method="get">
@@ -76,7 +81,7 @@
     </span>
   </div>
 
-  <div style="margin-top: 10px;">
+  <div id=kids, style="margin-top: 10px;">
     <% @kids.each do |kid| %>
       <% user = kid.user:quietly %>
       <div id=post class="<%= status_color(kid) %> <%= kid.kind %>">

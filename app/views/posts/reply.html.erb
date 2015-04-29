@@ -1,6 +1,25 @@
 <head>
   <script type="text/javascript">
       $(function() {
+
+          var formToShow = '<%= params["type"]%>';
+
+          console.log("formToShow is " + formToShow);
+          if(formToShow == "objection") {
+              $('#createobjectionreply').show();
+              $('#createopinionreply').hide();
+              $('#createcommentreply').hide();
+          } else if(formToShow == "opinion") {
+              $('#createobjectionreply').hide();
+              $('#createopinionreply').show();
+              $('#createcommentreply').hide();
+          } else if(formToShow == "comment") {
+              $('#createobjectionreply').hide();
+              $('#createopinionreply').hide();
+              $('#createcommentreply').show();
+          }
+
+
           $('#type_opinion').on("click", function() {
               console.log("Now we're in opinion mode.");
               $(".submit_text.message_text").text("In my opinion:");
@@ -23,18 +42,19 @@
       $('#createcancelbutton').on("click", function() {
           console.log("Inside quit button.");
           history.back();
-      })
+      });
 
       $('#createsubmitbutton').on("click", function() {
           console.log("Inside submit button.");
           history.back();
-      })
+      });
+
   </script>
 </head>
 
 <div id="postlayout">
-  <div id="create">
-    <form action="<%= new_topic_path %>" method="post">
+  <div id="createopinionreply">
+    <form action="<%= new_post_path %>" method="post">
       <b>Type:</b>
       <%= radio_button_tag(:type, "manual", checked=TrueClass)%>
       <%= label_tag(:type, "Manual") %>
@@ -63,14 +83,34 @@
           <textarea rows="5" cols="100" placeholder="Enter attachments, supporting information, clarification, rationale and external links here..."></textarea>
         </div>
       </div>
+    </form>
+  </div>
 
-      <div class="divider"><hr size="2" noshade></div>
-
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div id="createcommentreply">
+    <form action="<%= new_post_path %>" method="post">
       <div style="margin-top: 10px;">
-        <button             name="Cancel" type="button" id="createcancelbutton">Cancel</button>
-        <button class=right name="Submit" type="button" id="createsubmitbutton">Submit</button>
+        <div>
+          <span class="submit_text message_text">Comment:</span>
+          <textarea rows="1" cols="100" placeholder="Enter comment..."></textarea>
+        </div>
+      </div>
+      <div style="margin-top: 5px;">
+        <div>
+          <span class="submit_text support_text">Support (Optional), </span>
+          <textarea rows="5" cols="100" placeholder="Enter attachments, supporting information, clarification, rationale and external links here..."></textarea>
+        </div>
       </div>
     </form>
+  </div>
+
+  <div id="createobjectionreply">
+    <%= render "create" %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <div class="divider"><hr size="2" noshade></div>
+
+    <button             name="Cancel" type="button" id="createcancelbutton">Cancel</button>
+    <button class=right name="Submit" type="button" id="createsubmitbutton">Submit</button>
   </div>
 </div>

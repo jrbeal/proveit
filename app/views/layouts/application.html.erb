@@ -4,9 +4,9 @@
 <%= csrf_meta_tags %>
 
 <div id="header">
-  <img src="/assets/Scales.jpg" height="80" width="120">
+	<%= link_to image_tag("Scales.jpg", size: "120x80"), root_path%>
   <p id="proveit">Prove.it!</p>
-  <div id="breadcrumbs">
+  <div id="breadcrumbs" class="sidepadding right spacing">
     <%= link_to 'Home', root_path%>
     <%= link_to 'Help', help_path%>
     <%= link_to 'About', about_path%>

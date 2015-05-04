@@ -14,12 +14,47 @@
  *= require_self
  */
 
+h1 {
+	color: black;
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-size: 48px;
+	font-weight: bold;
+	font-style: italic;
+	text-decoration: underline;
+	display: inline;
+}
 
+.mainbody {
+	margin-top: 20px;
+	margin-left: 150px;
+	margin-right: 150px;
+}
+
+.sidepadding {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.toppadding20 {
+	margin-top: 20px;
+}
+
+.toppadding10 {
+	margin-top: 10px;
+}
+
+.toppadding5 {
+	margin-top: 5px;
+}
 .right {
     display: inline;
     position: absolute;
     right: 150px;
     padding-right: 10px;
+}
+
+.spacing {
+	word-spacing: 5px;
 }
 
 .submit_text {
@@ -37,15 +72,6 @@ body {
     background-color: white;
 }
 
-h1 {
-    color: black;
-    font-family: "Helvetica Neue", "Arial", sans-serif;
-    font-size: 48px;
-    font-weight: bold;
-    font-style: italic;
-    text-decoration: underline;
-    display: inline;
-}
 #post {
     background-color: mistyrose;
     border-radius: 10px;
@@ -75,14 +101,6 @@ h1 {
     margin-left: 10px;
 }
 
-#breadcrumbs {
-    display: inline;
-    position: absolute;
-    right: 150px;
-    padding-right: 10px;
-    word-spacing: 5px;
-}
-
 #header {
     margin-left: 20px;
     margin-right: 20px;
@@ -101,20 +119,6 @@ h1 {
     display: inline;
 }
 
-.moreless {
-    position: absolute;
-    right: 150px;
-    padding-right: 10px;
-    margin-right: 10px;
-    word-spacing: 5px;
-}
-
 .message {
     font-size: 12px;
-}
-
-.divider {
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
 }

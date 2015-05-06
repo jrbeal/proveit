@@ -27,40 +27,43 @@ Topic.delete_all
 User.delete_all
 Post.delete_all
 
-u1 = User.create(:user_name => "jrbeal", :first_name => "Jeff", :last_name => "Beal")
+u1 = User.create(:user_name => "jrbeal", :first_name => "Jeff", :last_name => "Beal", :email => "jrbeal@cox.net")
 u1.rating = rand * 100
 u1.save!
-u2 = User.create(:user_name => "jsbeal", :first_name => "Justin", :last_name => "Beal")
+u2 = User.create(:user_name => "jsbeal", :first_name => "Justin", :last_name => "Beal", :email => "Justin@gmail.com")
 u2.rating = rand * 100
 u2.save!
-u3 = User.create(:user_name => "agbeal", :first_name => "Glee", :last_name => "Beal")
+u3 = User.create(:user_name => "agbeal", :first_name => "Glee", :last_name => "Beal", :email => "Glee@gmail.com")
 u3.rating = rand * 100
 u3.save!
-u4 = User.create(:user_name => "mebeal", :first_name => "Merry", :last_name => "Beal")
+u4 = User.create(:user_name => "mebeal", :first_name => "Merry", :last_name => "Beal", :email => "Merry@gmail.com")
 u4.rating = rand * 100
 u4.save!
-u5 = User.create(:user_name => "trbeal", :first_name => "Thomas", :last_name => "Beal")
+u5 = User.create(:user_name => "trbeal", :first_name => "Thomas", :last_name => "Beal", :email => "Thomas@gmail.com")
 u5.rating = rand * 100
 u5.save!
-u6 = User.create(:user_name => "dmbeal", :first_name => "Diane", :last_name => "Beal")
+u6 = User.create(:user_name => "dmbeal", :first_name => "Diane", :last_name => "Beal", :email => "Diane@gmail.com")
 u6.rating = rand * 100
 u6.save!
-u7 = User.create(:user_name => "jabeal", :first_name => "Jenni", :last_name => "Beal")
+u7 = User.create(:user_name => "jabeal", :first_name => "Jenni", :last_name => "Beal", :email => "Jenni@gmail.com")
 u7.rating = rand * 100
 u7.save!
+u8 = User.create(:user_name => "jeremy", :first_name => "Jeremy", :last_name => "Beal", :email => "Jeremy@gmail.com")
+u8.rating = rand * 100
+u8.save!
 
 t1 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
 p1 = Post.create(:parent_id => nil, :topic_id => t1.id, :kind => "opinion", :message => "No major wage gap exists between equally qualified men and women working similar jobs.", :user_id => u1.id)
 p1.save!
 t1.root_id = p1
 t1.save!
-p2 = Post.create(:parent_id => p1.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u1.id)
+p2 = Post.create(:parent_id => p1.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u2.id)
 p2.save!
-p3 = Post.create(:parent_id => p1.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u1.id)
+p3 = Post.create(:parent_id => p1.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u8.id)
 p3.save!
-p4 = Post.create(:parent_id => p2.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u1.id)
+p4 = Post.create(:parent_id => p2.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u3.id)
 p4.save!
-p5 = Post.create(:parent_id => p2.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u1.id)
+p5 = Post.create(:parent_id => p2.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u6.id)
 p5.save!
 p6 = Post.create(:parent_id => p3.id, :topic_id => t1.id, :kind => "opinion", :message => "Objection p#{Constants::pctr}", :user_id => u1.id)
 p6.save!

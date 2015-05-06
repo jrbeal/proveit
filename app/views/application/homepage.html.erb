@@ -4,36 +4,36 @@
 		<div class="mainbody">
 			<div class="sidepadding spacing">
 				<%= link_to 'Create', posts_new_path %>
-				<span class="right sidepadding spacing">
+				<div class="right" style="margin-right: 5px">
 				  <%= link_to 'Refresh(0)', '.'%>
 				  <%= link_to 'More', '.' %>
 				  <%= link_to 'Less', '.' %>
-				</span>
+				</div>
 			</div>
 
 			<div class="toppadding10">
 				<% @posts.each do |post| %>
 					<% user = post.user:quietly %>
 					<div id=post class="<%= status_color(post) %>">
-						<div>
+						<div class="sidepadding">
 							<%= user.first_name %>
 							<%= user.last_name %> @
 							<%= user.user_name %>,
 							<%= user.rating.round(2) %>,
 							<%= link_to 'Follow', '.' %>
-							<span class="right sidepadding"><%= post.created_at.strftime("%c") %></span>
+							<span class="right"><%= post.created_at.strftime("%c") %></span>
 						</div>
-						<div>
-							<em><span style="font-size: 12px;"><%= link_to post.message,post %></span></em>
-							<span class="right sidepadding"><%= link_to 'More', "."%> <%= link_to 'Less', '.' %></span>
+						<div class="sidepadding">
+							<em><span style="font-size: 12px;"><%= link_to post.message, post %></span></em>
+							<span class="right spacing"><%= link_to 'More', "."%> <%= link_to 'Less', '.' %></span>
 						</div>
-						<div>
+						<div class="sidepadding">
 							<%= offspring(post) %>
 							<%= post.views %> views,
 							<%= post.points %> points,
 							<%= level(post) %>
 							<%= link_to 'Bookmark', '.' %>
-							<span class="right sidepadding"><%= post.updated_at.strftime("%c") %></span>
+							<span class="right"><%= post.updated_at.strftime("%c") %></span>
 						</div>
 					</div>
 				<% end %>

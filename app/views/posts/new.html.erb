@@ -8,6 +8,16 @@
 					$(".submit_text.support_text").text("Support (Optional):");
 					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter opinion here. Be as concise as possible.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional rationale, clarification, supporting information, and external links here.';
+					if ($('#format_public').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#format_private').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
 				});
 
 				$('#type_initiator').on("click", function() {
@@ -16,6 +26,16 @@
 					$(".submit_text.support_text").text("Support (Optional):");
 					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter attachments, clarification, supporting information, and external links here.';
+					if ($('#format_public').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#format_private').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
 				});
 
 				$('#type_comment').on("click", function() {
@@ -24,18 +44,36 @@
 					$(".submit_text.support_text").text("Support (Optional): ");
 					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter comment here.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information and/or attachments here.';
+					$('#public').hide();
+					$('#private').hide();
 				});
 
 				$('#format_public').on("click", function() {
 					console.log("Selecting public.");
-					$('#private').hide();
-					$('#public').show();
+					if ($('#type_opinion').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#type_initiator').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
 				});
 
 				$('#format_private').on("click", function() {
 					console.log("Selecting private.");
-					$('#private').show();
-					$('#public').hide();
+					if ($('#type_opinion').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else if ($('#type_initiator').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
 				});
 
 				$('#publicviewing').on("click", function(e) {
@@ -63,63 +101,20 @@
 		<form action="<%= topics_path %>" method="post">
 			<div id="createbar">
 				<b>Create:</b>
-				<span class="right sidepadding">
+				<div class="right sidepadding">
 					<%= radio_button_tag('type', 'opinion', true)%>
 					<%= label_tag('type', 'Opinion') %>
 					<%= radio_button_tag('type', 'initiator') %>
 					<%= label_tag('type', 'Initiator') %>
 					<%= radio_button_tag('type', 'comment') %>
 					<%= label_tag('type', 'Comment') %>
-				</span>
-			</div>
-
-			<div class="toppadding10">
-				<span class="submit_text message_text">In my opinion:</span>
-				<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here. Be as concise as possible."></textarea>
-			</div>
-			<div class="toppadding5">
-				<span class="submit_text support_text">Support (Optional):</span>
-				<textarea class="message support_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
-			</div>
-
-			<div id="formattype" class="toppadding10">
-				<b>Format:</b>
-				<%= radio_button_tag 'format', 'public', true%>
-				<%= label_tag 'format', 'Public' %>
-				<%= radio_button_tag 'format', 'private' %>
-				<%= label_tag 'format', 'Private' %>
-			</div>
-
-			<div id=public>
-				<%= check_box_tag 'lone_wolf', 'lw', false %>
-				<%= label_tag 'Lone_wolf?' %>
-			</div>
-
-			<div id=private>
-				<div id="teams">
-					<%= check_box_tag 'teams', 'teams', false %>
-					<%= label_tag 'Teams?' %>
-				</div>
-				<div id="pubviewing">
-					<%= check_box_tag 'publicviewing', 'pv', false %>
-					<%= label_tag 'Public Viewing?' %>
-				</div>
-				<div id="pubcomments">
-					<%= check_box_tag 'publiccomments', 'pc', false %>
-					<%= label_tag 'Public Comments?' %>
 				</div>
 			</div>
 
-			<div class="divider"><hr size="2" noshade></div>
+			<%= render "posts/create" %>
 
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 			<%= hidden_field_tag :parentpost, @post %>
-
-			<div class="toppadding10 sidepadding">
-				<%= submit_tag("Submit")%>
-				<button class="right sidepadding" name="Cancel" type="button" id="createcancelbutton">Cancel</button>
-			</div>
-
 		</form>
 	</div>
 </div>

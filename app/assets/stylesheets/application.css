@@ -30,6 +30,21 @@ h1 {
 	margin-top: 20px;
 }
 
+#leftcolumn {
+	float:left;
+	width: 13%;
+	height: 100000px;
+	margin-top: 20px;
+}
+
+#rightcolumn {
+	float:right;
+	width: 13%;
+	height: 100000px;
+	margin-top: 20px;
+	text-align: right;
+}
+
 .sidepadding {
 	margin-left: 10px;
 	margin-right: 10px;
@@ -74,6 +89,9 @@ body {
 	border-radius: 10px;
 	padding: 5px;
 	margin-top: 10px;
+	border-style: solid;
+	border-width: 1px;
+	line-height: 20px;
 }
 
 #post.lightgreen {
@@ -116,4 +134,5 @@ body {
 
 .message {
 	font-size: 12px;
+	color: blue;
 }

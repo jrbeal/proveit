@@ -55,24 +55,6 @@
 				history.back();
 			});
 
-			$('#type_opinion').on("click", function() {
-					console.log("Now we're in opinion mode.");
-					$(".submit_text.message_text").text("In my opinion:");
-					$(".submit_text.support_text").text("Support (Optional), ");
-				});
-
-			$('#type_initiator').on("click", function() {
-					console.log("Now we're in initiator mode.");
-					$(".submit_text.message_text").text("Initiator:");
-					$(".submit_text.support_text").text("Support (Optional), ");
-			});
-
-			$('#type_comment').on("click", function() {
-					console.log("Now we're in comment mode.");
-					$(".submit_text.message_text").text("Comment:");
-					$(".submit_text.support_text").text("Support (Optional): ");
-			});
-
 			$('#cancelopinionreply').on("click", function() {
 				$('#kids').show();
 				$('#opinionreply').hide();
@@ -156,7 +138,6 @@
 			$('#commentreply').hide();
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
-			$('#createbar').hide();
 		});
 	</script>
 </head>
@@ -168,9 +149,9 @@
     <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root_id %>
 
  	  <div class="right" style="margin-right: 5px;">
-    	<%= link_to 'Refresh(0)', '#'%>
-    	<%= link_to 'More', '#'%>
-   	  <%= link_to 'Less', '#'%>
+			<a href="#" id="refresh">Refresh(0)</a>
+			<a href="#" id="moremaster">More</a>
+			<a href="#" id="lessmaster">Less</a>
     </div>
 	</div>
 
@@ -181,28 +162,39 @@
       <%= user.last_name %> @
       <%= user.user_name %>,
       <%= user.rating.round(2) %>,
-      <%= link_to 'Follow', '#' %>
-      <span class="right"><%= @post.created_at.strftime("%c") %></span>
+			<a href="#" id="follow">Follow</a>
+			<div class="right">
+				<%= @post.created_at.strftime("%c") %>
+			</div>
     </div>
     <div class="sidepadding">
-      <b><em><span class="message"><%= @post.message %></span></em></b>
-      <span class="right spacing"><%= link_to 'More', '#'%> <%= link_to 'Less', '#' %></span>
+      <b><em><span class="message">
+				<%= @post.message %>
+			</span></em></b>
+      <div class="right spacing">
+				<a href="#" id="moremaster">More</a>
+				<a href="#" id="lessmaster">Less</a>
+			</div>
     </div>
     <div class="sidepadding">
       <%= offspring(@post) %>
       <%= @post.views %> views,
       <%= @post.points %> points,
       <%= level(@post) %>
-      <%= link_to 'Bookmark', '#' %>
-      <span class="right"><%= @post.updated_at.strftime("%c") %></span>
+			<a href="#" id="bookmark">Bookmark</a>
+      <div class="right">
+				<%= @post.updated_at.strftime("%c") %>
+			</div>
     </div>
   </div>
 
-  <div class="toppadding20 sidepadding"><hr size="2" noshade></div>
+  <div class="toppadding20 sidepadding">
+		<hr size="2" noshade>
+	</div>
 
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
-			<a href="#" id="createkid">Create</a>
+			<a href="#" id="createkid">Reply</a>
 			<a href="#" id="createtree">Tree</a>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
@@ -218,20 +210,29 @@
 						<%= user.last_name %> @
 						<%= user.user_name %>,
 						<%= user.rating.round(2) %>,
-						<%= link_to 'Follow', '#' %>
-						<span class="right"><%= kid.created_at.strftime("%c") %></span>
+						<a href="#" id="follow">Follow</a>
+						<div class="right">
+							<%= kid.created_at.strftime("%c") %>
+						</div>
 					</div>
 					<div class="sidepadding">
-						<em><span style="font-size: 12px;"><%= link_to kid.message,kid %></span></em>
-						<span class="right"><%= link_to 'More', '#'%> <%= link_to 'Less', '#'%></span>
+						<em><span class="message">
+							<%= link_to kid.message, kid %>
+						</span></em>
+						<div class="right">
+							<a href="#" id="morepost">More</a>
+							<a href="#" id="lesspost">Less</a>
+						</div>
 					</div>
 					<div class="sidepadding">
 						<%= offspring(kid) %>
 						<%= kid.views %> views,
 						<%= kid.points %> points,
 						<%= level(kid) %>
-						<%= link_to 'Bookmark', '#'%>
-						<span class="right"><%= kid.updated_at.strftime("%c") %></span>
+						<a href="#" id="bookmark">Bookmark</a>
+						<div class="right">
+							<%= kid.updated_at.strftime("%c") %>
+						</div>
 					</div>
 				</div>
 			<% end %>
@@ -242,7 +243,7 @@
 		<div id="opinionreply">
 			<form action="<%= posts_path %>" method="post">
 				<b>Objection Type:</b>
-				<span class="right sidepadding">
+				<div class="right sidepadding">
 					<%= radio_button_tag(:type, "manual", checked=TrueClass)%>
 					<%= label_tag(:type, "Manual") %>
 					<%= radio_button_tag(:type, "fallacy") %>
@@ -257,18 +258,24 @@
 					<%= label_tag(:type, "Duplicate") %>
 					<%= radio_button_tag(:type, "mediationrequest") %>
 					<%= label_tag(:type, "Mediation Request") %>
-				</span>
+				</div>
 
 				<div class="toppadding10">
-					<span class="submit_text message_text">In my opinion:</span>
-					<textarea name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
+					<div class="submit_text message_text">
+						In my opinion:
+					</div>
+					<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
 				</div>
 				<div class="toppadding5">
-					<span class="submit_text support_text">Support (Optional), </span>
-					<textarea name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
+					<div class="submit_text support_text">
+						Support (Optional):
+					</div>
+					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
 				</div>
 
-				<div><hr size="2" noshade></div>
+				<div>
+					<hr size="2" noshade>
+				</div>
 
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 				<%= hidden_field_tag :parentpost, @post.id %>
@@ -278,7 +285,9 @@
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>
-					<button class="right sidepadding" name="Cancel" type="button" id="cancelopinionreply">Cancel</button>
+					<button class="right sidepadding" name="Cancel" type="button" id="cancelopinionreply">
+						Cancel
+					</button>
 				</div>
 			</form>
 		</div>
@@ -286,68 +295,14 @@
 		<div id="initiatorreply">
 			<div id="create">
 				<form action="<%= posts_path %>" method="post">
-					<div id="createbar">
-						<b>Create:</b>
-							<span class="right sidepadding">
-								<%= radio_button_tag('type', 'opinion', true)%>
-								<%= label_tag('type', 'Opinion') %>
-								<%= radio_button_tag('type', 'initiator') %>
-								<%= label_tag('type', 'Initiator') %>
-								<%= radio_button_tag('type', 'comment') %>
-								<%= label_tag('type', 'Comment') %>
-							</span>
-					</div>
 
-					<div class="toppadding10">
-						<span class="submit_text message_text">In my opinion:</span>
-						<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here. Be as concise as possible."></textarea>
-					</div>
-					<div class="toppadding5">
-						<span class="submit_text support_text">Support (Optional):</span>
-						<textarea class="message support_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
-					</div>
-
-					<div id="formattype" class="toppadding10">
-						<b>Format:</b>
-						<%= radio_button_tag 'format', 'public', true%>
-						<%= label_tag 'format', 'Public' %>
-						<%= radio_button_tag 'format', 'private' %>
-						<%= label_tag 'format', 'Private' %>
-					</div>
-
-					<div id=public>
-						<%= check_box_tag 'lone_wolf', 'lw', false %>
-						<%= label_tag 'Lone_wolf?' %>
-					</div>
-
-					<div id=private>
-						<div id="teams">
-							<%= check_box_tag 'teams', 'teams', false %>
-							<%= label_tag 'Teams?' %>
-						</div>
-						<div id="pubviewing">
-							<%= check_box_tag 'publicviewing', 'pv', false %>
-							<%= label_tag 'Public Viewing?' %>
-						</div>
-						<div id="pubcomments">
-							<%= check_box_tag 'publiccomments', 'pc', false %>
-							<%= label_tag 'Public Comments?' %>
-						</div>
-					</div>
-
-					<div class="divider"><hr size="2" noshade></div>
+					<%= render "posts/create" %>
 
 					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 					<%= hidden_field_tag :parentpost, @post.id %>
 					<%= hidden_field_tag :topic, @post.topic.id %>
 					<%= hidden_field_tag :kind, Post::OPINION %>
 					<%= hidden_field_tag :defaultkidtype, Post::INITIATOR %>
-
-					<div class="toppadding10 sidepadding">
-						<%= submit_tag("Submit")%>
-						<button class="right sidepadding" name="Cancel" type="button" id="createcancelbutton">Cancel</button>
-					</div>
-
 				</form>
 			</div>
 		</div>
@@ -355,15 +310,21 @@
 		<div id="commentreply">
 			<form action="<%= posts_path %>" method="post">
 				<div class="toppadding10">
-					<span class="submit_text message_text">Comment:</span>
-					<textarea name="message" rows="1" cols="100" placeholder="Enter comment here."></textarea>
+					<div class="submit_text message_text">
+						Comment:
+					</div>
+					<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter comment here."></textarea>
 				</div>
 				<div class="toppadding5">
-					<span class="submit_text support_text">Support (Optional), </span>
-					<textarea name="support" rows="5" cols="100" placeholder="Enter additional supporting information, attachments and external links here..."></textarea>
+					<div class="submit_text support_text">
+						Support (Optional):
+					</div>
+					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional supporting information, attachments and external links here..."></textarea>
 				</div>
 
-				<div><hr size="2" noshade></div>
+				<div>
+					<hr size="2" noshade>
+				</div>
 
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 				<%= hidden_field_tag :parentpost, @post.id %>
@@ -373,7 +334,9 @@
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>
-					<button class="right sidepadding" name="Cancel" type="button" id="cancelcommentreply">Cancel</button>
+					<button class="right sidepadding" name="Cancel" type="button" id="cancelcommentreply">
+						Cancel
+					</button>
 				</div>
 			</form>
 		</div>

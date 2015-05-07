@@ -1,0 +1,52 @@
+<div class="toppadding10">
+	<div class="submit_text message_text">
+		In my opinion:
+	</div>
+	<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here. Be as concise as possible."></textarea>
+</div>
+
+<div class="toppadding5">
+	<div class="submit_text support_text">
+		Support (Optional):
+	</div>
+	<textarea class="message support_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
+</div>
+
+<div id="formattype" class="toppadding10">
+	<b>Format:</b>
+	<%= radio_button_tag 'format', 'public', true%>
+	<%= label_tag 'format', 'Public' %>
+	<%= radio_button_tag 'format', 'private' %>
+	<%= label_tag 'format', 'Private' %>
+</div>
+
+<div id=public>
+	<%= check_box_tag 'lone_wolf', 'lw', false %>
+	<%= label_tag 'Lone_wolf?' %>
+</div>
+
+<div id=private>
+	<div id="teams">
+		<%= check_box_tag 'teams', 'teams', false %>
+		<%= label_tag 'Teams?' %>
+	</div>
+	<div id="pubviewing">
+		<%= check_box_tag 'publicviewing', 'pv', false %>
+		<%= label_tag 'Public Viewing?' %>
+	</div>
+	<div id="pubcomments">
+		<%= check_box_tag 'publiccomments', 'pc', false %>
+		<%= label_tag 'Public Comments?' %>
+	</div>
+</div>
+
+<div class="divider">
+	<hr size="2" noshade>
+</div>
+
+<div class="toppadding10 sidepadding">
+	<%= submit_tag("Submit")%>
+	<button class="right sidepadding" name="Cancel" type="button" id="createcancelbutton">
+		Cancel
+	</button>
+</div>

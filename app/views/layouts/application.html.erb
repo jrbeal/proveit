@@ -1,19 +1,37 @@
-<title>Prove.it!</title>
-<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-<%= csrf_meta_tags %>
+<div>
+	<title>Prove.it!</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-<div id="header">
-  <img src="/assets/Scales.jpg" height="80" width="120">
-  <p id="proveit">Prove.it!</p>
-  <div id="breadcrumbs">
-    <%= link_to 'Home', root_path%>
-    <%= link_to 'Help', help_path%>
-    <%= link_to 'About', about_path%>
-    <%= link_to 'Contact', contact_path%>
-  </div>
+	<%= csrf_meta_tags %>
+
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
+
+	<div id="header">
+		<%= link_to image_tag('Scales.jpg', :size => '120x80'), root_path %>
+		<p id="proveit">
+			Prove.it!
+		</p>
+		<div id="breadcrumbs" class="sidepadding right spacing">
+			<%= link_to 'Home', root_path%>
+			<%= link_to 'Help', help_path%>
+			<%= link_to 'About', about_path%>
+			<%= link_to 'Contact', contact_path%>
+			<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
+		</div>
+	</div>
+
+	<div class="divider">
+		<hr size="2" noshade>
+	</div>
+
+	<div id="leftcolumn">
+	</div>
+
+	<div id="rightcolumn">
+	</div>
+
+	<%= yield %>
+
 </div>
-
-<div class="divider"><hr size="2" noshade></div>
-
-<%= yield %>

@@ -1,19 +1,17 @@
 Rails.application.routes.draw do
-  get 'users/new'
-  get 'users/create'
+  devise_for :provers
 	get 'help'		         =>	'static_pages#help'
 	get 'about'		         =>	'static_pages#about'
 	get 'contact'	         =>	'static_pages#contact'
   get 'posts/new'        => 'posts#new'
-  get 'posts/reply'      => 'posts#reply'
 
   resources :filters
   resources :groups
   resources :topics
-  resources :accounts
   resources :posts
 
   root 'application#homepage'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

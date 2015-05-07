@@ -1,10 +1,120 @@
-<div id="postlayout">
-  <%= render "create" %>
+<div class="mainbody">
+	<head>
+		<script type="text/javascript">
+			$(function() {
+				$('#type_opinion').on("click", function() {
+					console.log("Now we're in opinion mode.");
+					$(".submit_text.message_text").text("In my opinion:");
+					$(".submit_text.support_text").text("Support (Optional):");
+					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter opinion here. Be as concise as possible.';
+					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional rationale, clarification, supporting information, and external links here.';
+					if ($('#format_public').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#format_private').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
+				});
 
-  <div style="margin-top: 10px;">
-    <div class="divider"><hr size="2" noshade></div>
+				$('#type_initiator').on("click", function() {
+					console.log("Now we're in initiator mode.");
+					$(".submit_text.message_text").text("Initiator:");
+					$(".submit_text.support_text").text("Support (Optional):");
+					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
+					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter attachments, clarification, supporting information, and external links here.';
+					if ($('#format_public').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#format_private').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
+				});
 
-    <button             name="Cancel" type="button" id="createcancelbutton">Cancel</button>
-    <button class=right name="Submit" type="button" id="createsubmitbutton">Submit</button>
-  </div>
+				$('#type_comment').on("click", function() {
+					console.log("Now we're in comment mode.");
+					$(".submit_text.message_text").text("Comment:");
+					$(".submit_text.support_text").text("Support (Optional): ");
+					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter comment here.';
+					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information and/or attachments here.';
+					$('#public').hide();
+					$('#private').hide();
+				});
+
+				$('#format_public').on("click", function() {
+					console.log("Selecting public.");
+					if ($('#type_opinion').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else if ($('#type_initiator').is(':checked')) {
+						$('#public').show();
+						$('#private').hide();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
+				});
+
+				$('#format_private').on("click", function() {
+					console.log("Selecting private.");
+					if ($('#type_opinion').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else if ($('#type_initiator').is(':checked')) {
+						$('#public').hide();
+						$('#private').show();
+					} else {
+						$('#public').hide();
+						$('#private').hide();
+					}
+				});
+
+				$('#publicviewing').on("click", function(e) {
+					console.log("Selecting public viewing.");
+					var $tgt = $(e.target);
+					if($tgt.prop("checked")) {
+						$('#pubcomments').show();
+					} else {
+						$('#pubcomments').hide();
+					}
+				});
+
+				$('input[name="format"][value="public"]').click();
+				$('#pubcomments').hide();
+
+				$('#createcancelbutton').on("click", function () {
+					console.log("Selecting quit button.");
+					history.back();
+				});
+			});
+		</script>
+	</head>
+
+	<div id="create">
+		<form action="<%= topics_path %>" method="post">
+			<div id="createbar">
+				<b>Create:</b>
+				<div class="right sidepadding">
+					<%= radio_button_tag('type', 'opinion', true)%>
+					<%= label_tag('type', 'Opinion') %>
+					<%= radio_button_tag('type', 'initiator') %>
+					<%= label_tag('type', 'Initiator') %>
+					<%= radio_button_tag('type', 'comment') %>
+					<%= label_tag('type', 'Comment') %>
+				</div>
+			</div>
+
+			<%= render "posts/create" %>
+
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+			<%= hidden_field_tag :parentpost, @post %>
+		</form>
+	</div>
 </div>

@@ -14,16 +14,17 @@ class PostsController < ApplicationController
     @kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
     @post.views += 1
     @post.save!
-  end
 
-  def reply
-    @post = Post.new
+		if (params[:defaultkidtype])
+			@defaultkidtype = params[:defaultkidtype].pluralize
+		else
+		  @defaultkidtype = @post.kind.pluralize
+		end
+
   end
 
   # GET /posts/new
   def new
-    @post = Post.new
-    @users = User.all
   end
 
     # GET /posts/1/edit
@@ -33,17 +34,31 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+		post_params = {
+			:message => params[:message],
+			:support => params[:support],
+			:kind => params[:kind],
+		}
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+		@post = Post.new(post_params)
+
+		@post.parent = Post.find params[:parentpost]
+		@post.topic = Topic.find params[:topic]
+		@post.user = User.new :rating => rand() * 100, :first_name => "John", :last_name => "Doe", :user_name => "newuser"
+
+		@post.save!
+
+    # respond_to do |format|
+    #   if @post.save
+    #     format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #     format.json { render :show, status: :created, location: @post }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @post.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :defaultkidtype => params[:defaultkidtype].pluralize
   end
 
   # PATCH/PUT /posts/1

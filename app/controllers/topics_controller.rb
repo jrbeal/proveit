@@ -24,17 +24,46 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
+
+		post_params = {
+			:message => params[:message],
+			:support => params[:support],
+			:kind => params[:type],
+		}
+
+		topic_params = {
+			:private => (params[:format] == "private"),
+			:lone_wolf => params[:lone_wolf],
+			:teams => false,
+			:public_viewing => true,
+			:public_comments => true,
+		}
+
+		@post = Post.new(post_params)
     @topic = Topic.new(topic_params)
 
-    respond_to do |format|
-      if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
-        format.json { render :show, status: :created, location: @topic }
-      else
-        format.html { render :new }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
-    end
+		@post.topic = @topic
+		@post.parent = nil
+		@post.user = User.new :rating => rand() * 100, :first_name => "John", :last_name => "Doe", :user_name => "newuser"
+		@topic.root_id = @post
+
+		@topic.save!
+		@post.save!
+
+
+		#puts params.inspect
+		#
+    # respond_to do |format|
+    #   if @topic.save
+    #     format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
+    #     format.json { render :show, status: :created, location: @topic }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @topic.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+		redirect_to root_path
   end
 
   # PATCH/PUT /topics/1

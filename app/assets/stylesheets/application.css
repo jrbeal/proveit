@@ -61,6 +61,7 @@ h1 {
 .toppadding5 {
 	margin-top: 5px;
 }
+
 .right {
 	float: right;
 	display: inline;
@@ -94,6 +95,27 @@ body {
 	line-height: 20px;
 }
 
+.vlevel1 {
+	font-size: 12px;
+}
+.vlevel2 {
+	font-size: 10px;
+}
+.vlevel3 {
+	font-size: 10px;
+}
+.vlevel4 {
+	font-size: 10px;
+	background-color: white;
+	line-height: 130%;
+	max-height: 75px;
+	border-radius: 8px;
+	padding: 5px;
+	margin-top: 5px;
+	border-style: solid;
+	border-width: 1px;
+	overflow-y: auto;
+}
 #post.lightgreen {
 	background-color: lightgreen;
 }
@@ -111,11 +133,12 @@ body {
 }
 
 #breadcrumbs {
-    display: inline;
-    position: absolute;
-    right: 150px;
-    padding-right: 10px;
-    word-spacing: 5px;
+	display: inline;
+	position: absolute;
+	right: 150px;
+	padding-right: 10px;
+	word-spacing: 5px;
+}
 
 #create {
 	margin-left: 10px;

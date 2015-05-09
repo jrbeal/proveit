@@ -37,9 +37,9 @@ module PostsHelper
     case post.kind
       when Post::INITIATOR
         raw ("
-        #{radio_button_tag('kidtype', 'initiators', true)}
+        #{radio_button_tag('kidtype', 'initiator', true)}
         #{label_tag('kidtype', 'Opinions')}
-        #{radio_button_tag('kidtype', 'comments')}
+        #{radio_button_tag('kidtype', 'comment')}
         #{label_tag('kidtype', 'Comments')}
         ")
       when Post::OPINION

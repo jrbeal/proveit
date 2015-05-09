@@ -10,8 +10,6 @@ class Post < ActiveRecord::Base
 	INITIATOR = "initiator"
 	COMMENT = "comment"
 
-  displaykind = OPINION
-	
 	validates :message, :length => { :maximum => 140 }
 	validates :support, :length => { :maximum => 10000 }
 	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."

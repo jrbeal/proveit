@@ -1,13 +1,118 @@
 <html xmlns="http://www.w3.org/1999/html">
+	<head>
+		<script type="text/javascript">
+
+			var verbosity = <%= @user.verbosity %>
+
+			$(function() {
+				$('#lessmaster').on("click", function () {
+					console.log("Verbosity level was " + verbosity)
+					if (verbosity > 1) {
+						verbosity -= 1;
+					}
+
+					switch (verbosity) {
+						case 3:
+							console.log("level 3.");
+							$('.vlevel4').hide();
+							break;
+						case 2:
+							console.log("level 2.");
+							$('.vlevel3').hide();
+							break;
+						case 1:
+							console.log("level 1.");
+							$('.vlevel2').hide();
+							break;
+						case 1:
+						default:
+							console.log("Can not hide verbosity level 1.");
+							break;
+					}
+
+					console.log("verbosity level is now " + verbosity)
+				});
+
+				$('#moremaster').on("click", function () {
+					console.log("Verbosity level was " + verbosity)
+					if (verbosity < 4) {
+						verbosity += 1;
+					}
+
+					switch (verbosity) {
+						case 4:
+							console.log("level 4.");
+							$('.vlevel4').show();
+							break;
+						case 3:
+							console.log("level 3.");
+							$('.vlevel3').show();
+							break;
+						case 2:
+						default:
+							console.log("level 2.");
+							$('.vlevel2').show();
+							break;
+					}
+
+					console.log("verbosity level is now " + verbosity)
+				});
+
+				$('#lesspost').on("click", function () {
+					console.log("Decreasing post verbosity.");
+				});
+
+				$('#morepost').on("click", function () {
+					console.log("Increasing post verbosity.");
+				});
+
+				$('#follow').on("click", function () {
+					console.log("Following...");
+				});
+
+				$(function () {
+					switch (verbosity) {
+						case 4:
+							console.log("Showing verbosity level 4.");
+							$('.vlevel1').show();
+							$('.vlevel2').show();
+							$('.vlevel3').show();
+							$('.vlevel4').show();
+							break;
+						case 3:
+							console.log("Showing verbosity level 3.");
+							$('.vlevel1').show();
+							$('.vlevel2').show();
+							$('.vlevel3').show();
+							$('.vlevel4').hide();
+							break;
+						case 2:
+							console.log("Showing verbosity level 2.");
+							$('.vlevel1').show();
+							$('.vlevel2').show();
+							$('.vlevel3').hide();
+							$('.vlevel4').hide();
+							break;
+						case 1:
+						default:
+							console.log("Showing verbosity level 1.");
+							$('.vlevel1').show();
+							$('.vlevel2').hide();
+							$('.vlevel3').hide();
+							$('.vlevel4').hide();
+					}
+				});
+			});
+		</script>
+	</head>
 
 	<body>
 		<div class="mainbody">
 			<div class="sidepadding spacing">
 				<%= link_to 'Create', posts_new_path %>
 				<div class="right" style="margin-right: 5px">
-					<a href="#" id="refresh">Refresh(0)</a>
-					<a href="#" id="moremaster">More</a>
-					<a href="#" id="lessmaster">Less</a>
+					<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lessmaster' %>
+					<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'moremaster' %>
 				</div>
 			</div>
 
@@ -15,7 +120,7 @@
 				<% @posts.each do |post| %>
 					<% user = post.user:quietly %>
 					<div id=post class="<%= status_color(post) %>">
-						<div class="sidepadding">
+						<div class="vlevel2 sidepadding">
 							<%= user.first_name %>
 							<%= user.last_name %> @
 							<%= user.user_name %>,
@@ -25,16 +130,16 @@
 								<%= post.created_at.strftime("%c") %>
 							</div>
 						</div>
-						<div class="sidepadding">
+						<div class="vlevel1 sidepadding">
 							<em><span class="message">
 								<%= link_to post.message, post %>
 							</span></em>
 							<div class="right spacing">
-								<a href="#" id="morepost">More</a>
-								<a href="#" id="lesspost">Less</a>
+								<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
+								<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
 							</div>
 						</div>
-						<div class="sidepadding">
+						<div class="vlevel3 sidepadding">
 							<%= offspring(post) %>
 							<%= post.views %> views,
 							<%= post.points %> points,
@@ -44,6 +149,9 @@
 								<%= post.updated_at.strftime("%c") %>
 							</div>
 						</div>
+						<div class="vlevel4 sidepadding">
+							<%= post.support %>
+					  </div>
 					</div>
 				<% end %>
 			</div>

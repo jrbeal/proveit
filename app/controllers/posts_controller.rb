@@ -16,10 +16,12 @@ class PostsController < ApplicationController
     @post.save!
 
 		if (params[:defaultkidtype])
-			@defaultkidtype = params[:defaultkidtype].pluralize
+			@defaultkidtype = params[:defaultkidtype]
 		else
-		  @defaultkidtype = @post.kind.pluralize
+		  @defaultkidtype = @post.kind
 		end
+
+		@user = User.where(:email => "jrbeal@cox.net").first
 
   end
 
@@ -58,7 +60,7 @@ class PostsController < ApplicationController
     #   end
     # end
 
-		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :defaultkidtype => params[:defaultkidtype].pluralize
+		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :defaultkidtype => params[:defaultkidtype]
   end
 
   # PATCH/PUT /posts/1
@@ -89,7 +91,7 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
-    end
+		end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params

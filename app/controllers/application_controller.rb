@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-	before_filter :authenticate_prover!
+	before_action :authenticate_prover!
 
 	def homepage
 		@topics = Topic.all
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     @posts.sort! { |a,b| b.views <=> a.views }
 
-		@user = User.where(:email => "jrbeal@cox.net").first
+		@user = User.where(:email => "#{current_prover.email}").first
 	end
 
 end

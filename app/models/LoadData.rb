@@ -42,7 +42,7 @@ u4.save!
 u5 = User.create(:user_name => "trbeal", :first_name => "Thomas", :last_name => "Beal", :email => "Thomas@gmail.com", :verbosity => 3)
 u5.rating = rand * 100
 u5.save!
-u6 = User.create(:user_name => "dmbeal", :first_name => "Diane", :last_name => "Beal", :email => "Diane@gmail.com", :verbosity => 3)
+u6 = User.create(:user_name => "dmbeal", :first_name => "Diane", :last_name => "Beal", :email => "dianebeal@lizmoore.com", :verbosity => 3)
 u6.rating = rand * 100
 u6.save!
 u7 = User.create(:user_name => "jabeal", :first_name => "Jenni", :last_name => "Beal", :email => "Jenni@gmail.com", :verbosity => 3)
@@ -52,7 +52,7 @@ u8 = User.create(:user_name => "jeremy", :first_name => "Jeremy", :last_name => 
 u8.rating = rand * 100
 u8.save!
 
-t1 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
+t1 = Topic.create(:private => FALSE, :lone_wolf => FALSE, :teams => FALSE, :public_viewing => FALSE, :public_comments => FALSE)
 p1 = Post.create(:parent_id => nil, :topic_id => t1.id, :kind => "opinion", :message => "No major wage gap exists between equally qualified men and women working similar jobs.", :support => "Last week, the American Association of University Women (AAUW) released a study on the gender pay gap, the claim that women are paid less than equally-qualified men. The AAUW study limited itself to new college graduates, hoping to show that a pay gap exists even before women marry and bear children, which most academic studies find to be the main drivers of gender pay differences. The AAUW study generated the headline result – the only one that really matters – that new female college grads are paid only 82 cents for each dollar of male earnings. To its credit, AAUW went further by factoring in male/female differences in college major, hours worked, etc. Having done that, the pay gap shrinks to less than 7 percent. This indicates that, at most, discrimination lowers female wages by 7 percent. But in preparing for an NPR program discussing the study, I ran some quick numbers using data from the Census Bureau’s American Community Survey. I limited myself to full-year private sector workers with a bachelors degree who were ages 21 to 26 in 2009-2010. Within this group I controlled for age, race, Hispanic and immigrant status, detailed geographic location, weekly work hours, college major and occupation. Controlling for college major accounts for the fact that men tend to choose majors that lead to higher earnings later in life. Controlling for occupation captures “compensating wage differentials” for positive or negative aspects of the job. For instance, dangerous or unpleasant jobs may pay more, while jobs offering flexible hours or more generous benefits might pay less. Including all these controls, the gender pay gap for young college grads drops to around 1 percent. Even then, do my results mean that discrimination reduces pay by 1 percent? Hardly. It’s well known that women negotiate over pay less aggressively than men. Better negotiating tactics could easily generate a 1 percent pay difference. More broadly, the 1 percent figure denotes the unexplained pay difference – simply because the data we have can’t explain it doesn’t mean the difference is due to discrimination. Better data might explain even more of the difference. Moreover, even if discrimination exists – and it surely does, even if its overall effects aren’t huge – the cure of greater government control over the labor market might be worse than the disease. The real failure here isn’t with analysts, who long have shown common perceptions of the gender pay gap to be vastly exaggerated. This study from the Federal Reserve Bank of St. Louis summarizes why the pay gap may be smaller than we think. The fault lies mainly with the press, who irresponsibly assert massive gender pay discrimination that doesn’t truly exist.", :user_id => u1.id)
 p1.save!
 t1.root_id = p1
@@ -120,7 +120,7 @@ c5.save!
 c6 = Post.create(:parent_id => p1.id, :topic_id => t1.id, :kind => "comment", :message => "Comment c#{Constants::cctr}", :user_id => u1.id)
 c6.save!
 
-t2 = Topic.create(:private => TRUE, :public_viewing => TRUE, :public_comments => TRUE)
+t2 = Topic.create(:private => TRUE, :lone_wolf => FALSE, :teams => FALSE, :public_viewing => TRUE, :public_comments => TRUE)
 i1 = Post.create(:parent_id => nil, :topic_id => t2.id, :kind => "initiator", :message => "Should it be legal for parents to withhold medical treatment for their children for religious reasons?", :support => "Issues surrounding parental denial of medical care for children in need has unexpectedly emerged as one of the most contentious issues in health law policy this year. Parents have cited religious reasons or personal preferences for alternative medical therapy as justification to refuse such treatment. Although the ability of a parent to consent to potentially life-saving medical therapy for a child is an established canon of family law, the outer boundaries of a parent’s right to refuse life-saving medical treatment for a child are ill-defined. The limits of parents’ refusal to allow life-saving medical care is currently being tested in two cases – one in Wisconsin and the other in Minnesota. Although the two cases differ significantly in the circumstances, venue, and medical outcomes, both cases raise the issue of when and how the state may intervene to save the life of a child over the express religious or medical beliefs, and conduct, of one or both parents.", :user_id => u1.id)
 i1.save!
 t2.root_id = i1
@@ -136,7 +136,7 @@ p29.save!
 c8 = Post.create(:parent_id => p27.id, :topic_id => t2.id, :kind => "comment", :message => "Comment c#{Constants::cctr}", :user_id => u1.id)
 c8.save!
 
-t3 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
+t3 = Topic.create(:private => FALSE, :lone_wolf => FALSE, :teams => FALSE, :public_viewing => FALSE, :public_comments => FALSE)
 c9 = Post.create(:parent_id => nil, :topic_id => t3.id, :kind => "comment", :message => "Is there a point at which our national debt becomes unsustainable?", :support => "With an estimated national debt that will approach $20 trillion in just a couple of years, some $200 trillion in unfunded liabilities over the next twenty five years, scores of millions of Americans dependent on overburdened government safety nets to survive, and a rapidly shrinking domestic economy, the key question becomes,what is America’s economic breaking point?", :user_id => u1.id)
 c9.save!
 t3.root_id = c9
@@ -160,7 +160,7 @@ c17.save!
 c18 = Post.create(:parent_id => c14.id, :topic_id => t3.id, :kind => "comment", :message => "Comment c#{Constants::cctr}", :user_id => u1.id)
 c18.save!
 
-t4 = Topic.create(:private => FALSE, :lone_wolf => FALSE)
+t4 = Topic.create(:private => FALSE, :lone_wolf => FALSE, :teams => FALSE, :public_viewing => FALSE, :public_comments => FALSE)
 p30 = Post.create(:parent_id => nil, :topic_id => t4.id, :kind => "opinion", :message => "Nuclear power plants are dangerous and should be phased out.", :support => "Three primary reasons: 1) The potential for accidents stemming from human error, oversight, or malevolence, which could cause widespread and long lasting harm 2) The potential for accidents stemming from natural disasters, which could cause widespread and long lasting harm 3) Our inability to predict/control for future social, economic, and political instability, which could create conditions in which nuclear facilities are neglected or poorly regulated, thereby creating conditions that could lead to an increased likelihood of numbers 1 & 2", :user_id => u1.id)
 p30.save!
 t4.root_id = p30

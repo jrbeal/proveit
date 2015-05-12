@@ -300,7 +300,7 @@
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
 			<a href="#" id="createkid">Reply</a>
-			<a href="#" id="createtree">Tree</a>
+			<a href="#" id="expand">Expand</a>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
 			</div>
@@ -308,41 +308,41 @@
 
 	  <div class="toppadding10">
 			<% @kids.each do |kid| %>
-				<% user = kid.user:quietly %>
-				<div id=post class="<%= status_color(kid) %> <%= kid.kind %>">
-					<div class="vlevel2 sidepadding">
-						<%= user.first_name %>
-						<%= user.last_name %> @
-						<%= user.user_name %>,
-						<%= user.rating.round(2) %>,
-						<a href="#" id="follow">Follow</a>
-						<div class="right">
-							<%= kid.created_at.strftime("%c") %>
+					<div id=post class="<%= status_color(kid) %> <%= kid.kind %>">
+						<% user = kid.user:quietly %>
+						<div class="vlevel2 sidepadding">
+							<%= user.first_name %>
+							<%= user.last_name %> @
+							<%= user.user_name %>,
+							<%= user.rating.round(2) %>,
+							<a href="#" id="follow">Follow</a>
+							<div class="right">
+								<%= kid.created_at.strftime("%c") %>
+							</div>
+						</div>
+						<div class="vlevel1 sidepadding">
+							<em><span class="message">
+								<%= link_to kid.message, kid %>
+							</span></em>
+							<div class="right">
+								<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
+								<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
+							</div>
+						</div>
+						<div class="vlevel3 sidepadding">
+							<%= offspring(kid) %>
+							<%= kid.views %> views,
+							<%= kid.points %> points,
+							<%= level(kid) %>
+							<a href="#" id="bookmark">Bookmark</a>
+							<div class="right">
+								<%= kid.updated_at.strftime("%c") %>
+							</div>
+						</div>
+						<div class="vlevel4 sidepadding">
+							<%= kid.support %>
 						</div>
 					</div>
-					<div class="vlevel1 sidepadding">
-						<em><span class="message">
-							<%= link_to kid.message, kid %>
-						</span></em>
-						<div class="right">
-							<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
-							<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
-						</div>
-					</div>
-					<div class="vlevel3 sidepadding">
-						<%= offspring(kid) %>
-						<%= kid.views %> views,
-						<%= kid.points %> points,
-						<%= level(kid) %>
-						<a href="#" id="bookmark">Bookmark</a>
-						<div class="right">
-							<%= kid.updated_at.strftime("%c") %>
-						</div>
-					</div>
-					<div class="vlevel4 sidepadding">
-						<%= kid.support %>
-					</div>
-				</div>
 			<% end %>
 	  </div>
   </div>
@@ -404,13 +404,13 @@
 			<div id="create">
 				<form action="<%= posts_path %>" method="post">
 
-					<%= render "posts/create" %>
-
 					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 					<%= hidden_field_tag :parentpost, @post.id %>
 					<%= hidden_field_tag :topic, @post.topic.id %>
 					<%= hidden_field_tag :kind, Post::OPINION %>
 					<%= hidden_field_tag :defaultkidtype, Post::INITIATOR %>
+
+					<%= render "posts/create" %>
 				</form>
 			</div>
 		</div>

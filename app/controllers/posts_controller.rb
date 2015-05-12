@@ -21,13 +21,14 @@ class PostsController < ApplicationController
 		  @defaultkidtype = @post.kind
 		end
 
-		@user = User.where(:email => "jrbeal@cox.net").first
+		@user = User.where(:email => "#{current_prover.email}").first
 
   end
 
   # GET /posts/new
   def new
-  end
+		@user = User.where(:email => "#{current_prover.email}").first
+	end
 
     # GET /posts/1/edit
   def edit

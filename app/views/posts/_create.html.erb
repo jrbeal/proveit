@@ -14,14 +14,14 @@
 
 <div id="formattype" class="toppadding10">
 	<b>Format:</b>
-	<%= radio_button_tag 'format', 'public', true%>
+	<%= radio_button_tag 'format', 'public', true %>
 	<%= label_tag 'format', 'Public' %>
 	<%= radio_button_tag 'format', 'private' %>
 	<%= label_tag 'format', 'Private' %>
 </div>
 
 <div id=public>
-	<%= check_box_tag 'lone_wolf', 'lw', false %>
+	<%= check_box_tag 'lone_wolf', 'lone_wolf', false %>
 	<%= label_tag 'Lone_wolf?' %>
 </div>
 
@@ -31,11 +31,11 @@
 		<%= label_tag 'Teams?' %>
 	</div>
 	<div id="pubviewing">
-		<%= check_box_tag 'publicviewing', 'pv', false %>
+		<%= check_box_tag 'publicviewing', 'publicviewing', false %>
 		<%= label_tag 'Public Viewing?' %>
 	</div>
 	<div id="pubcomments">
-		<%= check_box_tag 'publiccomments', 'pc', false %>
+		<%= check_box_tag 'publiccomments', 'publiccomments', false %>
 		<%= label_tag 'Public Comments?' %>
 	</div>
 </div>

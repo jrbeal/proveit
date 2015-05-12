@@ -30,13 +30,12 @@ class TopicsController < ApplicationController
 			:support => params[:support],
 			:kind => params[:type],
 		}
-
 		topic_params = {
 			:private => (params[:format] == "private"),
-			:lone_wolf => params[:lone_wolf],
-			:teams => false,
-			:public_viewing => true,
-			:public_comments => true,
+			:lone_wolf => (params[:lone_wolf] == "lone_wolf"),
+			:teams => (params[:teams] == "teams"),
+			:public_viewing => (params[:publicviewing] == "publicviewing"),
+			:public_comments => (params[:publiccomments] == "publiccomments"),
 		}
 
 		@post = Post.new(post_params)

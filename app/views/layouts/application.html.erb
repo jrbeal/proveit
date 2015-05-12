@@ -26,9 +26,24 @@
 		<hr size="2" noshade>
 	</div>
 
-	<div id="leftcolumn">
-	</div>
-
+	<% if prover_signed_in? %>
+		<div id="leftcolumn">
+			<ul class="userinfo">
+				<li style="display: block; line-height: 130%">
+					<%= link_to image_tag('Jeff.jpg', :border => 1, :size => '100x100'), "#" %>
+				</li>
+				<li style="display: block; line-height: 130%">
+					<%= @user.first_name %>
+					<%= @user.last_name %> @
+					<%= @user.user_name %>
+				</li>
+				<li style="display: block; line-height: 130%">
+					Current Rating:
+					<%= @user.rating.round(2) %>
+				</li>
+			</ul>
+		</div>
+	<% end %>
 	<div id="rightcolumn">
 	</div>
 

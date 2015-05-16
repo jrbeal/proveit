@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'humanize'
+gem 'tabs_on_rails'
 gem 'devise'
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

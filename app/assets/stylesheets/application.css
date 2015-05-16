@@ -86,7 +86,7 @@ body {
 	background-color: white;
 }
 
-#post {
+.post {
 	border-radius: 10px;
 	padding: 5px;
 	margin-top: 10px;
@@ -116,19 +116,19 @@ body {
 	border-width: 1px;
 	overflow-y: auto;
 }
-#post.lightgreen {
+.post.lightgreen {
 	background-color: lightgreen;
 }
 
-#post.lightyellow {
+.post.lightyellow {
 	background-color: lightyellow;
 }
 
-#post.lightred {
+.post.lightred {
 	background-color: mistyrose;
 }
 
-#post.lightblue {
+.post.lightblue {
 	background-color: lightblue;
 }
 
@@ -145,7 +145,7 @@ body {
 }
 
 #header {
-	margin-left: 20px;
+	margin-left: 33px;
 	margin-right: 20px;
 	display: inline;
 }
@@ -168,12 +168,17 @@ body {
 }
 
 .userinfo {
-	margin-top: 30px;
+	margin-top: 27px;
 	font-size: 10px;
 }
 
 #userimage {
-	border-radius: 8px;
-	border-style: solid;
-	border-width: 1px;
+	border-radius: 10px;
+	height: 100px;
+	width: 100px;
+}
+
+.kidtitle {
+	margin-left: 10%;
+	display: inline;
 }

@@ -36,23 +36,26 @@ class Post < ActiveRecord::Base
 		end
 		return count
 	end
-	
-	def count_levels(id, count) 		# Recursively increment count by the number of levels above a given opinion post
-		if id.present?
-			p = Post.find_by id: id
-			if p.kind == OPINION
-				count = count_levels(p.parent_id, count) + 1
+
+	def count_levels(current, count) 		# Recursively increment count by the number of levels above a given post
+		if current.parent_id.present?
+			p = Post.find_by id: current.parent_id
+			if p.kind == current.kind				# Keep going until the post kind differs from its parent
+				count = count_levels(p, count) + 1
+			else
+				count += 1
 			end
 		end
 		return count
 	end
 	
 	before_create do 								# First create and initialize the new post
-		if self.kind == OPINION				# status, score and level are only meaningful with opinions
+		if self.kind == OPINION				# status and score are only meaningful with opinions
 			self.status = TRUE
 			self.score = 100
-			self.level = count_levels(self.parent_id, 0)
 		end
+
+		self.level = count_levels(self, 0)
 		self.views = 0
 		self.children_opinions=0
     self.children_comments=0

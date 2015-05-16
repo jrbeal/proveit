@@ -1,0 +1,44 @@
+<% kids.each do |kid| %>
+
+	<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= (indent).humanize %>">
+		<% user = kid.user %>
+		<div class="vlevel2 sidepadding">
+			<%= user.user_name %>
+			(<%= user.first_name %>
+			<%= user.last_name %>), &nbsp
+			<%= user.rating.round(2) %>, &nbsp
+			<a href="#" id="follow">Follow</a>
+			<div class="right">
+				<%= kid.created_at.strftime("%c") %>
+			</div>
+		</div>
+		<div class="vlevel1 sidepadding">
+			<em><span class="message">
+				<%= link_to kid.message, kid, {:style=>'color:blue;'} %>
+			</span></em>
+			<div class="right">
+				<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :class => 'lesspost' %>
+				<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :class => 'morepost' %>
+			</div>
+		</div>
+		<div class="vlevel3 sidepadding">
+			<%= offspring(kid) %> &nbsp
+			<%= kid.views %> views, &nbsp
+			<%= level(kid) %> &nbsp
+			<a href="#" id="bookmark">Bookmark</a>
+			<div class="right">
+				<%= kid.updated_at.strftime("%c") %>
+			</div>
+		</div>
+		<div class="vlevel4 sidepadding">
+			<%= kid.support %>
+		</div>
+	</div>
+
+	<% if (depth > 0) %>
+		<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
+
+		<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1, depth: depth-1}%>
+	<% end %>
+
+<% end %>

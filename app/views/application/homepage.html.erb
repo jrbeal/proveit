@@ -118,13 +118,13 @@
 
 			<div class="toppadding10">
 				<% @posts.each do |post| %>
-					<% user = post.user:quietly %>
-					<div id=post class="<%= status_color(post) %>">
+					<% user = post.user %>
+					<div class="post <%= status_color(post) %>">
 						<div class="vlevel2 sidepadding">
-							<%= user.first_name %>
-							<%= user.last_name %> @
-							<%= user.user_name %>,
-							<%= user.rating.round(2) %>,
+							<%= user.user_name %>
+							(<%= user.first_name %>
+							<%= user.last_name %>), &nbsp
+							<%= user.rating.round(2) %>, &nbsp
 							<a href="#" id="follow">Follow</a>
 							<div class="right">
 								<%= post.created_at.strftime("%c") %>
@@ -132,18 +132,17 @@
 						</div>
 						<div class="vlevel1 sidepadding">
 							<em><span class="message">
-								<%= link_to post.message, post %>
+								<%= link_to post.message, post, {:style=>'color:blue;'} %>
 							</span></em>
 							<div class="right spacing">
-								<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
-								<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
+								<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :class => 'lesspost' %>
+								<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :class => 'morepost' %>
 							</div>
 						</div>
 						<div class="vlevel3 sidepadding">
-							<%= offspring(post) %>
-							<%= post.views %> views,
-							<%= post.points %> points,
-							<%= level(post) %>
+							<%= offspring(post) %> &nbsp
+							<%= post.views %> views, &nbsp
+							<%= level(post) %> &nbsp
 							<a href="#" id="bookmark">Bookmark</a>
 							<div class="right">
 								<%= post.updated_at.strftime("%c") %>

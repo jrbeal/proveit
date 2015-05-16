@@ -20,17 +20,19 @@ module PostsHelper
       when Post::COMMENT
         "Replies (#{post.children_comments} / #{post.offspring_comments}), "
       when Post::INITIATOR
-        "Opinions (#{post.children_opinions} / #{post.offspring_opinions}), Comments (#{post.children_comments} / #{post.offspring_comments}), "
+        "Opinions (#{post.children_opinions} / #{post.offspring_opinions}), &nbsp Comments (#{post.children_comments} / #{post.offspring_comments}), ".html_safe
       when Post::OPINION
-        "Objections (#{post.children_opinions} / #{post.offspring_opinions}), Comments (#{post.children_comments} / #{post.offspring_comments}), "
+        "Objections (#{post.children_opinions} / #{post.offspring_opinions}), &nbsp Comments (#{post.children_comments} / #{post.offspring_comments}), ".html_safe
     end
   end
 
   def level(post)
     case post.kind
       when Post::OPINION
-        "Level = #{post.level},"
-    end
+				"Level = #{post.level},"
+			when Post::COMMENT
+				"Level = #{post.level},"
+		end
   end
 
   def genpostbuttons(post)
@@ -44,7 +46,7 @@ module PostsHelper
         ")
       when Post::OPINION
         raw ("
-        #{radio_button_tag 'kidtype', 'opinion', true}
+				#{radio_button_tag 'kidtype', 'opinion', true}
         #{label_tag 'kidtype', 'Objections'}
         #{radio_button_tag 'kidtype', 'comment'}
         #{label_tag 'kidtype', 'Comments'}

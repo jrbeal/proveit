@@ -98,7 +98,7 @@
 						$('.opinion').show();
 						$('.comment').hide();
 					} else {
-						console.log("displaying something unknown: " + $tgt.val());
+						console.log("Clicking unknown kidtype: " + $tgt.val());
 					}
 			});
 
@@ -137,7 +137,7 @@
 
 			$(function() {
 				$('#lessmaster').on("click", function () {
-					console.log("Verbosity level was " + verbosity)
+					console.log("Decreasing verbosity level")
 					if (verbosity > 1) {
 						verbosity -= 1;
 					}
@@ -163,7 +163,7 @@
 				});
 
 				$('#moremaster').on("click", function () {
-					console.log("Verbosity level was " + verbosity)
+					console.log("Increasing verbosity level")
 
 					if (verbosity < 4) {
 						verbosity += 1;
@@ -184,8 +184,6 @@
 							$('.vlevel2').show();
 							break;
 					}
-
-					console.log("verbosity level is now " + verbosity)
 				});
 
 				$('#lesspost').on("click", function () {
@@ -234,6 +232,43 @@
 				});
 			});
 
+			$('#expand').on("click", function () {
+				console.log("Expanding kids")
+//				$('.one').show();
+//				$('.two').show();
+//				$('.three').show();
+//				$('.four').show();
+//				$('.five').show();
+//				$('.six').show();
+//				$('.seven').show();
+//				$('.eight').show();
+//				$('.nine').show();
+//				$('.ten').show();
+//				$('.eleven').show();
+//				$('.twelve').show();
+				$('#collapse').show();
+				$('#expand').hide();
+
+			});
+
+			$('#collapse').on("click", function () {
+				console.log("Collapsing kids")
+//				$('.one').hide();
+//				$('.two').hide();
+//				$('.three').hide();
+//				$('.four').hide();
+//				$('.five').hide();
+//				$('.six').hide();
+//				$('.seven').hide();
+//				$('.eight').hide();
+//				$('.nine').hide();
+//				$('.ten').hide();
+//				$('.eleven').hide();
+//				$('.twelve').hide();
+				$('#collapse').hide();
+				$('#expand').show();
+			});
+
 			$('input[name="kidtype"][value="<%= @defaultkidtype %>"]').click();
 
 			$('#kidtype').show();
@@ -241,6 +276,21 @@
 			$('#commentreply').hide();
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
+			$('#collapse').show();
+			$('#expand').hide();
+
+//			$('.one').hide();
+//			$('.two').hide();
+//			$('.three').hide();
+//			$('.four').hide();
+//			$('.five').hide();
+//			$('.six').hide();
+//			$('.seven').hide();
+//			$('.eight').hide();
+//			$('.nine').hide();
+//			$('.ten').hide();
+//			$('.eleven').hide();
+//			$('.twelve').hide();
 		});
 	</script>
 </head>
@@ -257,32 +307,31 @@
     </div>
 	</div>
 
-  <div id="post" class="<%= status_color(@post) %>">
+  <div class="post <%= status_color(@post) %>">
     <div class="vlevel2 sidepadding">
-      <% user = @post.user:quietly %>
-      <%= user.first_name %>
-      <%= user.last_name %> @
-      <%= user.user_name %>,
-      <%= user.rating.round(2) %>,
+      <% user = @post.user %>
+			<%= user.user_name %>
+			(<%= user.first_name %>
+			<%= user.last_name %>), &nbsp
+      <%= user.rating.round(2) %>, &nbsp
 			<a href="#" id="follow">Follow</a>
 			<div class="right">
 				<%= @post.created_at.strftime("%c") %>
 			</div>
     </div>
     <div class="vlevel1 sidepadding">
-      <b><em><span class="message">
+      <em><span class="message">
 				<%= @post.message %>
-			</span></em></b>
+			</span></em>
       <div class="right spacing">
 				<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
 				<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
 			</div>
     </div>
     <div class="vlevel3 sidepadding">
-      <%= offspring(@post) %>
-      <%= @post.views %> views,
-      <%= @post.points %> points,
-      <%= level(@post) %>
+      <%= offspring(@post) %> &nbsp
+      <%= @post.views %> views, &nbsp
+      <%= level(@post) %> &nbsp
 			<a href="#" id="bookmark">Bookmark</a>
       <div class="right">
 				<%= @post.updated_at.strftime("%c") %>
@@ -301,49 +350,14 @@
     <div id= "kidtype" class="sidepadding spacing">
 			<a href="#" id="createkid">Reply</a>
 			<a href="#" id="expand">Expand</a>
+			<a href="#" id="collapse">Collapse</a>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
 			</div>
 	  </div>
 
 	  <div class="toppadding10">
-			<% @kids.each do |kid| %>
-					<div id=post class="<%= status_color(kid) %> <%= kid.kind %>">
-						<% user = kid.user:quietly %>
-						<div class="vlevel2 sidepadding">
-							<%= user.first_name %>
-							<%= user.last_name %> @
-							<%= user.user_name %>,
-							<%= user.rating.round(2) %>,
-							<a href="#" id="follow">Follow</a>
-							<div class="right">
-								<%= kid.created_at.strftime("%c") %>
-							</div>
-						</div>
-						<div class="vlevel1 sidepadding">
-							<em><span class="message">
-								<%= link_to kid.message, kid %>
-							</span></em>
-							<div class="right">
-								<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
-								<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
-							</div>
-						</div>
-						<div class="vlevel3 sidepadding">
-							<%= offspring(kid) %>
-							<%= kid.views %> views,
-							<%= kid.points %> points,
-							<%= level(kid) %>
-							<a href="#" id="bookmark">Bookmark</a>
-							<div class="right">
-								<%= kid.updated_at.strftime("%c") %>
-							</div>
-						</div>
-						<div class="vlevel4 sidepadding">
-							<%= kid.support %>
-						</div>
-					</div>
-			<% end %>
+			<%= render partial: "kids", object: @kids, locals: {indent: 0, depth: 12}%>
 	  </div>
   </div>
 

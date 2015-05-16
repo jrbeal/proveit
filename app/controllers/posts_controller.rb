@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+	before_action :current_user
 
   # GET /posts
   # GET /posts.json
@@ -11,7 +12,6 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-    @kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
     @post.views += 1
     @post.save!
 
@@ -21,13 +21,12 @@ class PostsController < ApplicationController
 		  @defaultkidtype = @post.kind
 		end
 
-		@user = User.where(:email => "#{current_prover.email}").first
+		@kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
 
-  end
+	end
 
   # GET /posts/new
   def new
-		@user = User.where(:email => "#{current_prover.email}").first
 	end
 
     # GET /posts/1/edit
@@ -89,13 +88,18 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-		end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params[:post]
-    end
+	# Use callbacks to share common setup or constraints between actions.
+	def set_post
+		@post = Post.find(params[:id])
+	end
+
+	# Never trust parameters from the scary internet, only allow the white list through.
+	def post_params
+		params[:post]
+	end
+
+	def current_user
+		@user = User.where(:email => "#{current_prover.email}").first
+	end
 end

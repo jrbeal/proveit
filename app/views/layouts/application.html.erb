@@ -30,16 +30,15 @@
 		<div id="leftcolumn">
 			<ul class="userinfo">
 				<li style="display: block; line-height: 130%">
-					<%= link_to image_tag('Jeff.jpg', :border => 1, :size => '100x100'), "#" %>
+					<%= link_to image_tag('Jeff.jpg', :border => 2, id: "userimage"), "#" %>
 				</li>
-				<li style="display: block; line-height: 130%">
-					<%= @user.first_name %>
-					<%= @user.last_name %> @
-					<%= @user.user_name %>
+				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 130%">
+					<% tmp = @user.user_name + " (" + @user.first_name + " " + @user.last_name + ")" %>
+					<%= link_to tmp, @user %>
 				</li>
-				<li style="display: block; line-height: 130%">
+				<li style="display: block; margin-left: 5px; line-height: 130%">
 					Current Rating:
-					<%= @user.rating.round(2) %>
+					<%= link_to @user.rating.round(2), @user %>
 				</li>
 			</ul>
 		</div>

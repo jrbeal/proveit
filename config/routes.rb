@@ -4,11 +4,13 @@ Rails.application.routes.draw do
 	get 'about'		         =>	'static_pages#about'
 	get 'contact'	         =>	'static_pages#contact'
   get 'posts/new'        => 'posts#new'
+	get 'users'            => 'users#show'
 
   resources :filters
   resources :groups
   resources :topics
   resources :posts
+	resources :users
 
   root 'application#homepage'
 

@@ -46,6 +46,7 @@ class PostsController < ApplicationController
 
 		@post.parent = Post.find params[:parentpost]
 		@post.topic = Topic.find params[:topic]
+
 		@post.user = User.new :rating => rand() * 100, :first_name => "John", :last_name => "Doe", :user_name => "newuser"
 
 		@post.save!

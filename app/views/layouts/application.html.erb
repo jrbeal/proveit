@@ -33,12 +33,16 @@
 					<%= link_to image_tag('Jeff.jpg', :border => 2, id: "userimage"), "#" %>
 				</li>
 				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 130%">
-					<% tmp = @user.user_name + " (" + @user.first_name + " " + @user.last_name + ")" %>
-					<%= link_to tmp, @user %>
+					<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
+					<%= link_to tmp, "#" %>
 				</li>
 				<li style="display: block; margin-left: 5px; line-height: 130%">
 					Current Rating:
-					<%= link_to @user.rating.round(2), @user %>
+					<%= link_to current_prover.rating.round(2), "#" %>
+				</li>
+				<li style="display: block; margin-left: 5px; line-height: 130%">
+					Filter:
+					<%= link_to "Topics", "#" %>
 				</li>
 			</ul>
 		</div>

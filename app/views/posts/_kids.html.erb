@@ -16,9 +16,9 @@
 			<em><span class="message">
 				<%= link_to kid.message, kid, {:style=>'color:blue;'} %>
 			</span></em>
-			<div class="right">
-				<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :class => 'lesspost' %>
-				<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :class => 'morepost' %>
+			<div class="right spacing">
+				<%= link_to "Less", "#", :id => "lesspost"%>
+				<%= link_to "More", "#", :id => "morepost"%>
 			</div>
 		</div>
 		<div class="vlevel3 sidepadding">

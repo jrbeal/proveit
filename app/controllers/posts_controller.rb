@@ -22,7 +22,6 @@ class PostsController < ApplicationController
 		end
 
 		@kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
-
 	end
 
   # GET /posts/new

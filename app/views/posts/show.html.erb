@@ -302,8 +302,8 @@
     <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root_id %>
 
  	  <div class="right" style="margin-right: 5px;">
-			<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lessmaster' %>
-			<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'moremaster' %>
+			<%= link_to "Less", "#", :id => "lessmaster"%>
+			<%= link_to "More", "#", :id => "moremaster"%>
     </div>
 	</div>
 
@@ -324,8 +324,8 @@
 				<%= @post.message %>
 			</span></em>
       <div class="right spacing">
-				<%= link_to image_tag('Left-arrow.png', :size => '15x12'), '#', :id => 'lesspost' %>
-				<%= link_to image_tag('Right-arrow.png', :size => '15x12'), '#', :id => 'morepost' %>
+				<%= link_to "Less", "#", :id => "lesspost"%>
+				<%= link_to "More", "#", :id => "morepost"%>
 			</div>
     </div>
     <div class="vlevel3 sidepadding">

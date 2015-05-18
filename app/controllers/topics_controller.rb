@@ -43,7 +43,7 @@ class TopicsController < ApplicationController
 
 		@post.topic = @topic
 		@post.parent = nil
-		@post.user = User.new :rating => rand() * 100, :first_name => "John", :last_name => "Doe", :user_name => "newuser"
+		@post.prover = current_prover
 		@topic.root_id = @post
 
 		@topic.save!

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516195611) do
+ActiveRecord::Schema.define(version: 20150518020636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20150516195611) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.boolean  "public"
-    t.integer  "user_id"
+    t.integer  "prover_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -90,13 +90,13 @@ ActiveRecord::Schema.define(version: 20150516195611) do
     t.string   "message"
     t.integer  "topic_id"
     t.integer  "points"
-    t.integer  "user_id"
     t.string   "kind"
     t.integer  "parent_id"
     t.integer  "children_opinions"
     t.integer  "offspring_opinions"
     t.integer  "children_comments"
     t.integer  "offspring_comments"
+    t.integer  "prover_id"
   end
 
   create_table "provers", force: :cascade do |t|
@@ -150,54 +150,26 @@ ActiveRecord::Schema.define(version: 20150516195611) do
     t.integer  "categories_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "user_name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "timezone"
-    t.string   "language"
-    t.binary   "password"
-    t.integer  "verbosity"
-    t.integer  "default_filter"
-    t.boolean  "list"
-    t.string   "location"
-    t.string   "occupation"
-    t.string   "phone"
-    t.string   "education"
-    t.string   "about"
-    t.integer  "opinions"
-    t.integer  "comments"
-    t.integer  "initiators"
-    t.float    "rating"
-    t.float    "percentile"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "objections"
-    t.string   "encrypted_password"
-    t.string   "salt"
-  end
-
   create_table "users_groups", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "group_id"
+    t.integer "prover_id"
   end
 
   create_table "users_teams", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "team_id"
+    t.integer "prover_id"
   end
 
-  add_foreign_key "filters", "users"
+  add_foreign_key "filters", "provers"
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
+  add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
-  add_foreign_key "posts", "users", on_delete: :cascade
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
   add_foreign_key "topics", "teams", column: "team1_id"
   add_foreign_key "topics", "teams", column: "team2_id"
   add_foreign_key "users_groups", "groups"
-  add_foreign_key "users_groups", "users"
+  add_foreign_key "users_groups", "provers"
+  add_foreign_key "users_teams", "provers"
   add_foreign_key "users_teams", "teams"
-  add_foreign_key "users_teams", "users"
 end

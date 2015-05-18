@@ -1,9 +1,9 @@
 <% kids.each do |kid| %>
 
 	<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= (indent).humanize %>">
-		<% user = kid.user %>
+		<% user = kid.prover %>
 		<div class="vlevel2 sidepadding">
-			<%= user.user_name %>
+			<%= user.provername %>
 			(<%= user.first_name %>
 			<%= user.last_name %>), &nbsp
 			<%= user.rating.round(2) %>, &nbsp

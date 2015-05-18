@@ -1,0 +1,301 @@
+<head>
+	<script type="text/javascript">
+		$(function() {
+
+			$('input[name="profile"]').on('click', function(e) {
+				console.log("Selecting profile tab...");
+				var $tgt = $(e.target);
+				if($tgt.val() == "account") {
+					console.log("profile = account");
+					$('#profileaccount').show();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "profile") {
+					console.log("profile = profile");
+					$('#profileaccount').hide();
+					$('#profileprofile').show();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "password") {
+					console.log("profile = password");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').show();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "settings") {
+					console.log("profile = settings");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').show();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "mobile") {
+					console.log("profile = mobile");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').show();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "email") {
+					console.log("profile = email");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').show();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "apps") {
+					console.log("profile = apps");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').show();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "rating") {
+					console.log("profile = rating");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').show();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "administrative") {
+					console.log("profile = administrative");
+					$('#profileaccount').hide();
+					$('#profileprofile').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').show();
+				} else {
+					console.log("Clicking unknown profile tab: " + $tgt.val());
+				}
+			});
+
+			$('input[name="profile"][value="profile"]').click();
+
+		});
+	</script>
+</head>
+
+<div class="mainbody">
+	<div id="userprofiletabs" class="toppadding20">
+		<form action="<%= provers_path %>" method="post">
+			<div class="sidepadding">
+				<%= link_to 'Home', root_path %>
+
+				<div class="right sidepadding">
+					<%= radio_button_tag(:profile, "account", checked=TrueClass) %>
+					<%= label_tag(:profile, "Account") %>
+					<%= radio_button_tag(:profile, "profile") %>
+					<%= label_tag(:profile, "Profile") %>
+					<%= radio_button_tag(:profile, "password") %>
+					<%= label_tag(:profile, "Password") %>
+					<%= radio_button_tag(:profile, "settings") %>
+					<%= label_tag(:profile, "Settings") %>
+					<%= radio_button_tag(:profile, "mobile") %>
+					<%= label_tag(:profile, "Mobile") %>
+					<%= radio_button_tag(:profile, "email") %>
+					<%= label_tag(:profile, "Email") %>
+					<%= radio_button_tag(:profile, "apps") %>
+					<%= label_tag(:profile, "Apps") %>
+					<%= radio_button_tag(:profile, "rating") %>
+					<%= label_tag(:profile, "Rating") %>
+					<%= radio_button_tag(:profile, "administrative") %>
+					<%= label_tag(:profile, "Administrative") %>
+				</div>
+			</div>
+
+			<div class="profilepage">
+				<div id="profileaccount">
+					Profile Account
+				</div>
+
+				<div id="profileprofile">
+					Profile Profile
+				</div>
+
+				<div id="profilepassword">
+					Profile Password
+				</div>
+
+				<div id="profilesettings">
+					<div id="profiledefaultsettings">
+						<b>Defaults:</b>
+						<div id="verbosity">
+							<b>Verbosity:</b>
+							<%= radio_button_tag(:verbosity, "one") %>
+							<%= label_tag(:verbosity, "1") %>
+							<%= radio_button_tag(:verbosity, "two") %>
+							<%= label_tag(:verbosity, "2") %>
+							<%= radio_button_tag(:verbosity, "three", checked=TrueClass) %>
+							<%= label_tag(:verbosity, "3") %>
+							<%= radio_button_tag(:verbosity, "four") %>
+							<%= label_tag(:verbosity, "4") %>
+						</div>
+
+						<div id="filter">
+							<b>Filter:</b>
+							<%= radio_button_tag(:filter, "topics", checked=TrueClass) %>
+							<%= label_tag(:filter, "Topics") %>
+							<%= radio_button_tag(:filter, "opinions") %>
+							<%= label_tag(:filter, "Opinions") %>
+							<%= radio_button_tag(:filter, "objections") %>
+							<%= label_tag(:filter, "Objections") %>
+							<%= radio_button_tag(:filter, "initiators") %>
+							<%= label_tag(:filter, "Initiators") %>
+							<%= radio_button_tag(:filter, "comments") %>
+							<%= label_tag(:filter, "Comments") %>
+							<%= radio_button_tag(:filter, "following") %>
+							<%= label_tag(:filter, "Following") %>
+							<%= radio_button_tag(:filter, "bookmarks") %>
+							<%= label_tag(:filter, "Bookmarks") %>
+						</div>
+
+						<div id="offspring">
+							<b>Offspring:</b>
+							<%= radio_button_tag(:offspring, "collapsed", checked=TrueClass) %>
+							<%= label_tag(:offspring, "Collapsed") %>
+							<%= radio_button_tag(:offspring, "expanded") %>
+							<%= label_tag(:offspring, "Expanded") %>
+						</div>
+					</div>
+
+					<div id="profilequicklooksettings">
+						<b>Quicklook:</b>
+						<div id="quicklookdefaultfilters">
+							<b>Default Filters:</b>
+							<%= check_box_tag 'quicklook', 'topics', true %>
+							<%= label_tag 'Topics' %>
+							<%= check_box_tag 'quicklook', 'opinions', true %>
+							<%= label_tag 'Opinions' %>
+							<%= check_box_tag 'quicklook', 'objections', true %>
+							<%= label_tag 'Objections' %>
+							<%= check_box_tag 'quicklook', 'initiators', false %>
+							<%= label_tag 'Initiators' %>
+							<%= check_box_tag 'quicklook', 'comments', false %>
+							<%= label_tag 'Comments' %>
+							<%= check_box_tag 'quicklook', 'following', false %>
+							<%= label_tag 'Following' %>
+							<%= check_box_tag 'quicklook', 'bookmarks', false %>
+							<%= label_tag 'Bookmarks' %>
+						</div>
+						<div id="quicklookdefaultfilters">
+							<b>Custom Filters:</b>
+							<%= check_box_tag 'quicklook', 'myopinions', true %>
+							<%= label_tag 'MyOpinions' %>
+							<%= check_box_tag 'quicklook', 'opinions', false %>
+							<%= label_tag 'MyComments' %>
+							<%= check_box_tag 'quicklook', 'objections', false %>
+							<%= label_tag 'MyInitiators' %>
+							<%= check_box_tag 'quicklook', 'initiators', false %>
+							<%= label_tag 'MyObjections' %>
+							<%= check_box_tag 'quicklook', 'comments', true %>
+							<%= label_tag 'MyFamily' %>
+							<%= check_box_tag 'quicklook', 'following', false %>
+							<%= label_tag 'Contested' %>
+							<%= check_box_tag 'quicklook', 'bookmarks', false %>
+							<%= label_tag 'Uncontested' %>
+						</div>
+					</div>
+				</div>
+
+				<div id="profilemobile">
+					Profile Mobile
+				</div>
+
+				<div id="profileemail">
+					Profile Email
+				</div>
+
+				<div id="profileapps">
+					Profile Apps
+				</div>
+
+				<div id="profilerating">
+					<div style="height: 200px">
+						<li>Current Rating = <%= current_prover.rating.round(2) %>
+						<div id="ratingexplanation">
+							<b><div>
+								Explanation:
+							</div></b>
+
+							<div style="margin-top: 10px">
+								When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
+								Once contested, its status will become false (red) and its score will drop to 0. Whenever a post's
+								status is true, its score will decay over time using the half-life formula: 100(.974<b>**</b>n) where
+								'n' represents the number of weeks since it, or its last offspring, was created -- whichever is less.
+								For example, the score for a true post after 19 weeks with no new offspring would be reduced to 60.62.
+								If its status reverted to false, its score would be reduced to 0. If it became true again, its score
+								would reset (to 100) and the decay process would start over. A post will likely toggle back and forth
+								between true and false throughout it's lifetime with its score ranging between 0 and 100.
+							</div>
+
+							<div style="margin-top: 10px">
+								<b><u><em>
+									A user's rating is calculated by averaging his/her 100 most recently active post scores.
+								</em></u></b>
+							</div>
+
+							<div style="margin-top: 10px">
+								<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
+							</div>
+						</div>
+						<li>Current Ranking = (to be implemented)
+						<li>Percentile = (to be implemented)
+						<li>Highest Rating = (to be implemented)
+						<li>True = (to be implemented)
+						<li>False = (to be implemented)
+						<li>Offspring = (to be implemented)
+					</div>
+				</div>
+
+				<div id="profileadministrative">
+					Profile Administrative
+				</div>
+      </div>
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+			<div class="toppadding10 sidepadding">
+				<%= submit_tag("Save")%>
+			</div>
+		</form>
+	</div>
+</div>

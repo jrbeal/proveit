@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     end
 
     @posts.sort! { |a,b| b.views <=> a.views }
-
-		@user = User.where(:email => "#{current_prover.email}").first
 	end
 
 	protected

@@ -309,8 +309,8 @@
 
   <div class="post <%= status_color(@post) %>">
     <div class="vlevel2 sidepadding">
-      <% user = @post.user %>
-			<%= user.user_name %>
+      <% user = @post.prover %>
+			<%= user.provername %>
 			(<%= user.first_name %>
 			<%= user.last_name %>), &nbsp
       <%= user.rating.round(2) %>, &nbsp

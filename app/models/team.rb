@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
   has_one :topic
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :provers
 	
 	TYPES = ["participants", "agree", "disagree", "team1", "team2"]
 	

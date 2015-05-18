@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :topic, :class_name => "Topic"
 	belongs_to :parent, :class_name =>"Post", dependent: :destroy
-	belongs_to :user, :class_name => "User"
+	belongs_to :prover, :class_name => "Prover"
 
   has_many :posts, dependent: :destroy
   has_many :topics, dependent: :destroy

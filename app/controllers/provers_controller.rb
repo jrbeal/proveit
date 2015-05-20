@@ -9,17 +9,12 @@ class ProversController < ApplicationController
 	end
 
 	def update
-		# s3 = Aws::S3::Client.new(:region => 'us-east-1')
-		# s3 = Aws::S3::Resource.new(:region => 'us-east-1')
+		clean_params = prover_params
+		if params[:prover][:profile_image]
+			clean_params[:image_url] = upload_image
+		end
 
-		current_prover.update prover_params
-
-		# bucket = s3.bucket('prover_photos').object('photos')
-		# puts bucket.inspect
-		# uploaded_photo = bucket.upload_file(params[:prover][:profile_image])
-		# uploaded_photo = s3.put_object(:body => params[:prover][:profile_image])
-
-		# puts uploaded_photo.inspect
+		current_prover.update clean_params
 
 		redirect_to root_path
 	end
@@ -28,5 +23,18 @@ class ProversController < ApplicationController
 
 	def prover_params
 		params.permit([:id, :first_name, :last_name, :verbosity, :location, :occupation, :education, :aboutme, :filter, :offspring_style])
+	end
+
+	def upload_image
+		s3 = Aws::S3::Client.new(:region => 'us-east-1')
+		id = SecureRandom::uuid
+
+		s3.put_object(:body => params[:prover][:profile_image].open,
+			:acl => "public-read",
+			:bucket => "proveitimages",
+			:key => id
+		)
+		
+		"https://s3.amazonaws.com/proveitimages/#{id}"
 	end
 end

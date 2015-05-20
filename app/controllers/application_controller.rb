@@ -8,13 +8,26 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_prover!
 
 	def homepage
-		@topics = Topic.all
-		@posts = []
-		@topics.each do |topic|
-      @posts.push topic.root_id
-    end
+		case current_prover.filter
+			when Prover::TOPICS
+				@topics = Topic.all
+				@posts = []
+				@topics.each do |topic|
+					@posts.push topic.root_id
+				end
+			when Prover::OPINIONS
+				@posts = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
+			when Prover::OBJECTIONS
+				@posts = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
+			when Prover::INITIATORS
+				@posts = Post.where("kind = ?", Post::INITIATOR)
+			when Prover::COMMENTS
+				@posts = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
+			when Prover::FOLLOWING
+			when Prover::BOOKMARKS
+		end
 
-    @posts.sort! { |a,b| b.views <=> a.views }
+    # @posts.sort! { |a,b| b.views <=> a.views }
 	end
 
 	protected

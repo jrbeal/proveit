@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519161941) do
+ActiveRecord::Schema.define(version: 20150520121250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(version: 20150519161941) do
     t.datetime "updated_at"
     t.string   "provername"
     t.integer  "verbosity"
-    t.string   "default_filter"
     t.float    "rating"
     t.float    "percentile"
     t.string   "first_name"
@@ -125,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150519161941) do
     t.string   "education"
     t.string   "occupation"
     t.string   "location"
+    t.string   "filter"
   end
 
   add_index "provers", ["email"], name: "index_provers_on_email", unique: true, using: :btree

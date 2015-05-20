@@ -20,11 +20,6 @@ class PostsController < ApplicationController
 		  @defaultkidtype = @post.kind
 		end
 
-		p1 = current_prover
-		puts p1.inspect
-
-		p2 = current_prover
-		puts p2.inspect
 		@kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
 	end
 

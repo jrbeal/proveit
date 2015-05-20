@@ -28,7 +28,7 @@
 	<% if prover_signed_in? %>
 		<div id="leftcolumn">
 			<ul class="userinfo">
-				<%= link_to image_tag('https://s3.amazonaws.com/proveitimages/jrbeal.jpg', :class => "userimage"), "#" %>
+				<%= link_to image_tag(current_prover.image_url, :class => "userimage"), prover_path(current_prover, :default_tab => "profile")%>
 				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 130%">
 					<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
 					<%= link_to tmp, current_prover %>
@@ -37,7 +37,7 @@
 					Current Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
 				</li>
 				<li style="display: block; margin-left: 5px; line-height: 130%">
-					Filter: <%= link_to current_prover.default_filter.capitalize, prover_path(current_prover, :default_tab => "settings") %>
+					Filter: <%= link_to current_prover.filter.capitalize, prover_path(current_prover, :default_tab => "filters") %>
 				</li>
 				<li style="display: block; margin-left: 5px; line-height: 130%">
 					<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>

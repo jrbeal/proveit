@@ -220,6 +220,17 @@ textarea {
 	width: 100px;
 }
 
+.postimage {
+	margin: 5px;
+	margin-right: 10px;
+	float: left;
+	border-radius: 5px;
+	border-width: 1px;
+	border-style: solid;
+	height: 50px;
+	width: 50px;
+}
+
 .kidtitle {
 	margin-left: 10%;
 	display: inline;

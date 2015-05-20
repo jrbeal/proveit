@@ -23,11 +23,9 @@ class Prover < ActiveRecord::Base
 	before_create do # Initialize the new user
 		self.verbosity = 3
 		self.offspring_style = COLLAPSED
-		self.default_filter = TOPICS
+		self.filter = TOPICS
 		self.rating = 0
 		self.percentile = 0
-
-		puts "BEFORE CREATE CALLED BEFORE CREATE CALLED"
-
+		self.image_url = "default_avatar.png"
 	end
 end

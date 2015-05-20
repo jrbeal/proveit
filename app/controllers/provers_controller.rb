@@ -3,8 +3,9 @@ class ProversController < ApplicationController
 	# end
 
 	def show
-		@default_tab = params[:default_tab] || "account"
-		current_prover.image_url = 'https://s3.amazonaws.com/proveitimages/jrbeal.jpg'
+		@default_tab = params[:default_tab] || "profile"
+		@prover = Prover.find(params[:id])
+		@owner = @prover == current_prover
 	end
 
 	def update
@@ -26,6 +27,6 @@ class ProversController < ApplicationController
 	private
 
 	def prover_params
-		params.permit([:id, :first_name, :last_name, :verbosity, :location, :occupation, :education, :aboutme, :default_filter, :offspring_style])
+		params.permit([:id, :first_name, :last_name, :verbosity, :location, :occupation, :education, :aboutme, :filter, :offspring_style])
 	end
 end

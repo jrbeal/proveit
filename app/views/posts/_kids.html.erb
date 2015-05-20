@@ -1,6 +1,7 @@
 <% kids.each do |kid| %>
 
 	<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= (indent).humanize %>">
+		<%= link_to image_tag(kid.prover.image_url, :class => "postimage"), kid.prover %>
 		<div class="vlevel2 sidepadding">
 			<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
 			<%= link_to tmp, kid.prover %>, &nbsp

@@ -119,6 +119,7 @@
 			<div class="toppadding10">
 				<% @posts.each do |post| %>
 					<div class="post <%= status_color(post) %>">
+						<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>
 						<div class="vlevel2 sidepadding">
 							<% tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 							<%= link_to tmp, post.prover %>, &nbsp

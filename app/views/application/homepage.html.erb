@@ -118,13 +118,11 @@
 
 			<div class="toppadding10">
 				<% @posts.each do |post| %>
-					<% prover = post.prover %>
 					<div class="post <%= status_color(post) %>">
 						<div class="vlevel2 sidepadding">
-							<%= prover.provername %>
-							(<%= prover.first_name %>
-							<%= prover.last_name %>), &nbsp
-							<%= prover.rating.round(2) %>, &nbsp
+							<% tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
+							<%= link_to tmp, post.prover %>, &nbsp
+							<%= post.prover.rating.round(2) %>, &nbsp
 							<a href="#" id="follow">Follow</a>
 							<div class="right">
 								<%= post.created_at.strftime("%c") %>

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :provers
+  devise_for :provers, :path => 'accounts'
 	get 'help'		         =>	'static_pages#help'
 	get 'about'		         =>	'static_pages#about'
 	get 'contact'	         =>	'static_pages#contact'
   get 'posts/new'        => 'posts#new'
-	get 'provers'          => 'provers#show'
 
   resources :filters
   resources :groups

@@ -2,46 +2,46 @@
 	<script type="text/javascript">
 		$(function() {
 
-			$('#type_opinion').on("click", function() {
+			$('#type_opinion').on("click", function () {
 				console.log("Now we're in opinion mode.");
 				$(".submit_text.message_text").text("In my opinion:");
 				$(".submit_text.support_text").text("Support (Optional):");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter opinion here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional rationale, clarification, supporting information, and external links here.';
+				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional rationale, clarification, supporting information, and external links here.';
 			});
 
-			$('#type_initiator').on("click", function() {
+			$('#type_initiator').on("click", function () {
 				console.log("Now we're in initiator mode.");
 				$(".submit_text.message_text").text("Initiator:");
 				$(".submit_text.support_text").text("Support (Optional):");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter attachments, clarification, supporting information, and external links here.';
+				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter attachments, clarification, supporting information, and external links here.';
 			});
 
-			$('#type_comment').on("click", function() {
+			$('#type_comment').on("click", function () {
 				console.log("Now we're in comment mode.");
 				$(".submit_text.message_text").text("Comment:");
 				$(".submit_text.support_text").text("Support (Optional): ");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter comment here.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information and/or attachments here.';
+				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter comment here.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information and/or attachments here.';
 			});
 
-			$('#format_public').on("click", function() {
+			$('#format_public').on("click", function () {
 				console.log("Selecting public.");
 				$('#private').hide();
 				$('#public').show();
 			});
 
-			$('#format_private').on("click", function() {
+			$('#format_private').on("click", function () {
 				console.log("Selecting private.");
 				$('#private').show();
 				$('#public').hide();
 			});
 
-			$('#publicviewing').on("click", function(e) {
+			$('#publicviewing').on("click", function (e) {
 				console.log("Selecting public viewing.");
 				var $tgt = $(e.target);
-				if($tgt.prop("checked")) {
+				if ($tgt.prop("checked")) {
 					$('#pubcomments').show();
 				} else {
 					$('#pubcomments').hide();
@@ -57,52 +57,52 @@
 				history.back();
 			});
 
-			$('#cancelopinionreply').on("click", function() {
+			$('#cancelopinionreply').on("click", function () {
 				$('#kids').show();
 				$('#opinionreply').hide();
 				$('#commentreply').hide();
 				$('#initiatorreply').hide();
 			});
 
-			$('#cancelinitiatorreply').on("click", function() {
+			$('#cancelinitiatorreply').on("click", function () {
 				$('#kids').show();
 				$('#opinionreply').hide();
 				$('#commentreply').hide();
 				$('#initiatorreply').hide();
 			});
 
-			$('#cancelcommentreply').on("click", function() {
+			$('#cancelcommentreply').on("click", function () {
 				$('#kids').show();
 				$('#opinionreply').hide();
 				$('#commentreply').hide();
 				$('#initiatorreply').hide();
 			});
 
-			$('#replysubmitbutton').on("click", function() {
-					history.back();
+			$('#replysubmitbutton').on("click", function () {
+				history.back();
 			});
 
-			$('input[name="kidtype"]').on('click', function(e) {
-					console.log("click!");
-					var $tgt = $(e.target);
-					if($tgt.val() == "<%= Post::COMMENT %>") {
-						console.log("kidtype = comment");
-						$('.opinion').hide();
-						$('.comment').show();
-					} else if($tgt.val() == "<%= Post::OPINION %>") {
-						console.log("kidtype = opinion");
-						$('.opinion').show();
-						$('.comment').hide();
-					} else if($tgt.val() == "<%= Post::INITIATOR %>") {
-						console.log("kidtype = initiator");
-						$('.opinion').show();
-						$('.comment').hide();
-					} else {
-						console.log("Clicking unknown kidtype: " + $tgt.val());
-					}
+			$('input[name="kidtype"]').on('click', function (e) {
+				console.log("click!");
+				var $tgt = $(e.target);
+				if ($tgt.val() == "<%= Post::COMMENT %>") {
+					console.log("kidtype = comment");
+					$('.opinion').hide();
+					$('.comment').show();
+				} else if ($tgt.val() == "<%= Post::OPINION %>") {
+					console.log("kidtype = opinion");
+					$('.opinion').show();
+					$('.comment').hide();
+				} else if ($tgt.val() == "<%= Post::INITIATOR %>") {
+					console.log("kidtype = initiator");
+					$('.opinion').show();
+					$('.comment').hide();
+				} else {
+					console.log("Clicking unknown kidtype: " + $tgt.val());
+				}
 			});
 
-			$('#createkid').on("click", function() {
+			$('#createkid').on("click", function () {
 				$('#kids').hide();
 
 				var $type = '<%= @post.kind %>';
@@ -135,102 +135,102 @@
 
 			var verbosity = <%= current_prover.verbosity %>
 
-			$(function() {
-				$('#lessmaster').on("click", function () {
-					console.log("Decreasing verbosity level")
-					if (verbosity > 1) {
-						verbosity -= 1;
-					}
-
-					switch (verbosity) {
-						case 3:
-							console.log("level 3.");
-							$('.vlevel4').hide();
-							break;
-						case 2:
-							console.log("level 2.");
-							$('.vlevel3').hide();
-							break;
-						case 1:
-							console.log("level 1.");
-							$('.vlevel2').hide();
-							break;
-						case 1:
-						default:
-							console.log("Can not hide verbosity level 1.");
-							break;
-					}
-				});
-
-				$('#moremaster').on("click", function () {
-					console.log("Increasing verbosity level")
-
-					if (verbosity < 4) {
-						verbosity += 1;
-					}
-
-					switch (verbosity) {
-						case 4:
-							console.log("level 4.");
-							$('.vlevel4').show();
-							break;
-						case 3:
-							console.log("level 3.");
-							$('.vlevel3').show();
-							break;
-						case 2:
-						default:
-							console.log("level 2.");
-							$('.vlevel2').show();
-							break;
-					}
-				});
-
-				$('#lesspost').on("click", function () {
-					console.log("Decreasing post verbosity.");
-				});
-
-				$('#morepost').on("click", function () {
-					console.log("Increasing post verbosity.");
-				});
-
-				$('#follow').on("click", function () {
-					console.log("Following...");
-				});
-
 				$(function () {
-					switch (verbosity) {
-						case 4:
-							console.log("Showing verbosity level 4.");
-							$('.vlevel1').show();
-							$('.vlevel2').show();
-							$('.vlevel3').show();
-							$('.vlevel4').show();
-							break;
-						case 3:
-							console.log("Showing verbosity level 3.");
-							$('.vlevel1').show();
-							$('.vlevel2').show();
-							$('.vlevel3').show();
-							$('.vlevel4').hide();
-							break;
-						case 2:
-							console.log("Showing verbosity level 2.");
-							$('.vlevel1').show();
-							$('.vlevel2').show();
-							$('.vlevel3').hide();
-							$('.vlevel4').hide();
-							break;
-						case 1:
-						default:
-							console.log("Showing verbosity level 1.");
-							$('.vlevel1').show();
-							$('.vlevel2').hide();
-							$('.vlevel3').hide();
-							$('.vlevel4').hide();
-					}
+					$('#lessmaster').on("click", function () {
+						console.log("Decreasing verbosity level")
+						if (verbosity > 1) {
+							verbosity -= 1;
+						}
+
+						switch (verbosity) {
+							case 3:
+								console.log("level 3.");
+								$('.vlevel4').hide();
+								break;
+							case 2:
+								console.log("level 2.");
+								$('.vlevel3').hide();
+								break;
+							case 1:
+								console.log("level 1.");
+								$('.vlevel2').hide();
+								break;
+							case 1:
+							default:
+								console.log("Can not hide verbosity level 1.");
+								break;
+						}
+					});
+
+					$('#moremaster').on("click", function () {
+						console.log("Increasing verbosity level")
+
+						if (verbosity < 4) {
+							verbosity += 1;
+						}
+
+						switch (verbosity) {
+							case 4:
+								console.log("level 4.");
+								$('.vlevel4').show();
+								break;
+							case 3:
+								console.log("level 3.");
+								$('.vlevel3').show();
+								break;
+							case 2:
+							default:
+								console.log("level 2.");
+								$('.vlevel2').show();
+								break;
+						}
+					});
+
+					$('#lesspost').on("click", function () {
+						console.log("Decreasing post verbosity.");
+					});
+
+					$('#morepost').on("click", function () {
+						console.log("Increasing post verbosity.");
+					});
+
+					$('#follow').on("click", function () {
+						console.log("Following...");
+					});
+
+					$(function () {
+						switch (verbosity) {
+							case 4:
+								console.log("Showing verbosity level 4.");
+								$('.vlevel1').show();
+								$('.vlevel2').show();
+								$('.vlevel3').show();
+								$('.vlevel4').show();
+								break;
+							case 3:
+								console.log("Showing verbosity level 3.");
+								$('.vlevel1').show();
+								$('.vlevel2').show();
+								$('.vlevel3').show();
+								$('.vlevel4').hide();
+								break;
+							case 2:
+								console.log("Showing verbosity level 2.");
+								$('.vlevel1').show();
+								$('.vlevel2').show();
+								$('.vlevel3').hide();
+								$('.vlevel4').hide();
+								break;
+							case 1:
+							default:
+								console.log("Showing verbosity level 1.");
+								$('.vlevel1').show();
+								$('.vlevel2').hide();
+								$('.vlevel3').hide();
+								$('.vlevel4').hide();
+						}
+					});
 				});
-			});
 
 			$('#expand').on("click", function () {
 				console.log("Expanding kids")
@@ -246,9 +246,8 @@
 //				$('.ten').show();
 //				$('.eleven').show();
 //				$('.twelve').show();
-				$('#collapse').show();
-				$('#expand').hide();
-
+//				$('#collapse').show();
+//				$('#expand').hide();
 			});
 
 			$('#collapse').on("click", function () {
@@ -265,8 +264,8 @@
 //				$('.ten').hide();
 //				$('.eleven').hide();
 //				$('.twelve').hide();
-				$('#collapse').hide();
-				$('#expand').show();
+//				$('#collapse').hide();
+//				$('#expand').show();
 			});
 
 			$('input[name="kidtype"][value="<%= @defaultkidtype %>"]').click();
@@ -276,21 +275,16 @@
 			$('#commentreply').hide();
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
-			$('#collapse').show();
-			$('#expand').hide();
 
-//			$('.one').hide();
-//			$('.two').hide();
-//			$('.three').hide();
-//			$('.four').hide();
-//			$('.five').hide();
-//			$('.six').hide();
-//			$('.seven').hide();
-//			$('.eight').hide();
-//			$('.nine').hide();
-//			$('.ten').hide();
-//			$('.eleven').hide();
-//			$('.twelve').hide();
+//			if (<%= current_prover.offspring_style %> == <%= Prover::COLLAPSED %>) {
+//				$('#collapse').hide();
+//				$('#expand').show();
+//			};
+//
+//			if (<%= current_prover.offspring_style %> == <%= Prover::EXPANDED %>) {
+//				$('#collapse').show();
+//				$('#expand').hide();
+//			};
 		});
 	</script>
 </head>
@@ -309,11 +303,9 @@
 
   <div class="post <%= status_color(@post) %>">
     <div class="vlevel2 sidepadding">
-      <% user = @post.prover %>
-			<%= user.provername %>
-			(<%= user.first_name %>
-			<%= user.last_name %>), &nbsp
-      <%= user.rating.round(2) %>, &nbsp
+			<% tmp = @post.prover.provername.downcase + " (" + @post.prover.first_name + " " + @post.prover.last_name + ")" %>
+			<%= link_to tmp, @post.prover %>, &nbsp
+      <%= @post.prover.rating.round(2) %>, &nbsp
 			<a href="#" id="follow">Follow</a>
 			<div class="right">
 				<%= @post.created_at.strftime("%c") %>
@@ -349,15 +341,15 @@
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
 			<a href="#" id="createkid">Reply</a>
-			<a href="#" id="expand">Expand</a>
-			<a href="#" id="collapse">Collapse</a>
+			<%= link_to "Collapse", @post, :id => "collapse" %>
+			<%= link_to "Expand", @post, :id => "expand" %>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
 			</div>
 	  </div>
 
 	  <div class="toppadding10">
-			<%= render partial: "kids", object: @kids, locals: {indent: 0, depth: 12}%>
+			<%= render partial: "kids", object: @kids, locals: {indent: 0} %>
 	  </div>
   </div>
 

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'aws-sdk', '~> 2'
 gem 'humanize'
 gem 'tabs_on_rails'
 gem 'devise'

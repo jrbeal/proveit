@@ -9,14 +9,25 @@ class Prover < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	COLLAPSED = "collapsed"
-	EXPANDED = "expanded"
+	TOPICS = "topics"
+	OPINIONS = "opinions"
+	OBJECTIONS = "objections"
+	INITIATORS = "initiators"
+	COMMENTS = "comments"
+	FOLLOWING = "following"
+	BOOKMARKS = "bookmarks"
 
-	before_create do 								# Initialize the new user
+	EXPANDED = "expanded"
+	COLLAPSED = "collapsed"
+
+	before_create do # Initialize the new user
 		self.verbosity = 3
-		self.offspring_collapsed = TRUE
-		self.default_filter = COLLAPSED
+		self.offspring_style = COLLAPSED
+		self.default_filter = TOPICS
 		self.rating = 0
 		self.percentile = 0
+
+		puts "BEFORE CREATE CALLED BEFORE CREATE CALLED"
+
 	end
 end

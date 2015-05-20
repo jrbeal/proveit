@@ -1,12 +1,10 @@
 <% kids.each do |kid| %>
 
 	<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= (indent).humanize %>">
-		<% user = kid.prover %>
 		<div class="vlevel2 sidepadding">
-			<%= user.provername %>
-			(<%= user.first_name %>
-			<%= user.last_name %>), &nbsp
-			<%= user.rating.round(2) %>, &nbsp
+			<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
+			<%= link_to tmp, kid.prover %>, &nbsp
+			<%= kid.prover.rating.round(2) %>, &nbsp
 			<a href="#" id="follow">Follow</a>
 			<div class="right">
 				<%= kid.created_at.strftime("%c") %>
@@ -35,10 +33,11 @@
 		</div>
 	</div>
 
-	<% if (depth > 0) %>
-		<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
+	<% puts (current_prover.inspect) %>
 
-		<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1, depth: depth-1}%>
+	<% if (current_prover.offspring_style == Prover::EXPANDED) %>
+		<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
+		<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1} %>
 	<% end %>
 
 <% end %>

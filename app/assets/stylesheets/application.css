@@ -97,6 +97,16 @@ textarea {
 	width: 86%;
 }
 
+.message_placeholder {
+	display: inline;
+	width: 86%;
+}
+
+.support_placeholder {
+	display: inline;
+	width: 86%;
+}
+
 .post {
 	border-radius: 10px;
 	padding: 5px;
@@ -178,13 +188,34 @@ textarea {
 	color: blue;
 }
 
+#profileprofilefields {
+	margin-top: 20px;
+	background-color: lightblue;
+	padding: 10px;
+	height: max-content;
+	width: max-content;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 2px;
+}
+
 .userinfo {
 	margin-top: 27px;
 	font-size: 10px;
 }
 
-#userimage {
+.profileuserimage {
 	border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
+	height: 150px;
+	width: 150px;
+}
+
+.userimage {
+	border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
 	height: 100px;
 	width: 100px;
 }

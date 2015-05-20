@@ -1,7 +1,6 @@
 <head>
 	<script type="text/javascript">
 		$(function() {
-
 			$('input[name="profile"]').on('click', function(e) {
 				console.log("Selecting profile tab...");
 				var $tgt = $(e.target);
@@ -109,20 +108,25 @@
 				}
 			});
 
-			$('input[name="profile"][value="profile"]').click();
-
+			$('input[name="profile"][value="<%= @default_tab %>"]').click();
+			$('input[name="default_filter"][value="<%= current_prover.default_filter %>"]').click();
+			$('input[name="verbosity"][value= <%= current_prover.verbosity %>]').click();
+			$('input[name="offspring_style"][value="<%= current_prover.offspring_style %>"]').click();
 		});
+
 	</script>
 </head>
 
 <div class="mainbody">
 	<div id="userprofiletabs" class="toppadding20">
-		<form action="<%= provers_path %>" method="post">
+
+		<%= form_for current_prover do |prover_form| %>
+
 			<div class="sidepadding">
 				<%= link_to 'Home', root_path %>
 
 				<div class="right sidepadding">
-					<%= radio_button_tag(:profile, "account", checked=TrueClass) %>
+					<%= radio_button_tag(:profile, "account") %>
 					<%= label_tag(:profile, "Account") %>
 					<%= radio_button_tag(:profile, "profile") %>
 					<%= label_tag(:profile, "Profile") %>
@@ -149,7 +153,25 @@
 				</div>
 
 				<div id="profileprofile">
-					Profile Profile
+
+					<%= link_to image_tag(current_prover.image_url, :class => "profileuserimage"), "#" %>
+
+					<%= prover_form.file_field :profile_image %>
+					<!--<input type="file" name="profile_image">-->
+
+					<div id="profileprofilefields">
+						<li>First Name: <textarea class="message profilefield" name="first_name" rows="1" cols="25"><%= current_prover.first_name %></textarea>
+
+						<li>Last Name: <textarea class="message profilefield" name="last_name"  rows="1" cols="25"><%= current_prover.last_name %></textarea>
+
+						<li>Location: <textarea class="message profilefield" name="location" rows="1" cols="25"><%= current_prover.location %></textarea>
+
+						<li>Occupation: <textarea class="message profilefield" name="occupation" rows="1" cols="25"><%= current_prover.occupation %></textarea>
+
+						<li>Education: <textarea class="message" name="education" rows="1" cols="25"><%= current_prover.education %></textarea>
+
+						<li>About Me: <textarea class="message" name="aboutme" rows="10" cols="25"><%= current_prover.aboutme %></textarea>
+					</div>
 				</div>
 
 				<div id="profilepassword">
@@ -161,45 +183,45 @@
 						<b>Defaults:</b>
 						<div id="verbosity">
 							<b>Verbosity:</b>
-							<%= radio_button_tag(:verbosity, "one") %>
+							<%= radio_button_tag(:verbosity, 1) %>
 							<%= label_tag(:verbosity, "1") %>
-							<%= radio_button_tag(:verbosity, "two") %>
+							<%= radio_button_tag(:verbosity, 2) %>
 							<%= label_tag(:verbosity, "2") %>
-							<%= radio_button_tag(:verbosity, "three", checked=TrueClass) %>
+							<%= radio_button_tag(:verbosity, 3) %>
 							<%= label_tag(:verbosity, "3") %>
-							<%= radio_button_tag(:verbosity, "four") %>
+							<%= radio_button_tag(:verbosity, 4) %>
 							<%= label_tag(:verbosity, "4") %>
 						</div>
 
 						<div id="filter">
 							<b>Filter:</b>
-							<%= radio_button_tag(:filter, "topics", checked=TrueClass) %>
-							<%= label_tag(:filter, "Topics") %>
-							<%= radio_button_tag(:filter, "opinions") %>
-							<%= label_tag(:filter, "Opinions") %>
-							<%= radio_button_tag(:filter, "objections") %>
-							<%= label_tag(:filter, "Objections") %>
-							<%= radio_button_tag(:filter, "initiators") %>
-							<%= label_tag(:filter, "Initiators") %>
-							<%= radio_button_tag(:filter, "comments") %>
-							<%= label_tag(:filter, "Comments") %>
-							<%= radio_button_tag(:filter, "following") %>
-							<%= label_tag(:filter, "Following") %>
-							<%= radio_button_tag(:filter, "bookmarks") %>
-							<%= label_tag(:filter, "Bookmarks") %>
+							<%= radio_button_tag(:default_filter, "topics") %>
+							<%= label_tag(:default_filter, "Topics") %>
+							<%= radio_button_tag(:default_filter, "opinions") %>
+							<%= label_tag(:default_filter, "Opinions") %>
+							<%= radio_button_tag(:default_filter, "objections") %>
+							<%= label_tag(:default_filter, "Objections") %>
+							<%= radio_button_tag(:default_filter, "initiators") %>
+							<%= label_tag(:default_filter, "Initiators") %>
+							<%= radio_button_tag(:default_filter, "comments") %>
+							<%= label_tag(:default_filter, "Comments") %>
+							<%= radio_button_tag(:default_filter, "following") %>
+							<%= label_tag(:default_filter, "Following") %>
+							<%= radio_button_tag(:default_filter, "bookmarks") %>
+							<%= label_tag(:default_filter, "Bookmarks") %>
 						</div>
 
 						<div id="offspring">
 							<b>Offspring:</b>
-							<%= radio_button_tag(:offspring, "collapsed", checked=TrueClass) %>
-							<%= label_tag(:offspring, "Collapsed") %>
-							<%= radio_button_tag(:offspring, "expanded") %>
-							<%= label_tag(:offspring, "Expanded") %>
+							<%= radio_button_tag(:offspring_style, "collapsed") %>
+							<%= label_tag(:offspring_style, "Collapsed") %>
+							<%= radio_button_tag(:offspring_style, "expanded") %>
+							<%= label_tag(:offspring_style, "Expanded") %>
 						</div>
 					</div>
 
 					<div id="profilequicklooksettings">
-						<b>Quicklook:</b>
+						<b>Quicklook Counts:</b>
 						<div id="quicklookdefaultfilters">
 							<b>Default Filters:</b>
 							<%= check_box_tag 'quicklook', 'topics', true %>
@@ -291,11 +313,12 @@
 					Profile Administrative
 				</div>
       </div>
+
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
 			<div class="toppadding10 sidepadding">
 				<%= submit_tag("Save")%>
 			</div>
-		</form>
+		<% end %>
 	</div>
 </div>

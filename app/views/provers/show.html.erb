@@ -177,20 +177,27 @@
 
 				<div id="profileprofile">
 
-					<%= link_to image_tag(@prover.image_url, :class => "profileuserimage"), "#" %>
+					<%= image_tag(@prover.image_url, :class => "profileproverimage") %>
 
-					<%= prover_form.file_field :profile_image %>
-					<!--<input type="file" name="profile_image">-->
+					<div id="profileprofilefields1">
+						Change profile photo: &nbsp
+						<%= prover_form.file_field :profile_image if @owner%>
+					</div>
 
-					<div id="profileprofilefields">
-						<ul>
-							<li>First Name: <textarea class="message profilefield" name="first_name" rows="1" cols="25"><%= @prover.first_name %></textarea>
-							<li>Last Name: <textarea class="message profilefield" name="last_name"  rows="1" cols="25"><%= @prover.last_name %></textarea>
-							<li>Location: <textarea class="message profilefield" name="location" rows="1" cols="25"><%= @prover.location %></textarea>
-							<li>Occupation: <textarea class="message profilefield" name="occupation" rows="1" cols="25"><%= @prover.occupation %></textarea>
-							<li>Education: <textarea class="message" name="education" rows="1" cols="25"><%= @prover.education %></textarea>
-							<li>About Me: <textarea class="message" name="aboutme" rows="10" cols="25"><%= @prover.aboutme %></textarea>
-						</ul>
+					<div id="profileprofilefields2">
+						<div>First Name: <textarea class="message profiletextfield1" name="first_name" rows="1"><%= @prover.first_name %></textarea></div>
+						<div>Last Name: <textarea class="message profiletextfield1" name="last_name"  rows="1"><%= @prover.last_name %></textarea></div>
+						<div>Username: <textarea class="message profiletextfield1" name="username"  rows="1"><%= @prover.provername %></textarea></div>
+						<div>Email: <textarea disabled class="message profiletextfield1" name="emailaddress"  rows="1"><%= @prover.email %></textarea></div>
+						<div>Location: <textarea class="message profiletextfield1" name="location" rows="1"><%= @prover.location %></textarea></div>
+						<div>Occupation: <textarea class="message profiletextfield1" name="occupation" rows="1"><%= @prover.occupation %></textarea></div>
+						<div>Education: <textarea class="message profiletextfield1" name="education" rows="1"><%= @prover.education %></textarea></div>
+						<div>Joined: <textarea disabled class="message profiletextfield1" name="joined" rows="1"><%= @prover.created_at %></textarea></div>
+						<div>Member #: <textarea disabled class="message profiletextfield1" name="userid" rows="1"><%= @prover.id %></textarea></div>
+					</div>
+
+					<div id="profileprofilefields3">
+						<div>About Me: <textarea class="message profiletextfield2" name="aboutme" rows="10"><%= @prover.aboutme %></textarea></div>
 					</div>
 				</div>
 
@@ -263,21 +270,26 @@
 				</div>
 
 				<div id="profilefilters">
-					<b>Filter:</b>
-					<%= radio_button_tag(:filter, "topics") %>
-					<%= label_tag(:filter, "Topics") %>
-					<%= radio_button_tag(:filter, "opinions") %>
-					<%= label_tag(:filter, "Opinions") %>
-					<%= radio_button_tag(:filter, "objections") %>
-					<%= label_tag(:filter, "Objections") %>
-					<%= radio_button_tag(:filter, "initiators") %>
-					<%= label_tag(:filter, "Initiators") %>
-					<%= radio_button_tag(:filter, "comments") %>
-					<%= label_tag(:filter, "Comments") %>
-					<%= radio_button_tag(:filter, "following") %>
-					<%= label_tag(:filter, "Following") %>
-					<%= radio_button_tag(:filter, "bookmarks") %>
-					<%= label_tag(:filter, "Bookmarks") %>
+					<div id="profiledefaultfilters">
+						<b>Filters:</b>
+						<div id="filter">
+							<b>Defaults:</b>
+							<%= radio_button_tag(:filter, "topics") %>
+							<%= label_tag(:filter, "Topics") %>
+							<%= radio_button_tag(:filter, "opinions") %>
+							<%= label_tag(:filter, "Opinions") %>
+							<%= radio_button_tag(:filter, "objections") %>
+							<%= label_tag(:filter, "Objections") %>
+							<%= radio_button_tag(:filter, "initiators") %>
+							<%= label_tag(:filter, "Initiators") %>
+							<%= radio_button_tag(:filter, "comments") %>
+							<%= label_tag(:filter, "Comments") %>
+							<%= radio_button_tag(:filter, "following") %>
+							<%= label_tag(:filter, "Following") %>
+							<%= radio_button_tag(:filter, "bookmarks") %>
+							<%= label_tag(:filter, "Bookmarks") %>
+						</div>
+					</div>
 				</div>
 
 				<div id="profilemobile">
@@ -321,12 +333,9 @@
 								<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
 							</div>
 						</div>
-						<li>Current Ranking = (to be implemented)
+						<li>Current Rank = (to be implemented)
 						<li>Percentile = (to be implemented)
 						<li>Highest Rating = (to be implemented)
-						<li>True = (to be implemented)
-						<li>False = (to be implemented)
-						<li>Offspring = (to be implemented)
 					</div>
 				</div>
 
@@ -338,7 +347,7 @@
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
 			<div class="toppadding10 sidepadding">
-				<%= submit_tag("Save")%>
+				<%= submit_tag("Save") if @owner %>
 			</div>
 		<% end %>
 	</div>

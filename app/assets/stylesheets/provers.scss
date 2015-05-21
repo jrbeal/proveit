@@ -2,25 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.profilepage {
-  padding: 15px;
-  margin-top: 10px;
-  height: max-content;
-  width: 100%;
-  border-radius: 20px;
-  border-style: solid;
-  border-width: 2px;
-}
-
-#profiledefaultsettings {
-  background-color: lightblue;
-  padding: 10px;
-  height: max-content;
-  width: max-content;
-  border-radius: 8px;
-  border-style: solid;
-  border-width: 2px;
-}
 
 #ratingexplanation {
   background-color: lightblue;
@@ -75,12 +56,12 @@
 #profilequicklooksettings {
   background-color: lightblue;
   padding: 10px;
-  margin-top: 15px;
+  margin: 10px;
   height: max-content;
   width: max-content;
   border-radius: 8px;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
 }
 
 #quicklookdefaultfilters {
@@ -107,4 +88,100 @@
   border-style: solid;
   border-width: 1px;
   border-radius: 8px;
+}
+
+#profileprofilefields1 {
+  float: right;
+  width: 78%;
+  background-color: lightblue;
+  padding: 8px;
+  margin: 10px;
+  width: max-content;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#profileprofilefields2 {
+  float: right;
+  display: inline-block;
+  margin: 10px;
+  padding: 8px;
+  background-color: lightblue;
+  height: max-content;
+  width: 78%;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#profileprofilefields3 {
+  display: inline-block;
+  margin: 10px;
+  padding: 8px;
+  background-color: lightblue;
+  height: max-content;
+  width: 97%;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.userinfo {
+  margin-top: 27px;
+  font-size: 10px;
+}
+
+.profileproverimage {
+  float: left;
+  margin: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  width: 16%;
+}
+
+.profilepage {
+  padding: 10px;
+  margin-top: 10px;
+  height: max-content;
+  width: 100%;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.profiletextfield1 {
+  float: right;
+  display: inline;
+  width: 88%
+}
+
+.profiletextfield2 {
+  float: right;
+  display: inline;
+  overflow-y: auto;
+  width: 100%;
+}
+
+#profiledefaultsettings {
+  background-color: lightblue;
+  margin: 10px;
+  padding: 10px;
+  height: max-content;
+  width: max-content;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#profiledefaultfilters {
+  background-color: lightblue;
+  margin: 10px;
+  padding: 10px;
+  height: max-content;
+  width: max-content;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
 }

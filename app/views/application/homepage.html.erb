@@ -6,27 +6,27 @@
 
 			$(function() {
 				$('#lessmaster').on("click", function () {
-					console.log("Verbosity level was " + verbosity)
 					if (verbosity > 1) {
 						verbosity -= 1;
 					}
 
 					switch (verbosity) {
 						case 3:
-							console.log("level 3.");
+							$('.vlevelindicator3').show();
+							$('.vlevelindicator4').hide();
 							$('.vlevel4').hide();
 							break;
 						case 2:
-							console.log("level 2.");
+							$('.vlevelindicator2').show();
+							$('.vlevelindicator3').hide();
+							$('.postimage').hide();
 							$('.vlevel3').hide();
 							break;
 						case 1:
-							console.log("level 1.");
-							$('.vlevel2').hide();
-							break;
-						case 1:
 						default:
-							console.log("Can not hide verbosity level 1.");
+							$('.vlevelindicator1').show();
+							$('.vlevelindicator2').hide();
+							$('.vlevel2').hide();
 							break;
 					}
 
@@ -34,23 +34,27 @@
 				});
 
 				$('#moremaster').on("click", function () {
-					console.log("Verbosity level was " + verbosity)
+
 					if (verbosity < 4) {
 						verbosity += 1;
 					}
 
 					switch (verbosity) {
 						case 4:
-							console.log("level 4.");
+							$('.vlevelindicator3').hide();
+							$('.vlevelindicator4').show();
 							$('.vlevel4').show();
 							break;
 						case 3:
-							console.log("level 3.");
+							$('.vlevelindicator2').hide();
+							$('.vlevelindicator3').show();
+							$('.postimage').show();
 							$('.vlevel3').show();
 							break;
 						case 2:
 						default:
-							console.log("level 2.");
+							$('.vlevelindicator1').hide();
+							$('.vlevelindicator2').show();
 							$('.vlevel2').show();
 							break;
 					}
@@ -74,32 +78,52 @@
 					switch (verbosity) {
 						case 4:
 							console.log("Showing verbosity level 4.");
+							$('.vlevelindicator1').hide();
+							$('.vlevelindicator2').hide();
+							$('.vlevelindicator3').hide();
+							$('.vlevelindicator4').show();
 							$('.vlevel1').show();
 							$('.vlevel2').show();
 							$('.vlevel3').show();
 							$('.vlevel4').show();
+							$('.postimage').show();
 							break;
 						case 3:
 							console.log("Showing verbosity level 3.");
+							$('.vlevelindicator1').hide();
+							$('.vlevelindicator2').hide();
+							$('.vlevelindicator3').show();
+							$('.vlevelindicator4').hide();
 							$('.vlevel1').show();
 							$('.vlevel2').show();
 							$('.vlevel3').show();
 							$('.vlevel4').hide();
+							$('.postimage').show();
 							break;
 						case 2:
 							console.log("Showing verbosity level 2.");
+							$('.vlevelindicator1').hide();
+							$('.vlevelindicator2').show();
+							$('.vlevelindicator3').hide();
+							$('.vlevelindicator4').hide();
 							$('.vlevel1').show();
 							$('.vlevel2').show();
 							$('.vlevel3').hide();
 							$('.vlevel4').hide();
+							$('.postimage').hide();
 							break;
 						case 1:
 						default:
 							console.log("Showing verbosity level 1.");
+							$('.vlevelindicator1').show();
+							$('.vlevelindicator2').hide();
+							$('.vlevelindicator3').hide();
+							$('.vlevelindicator4').hide();
 							$('.vlevel1').show();
 							$('.vlevel2').hide();
 							$('.vlevel3').hide();
 							$('.vlevel4').hide();
+							$('.postimage').hide();
 					}
 				});
 			});
@@ -110,8 +134,12 @@
 		<div class="mainbody">
 			<div class="sidepadding spacing">
 				<%= link_to 'Create', posts_new_path %>
-				<div class="right" style="margin-right: 5px">
+				<div class="right" style="margin-right: 5px;">
 					<%= link_to "Less", "#", :id => "lessmaster"%>
+					<span class="vlevelindicator1"><1></span>
+					<span class="vlevelindicator2"><2></span>
+					<span class="vlevelindicator3"><3></span>
+					<span class="vlevelindicator4"><4></span>
 					<%= link_to "More", "#", :id => "moremaster"%>
 				</div>
 			</div>
@@ -147,9 +175,11 @@
 								<%= post.updated_at.strftime("%c") %>
 							</div>
 						</div>
-						<div class="vlevel4 sidepadding">
-							<%= post.support %>
-					  </div>
+						<% if !post.support.empty? %>
+							<div class="vlevel4 sidepadding">
+								<%= post.support %>
+							</div>
+						<% end %>
 					</div>
 				<% end %>
 			</div>

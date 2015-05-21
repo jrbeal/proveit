@@ -29,9 +29,11 @@
 				<%= kid.updated_at.strftime("%c") %>
 			</div>
 		</div>
-		<div class="vlevel4 sidepadding">
-			<%= kid.support %>
-		</div>
+		<% if !kid.support.empty? %>
+			<div class="vlevel4 sidepadding">
+				<%= kid.support %>
+			</div>
+		<% end %>
 	</div>
 
 	<% puts (current_prover.inspect) %>

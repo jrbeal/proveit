@@ -29,17 +29,21 @@
 		<div id="leftcolumn">
 			<ul class="userinfo">
 				<%= link_to image_tag(current_prover.image_url, :class => "userimage"), prover_path(current_prover, :default_tab => "profile")%>
-				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 130%">
-					<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
+				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
+					<% tmp = current_prover.provername.downcase %>
 					<%= link_to tmp, current_prover %>
 				</li>
-				<li style="display: block; margin-left: 5px; line-height: 130%">
+				<li style="display: block; margin-left: 5px; line-height: 135%">
+					<% tmp = " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
+					<%= link_to tmp, current_prover %>
+				</li>
+				<li style="display: block; margin-left: 5px; line-height: 135%">
 					Current Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
 				</li>
-				<li style="display: block; margin-left: 5px; line-height: 130%">
+				<li style="display: block; margin-left: 5px; line-height: 135%">
 					Filter: <%= link_to current_prover.filter.capitalize, prover_path(current_prover, :default_tab => "filters") %>
 				</li>
-				<li style="display: block; margin-left: 5px; line-height: 130%">
+				<li style="display: block; margin-left: 5px; line-height: 135%">
 					<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
 				</li>
 			</ul>

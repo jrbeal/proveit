@@ -10,7 +10,9 @@ class ProversController < ApplicationController
 
 	def update
 		clean_params = prover_params
-		if params[:prover][:profile_image]
+
+		puts params.inspect
+		if params[:prover] && params[:prover][:profile_image]
 			clean_params[:image_url] = upload_image
 		end
 
@@ -34,7 +36,7 @@ class ProversController < ApplicationController
 			:bucket => "proveitimages",
 			:key => id
 		)
-		
+
 		"https://s3.amazonaws.com/proveitimages/#{id}"
 	end
 end

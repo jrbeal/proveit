@@ -78,10 +78,6 @@
 				$('#initiatorreply').hide();
 			});
 
-			$('#replysubmitbutton').on("click", function () {
-				history.back();
-			});
-
 			$('input[name="kidtype"]').on('click', function (e) {
 				console.log("click!");
 				var $tgt = $(e.target);
@@ -300,14 +296,18 @@
     <div class="vlevel2 sidepadding">
 			<% tmp = @post.prover.provername.downcase + " (" + @post.prover.first_name + " " + @post.prover.last_name + ")" %>
 			<%= link_to tmp, @post.prover %>, &nbsp
-      <%= @post.prover.rating.round(2) %>, &nbsp
+			<%= @post.prover.calculate_rating().round(2) %>, &nbsp
 			<a href="#" id="follow">Follow</a>
 			<div class="right">
 				<%= @post.created_at.strftime("%c") %>
 			</div>
     </div>
+
     <div class="vlevel1 sidepadding">
       <em><span class="message">
+				<% if !@post.url.empty? %>
+					<%= link_to image_tag('link3.png', :size => '12x12'), @post.url %>
+				<% end %> &nbsp
 				<%= @post.message %>
 			</span></em>
       <div class="right spacing">
@@ -315,6 +315,7 @@
 				<%= link_to "More", "#", :id => "morepost"%>
 			</div>
     </div>
+
     <div class="vlevel3 sidepadding">
       <%= offspring(@post) %> &nbsp
       <%= @post.views %> views, &nbsp
@@ -324,11 +325,13 @@
 				<%= @post.updated_at.strftime("%c") %>
 			</div>
     </div>
+
 		<% if !@post.support.empty? %>
 			<div class="vlevel4 sidepadding">
-				<%= @post.support %>
+				<em><%= @post.support %></em>
 			</div>
 		<% end %>
+
 	</div>
 
   <div class="toppadding20 sidepadding">
@@ -381,7 +384,13 @@
 					<div class="submit_text support_text">
 						Support (Optional):
 					</div>
-					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification, supporting information, attachments, and external links here."></textarea>
+					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification and supporting information here."></textarea>
+				</div>
+				<div class="toppadding5">
+					<div class="submit_text support_url">
+						URL (Optional):
+					</div>
+					<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 				</div>
 
 				<div>
@@ -430,7 +439,13 @@
 					<div class="submit_text support_text">
 						Support (Optional):
 					</div>
-					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional supporting information, attachments and external links here..."></textarea>
+					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional supporting information here."></textarea>
+				</div>
+				<div class="toppadding5">
+					<div class="submit_text support_url">
+						URL (Optional):
+					</div>
+					<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 				</div>
 
 				<div>

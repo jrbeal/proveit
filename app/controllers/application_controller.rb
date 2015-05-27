@@ -6,9 +6,12 @@ class ApplicationController < ActionController::Base
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
 	before_action :authenticate_prover!
+	before_action :set_top_provers
 
 	def homepage
-		case current_prover.filter
+		filter = (params[:filter] || current_prover.filter).downcase
+
+		case filter
 			when Prover::TOPICS
 				@topics = Topic.all
 				@posts = []
@@ -16,18 +19,42 @@ class ApplicationController < ActionController::Base
 					@posts.push topic.root_id
 				end
 			when Prover::OPINIONS
-				@posts = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
+				if params[:prover]
+					@posts = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+				else
+					@posts = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
+				end
 			when Prover::OBJECTIONS
-				@posts = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
+				if params[:prover]
+					@posts = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+				else
+					@posts = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
+				end
 			when Prover::INITIATORS
-				@posts = Post.where("kind = ?", Post::INITIATOR)
+				if params[:prover]
+					@posts = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover])
+				else
+					@posts = Post.where("kind = ?", Post::INITIATOR)
+				end
 			when Prover::COMMENTS
-				@posts = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
+				if params[:prover]
+					@posts = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover])
+				else
+					@posts = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
+				end
 			when Prover::FOLLOWING
+				@posts = []
+				Follow.where("owner = ?", current_prover).each do |f|
+					@posts = @posts + Post.where("prover_id = ?", f.follows)
+				end
 			when Prover::BOOKMARKS
+				@posts = []
+			else
+				@posts = []
 		end
 
-    # @posts.sort! { |a,b| b.views <=> a.views }
+		# A more sophisticated sort to come...
+    @posts.sort! { |a,b| b.updated_at <=> a.updated_at }
 	end
 
 	protected
@@ -44,5 +71,9 @@ class ApplicationController < ActionController::Base
 				|u| u.permit(registration_params)
 			}
 		end
+	end
+
+	def set_top_provers
+		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
 	end
 end

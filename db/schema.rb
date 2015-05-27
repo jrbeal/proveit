@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520121250) do
+ActiveRecord::Schema.define(version: 20150527174917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer "owner"
+    t.integer "post"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.boolean "religion"
@@ -62,10 +67,16 @@ ActiveRecord::Schema.define(version: 20150520121250) do
     t.integer  "prover_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "owner",   null: false
+    t.integer "follows", null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.integer  "owner"
   end
 
   create_table "hot_topics", force: :cascade do |t|
@@ -97,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150520121250) do
     t.integer  "children_comments"
     t.integer  "offspring_comments"
     t.integer  "prover_id"
+    t.string   "url"
   end
 
   create_table "provers", force: :cascade do |t|
@@ -125,11 +137,19 @@ ActiveRecord::Schema.define(version: 20150520121250) do
     t.string   "occupation"
     t.string   "location"
     t.string   "filter"
+    t.integer  "ranking"
+    t.float    "highest_rating"
+    t.datetime "highest_rating_date"
   end
 
   add_index "provers", ["email"], name: "index_provers_on_email", unique: true, using: :btree
   add_index "provers", ["provername"], name: "index_provers_on_provername", unique: true, using: :btree
   add_index "provers", ["reset_password_token"], name: "index_provers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "provers_teams", force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "prover_id"
+  end
 
   create_table "stories", force: :cascade do |t|
     t.string  "url"
@@ -160,21 +180,21 @@ ActiveRecord::Schema.define(version: 20150520121250) do
     t.integer "prover_id"
   end
 
-  create_table "users_teams", force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "prover_id"
-  end
-
+  add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
+  add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
   add_foreign_key "filters", "provers"
+  add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
+  add_foreign_key "follows", "provers", column: "owner", on_delete: :cascade
+  add_foreign_key "groups", "provers", column: "owner"
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
   add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
+  add_foreign_key "provers_teams", "provers"
+  add_foreign_key "provers_teams", "teams"
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
   add_foreign_key "topics", "teams", column: "team1_id"
   add_foreign_key "topics", "teams", column: "team2_id"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "provers"
-  add_foreign_key "users_teams", "provers"
-  add_foreign_key "users_teams", "teams"
 end

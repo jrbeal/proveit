@@ -42,7 +42,7 @@
 					console.log("Now we're in comment mode.");
 					$(".submit_text.message_text").text("Comment:");
 					$(".submit_text.support_text").text("Support (Optional): ");
-					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter comment here.';
+					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter casual comment here.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information and/or attachments here.';
 					$('#public').hide();
 					$('#private').hide();
@@ -107,7 +107,7 @@
 					<%= radio_button_tag('type', 'initiator') %>
 					<%= label_tag('type', 'Initiator') %>
 					<%= radio_button_tag('type', 'comment') %>
-					<%= label_tag('type', 'Comment') %>
+					<%= label_tag('type', 'Casual') %>
 				</div>
 			</div>
 

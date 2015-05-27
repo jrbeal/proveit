@@ -1,46 +1,51 @@
 <% kids.each do |kid| %>
-
-	<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= (indent).humanize %>">
-		<%= link_to image_tag(kid.prover.image_url, :class => "postimage"), kid.prover %>
-		<div class="vlevel2 sidepadding">
-			<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
-			<%= link_to tmp, kid.prover %>, &nbsp
-			<%= kid.prover.rating.round(2) %>, &nbsp
-			<a href="#" id="follow">Follow</a>
-			<div class="right">
-				<%= kid.created_at.strftime("%c") %>
-			</div>
-		</div>
-		<div class="vlevel1 sidepadding">
-			<em><span class="message">
-				<%= link_to kid.message, kid, {:style=>'color:blue;'} %>
-			</span></em>
-			<div class="right spacing">
-				<%= link_to "Less", "#", :id => "lesspost"%>
-				<%= link_to "More", "#", :id => "morepost"%>
-			</div>
-		</div>
-		<div class="vlevel3 sidepadding">
-			<%= offspring(kid) %> &nbsp
-			<%= kid.views %> views, &nbsp
-			<%= level(kid) %> &nbsp
-			<a href="#" id="bookmark">Bookmark</a>
-			<div class="right">
-				<%= kid.updated_at.strftime("%c") %>
-			</div>
-		</div>
-		<% if !kid.support.empty? %>
-			<div class="vlevel4 sidepadding">
-				<%= kid.support %>
-			</div>
+		<% indent.times do |i| %>
+			<div style="width: 25px; margin-top: 10px; height: 30px; border-left: thin solid black; display:inline-block; float:left"></div>
 		<% end %>
-	</div>
+		<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= indent.humanize %>">
+			<%= link_to image_tag(kid.prover.image_url, :class => "postimage"), kid.prover %>
+			<div class="vlevel2 sidepadding">
+				<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
+				<%= link_to tmp, kid.prover %>, &nbsp
+				<%= kid.prover.calculate_rating().round(2) %>, &nbsp
+				<a href="#" id="follow">Follow</a>
+				<div class="right">
+					<%= kid.created_at.strftime("%c") %>
+				</div>
+			</div>
 
-	<% puts (current_prover.inspect) %>
+				<div class="vlevel1 sidepadding">
+				<% if !kid.url.empty? %>
+					<%= link_to image_tag('link3.png', :size => '12x12'), kid.url %>
+				<% end %> &nbsp
+				<em><span class="message">
+					<%= link_to kid.message, kid, {:style=>'color:blue;'} %>
+				</span></em>
+				<div class="right spacing">
+					<%= link_to "Less", "#", :id => "lesspost"%>
+					<%= link_to "More", "#", :id => "morepost"%>
+				</div>
+			</div>
 
-	<% if (current_prover.offspring_style == Prover::EXPANDED) %>
-		<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
-		<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1} %>
-	<% end %>
+				<div class="vlevel3 sidepadding">
+				<%= offspring(kid) %> &nbsp
+				<%= kid.views %> views, &nbsp
+				<%= level(kid) %> &nbsp
+				<a href="#" id="bookmark">Bookmark</a>
+				<div class="right">
+					<%= kid.updated_at.strftime("%c") %>
+				</div>
+			</div>
 
+				<% if !kid.support.empty? %>
+				<div class="vlevel4 sidepadding">
+					<em><%= kid.support %></em>
+				</div>
+			<% end %>
+		</div>
+
+		<% if (current_prover.offspring_style == Prover::EXPANDED) %>
+			<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
+			<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1} %>
+		<% end %>
 <% end %>

@@ -38,6 +38,7 @@ class PostsController < ApplicationController
 			:message => params[:message],
 			:support => params[:support],
 			:kind => params[:kind],
+			:url => params[:url],
 		}
 
 		@post = Post.new(post_params)

@@ -29,6 +29,7 @@ class TopicsController < ApplicationController
 			:message => params[:message],
 			:support => params[:support],
 			:kind => params[:type],
+			:url => params[:url],
 		}
 		topic_params = {
 			:private => (params[:format] == "private"),

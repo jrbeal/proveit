@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'whenever', require: false
 gem 'aws-sdk', '~> 2'
 gem 'humanize'
 gem 'tabs_on_rails'

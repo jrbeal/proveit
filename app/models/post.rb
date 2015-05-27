@@ -10,10 +10,13 @@ class Post < ActiveRecord::Base
 	INITIATOR = "initiator"
 	COMMENT = "comment"
 
+	DECAY_FACTOR = 0.973693
+	SECONDS_IN_WEEK = 60*60*24*7
+
 	validates :message, :length => { :maximum => 140 }
 	validates :support, :length => { :maximum => 10000 }
 	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."
-		
+
 	def determine_status(id)				# Determine the status for the given post by or'ing the statuses
 																	# of all its children and returning the inverse.
 		result = FALSE
@@ -48,11 +51,25 @@ class Post < ActiveRecord::Base
 		end
 		return count
 	end
+
+	def self::update_post_scores()
+		Rails.logger.info "Updating post scores"
+		Post.all.each do |p|
+			if (p.status)
+				weeks_since_last_update = (Time.now - p.updated_at) / SECONDS_IN_WEEK
+				Rails.logger.info ("Weeks since last update: #{weeks_since_last_update}")
+				Rails.logger.info ("#{Time.now}")
+				p.update_column(:score, 100*(DECAY_FACTOR**weeks_since_last_update))
+			else
+				p.update_column(:score, 0.0)
+			end
+		end
+	end
 	
 	before_create do 								# First create and initialize the new post
 		if self.kind == OPINION				# status and score are only meaningful with opinions
 			self.status = TRUE
-			self.score = 100
+			self.score = 100.0
 		end
 
 		self.level = count_levels(self, 0)
@@ -69,7 +86,7 @@ class Post < ActiveRecord::Base
 			parent = self.parent
       if self.kind == OPINION && parent.kind == OPINION   # status and score are only meaningful with opinions
         parent.status = FALSE
-        parent.score = 0
+        parent.score = 0.0
       end
       parent.children_comments = count_children(parent.id, COMMENT)
       parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
@@ -79,6 +96,9 @@ class Post < ActiveRecord::Base
       end
       parent.save!							  # Commit the new post's parent
 		end
+
+		Prover.update_prover_ratings
+		Prover.update_prover_rankings
 	end
 	
 	after_update do 									# Update the ancestors one at a time...
@@ -94,9 +114,9 @@ class Post < ActiveRecord::Base
               new_status = determine_status(parent.id)
               if parent.status != new_status	# If the status is changing, reset the score...
                 if new_status
-                  parent.score = 100					# ...to 100 if new status is true...
+                  parent.score = 100.0					# ...to 100 if new status is true...
                 else
-                  parent.score = 0						# ...or 0 if new status is false.
+                  parent.score = 0.0						# ...or 0 if new status is false.
                 end
                 parent.status = new_status
               end

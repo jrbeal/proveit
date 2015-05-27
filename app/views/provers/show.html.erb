@@ -7,6 +7,20 @@
 				if($tgt.val() == "profile") {
 					console.log("profile = profile");
 					$('#profileprofile').show();
+					$('#profileposts').hide();
+					$('#profileaccount').hide();
+					$('#profilepassword').hide();
+					$('#profilesettings').hide();
+					$('#profilefilters').hide();
+					$('#profilemobile').hide();
+					$('#profileemail').hide();
+					$('#profileapps').hide();
+					$('#profilerating').hide();
+					$('#profileadministrative').hide();
+				} else if($tgt.val() == "posts") {
+					console.log("profile = posts");
+					$('#profileprofile').hide();
+					$('#profileposts').show();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -19,6 +33,7 @@
 				} else if($tgt.val() == "account") {
 					console.log("profile = account");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').show();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -31,6 +46,7 @@
 				} else if($tgt.val() == "password") {
 					console.log("profile = password");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').show();
 					$('#profilesettings').hide();
@@ -43,6 +59,7 @@
 				} else if($tgt.val() == "settings") {
 					console.log("profile = settings");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').show();
@@ -55,6 +72,7 @@
 				} else if($tgt.val() == "filters") {
 					console.log("profile = filters");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -67,6 +85,7 @@
 				} else if($tgt.val() == "mobile") {
 					console.log("profile = mobile");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -79,6 +98,7 @@
 				} else if($tgt.val() == "email") {
 					console.log("profile = email");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -91,6 +111,7 @@
 				} else if($tgt.val() == "apps") {
 					console.log("profile = apps");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -103,6 +124,7 @@
 				} else if($tgt.val() == "rating") {
 					console.log("profile = rating");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -115,6 +137,7 @@
 				} else if($tgt.val() == "administrative") {
 					console.log("profile = administrative");
 					$('#profileprofile').hide();
+					$('#profileposts').hide();
 					$('#profileaccount').hide();
 					$('#profilepassword').hide();
 					$('#profilesettings').hide();
@@ -139,16 +162,17 @@
 </head>
 
 <div class="mainbody">
-	<div id="userprofiletabs">
 
-		<%= form_for @prover do |prover_form| %>
+	<%= form_for @prover do |prover_form| %>
 
+		<div id="userprofiletabs">
 			<div class="sidepadding">
 				<%= link_to 'Home', root_path %>
-
 				<div class="right sidepadding">
 					<%= radio_button_tag(:profile, "profile") %>
-					<%= label_tag(:profile, "Profile") %> 
+					<%= label_tag(:profile, "Profile") %>
+					<%= radio_button_tag(:profile, "posts") %>
+					<%= label_tag(:profile, "Posts") %>
 					<%= radio_button_tag(:profile, "account") if @owner  %>
 					<%= label_tag(:profile, "Account") if @owner %>
 					<%= radio_button_tag(:profile, "password") if @owner %>
@@ -171,34 +195,45 @@
 			</div>
 
 			<div class="profilepage">
-				<div id="profileaccount">
-					Profile Account
-				</div>
-
 				<div id="profileprofile">
 
 					<%= image_tag(@prover.image_url, :class => "profileproverimage") %>
 
-					<div id="profileprofilefields1">
-						Change profile photo: &nbsp
-						<%= prover_form.file_field :profile_image if @owner%>
-					</div>
+					<% if @owner %>
+						<div id="profileprofilefields1">
+							Change profile photo: &nbsp
+							<%= prover_form.file_field :profile_image if @owner%>
+						</div>
+					<% end %>
 
 					<div id="profileprofilefields2">
-						<div>First Name: <textarea class="message profiletextfield1" name="first_name" rows="1"><%= @prover.first_name %></textarea></div>
-						<div>Last Name: <textarea class="message profiletextfield1" name="last_name"  rows="1"><%= @prover.last_name %></textarea></div>
-						<div>Username: <textarea class="message profiletextfield1" name="username"  rows="1"><%= @prover.provername %></textarea></div>
+						<div>First Name: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="first_name" rows="1"><%= @prover.first_name %></textarea></div>
+						<div>Last Name: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="last_name"  rows="1"><%= @prover.last_name %></textarea></div>
+						<div>Username: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="username"  rows="1"><%= @prover.provername %></textarea></div>
 						<div>Email: <textarea disabled class="message profiletextfield1" name="emailaddress"  rows="1"><%= @prover.email %></textarea></div>
-						<div>Location: <textarea class="message profiletextfield1" name="location" rows="1"><%= @prover.location %></textarea></div>
-						<div>Occupation: <textarea class="message profiletextfield1" name="occupation" rows="1"><%= @prover.occupation %></textarea></div>
-						<div>Education: <textarea class="message profiletextfield1" name="education" rows="1"><%= @prover.education %></textarea></div>
+						<div>Location: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="location" rows="1"><%= @prover.location %></textarea></div>
+						<div>Occupation: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="occupation" rows="1"><%= @prover.occupation %></textarea></div>
+						<div>Education: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="education" rows="1"><%= @prover.education %></textarea></div>
 						<div>Joined: <textarea disabled class="message profiletextfield1" name="joined" rows="1"><%= @prover.created_at %></textarea></div>
 						<div>Member #: <textarea disabled class="message profiletextfield1" name="userid" rows="1"><%= @prover.id %></textarea></div>
 					</div>
 
 					<div id="profileprofilefields3">
-						<div>About Me: <textarea class="message profiletextfield2" name="aboutme" rows="10"><%= @prover.aboutme %></textarea></div>
+						<div>About Me: <textarea <%= "disabled" if !@owner %> class="message profiletextfield2" name="aboutme" rows="10"><%= @prover.aboutme %></textarea></div>
 					</div>
+				</div>
+
+				<div id="profileposts">
+					<div class="profilepagediv1">
+						<li>Opinions: <%= link_to @opinions.count, root_path(:filter => Prover::OPINIONS, :prover => @prover) %>
+						<li>Objections: <%= link_to @objections.count, root_path(:filter => Prover::OBJECTIONS, :prover => @prover) %>
+						<li>Initiators: <%= link_to @initiators.count, root_path(:filter => Prover::INITIATORS, :prover => @prover) %>
+						<li>Comments: <%= link_to @comments.count, root_path(:filter => Prover::COMMENTS, :prover => @prover)  %>
+					</div>
+				</div>
+
+				<div id="profileaccount">
+					Profile Account
 				</div>
 
 				<div id="profilepassword">
@@ -206,9 +241,9 @@
 				</div>
 
 				<div id="profilesettings">
-					<div id="profiledefaultsettings">
+					<div class="profilepagediv1">
 						<b>Defaults:</b>
-						<div id="verbosity">
+						<div class="profilepagediv2">
 							<b>Verbosity:</b>
 							<%= radio_button_tag(:verbosity, 1) %>
 							<%= label_tag(:verbosity, "1") %>
@@ -221,7 +256,7 @@
 						</div>
 
 
-						<div id="offspring">
+						<div class="profilepagediv2">
 							<b>Offspring:</b>
 							<%= radio_button_tag(:offspring_style, "collapsed") %>
 							<%= label_tag(:offspring_style, "Collapsed") %>
@@ -230,9 +265,9 @@
 						</div>
 					</div>
 
-					<div id="profilequicklooksettings">
+					<div class="profilepagediv1">
 						<b>Quicklook Counts:</b>
-						<div id="quicklookdefaultfilters">
+						<div class="profilepagediv2">
 							<b>Default Filters:</b>
 							<%= check_box_tag 'quicklook', 'topics', true %>
 							<%= label_tag 'Topics' %>
@@ -249,7 +284,7 @@
 							<%= check_box_tag 'quicklook', 'bookmarks', false %>
 							<%= label_tag 'Bookmarks' %>
 						</div>
-						<div id="quicklookdefaultfilters">
+						<div class="profilepagediv2">
 							<b>Custom Filters:</b>
 							<%= check_box_tag 'quicklook', 'myopinions', true %>
 							<%= label_tag 'MyOpinions' %>
@@ -267,12 +302,54 @@
 							<%= label_tag 'Uncontested' %>
 						</div>
 					</div>
+
+					<div class="profilepagediv1">
+						<b>Lists:</b>
+						<div class="profilepagediv2">
+							<div id="following">
+								<b>Following:</b> &nbsp
+								<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "id", "follows_name") %> &nbsp
+								<button type="button">Remove</button>
+							</div>
+						</div>
+						<div class="profilepagediv2">
+							<div id="following">
+								<b>Followed By:</b> &nbsp
+								<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "id", "owner_name") %> &nbsp
+								<button type="button">Remove</button> &nbsp
+								<button type="button">Block</button>
+							</div>
+						</div>
+						<div class="profilepagediv2">
+							<div id="teams">
+								<b>Teams:</b>
+								<%= search_field_tag 'team' %> &nbsp
+								<button type="button">Resign</button>
+							</div>
+						</div>
+						<div class="profilepagediv2">
+							<div id="groups">
+								<b>Groups:</b>
+								<%= search_field_tag 'group' %> &nbsp
+								<button type="button">Resign</button> &nbsp
+								<button type="button">Disband</button>
+							</div>
+							<div class="profilepagediv2">
+								<div id="groupsmanage">
+									<b>Create:</b>
+									<%= search_field_tag 'name' %> &nbsp Members:
+									<%= search_field_tag 'groupmembers' %> &nbsp Add &nbsp
+									<%= submit_tag("Save") %>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div id="profilefilters">
-					<div id="profiledefaultfilters">
+					<div class="profilepagediv1">
 						<b>Filters:</b>
-						<div id="filter">
+						<div class="profilepagediv2">
 							<b>Defaults:</b>
 							<%= radio_button_tag(:filter, "topics") %>
 							<%= label_tag(:filter, "Topics") %>
@@ -306,7 +383,7 @@
 
 				<div id="profilerating">
 					<div style="height: 215px">
-						<li>Current Rating = <%= @prover.rating.round(2) %>
+						<li>Current Rating = <%= @prover.calculate_rating().round(2) %>
 						<div id="ratingexplanation">
 							<b><div>
 								Explanation:
@@ -315,17 +392,18 @@
 							<div style="margin-top: 10px">
 								When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
 								Once contested, its status will become false (red) and its score will drop to 0. Whenever a post's
-								status is true, its score will decay over time using the half-life formula: 100(.974<b>**</b>n) where
-								'n' represents the number of weeks since it, or its last offspring, was created -- whichever is less.
-								For example, the score for a true post after 19 weeks with no new offspring would be reduced to 60.62.
-								If its status reverted to false, its score would be reduced to 0. If it became true again, its score
-								would reset (to 100) and the decay process would start over. A post will likely toggle back and forth
-								between true and false throughout it's lifetime with its score ranging between 0 and 100.
+								status is true, its score will decay over time using the half-life formula: 100(.973693^n) where
+								'n' represents the number of weeks since it, or any of its offspring, was created.
+								This gives a score a 26-week half-life meaning it would be reduced from 100 to 50 after 26
+								weeks of no new activity. For example, the score for a true post after 19 weeks would be reduced to
+								60.62. If its status reverted to false, its score would be reduced to 0. If it became true again, it
+								would reset (to 100) and the decay process would start over. A post will likely toggle back and
+								forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
 							</div>
 
 							<div style="margin-top: 10px">
 								<b><u><em>
-									A user's rating is calculated by averaging his/her 100 most recently active post scores.
+									A user's rating is calculated by averaging his/her 100 most recently active post<b>*</b> scores.
 								</em></u></b>
 							</div>
 
@@ -333,9 +411,9 @@
 								<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
 							</div>
 						</div>
-						<li>Current Rank = (to be implemented)
-						<li>Percentile = (to be implemented)
-						<li>Highest Rating = (to be implemented)
+						<li>Current Rank = <%= @prover.ranking %>
+						<li>Percentile = <%= @prover.percentile.round(2) %>
+						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>)
 					</div>
 				</div>
 
@@ -343,12 +421,13 @@
 					Profile Administrative
 				</div>
       </div>
-
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+		</div>
 
+		<% if @owner %>
 			<div class="toppadding10 sidepadding">
-				<%= submit_tag("Save") if @owner %>
+				<%= submit_tag("Save") %>
 			</div>
 		<% end %>
-	</div>
+	<% end %>
 </div>

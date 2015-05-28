@@ -150,6 +150,7 @@
 				} else {
 					console.log("Clicking unknown profile tab: " + $tgt.val());
 				}
+
 			});
 
 			$('input[name="profile"][value="<%= @default_tab %>"]').click();
@@ -308,37 +309,59 @@
 						<div class="profilepagediv2">
 							<div id="following">
 								<b>Following:</b> &nbsp
-								<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "id", "follows_name") %> &nbsp
-								<button type="button">Remove</button>
+								<% if @follows.count > 0 %>
+									<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "id", "follows_name") %> &nbsp
+									<button type="button" id="removefollowbutton">Remove</button>
+								<% else %>
+									You are not following anyone right now.
+								<% end %>
 							</div>
 						</div>
+
 						<div class="profilepagediv2">
 							<div id="following">
 								<b>Followed By:</b> &nbsp
-								<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "id", "owner_name") %> &nbsp
-								<button type="button">Remove</button> &nbsp
-								<button type="button">Block</button>
+								<% if @followed.count > 0 %>
+									<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "id", "owner_name") %> &nbsp
+									<button type="button">Remove</button>
+								<% else %>
+									No one is following you right now.
+								<% end %>
 							</div>
 						</div>
+
+						<div class="profilepagediv2">
+							<div id="bookmark">
+								<b>Bookmarks:</b> &nbsp
+								<% if @bookmarks.count > 0 %>
+									<%= select_tag 'dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
+									<button type="button" id="removebookmarkbutton">Remove</button>
+								<% else %>
+									You have no bookmarks right now.
+								<% end %>
+							</div>
+						</div>
+
 						<div class="profilepagediv2">
 							<div id="teams">
-								<b>Teams:</b>
+								<b>My Teams:</b> &nbsp
 								<%= search_field_tag 'team' %> &nbsp
 								<button type="button">Resign</button>
 							</div>
 						</div>
 						<div class="profilepagediv2">
 							<div id="groups">
-								<b>Groups:</b>
+								<b>My Groups:</b> &nbsp
 								<%= search_field_tag 'group' %> &nbsp
 								<button type="button">Resign</button> &nbsp
 								<button type="button">Disband</button>
 							</div>
 							<div class="profilepagediv2">
 								<div id="groupsmanage">
-									<b>Create:</b>
-									<%= search_field_tag 'name' %> &nbsp Members:
-									<%= search_field_tag 'groupmembers' %> &nbsp Add &nbsp
+									<b>Create:</b> &nbsp
+									<%= search_field_tag 'name' %> &nbsp Members: &nbsp
+									<%= search_field_tag 'groupmembers' %> &nbsp
+									<button type="button" id="addgroupmemberbutton">Add</button> &nbsp
 									<%= submit_tag("Save") %>
 								</div>
 							</div>

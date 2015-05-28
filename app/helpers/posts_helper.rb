@@ -1,5 +1,6 @@
 module PostsHelper
-  def status_color(post)
+
+	def status_color(post)
     case post.kind
       when Post::COMMENT
         "lightblue"

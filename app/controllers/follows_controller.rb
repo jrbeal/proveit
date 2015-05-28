@@ -1,5 +1,5 @@
 class FollowsController < ApplicationController
-	before_action :set_follow, only: [:show, :edit, :update, :destroy]
+	before_action :set_follow, only: [:show, :edit, :update]
 
 	# GET /follows
 	# GET /follows.json
@@ -56,14 +56,15 @@ class FollowsController < ApplicationController
 		end
 	end
 
-	# DELETE /follows/1
-	# DELETE /follows/1.json
 	def destroy
-		@follow.destroy
-		respond_to do |format|
-			format.html { redirect_to follows_url, notice: 'Follow was successfully destroyed.' }
-			format.json { head :no_content }
+		@follow = Follow.where(:owner => params[:owner], :follows => params[:follows])
+
+		@follow.each do |f|
+			puts f.inspect
+			f.destroy
 		end
+
+		render :text => "Nothing"
 	end
 
 	private

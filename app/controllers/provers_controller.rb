@@ -12,6 +12,7 @@ class ProversController < ApplicationController
 		@comments = Post.where("prover_id = ? AND kind = ?", @prover, Post::COMMENT)
 		@follows = Follow.where("owner = ?", @prover)
 		@followed = Follow.where("follows = ?", @prover)
+		@bookmarks = Bookmark.where("owner = ?", @prover)
 		@teams = Team.where()
 	end
 

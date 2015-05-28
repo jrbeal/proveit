@@ -1,14 +1,15 @@
 <% kids.each do |kid| %>
-		<% indent.times do |i| %>
-			<div style="width: 25px; margin-top: 10px; height: 30px; border-left: thin solid black; display:inline-block; float:left"></div>
-		<% end %>
 		<div class="post <%= status_color(kid) %> <%= kid.kind %> <%= indent.humanize %>">
 			<%= link_to image_tag(kid.prover.image_url, :class => "postimage"), kid.prover %>
 			<div class="vlevel2 sidepadding">
 				<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
 				<%= link_to tmp, kid.prover %>, &nbsp
 				<%= kid.prover.calculate_rating().round(2) %>, &nbsp
-				<a href="#" id="follow">Follow</a>
+				<% if already_following(kid) %>
+					<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{kid.prover.id}"} %>
+				<% else %>
+					<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{kid.prover.id}"} %>
+				<% end %>
 				<div class="right">
 					<%= kid.created_at.strftime("%c") %>
 				</div>
@@ -23,6 +24,10 @@
 				</span></em>
 				<div class="right spacing">
 					<%= link_to "Less", "#", :id => "lesspost"%>
+					<span class="vlevelindicator1"><1></span>
+					<span class="vlevelindicator2"><2></span>
+					<span class="vlevelindicator3"><3></span>
+					<span class="vlevelindicator4"><4></span>
 					<%= link_to "More", "#", :id => "morepost"%>
 				</div>
 			</div>

@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
   devise_for :provers, :path => 'accounts'
-	get 'help'		         =>	'static_pages#help'
-	get 'about'		         =>	'static_pages#about'
-	get 'contact'	         =>	'static_pages#contact'
-  get 'posts/new'        => 'posts#new'
+	get 'help'		    =>	'static_pages#help'
+	get 'about'		    =>	'static_pages#about'
+	get 'contact'	    =>	'static_pages#contact'
+  get 'posts/new'   => 'posts#new'
 	get 'follow'			=> 'follow'
+	get 'bookmark'		=> 'bookmark'
 
+	delete 'follows' 	=> 'follows#destroy'
   resources :filters
   resources :groups
   resources :topics
   resources :posts
 	resources :provers
-	resources :follows
+	resources :follows, :except => :destroy
+	resources :bookmarks
 
   root 'application#homepage'
 

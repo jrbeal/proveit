@@ -1,6 +1,6 @@
 class Follow < ActiveRecord::Base
-	belongs_to :follows, class_name: "Prover", :foreign_key => "follows", dependent: :destroy
-	belongs_to :owner, class_name: "Prover", :foreign_key => "owner", dependent: :destroy
+	belongs_to :follows, class_name: "Prover", :foreign_key => "follows"
+	belongs_to :owner, class_name: "Prover", :foreign_key => "owner"
 
 	def follows_name
 		follows.provername
@@ -10,3 +10,4 @@ class Follow < ActiveRecord::Base
 		owner.provername
 	end
 end
+

@@ -10,7 +10,12 @@ class Post < ActiveRecord::Base
 	INITIATOR = "initiator"
 	COMMENT = "comment"
 
-	DECAY_FACTOR = 0.973693
+	# DECAY_FACTOR = 0.98675869426		# 52 week half life
+	# DECAY_FACTOR = 0.97369272069		# 26 week half life
+	# DECAY_FACTOR = 0.94807751434		# 13 week half life
+	# DECAY_FACTOR = 0.84089641525		# 4 week half life
+	DECAY_FACTOR = 0.50000000000		# 1 week half life
+
 	SECONDS_IN_WEEK = 60*60*24*7
 
 	validates :message, :length => { :maximum => 140 }
@@ -97,8 +102,8 @@ class Post < ActiveRecord::Base
       parent.save!							  # Commit the new post's parent
 		end
 
-		Prover.update_prover_ratings
-		Prover.update_prover_rankings
+		Prover.update_ratings
+		Prover.update_rankings
 	end
 	
 	after_update do 									# Update the ancestors one at a time...

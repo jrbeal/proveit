@@ -32,7 +32,7 @@ class Prover < ActiveRecord::Base
 	end
 
 	after_create do
-		Prover.update_prover_rankings
+		Prover.update_rankings
 	end
 
 	def calculate_rating   							# Calculate current rating for prover
@@ -57,14 +57,14 @@ class Prover < ActiveRecord::Base
 	end
 
 																			# Update ratings for all provers (to be called daily with cron
-	def self::update_prover_ratings() 	# immediately after "update_post_scores")
+	def self::update_ratings() 					# immediately after "update_post_scores")
 		Prover.all.each do |p|
 			p.calculate_rating
 		end
 	end
 
 																			# Update rankings for all provers (to be called daily with cron
-	def self::update_prover_rankings		# immediately after "update_prover_ratings")
+	def self::update_rankings						 # immediately after "update_prover_ratings")
 		i = 1
 		provers = Prover.all.order(:rating).reverse_order
 		provers.each do |p|

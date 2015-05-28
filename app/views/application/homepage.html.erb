@@ -78,11 +78,48 @@
 					});
 
 					console.log("Following this prover.");
+					window.location.reload();
 					return false;
 				});
 
-				$('#bookmark').on("click", function () {
+				$('.unfollow').on("click", function (e) {
+					var $tgt = $(e.target);
+					$.ajax({
+						url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": $tgt.attr("data-prover-id")}),
+						type: 'DELETE',
+						success: function(resp) {
+							console.log("Unfollowing this prover.");
+							window.location.reload();
+						}
+					})
+
+					return false;
+				});
+
+				$('.bookmark').on("click", function (e) {
+					var $tgt = $(e.target);
+					$.post('/bookmarks', {owner: <%= current_prover.id %>, post: $tgt.attr("data-post") }, function(resp) {
+						var follow = JSON.parse(resp);
+						console.log(follow);
+					});
+
 					console.log("Bookmarking this post.");
+					window.location.reload();
+					return false;
+				});
+
+				$('.unbookmark').on("click", function (e) {
+					var $tgt = $(e.target);
+					$.ajax({
+						url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, post: $tgt.attr("data-prover-id")}),
+						type: 'DELETE',
+						success: function(resp) {
+							console.log("Removing this bookmark.");
+							window.location.reload();
+						}
+					})
+
+					return false;
 				});
 
 				$(function () {
@@ -137,6 +174,7 @@
 							$('.postimage').hide();
 					}
 				});
+
 			});
 		</script>
 	</head>
@@ -163,7 +201,11 @@
 							<% tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 							<%= link_to tmp, post.prover %>, &nbsp
 							<%= post.prover.calculate_rating().round(2) %>, &nbsp
-							<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{post.prover.id}"} %>
+							<% if already_following(post) %>
+								<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{post.prover.id}"} %>
+							<% else %>
+								<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{post.prover.id}"} %>
+							<% end %>
 							<div class="right">
 								<%= post.created_at.strftime("%c") %>
 							</div>
@@ -190,7 +232,11 @@
 							<%= offspring(post) %> &nbsp
 							<%= post.views %> views, &nbsp
 							<%= level(post) %> &nbsp
-							<%= link_to "Bookmark", "#", :id => "bookmark" %>
+							<% if already_bookmarked(post) %>
+								<%= link_to "Unbookmark", "#", :class => "unbookmark", :data => {:post => "#{post.id}"} %>
+							<% else %>
+								<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{post.id}"} %>
+							<% end %>
 							<div class="right">
 								<%= post.updated_at.strftime("%c") %>
 							</div>

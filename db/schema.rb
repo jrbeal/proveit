@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527174917) do
+ActiveRecord::Schema.define(version: 20150528133925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20150527174917) do
     t.integer "owner",   null: false
     t.integer "follows", null: false
   end
+
+  add_index "follows", ["owner", "follows"], name: "index_follows_on_owner_and_follows", unique: true, using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -149,6 +151,7 @@ ActiveRecord::Schema.define(version: 20150527174917) do
   create_table "provers_teams", force: :cascade do |t|
     t.integer "team_id"
     t.integer "prover_id"
+    t.string  "type"
   end
 
   create_table "stories", force: :cascade do |t|

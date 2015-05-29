@@ -1,5 +1,5 @@
 <% cache(@top_provers) do %>
-	<div id="scoreboarddtitle">
+	<div id="scoreboardtitle">
 		Scoreboard
 	</div>
 	<hr size="1" noshade>
@@ -9,14 +9,12 @@
 			<th class="scoreboardhead">Name</th>
 			<th class="scoreboardhead">Rating</th>
 		</tr>
-		<% i = 1 %>
-		<% @top_provers.each do |p| %>
+		<% @top_provers.each_with_index do |p, i| %>
 			<tr>
-				<td class="scoreboardline"><%= i %></td>
+				<td class="scoreboardline"><%= i + 1 %></td>
 				<td class="scoreboardline"><%= link_to p.provername, p %></td>
 				<td class="scoreboardline"><%= link_to p.rating.round(2), prover_path(p, :default_tab => "rating") %></td>
 			</tr>
-			<% i += 1 %>
 		<% end %>
 	</table>
 <% end %>

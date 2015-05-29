@@ -29,6 +29,12 @@ class ProversController < ApplicationController
 		redirect_to root_path
 	end
 
+	def scoreboard
+		limit = params[:limit] || 10
+		@top_provers = Prover.order(:rating => :desc).take(limit)
+		render :scoreboard, :layout => false
+	end
+
 	private
 
 	def prover_params

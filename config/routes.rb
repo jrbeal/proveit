@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'posts/new'   => 'posts#new'
 	get 'follow'			=> 'follow'
 	get 'bookmark'		=> 'bookmark'
+	get 'scoreboard' 	=> 'provers#scoreboard'
 
 	delete 'follows' 	=> 'follows#destroy'
   resources :filters

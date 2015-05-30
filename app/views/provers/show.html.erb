@@ -153,6 +153,75 @@
 
 			});
 
+			$('.resethighestratingbutton').on("click", function () {
+				$.ajax({
+					url: '/resetscore',
+					type: 'GET',
+					success: function(resp) {
+						console.log("Resetting highest rating.");
+						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
+			$('.follow').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.post('/follows', {owner: <%= current_prover.id %>, follows: $tgt.attr("data-prover-id") }, function(resp) {
+					var follow = JSON.parse(resp);
+					console.log(follow);
+				});
+
+				console.log("Following this prover.");
+				window.location.reload();
+				return false;
+			});
+
+			$('.unfollow').on("click", function (e) {
+				var $tgt = $(e.target);
+
+				var followsId;
+				if($tgt.attr("data-prover-id") !== undefined) {
+					followsId = $tgt.attr("data-prover-id");
+				} else {
+					followsId = $('#dropdown').val();
+				}
+
+				$.ajax({
+					url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": followsId}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Unfollowing this prover.");
+						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
+			$('.unfollowedby').on("click", function (e) {
+				var $tgt = $(e.target);
+
+				var followsId;
+				if($tgt.attr("data-prover-id") !== undefined) {
+					followsId = $tgt.attr("data-prover-id");
+				} else {
+					followsId = $('#dropdown').val();
+				}
+
+				$.ajax({
+					url: '/follows?' + $.param({"owner": followsId, "follows": <%= current_prover.id %>}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Removing this follower.");
+						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
 			$('input[name="profile"][value="<%= @default_tab %>"]').click();
 			$('input[name="filter"][value="<%= @prover.filter %>"]').click();
 			$('input[name="verbosity"][value= <%= @prover.verbosity %>]').click();
@@ -196,14 +265,28 @@
 			</div>
 
 			<div class="profilepage">
+				<div id="profilename">
+					<%= @prover.provername %>
+					(<%= @prover.first_name %>
+					<%= @prover.last_name %>) &nbsp
+					<% if !@owner %>
+						<% if already_following(@prover.id) %>
+							<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{@prover.id}"} %>
+						<% else %>
+							<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{@prover.id}"} %>
+						<% end %>
+					<% end %>
+				</div>
+
 				<div id="profileprofile">
 
 					<%= image_tag(@prover.image_url, :class => "profileproverimage") %>
 
+
 					<% if @owner %>
 						<div id="profileprofilefields1">
 							Change profile photo: &nbsp
-							<%= prover_form.file_field :profile_image if @owner%>
+							<%= prover_form.file_field :profile_image %>
 						</div>
 					<% end %>
 
@@ -310,8 +393,8 @@
 							<div id="following">
 								<b>Following:</b> &nbsp
 								<% if @follows.count > 0 %>
-									<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "id", "follows_name") %> &nbsp
-									<button type="button" id="removefollowbutton">Remove</button>
+									<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
+									<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:current_prover_id => "#{@prover.id}"} %>
 								<% else %>
 									You are not following anyone right now.
 								<% end %>
@@ -322,8 +405,8 @@
 							<div id="following">
 								<b>Followed By:</b> &nbsp
 								<% if @followed.count > 0 %>
-									<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "id", "owner_name") %> &nbsp
-									<button type="button">Remove</button>
+									<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
+									<%= link_to "Remove", "#", :class => "unfollowedby", :data => {:current_prover_id => "#{@prover.id}"} %>
 								<% else %>
 									No one is following you right now.
 								<% end %>
@@ -335,7 +418,7 @@
 								<b>Bookmarks:</b> &nbsp
 								<% if @bookmarks.count > 0 %>
 									<%= select_tag 'dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
-									<button type="button" id="removebookmarkbutton">Remove</button>
+									<%= link_to "Remove", "#", :class => "unbookmark", :data => {:current_prover_id => "#{@prover.id}"} %>
 								<% else %>
 									You have no bookmarks right now.
 								<% end %>
@@ -405,8 +488,8 @@
 				</div>
 
 				<div id="profilerating">
-					<div style="height: 215px">
-						<li>Current Rating = <%= @prover.calculate_rating().round(2) %>
+					<div id="profileratingheight">
+						<li>Current Rating = <%= @prover.rating.round(2) %>
 						<div id="ratingexplanation">
 							<b><div>
 								Explanation:
@@ -414,14 +497,12 @@
 
 							<div style="margin-top: 10px">
 								When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
-								Once contested, its status will become false (red) and its score will drop to 0. Whenever a post's
-								status is true, its score will decay over time using the half-life formula: 100(.973693^n) where
-								'n' represents the number of weeks since it, or any of its offspring, was created.
-								This gives a score a 26-week half-life meaning it would be reduced from 100 to 50 after 26
-								weeks of no new activity. For example, the score for a true post after 19 weeks would be reduced to
-								60.62. If its status reverted to false, its score would be reduced to 0. If it became true again, it
-								would reset (to 100) and the decay process would start over. A post will likely toggle back and
-								forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
+								Once contested, its status will become false (red) and its score will be reduced to 0. Whenever a
+								post's status is true, its score will decay over time using a half-life formula set by the site
+								administrator. For example, with a 26-week half-life, the score for a true post would be reduced to
+								60.62 after 19 weeks. If its status reverted to false, its score would be reduced to 0. If it became
+								true again, it would reset (to 100) and the decay process would start over. A post will likely toggle
+								back and forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
 							</div>
 
 							<div style="margin-top: 10px">
@@ -436,7 +517,10 @@
 						</div>
 						<li>Current Rank = <%= @prover.ranking %>
 						<li>Percentile = <%= @prover.percentile.round(2) %>
-						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>)
+						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>) &nbsp
+						<button class="resethighestratingbutton" name="Reset" type="button">
+							Reset
+						</button>
 					</div>
 				</div>
 

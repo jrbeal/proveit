@@ -36,24 +36,28 @@ class Prover < ActiveRecord::Base
 	end
 
 	def calculate_rating   							# Calculate current rating for prover
-		kids = Post.where("prover_id = ? AND kind = ?", self.id, Post::OPINION).order(:updated_at).limit(100)
+		posts = Post.where("prover_id = ? AND kind = ?", self.id, Post::OPINION).order(:updated_at).limit(100)
 		self.rating = 0.0
-		kids.each do |k|
-			self.rating += k.score.to_f
+		posts.each do |p|
+			self.rating += p.score.to_f
 		end
 
-		if kids.count > 0
-			self.rating = self.rating / kids.count
+		if posts.count > 0
+			self.rating = self.rating / posts.count
 			if self.rating > self.highest_rating
 				self.highest_rating=self.rating
 				self.highest_rating_date = Time.now
 			end
-			self.save!
-		else
-			0.0
 		end
 
+		self.save!
 		return self.rating
+	end
+
+	def reset_highest_rating
+		self.highest_rating=self.rating
+		self.highest_rating_date = Time.now
+		self.save!
 	end
 
 																			# Update ratings for all provers (to be called daily with cron
@@ -64,14 +68,12 @@ class Prover < ActiveRecord::Base
 	end
 
 																			# Update rankings for all provers (to be called daily with cron
-	def self::update_rankings						 # immediately after "update_prover_ratings")
-		i = 1
+	def self::update_rankings					  # immediately after "update_prover_ratings")
 		provers = Prover.all.order(:rating).reverse_order
-		provers.each do |p|
-			p.ranking = i
-			p.percentile = ((provers.count - i) * 100) / provers.count
+		provers.each_with_index do |p,i|
+			p.ranking = i + 1
+			p.percentile = ((provers.count - (i + 1)) * 100) / provers.count
 			p.save!
-			i += 1
 		end
 	end
 end

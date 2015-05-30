@@ -38,10 +38,7 @@
 					<%= link_to tmp, current_prover %>
 				</li>
 				<li style="display: block; margin-left: 5px; line-height: 135%">
-					Current Rating: <%= link_to current_prover.calculate_rating().round(2), prover_path(current_prover, :default_tab => "rating") %>
-				</li>
-				<li style="display: block; margin-left: 5px; line-height: 135%">
-					Filter: <%= link_to current_prover.filter.capitalize, prover_path(current_prover, :default_tab => "filters") %>
+					Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
 				</li>
 				<li style="display: block; margin-left: 5px; line-height: 135%">
 					<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>

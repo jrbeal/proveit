@@ -248,3 +248,36 @@ textarea {
 	text-align: center;
 	vertical-align: middle;
 }
+
+.follow {
+	font-size: 10px;
+}
+
+.unfollow {
+	font-size: 10px;
+}
+
+.unfollowedby {
+	font-size: 10px;
+}
+
+.unbookmark {
+	font-size: 10px;
+}
+
+.resign {
+	font-size: 10px;
+}
+
+.disband {
+	font-size: 10px;
+}
+
+#centertext {
+	float: left;
+	display: inline;
+	white-space: nowrap;
+	vertical-align: middle;
+	text-align: center;
+}
+

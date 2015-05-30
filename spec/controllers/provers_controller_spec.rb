@@ -23,8 +23,8 @@ describe ProversController do
 			end
 
 			p = Prover.create :email => "low@score.com", :password => "password", :rating => 0.0
-
 			get :scoreboard
+
 			expect(assigns["top_provers"]).to_not include(p)
 			expect(assigns["top_provers"].size).to eq(10)
 		end

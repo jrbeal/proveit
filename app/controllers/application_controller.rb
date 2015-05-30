@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
 	def homepage
 		filter = (params[:filter] || current_prover.filter).downcase
-
 		case filter
 			when Prover::TOPICS
 				@topics = Topic.all
@@ -53,6 +52,7 @@ class ApplicationController < ActionController::Base
 				@posts = []
 		end
 
+		@posts = @posts.to_a
 		# A more sophisticated sort to come...
     @posts.sort! { |a,b| b.updated_at <=> a.updated_at }
 	end

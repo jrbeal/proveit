@@ -7,15 +7,18 @@ Rails.application.routes.draw do
 	get 'follow'			=> 'follow'
 	get 'bookmark'		=> 'bookmark'
 	get 'scoreboard' 	=> 'provers#scoreboard'
+	get 'resetscore' 	=> 'provers#reset_highest_rating'
 
 	delete 'follows' 	=> 'follows#destroy'
-  resources :filters
+	delete 'bookmarks' 	=> 'bookmarks#destroy'
+
+	resources :filters
   resources :groups
   resources :topics
   resources :posts
 	resources :provers
 	resources :follows, :except => :destroy
-	resources :bookmarks
+	resources :bookmarks, :except => :destroy
 
   root 'application#homepage'
 

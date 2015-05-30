@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-	before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+	before_action :set_bookmark, only: [:show, :edit, :update]
 
 	# GET /bookmarks
 	# GET /bookmarks.json
@@ -59,11 +59,14 @@ class BookmarksController < ApplicationController
 	# DELETE /bookmark/1
 	# DELETE /bookmark/1.json
 	def destroy
-		@bookmark.destroy
-		respond_to do |format|
-			format.html { redirect_to bookmark_url, notice: 'Bookmark was successfully destroyed.' }
-			format.json { head :no_content }
+		puts "Here1"
+		@bookmark = Bookmark.where(:owner => params[:owner], :post => params[:post])
+
+		@bookmark.each do |b|
+			b.destroy
 		end
+
+		render :text => "Nothing"
 	end
 
 	private

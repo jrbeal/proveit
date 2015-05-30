@@ -13,7 +13,11 @@ class ProversController < ApplicationController
 		@follows = Follow.where("owner = ?", @prover)
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
-		@teams = Team.where()
+	end
+
+	def reset_highest_rating
+		current_prover.reset_highest_rating if current_prover
+		redirect_to root_url
 	end
 
 	def update

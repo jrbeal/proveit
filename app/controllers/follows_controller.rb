@@ -60,7 +60,6 @@ class FollowsController < ApplicationController
 		@follow = Follow.where(:owner => params[:owner], :follows => params[:follows])
 
 		@follow.each do |f|
-			puts f.inspect
 			f.destroy
 		end
 

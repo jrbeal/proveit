@@ -4,8 +4,8 @@
 			<div class="vlevel2 sidepadding">
 				<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
 				<%= link_to tmp, kid.prover %>, &nbsp
-				<%= kid.prover.calculate_rating().round(2) %>, &nbsp
-				<% if already_following(kid) %>
+				<%= kid.prover.rating.round(2) %>, &nbsp
+				<% if already_following(kid.prover.id) %>
 					<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{kid.prover.id}"} %>
 				<% else %>
 					<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{kid.prover.id}"} %>
@@ -36,7 +36,11 @@
 				<%= offspring(kid) %> &nbsp
 				<%= kid.views %> views, &nbsp
 				<%= level(kid) %> &nbsp
-				<a href="#" id="bookmark">Bookmark</a>
+				<% if already_bookmarked(kid) %>
+					<%= link_to "Unbookmark", "#", :class => "unbookmark", :data => {:post => "#{kid.id}"} %>
+				<% else %>
+					<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{kid.id}"} %>
+				<% end %>
 				<div class="right">
 					<%= kid.updated_at.strftime("%c") %>
 				</div>

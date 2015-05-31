@@ -29,7 +29,6 @@ class ProversController < ApplicationController
 		end
 
 		current_prover.update clean_params
-
 		redirect_to root_path
 	end
 

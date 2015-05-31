@@ -4,7 +4,7 @@
 			<div class="vlevel2 sidepadding">
 				<% tmp = kid.prover.provername.downcase + " (" + kid.prover.first_name + " " + kid.prover.last_name + ")" %>
 				<%= link_to tmp, kid.prover %>, &nbsp
-				<%= kid.prover.rating.round(2) %>, &nbsp
+				<%= link_to kid.prover.rating.round(2), prover_path(kid.prover, :default_tab => "rating") %> &nbsp
 				<% if already_following(kid.prover.id) %>
 					<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{kid.prover.id}"} %>
 				<% else %>

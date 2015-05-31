@@ -7,7 +7,7 @@
 				$(".submit_text.message_text").text("In my opinion:");
 				$(".submit_text.support_text").text("Support (Optional):");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional rationale, clarification, supporting information, and external links here.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional rationale, clarification and supporting information here.';
 			});
 
 			$('#type_initiator').on("click", function () {
@@ -15,7 +15,7 @@
 				$(".submit_text.message_text").text("Initiator:");
 				$(".submit_text.support_text").text("Support (Optional):");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter attachments, clarification, supporting information, and external links here.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter attachments, clarification and supporting information here.';
 			});
 
 			$('#type_comment').on("click", function () {
@@ -23,7 +23,7 @@
 				$(".submit_text.message_text").text("Comment:");
 				$(".submit_text.support_text").text("Support (Optional): ");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter comment here.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information and/or attachments here.';
+				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information here.';
 			});
 
 			$('#format_public').on("click", function () {
@@ -141,19 +141,19 @@
 						case 3:
 							$('.vlevelindicator3').show();
 							$('.vlevelindicator4').hide();
-							$('.vlevel4').hide();
+							$('.vlevel4').fadeOut();
 							break;
 						case 2:
 							$('.vlevelindicator2').show();
 							$('.vlevelindicator3').hide();
-							$('.postimage').hide();
-							$('.vlevel3').hide();
+							$('.postimage').fadeOut();
+							$('.vlevel3').fadeOut();
 							break;
 						case 1:
 						default:
 							$('.vlevelindicator1').show();
 							$('.vlevelindicator2').hide();
-							$('.vlevel2').hide();
+							$('.vlevel2').fadeOut();
 							break;
 					}
 
@@ -170,19 +170,19 @@
 						case 4:
 							$('.vlevelindicator3').hide();
 							$('.vlevelindicator4').show();
-							$('.vlevel4').show();
+							$('.vlevel4').fadeIn();
 							break;
 						case 3:
 							$('.vlevelindicator2').hide();
 							$('.vlevelindicator3').show();
-							$('.postimage').show();
-							$('.vlevel3').show();
+							$('.postimage').fadeIn();
+							$('.vlevel3').fadeIn();
 							break;
 						case 2:
 						default:
 							$('.vlevelindicator1').hide();
 							$('.vlevelindicator2').show();
-							$('.vlevel2').show();
+							$('.vlevel2').fadeIn();
 							break;
 					}
 
@@ -195,10 +195,6 @@
 
 				$('#morepost').on("click", function () {
 					console.log("Increasing post verbosity.");
-				});
-
-				$('#follow').on("click", function () {
-					console.log("Following...");
 				});
 
 				$(function () {
@@ -308,11 +304,33 @@
 			});
 
 			$('#expand').on("click", function () {
-				console.log("Expanding kids")
+				$.ajax({
+					url: '/toggleoffspringsetting',
+					type: 'POST',
+					success: function(resp) {
+						console.log("Expanding offspring.");
+						window.location.reload();
+					}
+				})
+				$('#expand').hide();
+				$('#collapse').show();
+
+				return false;
 			});
 
 			$('#collapse').on("click", function () {
-				console.log("Collapsing kids")
+				$.ajax({
+					url: '/toggleoffspringsetting',
+					type: 'POST',
+					success: function(resp) {
+						console.log("Collapsing offspring.");
+						window.location.reload();
+					}
+				})
+				$('#expand').show();
+				$('#collapse').hide();
+
+				return false;
 			});
 
 			$('input[name="kidtype"][value="<%= @defaultkidtype %>"]').click();
@@ -322,6 +340,15 @@
 			$('#commentreply').hide();
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
+
+			<% if current_prover.offspring_style == Prover::COLLAPSED %>
+				$('#expand').show();
+				$('#collapse').hide();
+			<% else %>
+				$('#expand').hide();
+				$('#collapse').show();
+			<% end %>
+
 
 		});
 	</script>
@@ -348,7 +375,7 @@
     <div class="vlevel2 sidepadding">
 			<% tmp = @post.prover.provername.downcase + " (" + @post.prover.first_name + " " + @post.prover.last_name + ")" %>
 			<%= link_to tmp, @post.prover %>, &nbsp
-			<%= @post.prover.rating.round(2) %>, &nbsp
+			<%= link_to @post.prover.rating.round(2), prover_path(@post.prover, :default_tab => "rating") %> &nbsp
 			<% if already_following(@post.prover.id) %>
 				<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{@post.prover.id}"} %>
 			<% else %>

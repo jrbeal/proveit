@@ -39,6 +39,12 @@ class ProversController < ApplicationController
 		render :scoreboard, :layout => false
 	end
 
+	def toggle_offspring_setting
+		current_prover.offspring_style = (current_prover.offspring_style == Prover::COLLAPSED) ? Prover::EXPANDED : Prover::COLLAPSED
+		current_prover.save!
+		render :nothing => true
+	end
+
 	private
 
 	def prover_params

@@ -185,7 +185,7 @@
 				if($tgt.attr("data-prover-id") !== undefined) {
 					followsId = $tgt.attr("data-prover-id");
 				} else {
-					followsId = $('#dropdown').val();
+					followsId = $('#following_dropdown').val();
 				}
 
 				$.ajax({
@@ -207,7 +207,7 @@
 				if($tgt.attr("data-prover-id") !== undefined) {
 					followsId = $tgt.attr("data-prover-id");
 				} else {
-					followsId = $('#dropdown').val();
+					followsId = $('#followers_dropdown').val();
 				}
 
 				$.ajax({
@@ -215,6 +215,22 @@
 					type: 'DELETE',
 					success: function(resp) {
 						console.log("Removing this follower.");
+						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
+			$('.unbookmark').on("click", function (e) {
+				var $tgt = $(e.target);
+				var bookmarkId = $('#bookmark_dropdown').val();
+				console.log(bookmarkId);
+				$.ajax({
+					url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "id": bookmarkId}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Removing this bookmark.");
 						window.location.reload();
 					}
 				});
@@ -281,7 +297,6 @@
 				<div id="profileprofile">
 
 					<%= image_tag(@prover.image_url, :class => "profileproverimage") %>
-
 
 					<% if @owner %>
 						<div id="profileprofilefields1">
@@ -393,7 +408,7 @@
 							<div id="following">
 								<b>Following:</b> &nbsp
 								<% if @follows.count > 0 %>
-									<%= select_tag 'dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
+									<%= select_tag 'following_dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
 									<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:current_prover_id => "#{@prover.id}"} %>
 								<% else %>
 									You are not following anyone right now.
@@ -402,10 +417,10 @@
 						</div>
 
 						<div class="profilepagediv2">
-							<div id="following">
+							<div id="followers">
 								<b>Followed By:</b> &nbsp
 								<% if @followed.count > 0 %>
-									<%= select_tag 'dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
+									<%= select_tag 'followers_dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
 									<%= link_to "Remove", "#", :class => "unfollowedby", :data => {:current_prover_id => "#{@prover.id}"} %>
 								<% else %>
 									No one is following you right now.
@@ -417,9 +432,9 @@
 							<div id="bookmark">
 								<b>Bookmarks:</b> &nbsp
 								<% if @bookmarks.count > 0 %>
-									<%= select_tag 'dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
-									<%= link_to "Remove", "#", :class => "unbookmark", :data => {:current_prover_id => "#{@prover.id}"} %>
-								<% else %>
+									<%= select_tag 'bookmark_dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
+									<%= link_to "Remove", "#", :class => "unbookmark" %>
+							<% else %>
 									You have no bookmarks right now.
 								<% end %>
 							</div>
@@ -518,9 +533,11 @@
 						<li>Current Rank = <%= @prover.ranking %>
 						<li>Percentile = <%= @prover.percentile.round(2) %>
 						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>) &nbsp
-						<button class="resethighestratingbutton" name="Reset" type="button">
-							Reset
-						</button>
+						<% if @owner %>
+							<button class="resethighestratingbutton" name="Reset" type="button">
+								Reset
+							</button>
+						<% end %>
 					</div>
 				</div>
 

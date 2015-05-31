@@ -48,6 +48,9 @@ class ApplicationController < ActionController::Base
 				end
 			when Prover::BOOKMARKS
 				@posts = []
+				Bookmark.where("owner = ?", current_prover).each do |b|
+					@posts = @posts + Post.where("id = ?", b.post)
+				end
 			else
 				@posts = []
 		end

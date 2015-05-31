@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
   devise_for :provers, :path => 'accounts'
-	get 'help'		    =>	'static_pages#help'
-	get 'about'		    =>	'static_pages#about'
-	get 'contact'	    =>	'static_pages#contact'
+	get 'help'		    => 'static_pages#help'
+	get 'about'		    => 'static_pages#about'
+	get 'contact'	    => 'static_pages#contact'
   get 'posts/new'   => 'posts#new'
 	get 'follow'			=> 'follow'
 	get 'bookmark'		=> 'bookmark'
 	get 'scoreboard' 	=> 'provers#scoreboard'
 	get 'resetscore' 	=> 'provers#reset_highest_rating'
+	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 
 	delete 'follows' 	=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

@@ -3,5 +3,4 @@ class Group < ActiveRecord::Base
 	has_one :owner, :class_name => Prover
 
 	validates :name, presence: true
-  validates :name, length => { :maximum => 64 }
 end

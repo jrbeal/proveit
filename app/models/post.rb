@@ -14,6 +14,7 @@ class Post < ActiveRecord::Base
 	# DECAY_FACTOR = 0.97369272069		# 26 week half life
 	# DECAY_FACTOR = 0.94807751434		# 13 week half life
 	# DECAY_FACTOR = 0.84089641525		# 4 week half life
+
 	DECAY_FACTOR = 0.50000000000		# 1 week half life
 
 	SECONDS_IN_WEEK = 60*60*24*7

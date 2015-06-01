@@ -1,15 +1,19 @@
-<div>
+<head>
 	<title>Prove.it!</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 	<%= csrf_meta_tags %>
+</head>
 
+<body>
 	<p class="notice"><%= notice %></p>
 	<p class="alert"><%= alert %></p>
 
 	<div id="header">
-		<%= link_to image_tag('Scales.jpg', :size => '120x80'), root_path %>
+		<div id="scales">
+			<%= link_to image_tag('Scales.jpg', :size => '120x80'), root_path %>
+		</div>
 		<p id="proveit">
 			Prove.it!
 		</p>
@@ -25,34 +29,42 @@
 		<hr size="2" noshade>
 	</div>
 
-	<% if prover_signed_in? %>
+	<div id="content">
+
 		<div id="leftcolumn">
-			<ul class="userinfo">
-				<%= link_to image_tag(current_prover.image_url, :class => "userimage"), prover_path(current_prover, :default_tab => "profile")%>
-				<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
-					<% tmp = current_prover.provername.downcase %>
-					<%= link_to tmp, current_prover %>
-				</li>
-				<li style="display: block; margin-left: 5px; line-height: 135%">
-					<% tmp = " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
-					<%= link_to tmp, current_prover %>
-				</li>
-				<li style="display: block; margin-left: 5px; line-height: 135%">
-					Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
-				</li>
-				<li style="display: block; margin-left: 5px; line-height: 135%">
-					<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
-				</li>
-			</ul>
+
+			<% if prover_signed_in? %>
+				<ul id="userinfo">
+					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover, :default_tab => "profile")%>
+					<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
+						<% tmp = current_prover.provername.downcase %>
+						<%= link_to tmp, current_prover %>
+					</li>
+					<li style="display: block; margin-left: 5px; line-height: 135%">
+						<% tmp = " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
+						<%= link_to tmp, current_prover %>
+					</li>
+					<li style="display: block; margin-left: 5px; line-height: 135%">
+						Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
+					</li>
+					<li style="display: block; margin-left: 5px; line-height: 135%">
+						<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
+					</li>
+				</ul>
+			<% end %>
+		</div>
+
+		<div id="mainbody">
+			<%= yield %>
 		</div>
 
 		<div id="rightcolumn">
-			<div id="scoreboard">
-				<%= render 'provers/shared/scoreboard' %>
-			</div>
+			<% if prover_signed_in? %>
+				<div id="scoreboard">
+					<%= render 'provers/shared/scoreboard' %>
+				</div>
+			<% end %>
 		</div>
-	<% end %>
+	</div>
 
-	<%= yield %>
-
-</div>
+</body>

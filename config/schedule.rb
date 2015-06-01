@@ -22,7 +22,8 @@
 case @environment
 when 'development'
 #	every 1.day, :at => '10:00 pm' do
-	every 10.minutes do
+# every 10.minutes do
+	every 1.hour do
 		rake 'update_scores'
 	end
 end

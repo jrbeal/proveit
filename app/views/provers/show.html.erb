@@ -247,7 +247,7 @@
 	</script>
 </head>
 
-<div class="mainbody">
+<body>
 
 	<%= form_for @prover do |prover_form| %>
 
@@ -503,41 +503,42 @@
 				</div>
 
 				<div id="profilerating">
-					<div id="profileratingheight">
-						<li>Current Rating = <%= @prover.rating.round(2) %>
-						<div id="ratingexplanation">
-							<b><div>
-								Explanation:
-							</div></b>
-
-							<div style="margin-top: 10px">
-								When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
-								Once contested, its status will become false (red) and its score will be reduced to 0. Whenever a
-								post's status is true, its score will decay over time using a half-life formula set by the site
-								administrator. For example, with a 26-week half-life, the score for a true post would be reduced to
-								60.62 after 19 weeks. If its status reverted to false, its score would be reduced to 0. If it became
-								true again, it would reset (to 100) and the decay process would start over. A post will likely toggle
-								back and forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
-							</div>
-
-							<div style="margin-top: 10px">
-								<b><u><em>
-									A user's rating is calculated by averaging his/her 100 most recently active post<b>*</b> scores.
-								</em></u></b>
-							</div>
-
-							<div style="margin-top: 10px">
-								<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
-							</div>
-						</div>
-						<li>Current Rank = <%= @prover.ranking %>
-						<li>Percentile = <%= @prover.percentile.round(2) %>
+					<div id="profileratingstats">
+						<li>Current Rating = <%= @prover.rating.round(2) %></li>
+						<li>Current Rank = <%= @prover.ranking %></li>
+						<li>Percentile = <%= @prover.percentile.round(2) %></li>
 						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>) &nbsp
 						<% if @owner %>
 							<button class="resethighestratingbutton" name="Reset" type="button">
 								Reset
 							</button>
-						<% end %>
+						<% end %> </li>
+					</div>
+
+					<div id="ratingexplanation">
+						<b><div>
+							Explanation:
+						</div></b>
+
+						<div style="margin-top: 10px">
+							When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
+							Once contested, its status will become false (red) and its score reduced to 0. Whenever a
+							post's status is true, its score will decay using a half-life formula set by the site
+							administrator. For example, with a 26-week half-life, the score for a true post would be reduced to
+							60.62 after 19 weeks. If its status reverts to false, its score would be reduced to 0. If it became
+							true again, it would reset (to 100) and the decay process would start over. A post will likely toggle
+							back and forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
+						</div>
+
+						<div style="margin-top: 10px">
+							<b><u><em>
+								A user's rating is calculated by averaging his/her 100 most recently active post<b>*</b> scores.
+							</em></u></b>
+						</div>
+
+						<div style="margin-top: 10px">
+							<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
+						</div>
 					</div>
 				</div>
 
@@ -554,4 +555,4 @@
 			</div>
 		<% end %>
 	<% end %>
-</div>
+</body>

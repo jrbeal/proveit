@@ -2,24 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#profilerating {
+  margin-top: 10px;
+  display: inline-flex;
+}
+
+#profileratingstats {
+  height: max-content;
+  flex: 1;
+}
 
 #ratingexplanation {
+  flex: 2.5;
   background-color: lightblue;
   padding: 10px;
   height: max-content;
   width: 70%;
-  float: right;
   border-style: solid;
   border-width: 1px;
   border-radius: 8px;
-}
-
-#profilerating {
-  margin-top: 10px;
-}
-
-#profileratingheight {
-  height: 197px;
 }
 
 #profilename {
@@ -62,11 +63,6 @@
   border-radius: 8px;
   border-style: solid;
   border-width: 1px;
-}
-
-.userinfo {
-  margin-top: 27px;
-  font-size: 10px;
 }
 
 .profileproverimage {

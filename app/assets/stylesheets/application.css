@@ -16,6 +16,7 @@
 
 body {
 	background-color: white;
+	overflow-y: scroll;
 }
 
 #header {
@@ -109,8 +110,9 @@ h1 {
 }
 
 #userinfo {
-	margin-top: 27px;
+	margin-top: 28px;
 	font-size: 10px;
+	padding-left: 15px;
 }
 
 #userimage {
@@ -220,6 +222,7 @@ h1 {
 	margin-left: 10%;
 	margin-right:10%;
 	width: max-content;
+	height: max-content;
 	border-radius: 10px;
 	border-width: 1px;
 	border-style: solid;

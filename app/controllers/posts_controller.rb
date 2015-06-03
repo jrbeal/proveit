@@ -21,6 +21,7 @@ class PostsController < ApplicationController
 		end
 
 		@kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
+		@provers = Prover.all.order(:provername)
 	end
 
   # GET /posts/new

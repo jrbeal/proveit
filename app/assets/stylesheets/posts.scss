@@ -69,7 +69,6 @@ h1 {
 #postformatflexcontainer {
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 70%;
   display: inline-flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -101,10 +100,18 @@ h1 {
 #postteam1heading1, #postteam1heading2, #postteam2heading1, #postteam2heading2, #postteam2heading3 {
 }
 
-#teamlist1 {
+#team1list {
+  width: 100%;
+}
+
+#team2list {
   width: 100%
 }
 
-#teamlist2 {
-  width: 100%
+.provers_dropdown1 {
+  width: 100%;
+}
+
+.provers_dropdown2 {
+  width: 100%;
 }

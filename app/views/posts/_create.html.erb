@@ -55,12 +55,15 @@
 	<div id="postteam1">
 		<div id="postteam1heading1">
 			Participants
+			&nbsp <%= link_to image_tag('add-icon.png', :size => '10x10'), '#' %>
 		</div>
 		<div id="postteam1heading2">
 			Agree
+			&nbsp <%= link_to image_tag('add-icon.png', :size => '10x10'), '#' %>
 		</div>
 		<div id="postteam1heading3">
 			Team 1
+			&nbsp <%= link_to image_tag('add-icon.png', :size => '10x10'), '#' %>
 		</div>
 		<%= select_tag 'provers_dropdown1', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown1" %>
 		<textarea class="team1list" name="team1list" rows="5" cols="20"></textarea>
@@ -69,9 +72,11 @@
 	<div id="postteam2">
 		<div id="postteam2heading2">
 			Disagree
+			&nbsp <%= link_to image_tag('add-icon.png', :size => '10x10'), '#' %>
 		</div>
 		<div id="postteam2heading3">
 			Team 2
+			&nbsp <%= link_to image_tag('add-icon.png', :size => '10x10'), '#' %>
 		</div>
 		<%= select_tag 'provers_dropdown2', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown2" %>
 		<textarea class="team2list" name="team2list" rows="5" cols="20"></textarea>

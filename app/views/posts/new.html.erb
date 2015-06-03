@@ -192,6 +192,18 @@
 					console.log("Selecting quit button.");
 					history.back();
 				});
+
+				$('.follow').on("click", function (e) {
+					var $tgt = $(e.target);
+					$.post('/follows', {owner: <%= current_prover.id %>, follows: $tgt.attr("data-prover-id") }, function(resp) {
+						var follow = JSON.parse(resp);
+						console.log(follow);
+					});
+
+					console.log("Following this prover.");
+					window.location.reload();
+					return false;
+				});
 			});
 		</script>
 	</head>

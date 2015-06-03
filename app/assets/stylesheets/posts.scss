@@ -13,3 +13,90 @@ h1 {
   margin-top: 10px;
   margin-left: 53px;
 }
+
+.zero {
+  margin-left: 0px;
+}
+
+.one {
+  margin-left: 25px;
+}
+
+.two {
+  margin-left: 50px;
+}
+
+.three {
+  margin-left: 75px;
+}
+
+.four {
+  margin-left: 100px;
+}
+
+.five {
+  margin-left: 125px;
+}
+
+.six {
+  margin-left: 150px;
+}
+
+.seven {
+  margin-left: 175px;
+}
+
+.eight {
+  margin-left: 200px;
+}
+
+.nine {
+  margin-left: 225px;
+}
+
+.ten {
+  margin-left: 250px;
+}
+
+.eleven {
+  margin-left: 275px;
+}
+
+.twelve {
+  margin-left: 275px;
+}
+
+#postformatflexcontainer {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 70%;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#postformat {
+}
+
+#postteam1 {
+  margin-left: 40px;
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#postteam2 {
+  margin-left: 40px;
+  margin-top: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#postteam1heading1, #postteam1heading2, #postteam2heading1, #postteam2heading2, #postteam2heading3 {
+}

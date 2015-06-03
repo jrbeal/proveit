@@ -11,12 +11,24 @@
 					if ($('#format_public').is(':checked')) {
 						$('#public').show();
 						$('#private').hide();
-					} else if ($('#format_private').is(':checked')) {
-						$('#public').hide();
-						$('#private').show();
+						$('#postteam1').hide();
+						$('#postteam2').hide();
 					} else {
 						$('#public').hide();
-						$('#private').hide();
+						$('#private').show();
+						$('#postteam1').show();
+						$('#postteam1heading3').hide();
+						$('#postteam2heading3').hide();
+						if ($('#privateteams').is(':checked')) {
+							$('#postteam2').show();
+							$('#postteam1heading1').hide();
+							$('#postteam1heading2').show();
+							$('#postteam2heading2').show();
+						} else {
+							$('#postteam1heading1').show();
+							$('#postteam1heading2').hide();
+							$('#postteam2heading2').hide();
+						}
 					}
 				});
 
@@ -29,27 +41,51 @@
 					if ($('#format_public').is(':checked')) {
 						$('#public').show();
 						$('#private').hide();
-					} else if ($('#format_private').is(':checked')) {
-						$('#public').hide();
-						$('#private').show();
+						$('#postteam1').hide();
+						$('#postteam2').hide();
 					} else {
 						$('#public').hide();
-						$('#private').hide();
+						$('#private').show();
+						$('#postteam1').show();
+						$('#postteam1heading2').hide();
+						$('#postteam2heading2').hide();
+						if ($('#privateteams').is(':checked')) {
+							$('#postteam2').show();
+							$('#postteam1heading3').show();
+							$('#postteam2heading3').show();
+							$('#postteam1heading1').hide();
+						} else {
+							$('#postteam1heading1').show();
+							$('#postteam1heading3').hide();
+							$('#postteam2heading3').hide();
+						}
 					}
 				});
 
 				$('#type_comment').on("click", function() {
-					console.log("Now we're in comment mode.");
+					console.log("Now we're in casual mode.");
 					$(".submit_text.message_text").text("Comment:");
 					$(".submit_text.support_text").text("Support (Optional): ");
 					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter casual comment here.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information here.';
 					$('#public').hide();
 					$('#private').hide();
+					$('#postteam2').hide();
+					if ($('#format_public').is(':checked')) {
+						$('#postteam1').hide();
+					} else {
+						$('#postteam1').show();
+						$('#postteam1heading1').show();
+						$('#postteam1heading2').hide();
+						$('#postteam1heading3').hide();
+					}
 				});
 
 				$('#format_public').on("click", function() {
 					console.log("Selecting public.");
+					$('#postteam1').hide();
+					$('#postteam2').hide();
+
 					if ($('#type_opinion').is(':checked')) {
 						$('#public').show();
 						$('#private').hide();
@@ -64,20 +100,83 @@
 
 				$('#format_private').on("click", function() {
 					console.log("Selecting private.");
+					$('#postteam1').show();
 					if ($('#type_opinion').is(':checked')) {
+						console.log("Type opinion is selected...");
 						$('#public').hide();
 						$('#private').show();
+						$('#postteam1').show();
+						$('#postteam1heading3').hide();
+						$('#postteam2heading3').hide();
+						if ($('#privateteams').is(':checked')) {
+							$('#postteam2').show();
+							$('#postteam1heading1').hide();
+							$('#postteam1heading2').show();
+							$('#postteam2heading2').show();
+						} else {
+							$('#postteam1heading1').show();
+							$('#postteam1heading2').hide();
+							$('#postteam2heading2').hide();
+						}
 					} else if ($('#type_initiator').is(':checked')) {
+						console.log("Type initiator is selected...");
 						$('#public').hide();
 						$('#private').show();
+						$('#postteam1').show();
+						$('#postteam1heading2').hide();
+						$('#postteam2heading2').hide();
+						if ($('#privateteams').is(':checked')) {
+							$('#postteam2').show();
+							$('#postteam1heading3').show();
+							$('#postteam2heading3').show();
+							$('#postteam1heading1').hide();
+						} else {
+							$('#postteam1heading1').show();
+							$('#postteam1heading3').hide();
+							$('#postteam2heading3').hide();
+						}
 					} else {
+						console.log("Type Casual is selected...");
 						$('#public').hide();
 						$('#private').hide();
+						$('#postteam1').show();
+						$('#postteam1heading1').show();
+						$('#postteam1heading2').hide();
+						$('#postteam1heading3').hide();
+					}
+				});
+
+				$('#teams').on("click", function(e) {
+					console.log("Clicking teams checkbox.");
+					var $tgt = $(e.target);
+					if($tgt.prop("checked")) {
+						$('#postteam1').show();
+						$('#postteam2').show();
+						$('#postteam1heading1').hide();
+						if ($('#type_opinion').is(':checked')) {
+							$('#postteam1heading2').show();
+							$('#postteam1heading3').hide();
+							$('#postteam2heading2').show();
+							$('#postteam2heading3').hide();
+						} else if ($('#type_initiator').is(':checked')) {
+							$('#postteam1heading2').hide();
+							$('#postteam1heading3').show();
+							$('#postteam2heading2').hide();
+							$('#postteam2heading3').show();
+						}
+					} else {
+						$('#postteam1').show();
+						$('#postteam2').hide();
+						$('#postteam1heading1').show();
+						$('#postteam1heading2').hide();
+						$('#postteam1heading3').hide();
+						$('#postteam2heading2').hide();
+						$('#postteam2heading3').hide();
 					}
 				});
 
 				$('#publicviewing').on("click", function(e) {
-					console.log("Selecting public viewing.");
+					console.log("Clicking public viewing checkbox.");
 					var $tgt = $(e.target);
 					if($tgt.prop("checked")) {
 						$('#pubcomments').show();

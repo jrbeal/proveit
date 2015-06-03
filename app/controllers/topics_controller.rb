@@ -50,8 +50,6 @@ class TopicsController < ApplicationController
 		@topic.save!
 		@post.save!
 
-
-		#puts params.inspect
 		#
     # respond_to do |format|
     #   if @topic.save

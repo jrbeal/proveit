@@ -9,11 +9,11 @@
 
 #profileratingstats {
   height: max-content;
-  flex: 1;
+  flex: 2;
 }
 
 #ratingexplanation {
-  flex: 2.5;
+  flex: 5;
   background-color: lightblue;
   padding: 10px;
   height: max-content;
@@ -26,6 +26,15 @@
 #profilename {
   white-space: nowrap;
   text-align: center;
+}
+
+.profileproverimage {
+  float: left;
+  margin: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  width: 14%;
 }
 
 #profileprofilefields1 {
@@ -51,6 +60,7 @@
   border-radius: 8px;
   border-style: solid;
   border-width: 1px;
+  overflow: auto;
 }
 
 #profileprofilefields3 {
@@ -63,15 +73,6 @@
   border-radius: 8px;
   border-style: solid;
   border-width: 1px;
-}
-
-.profileproverimage {
-  float: left;
-  margin: 10px;
-  border-radius: 10px;
-  border-width: 1px;
-  border-style: solid;
-  width: 16%;
 }
 
 .profilepage {
@@ -111,7 +112,7 @@
 .profiletextfield1 {
   float: right;
   display: inline;
-  width: 88%
+  width: 86%
 }
 
 .profiletextfield2 {

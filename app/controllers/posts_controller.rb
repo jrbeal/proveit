@@ -25,6 +25,9 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+		puts "Here1"
+		@provers = Prover.all
+#		puts @provers.inspect
 	end
 
     # GET /posts/1/edit

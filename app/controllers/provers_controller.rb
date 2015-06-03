@@ -23,7 +23,6 @@ class ProversController < ApplicationController
 	def update
 		clean_params = prover_params
 
-		puts params.inspect
 		if params[:prover] && params[:prover][:profile_image]
 			clean_params[:image_url] = upload_image
 		end

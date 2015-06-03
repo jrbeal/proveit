@@ -19,32 +19,65 @@
 	<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 </div>
 
-<div id="formattype" class="toppadding10">
-	<b>Format:</b>
-	<%= radio_button_tag 'format', 'public', true %>
-	<%= label_tag 'format', 'Public' %>
-	<%= radio_button_tag 'format', 'private' %>
-	<%= label_tag 'format', 'Private' %>
-</div>
+<div id="postformatflexcontainer">
+	<div id="postformat">
+		<div id="formattype">
+			<b>Format:</b>
+			<%= radio_button_tag 'format', 'public', true %>
+			<%= label_tag 'format', 'Public' %> &nbsp
+			<%= radio_button_tag 'format', 'private' %>
+			<%= label_tag 'format', 'Private' %>
+		</div>
 
-<div id=public>
-	<%= check_box_tag 'lone_wolf', 'lone_wolf', false %>
-	<%= label_tag 'Lone_wolf?' %>
-</div>
+		<div id=public>
+			<%= check_box_tag 'lone_wolf', 'lone_wolf', false %>
+			<%= label_tag 'Lone_wolf?' %>
+		</div>
 
-<div id=private>
-	<div id="teams">
-		<%= check_box_tag 'teams', 'teams', false %>
-		<%= label_tag 'Teams?' %>
+		<div id=private>
+			<div id="teams">
+				<%= check_box_tag 'privateteams', 'teams', false %>
+				<%= label_tag 'Teams?' %>
+			</div>
+
+			<div id="pubviewing">
+				<%= check_box_tag 'publicviewing', 'publicviewing', false %>
+				<%= label_tag 'Public Viewing?' %>
+			</div>
+
+			<div id="pubcomments">
+				<%= check_box_tag 'publiccomments', 'publiccomments', false %>
+				<%= label_tag 'Public Comments?' %>
+			</div>
+		</div>
 	</div>
-	<div id="pubviewing">
-		<%= check_box_tag 'publicviewing', 'publicviewing', false %>
-		<%= label_tag 'Public Viewing?' %>
+
+	<div id="postteam1">
+		<div id="postteam1heading1">
+			Participants
+		</div>
+		<div id="postteam1heading2">
+			Agree
+		</div>
+		<div id="postteam1heading3">
+			Team 1
+		</div>
+		<%= select_tag 'provers_dropdown1', options_from_collection_for_select(@provers, "id", "provername") %>
+		<textarea class="team1list" name="team1list" rows="5" cols="11"></textarea>
 	</div>
-	<div id="pubcomments">
-		<%= check_box_tag 'publiccomments', 'publiccomments', false %>
-		<%= label_tag 'Public Comments?' %>
+
+	<div id="postteam2">
+		<div id="postteam2heading2">
+			Disagree
+		</div>
+		<div id="postteam2heading3">
+			Team 2
+		</div>
+		<%= select_tag 'provers_dropdown2', options_from_collection_for_select(@provers, "id", "provername") %>
+		<textarea class="team2list" name="team2list" rows="5" cols="11"></textarea>
 	</div>
+
+
 </div>
 
 <div class="divider">

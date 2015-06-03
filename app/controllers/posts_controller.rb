@@ -25,8 +25,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-		puts "Here1"
-		@provers = Prover.all
+		@provers = Prover.all.order(:provername)
 #		puts @provers.inspect
 	end
 

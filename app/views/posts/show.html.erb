@@ -83,14 +83,17 @@
 				var $tgt = $(e.target);
 				if ($tgt.val() == "<%= Post::COMMENT %>") {
 					console.log("kidtype = comment");
+					history.pushState('', '', window.location.toString().replace("opinion", "comment"));
 					$('.opinion').hide();
 					$('.comment').show();
 				} else if ($tgt.val() == "<%= Post::OPINION %>") {
 					console.log("kidtype = opinion");
+					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
 					$('.opinion').show();
 					$('.comment').hide();
 				} else if ($tgt.val() == "<%= Post::INITIATOR %>") {
 					console.log("kidtype = initiator");
+					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
 					$('.opinion').show();
 					$('.comment').hide();
 				} else {
@@ -432,8 +435,8 @@
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
 			<%= link_to "Reply", "#", :id => "createkid" %>
-			<%= link_to "Collapse", @post, :id => "collapse" %>
-			<%= link_to "Expand", @post, :id => "expand" %>
+			<%= link_to "Collapse", "#", :id => "collapse" %>
+			<%= link_to "Expand", "#", :id => "expand" %>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
 			</div>

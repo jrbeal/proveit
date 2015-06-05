@@ -10,9 +10,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @post = Post.find(params[:id])
-    @post.views += 1
-    @post.save!
+		@post.update_column(:views, @post.views+1)
 
 		if (params[:defaultkidtype])
 			@defaultkidtype = params[:defaultkidtype]
@@ -20,7 +18,8 @@ class PostsController < ApplicationController
 		  @defaultkidtype = @post.kind
 		end
 
-		@kids = Post.where(:parent => @post).order(:views).order(:points).reverse_order
+		# A more sophisticated sort to come...
+		@kids = Post.where(:parent => @post).order(:updated_at).reverse_order
 		@provers = Prover.all.order(:provername)
 	end
 

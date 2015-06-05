@@ -54,7 +54,7 @@
 		</div>
 
 		<% if (current_prover.offspring_style == Prover::EXPANDED) %>
-			<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:views).order(:points).reverse_order %>
+			<% grandkids = Post.where(:parent => kid).where(:kind => kid.kind).order(:updated_at).reverse_order %>
 			<%= render partial: "kids", object: grandkids, locals: {indent: indent + 1} %>
 		<% end %>
 <% end %>

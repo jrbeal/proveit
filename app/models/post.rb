@@ -108,6 +108,7 @@ class Post < ActiveRecord::Base
 	end
 	
 	after_update do 									# Update the ancestors one at a time...
+		puts "in after_update..."
 		if self.parent.present?					# ... if there are any...
 			parent = self.parent
 			case parent.kind

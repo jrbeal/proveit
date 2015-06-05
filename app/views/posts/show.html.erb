@@ -78,6 +78,7 @@
 				$('#initiatorreply').hide();
 			});
 
+
 			$('input[name="kidtype"]').on('click', function (e) {
 				console.log("click!");
 				var $tgt = $(e.target);
@@ -86,14 +87,35 @@
 					history.pushState('', '', window.location.toString().replace("opinion", "comment"));
 					$('.opinion').hide();
 					$('.comment').show();
+					$('#createkid').show();
 				} else if ($tgt.val() == "<%= Post::OPINION %>") {
 					console.log("kidtype = opinion");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
+
+					<% if @post.topic.lone_wolf %>
+						<% if @post.topic.root_id.prover_id == current_prover.id %>
+							<% if @post.level.odd? %>
+								$('#createkid').show();
+							<% else %>
+								$('#createkid').hide();
+							<% end %>
+						<% else %>
+							<% if @post.level.even? %>
+								$('#createkid').show();
+							<% else %>
+								$('#createkid').hide();
+							<% end %>
+						<% end %>
+					<% else %>
+						$('#createkid').show();
+					<% end %>
+
 					$('.opinion').show();
 					$('.comment').hide();
 				} else if ($tgt.val() == "<%= Post::INITIATOR %>") {
 					console.log("kidtype = initiator");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
+					$('#createkid').show();
 					$('.opinion').show();
 					$('.comment').hide();
 				} else {
@@ -398,7 +420,7 @@
 				<% end %>
 				<% if !@post.url.empty? %>
 					<div class="flexitem2">
-						<%= link_to image_tag('link3.png', :size => '15x15'), @post.url %>
+						<%= link_to image_tag('link3.png', :size => '13x13'), @post.url %>
 					</div>
 				<% end %> &nbsp
 				<em><div class="message flexitem3">
@@ -444,19 +466,7 @@
 
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
-
-			<% if @post.topic.lone_wolf %>
-				<% if @post.topic.root_id.prover_id == current_prover.id %>
-					<% if @post.level.odd? %>
-						<%= link_to "Reply", "#", :id => "createkid" %>
-					<% end %>
-				<% elsif @post.level.even? %>
-					<%= link_to "Reply", "#", :id => "createkid" %>
-				<% end %>
-			<% else %>
-				<%= link_to "Reply", "#", :id => "createkid" %>
-			<% end %>
-
+			<%= link_to "Reply", "#", :id => "createkid" %>
 			<%= link_to "Collapse", "#", :id => "collapse" %>
 			<%= link_to "Expand", "#", :id => "expand" %>
 			<div class="right sidepadding">

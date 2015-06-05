@@ -12,11 +12,13 @@ class PostsController < ApplicationController
   def show
 		@post.update_column(:views, @post.views+1)
 
-		if (params[:defaultkidtype])
-			@defaultkidtype = params[:defaultkidtype]
+		if (params[:kidtype])
+			@kidtype = params[:kidtype]
 		else
-		  @defaultkidtype = @post.kind
+		  @kidtype = @post.kind
 		end
+
+		cookies[:kidtype] = @kidtypeWow
 
 		# A more sophisticated sort to come...
 		@kids = Post.where(:parent => @post).order(:updated_at).reverse_order
@@ -61,7 +63,7 @@ class PostsController < ApplicationController
     #   end
     # end
 
-		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :defaultkidtype => params[:defaultkidtype]
+		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :kidtype => params[:kidtype]
   end
 
   # PATCH/PUT /posts/1

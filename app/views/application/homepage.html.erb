@@ -200,7 +200,7 @@
 					<div class="post <%= status_color(post) %>">
 						<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>
 						<div class="vlevel2 sidepadding">
-							<% tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
+							<%  tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 							<%= link_to tmp, post.prover %>, &nbsp
 							<%= link_to post.prover.rating.round(2), prover_path(post.prover, :default_tab => "rating") %> &nbsp
 							<% if already_following(post.prover.id) %>
@@ -214,12 +214,21 @@
 						</div>
 
 						<div class="vlevel1 sidepadding">
-							<% if !post.url.empty? %>
-								<span><%= link_to image_tag('link3.png', :size => '12x12'), post.url %></span>
-							<% end %> &nbsp
-							<em><span class="message">
-								<%= link_to post.message, post, {:style=>'color:blue;'} %>
-							</span></em>
+							<div class="flexcontainer1">
+								<% if post.topic.lone_wolf && (post.prover == post.topic.root_id.prover) %>
+									<div class="flexitem1">
+										<%= image_tag('wolf3.png', :size => '15x18') %>
+									</div>
+								<% end %>
+								<% if !post.url.empty? %>
+									<div class="flexitem2">
+										<%= link_to image_tag('link3.png', :size => '15x15'), post.url %>
+									</div>
+								<% end %> &nbsp
+								<em><div class="message flexitem3">
+									<%= link_to post.message, post, {:style=>'color:blue;'} %>
+								</div></em>
+							</div>
 							<div class="right spacing">
 								<%= link_to "Less", "#", :id => "lesspost"%>
 								<span class="vlevelindicator1"><1></span>

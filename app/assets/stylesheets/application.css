@@ -82,6 +82,17 @@ h1 {
 	display: inline;
 }
 
+.flexcontainer1 {
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.flexitem1, .flexitem2, .flexitem3 {
+	flex: auto;
+	margin-right: 8px;
+}
 
 #content {
 	width: 100%;

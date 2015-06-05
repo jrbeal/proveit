@@ -336,7 +336,7 @@
 				return false;
 			});
 
-			$('input[name="kidtype"][value="<%= @defaultkidtype %>"]').click();
+			$('input[name="kidtype"][value="<%= @kidtype %>"]').click();
 
 			$('#kidtype').show();
 			$('#kids').show();
@@ -390,12 +390,22 @@
     </div>
 
     <div class="vlevel1 sidepadding">
-      <em><span class="message">
+			<div class="flexcontainer1">
+				<% if @post.topic.lone_wolf && (@post.prover == @post.topic.root_id.prover) %>
+					<div class="flexitem1">
+						<%= image_tag('wolf3.png', :size => '15x18') %>
+					</div>
+				<% end %>
 				<% if !@post.url.empty? %>
-					<%= link_to image_tag('link3.png', :size => '12x12'), @post.url %>
+					<div class="flexitem2">
+						<%= link_to image_tag('link3.png', :size => '15x15'), @post.url %>
+					</div>
 				<% end %> &nbsp
-				<%= @post.message %>
-			</span></em>
+				<em><div class="message flexitem3">
+					<%= @post.message %>
+				</div></em>
+			</div>
+
       <div class="right spacing">
 				<%= link_to "Less", "#", :id => "lesspost"%>
 				<span class="vlevelindicator1"><1></span>
@@ -434,7 +444,19 @@
 
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
-			<%= link_to "Reply", "#", :id => "createkid" %>
+
+			<% if @post.topic.lone_wolf %>
+				<% if @post.topic.root_id.prover_id == current_prover.id %>
+					<% if @post.level.odd? %>
+						<%= link_to "Reply", "#", :id => "createkid" %>
+					<% end %>
+				<% elsif @post.level.even? %>
+					<%= link_to "Reply", "#", :id => "createkid" %>
+				<% end %>
+			<% else %>
+				<%= link_to "Reply", "#", :id => "createkid" %>
+			<% end %>
+
 			<%= link_to "Collapse", "#", :id => "collapse" %>
 			<%= link_to "Expand", "#", :id => "expand" %>
 			<div class="right sidepadding">
@@ -495,7 +517,7 @@
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>
 				<%= hidden_field_tag :kind, Post::OPINION %>
-				<%= hidden_field_tag :defaultkidtype, Post::OPINION %>
+				<%= hidden_field_tag :kidtype, Post::OPINION %>
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>
@@ -514,7 +536,7 @@
 					<%= hidden_field_tag :parentpost, @post.id %>
 					<%= hidden_field_tag :topic, @post.topic.id %>
 					<%= hidden_field_tag :kind, Post::OPINION %>
-					<%= hidden_field_tag :defaultkidtype, Post::INITIATOR %>
+					<%= hidden_field_tag :kidtype, Post::INITIATOR %>
 
 					<%= render "posts/create" %>
 				</form>
@@ -550,7 +572,7 @@
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>
 				<%= hidden_field_tag :kind, Post::COMMENT %>
-				<%= hidden_field_tag :defaultkidtype, Post::COMMENT %>
+				<%= hidden_field_tag :kidtype, Post::COMMENT %>
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>

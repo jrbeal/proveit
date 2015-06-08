@@ -101,6 +101,22 @@ h1 {
   font-weight: bold;
 }
 
+#team1members {
+  align-self: flex-start;
+  border-width: 1px;
+  border-style: solid;
+  width: 100%;
+  padding-left: 3px;
+}
+
+#team2members {
+  align-self: flex-start;
+  border-width: 1px;
+  border-style: solid;
+  width: 100%;
+  padding-left: 3px;
+}
+
 #team1list {
   overflow-y: scroll;
   width: 100%;

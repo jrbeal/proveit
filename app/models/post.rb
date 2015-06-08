@@ -11,11 +11,10 @@ class Post < ActiveRecord::Base
 	COMMENT = "comment"
 
 	# DECAY_FACTOR = 0.98675869426		# 52 week half life
-	# DECAY_FACTOR = 0.97369272069		# 26 week half life
+	DECAY_FACTOR = 0.97369272069		# 26 week half life
 	# DECAY_FACTOR = 0.94807751434		# 13 week half life
 	# DECAY_FACTOR = 0.84089641525		# 4 week half life
-
-	DECAY_FACTOR = 0.50000000000		# 1 week half life
+	# DECAY_FACTOR = 0.50000000000		# 1 week half life
 
 	SECONDS_IN_WEEK = 60*60*24*7
 
@@ -63,8 +62,6 @@ class Post < ActiveRecord::Base
 		Post.all.each do |p|
 			if (p.status)
 				weeks_since_last_update = (Time.now - p.updated_at) / SECONDS_IN_WEEK
-				Rails.logger.info ("Weeks since last update: #{weeks_since_last_update}")
-				Rails.logger.info ("#{Time.now}")
 				p.update_column(:score, 100*(DECAY_FACTOR**weeks_since_last_update))
 			else
 				p.update_column(:score, 0.0)
@@ -108,7 +105,6 @@ class Post < ActiveRecord::Base
 	end
 	
 	after_update do 									# Update the ancestors one at a time...
-		puts "in after_update..."
 		if self.parent.present?					# ... if there are any...
 			parent = self.parent
 			case parent.kind

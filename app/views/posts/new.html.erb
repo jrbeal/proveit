@@ -2,6 +2,30 @@
 	<head>
 		<script type="text/javascript">
 			$(function() {
+
+				function findName(id) {
+					var match = null;
+					$.map(provers_dropdown1, function(nameObj) {
+						if(nameObj.id == id) {
+							match = nameObj;
+						}
+					});
+
+					return match;
+				};
+
+				$("#provers_dropdown1").change(function(e) {
+					if($("#provers_dropdown1").val() == -1) {
+						return false;
+					}
+
+					var newVal = findName($("#provers_dropdown1").val());
+					newVal.selected = true;
+
+					$("#team1members").append("Test");
+					$("#team1members").append(newVal.provername + "<br>");
+				});
+
 				$('#type_opinion').on("click", function() {
 					console.log("Now we're in opinion mode.");
 					$(".submit_text.message_text").text("In my opinion:");
@@ -205,6 +229,7 @@
 					return false;
 				});
 			});
+
 		</script>
 	</head>
 

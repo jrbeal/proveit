@@ -1,0 +1,80 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+	var names = [
+			{id: 1, fullname: "Jeremy Beal "},
+			{id: 2, fullname: "Justin Beal"},
+			{id: 3, fullname: "Jenni Beal"},
+			{id: 4, fullname: "Jeff Beal"},
+			{id: 5, fullname: "Diane Beal"},
+			{id: 6, fullname: "Dave Beal"},
+			{id: 7, fullname: "Sean Beal"},
+			{id: 8, fullname: "Luke Beal"},
+			{id: 9, fullname: "Cynthia Beal"},
+			{id: 10, fullname: "Reynolds Beal"}
+		];
+	
+	var selectedNames = [];
+
+	$(function() {
+
+		function findName(id) {
+			var match = null;
+			$.map(names, function(nameObj) {
+				if(nameObj.id == id) {
+					match = nameObj;
+				}
+			});
+
+			return match;
+		};
+
+		function rebuildNameDropdown() {
+			$("#names").html("<option value='-1'> Choose a Beal </option>");
+
+			$.map(names, function(nameObj) {
+				if(!nameObj.selected) {
+					$("#names").append("<option value='" + nameObj.id + "'>" + nameObj.fullname + "</option>");
+				}
+			});
+		};
+
+		rebuildNameDropdown();
+
+		$("#names").change(function(e) {
+			if($("#names").val() == -1) {
+				return false;
+			}
+			var newVal = findName($("#names").val());
+
+			selectedNames.push(newVal);
+			newVal.selected = true;
+			
+			$("#nameDisplay").append("<li>" + newVal.fullname + "</li>");
+
+			rebuildNameDropdown();
+		});
+
+		$("#submitBtn").click(function(e) {
+			$.map(selectedNames, function(nameObj) {
+					console.log("We're about to submit " + nameObj.fullname);
+			});
+
+			return false;
+		});
+	});
+</script>
+</head>
+<body>
+	<form action="/names" method="post">
+		<select id="names" name="names"></select>
+		<button id="submitBtn">Submit the names</button>
+	</form>
+
+	<ul id="nameDisplay"> 
+		<div> Names You've Selected </div>
+	</ul>
+</body>
+</html>

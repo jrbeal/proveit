@@ -61,14 +61,14 @@ class Prover < ActiveRecord::Base
 		self.save!
 	end
 
-																			# Update ratings for all provers (to be called daily with cron
+																			# Update ratings for all provers (to be called periodically with cron
 	def self::update_ratings() 					# immediately after "update_post_scores")
 		Prover.all.each do |p|
 			p.calculate_rating
 		end
 	end
 
-																			# Update rankings for all provers (to be called daily with cron
+																			# Update rankings for all provers (to be called periodically with cron
 	def self::update_rankings					  # immediately after "update_prover_ratings")
 		provers = Prover.all.order(:rating).reverse_order
 		provers.each_with_index do |p,i|

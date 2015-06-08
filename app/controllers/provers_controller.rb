@@ -32,7 +32,7 @@ class ProversController < ApplicationController
 	end
 
 	def scoreboard
-		limit = params[:limit] || 10
+		limit = params[:limit] || 20
 		@top_provers = Prover.order(:rating => :desc).take(limit)
 		render :scoreboard, :layout => false
 	end

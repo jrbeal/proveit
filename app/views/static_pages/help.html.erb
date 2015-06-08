@@ -1,22 +1,223 @@
-<!DOCTYPE html>
-<html>
-    <head>
-      <style>
-          body {
-          }
-          .help {
-              font: arial, sans-serif;
-              margin-left: 150px;
-              margin-right: 150px;
-              justify-content: ;
-          }
+<p class="title">
+	Introduction:
+</p>
 
-      </style>
-    </head>
+<p class="paragraph">
+	ProveIt! is basically a debate and discussion forum allowing users to address any topic of their choosing. While users
+	are free to keep things light and lively with casual posts about anything they find interesting or amusing, ProveIt!
+	possesses an unparalleled ability to host serious topics and provide a mechanism for separating fact from fiction
+	and ultimately revealing the truth or falsehood of these opinions.
+</p>
 
-    <body>
-        <% provide(:title, "Help") %>
-        <p class="help">
-          Under Construction...</p>
-    </body>
-</html>
+<p class="paragraph">
+	To access most functionality in ProveIt!, you must first create an account and log in. To do this, select
+	"Sign up" on the log-in screen then log in using your new credentials. Once logged in you will note that your
+	account information appears in the left column on the screen. At this point your profile picture is a default user
+	icon. To change this, click on it, or your user name directly below it. This will take you to your profile
+	page allowing you to update your picture and other relevant user information. Once completed, select the "Save"
+	button to commit any changes. Return to the home page by selecting the "Home" link located near the top-right
+	corner of the browser screen, or by selecting the "Scales of Justice" icon in the upper-left corner.
+</p>
+
+<p class="title">
+	Topic Types:
+</p>
+
+<p class="paragraph">
+	ProveIt! supports three basic topic types, "Opinions", "Initiators", and "Casual":
+</p>
+
+<div style="margin-left:2%">
+	<p class="title">
+		Opinions:
+	</p>
+
+	<p class="paragraph">
+		Opinions are meant to be serious and well thought-out as they will be challenged from all angles and scrutinized
+		for complete accuracy. It's important that they be flawlessly worded and beyond reproach. If any part of an
+		opinion is false, the whole post will be rendered false. It's best to keep them as simple as possible. If
+		you have multiple opinions on a subject it is recommended that you post them separately. <b><em>Possible responses
+		include Objections and Comments.</em></b> Objections are essentially the same as Opinions but called such to emphasize
+		their purpose. General comments, questions, insinuations, and personal attacks (if you must) are best submitted
+		as Comments. It's important to understand that the actual debate tree consists of an Initial Opinion (IO) followed
+		by a cascading onslaught of Objections (and nothing but Objections) any number of levels deep. Comments are welcome
+		but kept separate.
+	</p>
+
+	<p class="paragraph">
+		At any point in time, Opinions (and Objections) reveal their current status with their color. Green suggests
+		"true" while red suggests "false". At no time is this status intended to be a definitive conclusion but rather
+		an indication that the post has either been successfully defended (true), contested (false), or uncontested (true),
+		This status could change at any time. It's up to users to passionately and aggressively defend their posts
+		to keep them green. Eventually, as a debate matures and all of its branches become fully resolved, the IO will
+		converge on true or false (green or red).
+	</p>
+
+	<p class="title">
+		Initiators:
+	</p>
+
+	<p class="paragraph">
+		Initiators provide a way to prompt other users to post their Opinions on a subject. They can be identified by their
+		light yellow background. Perhaps a user wants to discuss a controversial topic but isn't sure where he stands yet.
+		Or perhaps he wants to post a link to a recent article containing debatable statements and he'd like to solicit
+		opinions. There are many reasons a user might want to create an Initiator. <b><em>Possible responses include
+		Opinions or Comments.</em></b>
+	</p>
+
+	<p class="title">
+		Casual:
+	</p>
+
+	<p class="paragraph">
+		A Casual topic can be anything a user believes will be interesting or amusing.They can be identified by their
+		light-blue background. <b><em>The only possible response
+		is a Comment.</em></b>
+	</p>
+</div>
+
+<p class="title">
+	New topics:
+</p>
+
+<p class="paragraph">
+	The "Create" option allows users to generate new topics. Radio buttons are provided to indicate the
+	desired type (Opinion, Initiator, and Casual). All three require an entry in the primary text field. This is meant to
+	be short and to the point. The following "Support" text field is optional. This can be used to add unlimited
+	rationale, clarification, or simple commentary. The third field (a URL) is also optional. This allows the OP to
+	reference an external link if desired. Finally, the format must be declared "Public" or "Private".
+</p>
+
+<div style="margin-left:2%">
+	<p class="title">
+		Public:
+	</p>
+
+	<p class="paragraph">
+		Public means that all users can participate. Opinion posts declared Public offer the OP an option to go "Lone Wolf".
+		This means only he will be permitted to respond to odd-level posts. Since debate trees consist of objections only,
+		all even-level posts (in any branch) will be in support of the original opinion while all odd-level posts will be
+		in opposition. A Lone Wolf has decided he wants no help supporting his opinion. It's him against the world!
+	</p>
+
+	<p class="title">
+		Private:
+	</p>
+
+	<p class="paragraph">
+		Private means only a select list of users designated by the OP will be able to view and participate in the topic.
+		Fully private topics are ideal for family matters, corporate decision making, jury debates, etc. At the OP's
+		discretion, he can select "Public viewing" which will allow other users to view the topic but not participate. In
+		addition, a "Public comments" option will allow other users to post comments (but not Objections). This option is
+		ideal for prominent people (celebrities, political pundits, politicians, etc.) desiring to engage opponents in
+		semi-private debates. The public can view them and post comments but not participate in the actual debates.
+		Semi-private topics will be posted in the right column sorted by activity and viewership.
+	</p>
+
+	<p class="paragraph">
+		The OP may elect to form teams in a private topic. This means different things depending on the topic type. With
+		Opinions, teams will be separated by users who "Agree" with the original opinion, from those who "Disagree". In
+		other words, team members who agree will only be permitted to reply to odd-level posts. Team members who disagree
+		will only be permitted to reply to even-level posts. With Initiators, the teams will be designated as "Team 1" and
+		"Team 2". Anyone from either team can post Opinions but after that teammates must remain in agreement. There is no
+		"Team" option available with a Comment topic.
+	</p>
+</div>
+
+<p class="title">
+	Scoring:
+</p>
+
+<p class="paragraph">
+	When a post (Opinion or Objection) is first submitted, its status will be set to "true" (green) and its score
+	to 100. Once contested, its status will become false (red) and its score reduced to 0. Whenever a post's status
+	is true, its score will decay using a half-life formula set by the site administrator. For example, with a
+	26-week half-life, the score for a true post would be reduced to 60.62 after 19 weeks. If its status reverts to
+	false, its score would be reduced to 0. If it became true again, it would reset (to 100) and the decay process
+	would start over. A post will likely toggle back and forth between true and false throughout it's lifetime with
+	its score ranging between 0 and 100. Note that Comments and Initiators are not scored and will not affect a user's
+	rating.
+</p>
+
+<p class="paragraph">
+	Scoring is important because users will be ranked according to their rating which is an average of their most recent
+	100 post scores. Their rating will determine numerous things including access to different certification levels,
+	eligibility for mediation capabilities, and of course, status and credibility. The decay feature is necessary to
+	prevent successful users from holding on to a lofty ranking even after going dormant. A user must remain active to
+	maintain his rating.
+</p>
+
+<p class="paragraph">
+  A scoreboard will be present at all times in the right column sidebar. It keeps track of user rankings and displays
+	the top 20 users. Future improvements will include the ability to select various moving averages and sort the list
+	accordingly.
+</p>
+
+<p class="paragraph">
+  Each user can see a breakdown of his ranking in his User Profile Rating tab. In addition to his rating and rank, he
+	can see his percentile and "Highest Rating" value and date. This setting can be reset (like a high-water mark) at any
+	time. Future improvements will include a histogram of these values.
+</p>
+
+<p class="title">
+	Home Page:
+</p>
+
+<p class="paragraph">
+	The home page consists of left and right sidebar columns and a center "feed" queue. This queue is populated with
+	posts according to the current user's filter settings. By default, this will be set to "Topics" which basically means
+	all level-zero posts of any type (Opinion, Initiator, or Casual). This can be changed at the user's discretion to,
+	"Opinions", "Objections", "Initiators", "Comments", "Following", or "Bookmarks". Additional filtering capabilities
+	will be implemented soon.
+</p>
+
+<div style="margin-left:2%">
+	<p class="title">
+		Posts:
+	</p>
+
+	<p class="paragraph">
+		Posts in the queue are displayed with a level of verbosity as set in the user's profile settings. The lowest
+		setting displays only the bare minimum verbiage while the highest setting displays everything. This setting can be
+		overridden (temporarily) by using the "Less" or "More" buttons found at the top (right) of the queue. Individual
+		posts have their own settings to further control the level of clutter.
+	</p>
+
+	<p class="paragraph">
+		Each post includes the OP's profile picture, his name, his rating, and a "Follow" option to add him to the
+		current user's "Follow" list. The second line displays a post's primary message possibly preceded by a Lone Wolf
+		icon (found with Opinions and Objections only) and/or an external link icon. The third line displays the number
+		of (direct objections / total offspring objections) and (direct comments / total offspring comments). It also
+		displays the number of views, the tree level, and a "Bookmark" option to add this post to the current user's
+		"Bookmark" list. The right side of each post displays two timestamps. The oldest is the "Created At" date and the
+		other is the "Updated At" date. The latter is updated any time any new offspring (or descendants at any level) is
+		generated.
+	</p>
+</div>
+
+<p class="title">
+	Post Page:
+</p>
+
+<p class="paragraph">
+	Selecting the primary text message of any post on the home page will redirect you to the Post Page with the selected
+	post at the top. Displayed beneath this Featured Post will be a complete list of its direct children (Objections or
+	Comments -- depending on which radio button is selected.) Selecting the "Expand" option will expand this list to
+	include all descendents of the Featured Post using proportionate indentation to depict generation levels. Selecting
+	"Collapse" will revert to a list of direct children only.
+</p>
+
+<p class="paragraph">
+	Selecting the primary text messages in children posts will allow users to traverse downward through any topic tree.
+	At any point, a user can traverse upward by selecting the "Parent" or "Root" options. The "Parent" option will move
+	up one level while the "Root" option will jump all the way to the IO.
+</p>
+
+<p class="paragraph">
+	The "Reply" option is used to generate a new post in response to the featured post at the top. The type of post
+	created depends on the radio button currently selected ("Opinion", "Objection", or "Comment"). With Comments,
+	the only input required is a primary text message. Support text and a URL are optional. With Objections,
+	the user must select an Objection type using one of the radio buttons available ("Manual", "Fallacy", "Inconclusive",
+	"Ambiguous", "Irrelevant", "Duplicate", or "Mediation Request".) Currently, the only one of these options implemented
+	is "Manual". Future improvements will include implementation of all of these options.
+</p>

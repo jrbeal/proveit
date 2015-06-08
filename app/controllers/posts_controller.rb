@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 		  @kidtype = @post.kind
 		end
 
-		cookies[:kidtype] = @kidtypeWow
+		cookies[:kidtype] = @kidtype
 
 		# A more sophisticated sort to come...
 		@kids = Post.where(:parent => @post).order(:updated_at).reverse_order

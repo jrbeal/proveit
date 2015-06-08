@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528133925) do
+ActiveRecord::Schema.define(version: 20150606210657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,12 +148,6 @@ ActiveRecord::Schema.define(version: 20150528133925) do
   add_index "provers", ["provername"], name: "index_provers_on_provername", unique: true, using: :btree
   add_index "provers", ["reset_password_token"], name: "index_provers_on_reset_password_token", unique: true, using: :btree
 
-  create_table "provers_teams", force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "prover_id"
-    t.string  "type"
-  end
-
   create_table "stories", force: :cascade do |t|
     t.string  "url"
     t.string  "headline"
@@ -161,7 +155,9 @@ ActiveRecord::Schema.define(version: 20150528133925) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string "kind"
+    t.integer "provers"
+    t.integer "topics"
+    t.string  "type"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -173,8 +169,6 @@ ActiveRecord::Schema.define(version: 20150528133925) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "root_id"
-    t.integer  "team1_id"
-    t.integer  "team2_id"
     t.integer  "categories_id"
   end
 
@@ -192,12 +186,10 @@ ActiveRecord::Schema.define(version: 20150528133925) do
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
   add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
-  add_foreign_key "provers_teams", "provers"
-  add_foreign_key "provers_teams", "teams"
+  add_foreign_key "teams", "provers", column: "provers", on_delete: :cascade
+  add_foreign_key "teams", "topics", column: "topics", on_delete: :cascade
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
-  add_foreign_key "topics", "teams", column: "team1_id"
-  add_foreign_key "topics", "teams", column: "team2_id"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "provers"
 end

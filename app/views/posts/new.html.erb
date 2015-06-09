@@ -1,26 +1,40 @@
 <div class="mainbody">
 	<head>
 		<script type="text/javascript">
+
+			var selectedNames1 = [];
+			var selectedNames2 = [];
+
 			$(function() {
 
 				$("#provers_dropdown1").change(function(e) {
 					if($("#provers_dropdown1").val() == -1) {
 						return false;
 					}
-
-					var name = $("#provers_dropdown1 option[value=" + $("#provers_dropdown1").val() + "]").text()
-
-					$("#team1members").append(name + "<br>");
+					var name = $("#provers_dropdown1 option[value=" + $("#provers_dropdown1").val() + "]").text();
+					if (jQuery.inArray(name, selectedNames1) > -1) {
+						alert(name + " is already on the team");
+					} else if (jQuery.inArray(name, selectedNames2) > -1) {
+						alert(name + " is on the other team");
+					}	else {
+						selectedNames1.push(name);
+						$("#team1members").append(name + "<br>");
+					}
 				});
 
 				$("#provers_dropdown2").change(function(e) {
 					if($("#provers_dropdown2").val() == -1) {
 						return false;
 					}
-
-					var name = $("#provers_dropdown2 option[value=" + $("#provers_dropdown2").val() + "]").text()
-
-					$("#team2members").append(name + "<br>");
+					var name = $("#provers_dropdown2 option[value=" + $("#provers_dropdown2").val() + "]").text();
+					if (jQuery.inArray(name, selectedNames2) > -1) {
+						alert(name + " is already on the team");
+					} else if (jQuery.inArray(name, selectedNames1) > -1) {
+						alert(name + " is on the other team");
+					}	else {
+						selectedNames2.push(name);
+						$("#team2members").append(name + "<br>");
+					}
 				});
 
 				$('#type_opinion').on("click", function() {

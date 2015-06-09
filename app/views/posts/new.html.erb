@@ -3,27 +3,24 @@
 		<script type="text/javascript">
 			$(function() {
 
-				function findName(id) {
-					var match = null;
-					$.map(provers_dropdown1, function(nameObj) {
-						if(nameObj.id == id) {
-							match = nameObj;
-						}
-					});
-
-					return match;
-				};
-
 				$("#provers_dropdown1").change(function(e) {
 					if($("#provers_dropdown1").val() == -1) {
 						return false;
 					}
 
-					var newVal = findName($("#provers_dropdown1").val());
-					newVal.selected = true;
+					var name = $("#provers_dropdown1 option[value=" + $("#provers_dropdown1").val() + "]").text()
 
-					$("#team1members").append("Test");
-					$("#team1members").append(newVal.provername + "<br>");
+					$("#team1members").append(name + "<br>");
+				});
+
+				$("#provers_dropdown2").change(function(e) {
+					if($("#provers_dropdown2").val() == -1) {
+						return false;
+					}
+
+					var name = $("#provers_dropdown2 option[value=" + $("#provers_dropdown2").val() + "]").text()
+
+					$("#team2members").append(name + "<br>");
 				});
 
 				$('#type_opinion').on("click", function() {

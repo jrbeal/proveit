@@ -31,13 +31,15 @@ class TopicsController < ApplicationController
 			:kind => params[:type],
 			:url => params[:url],
 		}
+
 		topic_params = {
 			:private => (params[:format] == "private"),
 			:lone_wolf => (params[:lone_wolf] == "lone_wolf"),
-			:teams => (params[:teams] == "teams"),
+			:use_teams => (params[:use_teams] == "use_teams"),
 			:public_viewing => (params[:publicviewing] == "publicviewing"),
 			:public_comments => (params[:publiccomments] == "publiccomments"),
 		}
+
 
 		@post = Post.new(post_params)
     @topic = Topic.new(topic_params)
@@ -47,19 +49,44 @@ class TopicsController < ApplicationController
 		@post.prover = current_prover
 		@topic.root_id = @post
 
+		if @topic.private?
+			case params[:type]
+			when Post::OPINION
+				if @topic.use_teams?
+					team1_type = Team::AGREE
+					team2_type = Team::DISAGREE
+				else
+					team1_type = Team::PARTICIPANTS
+				end
+			when Post::INITIATOR
+				if @topic.use_teams?
+					team1_type = Team::TEAM1
+					team2_type = Team::TEAM2
+				else
+					team1_type = Team::PARTICIPANTS
+				end
+			when Post::COMMENT
+				team1_type = Team::PARTICIPANTS
+			else
+				puts "Invalid team type"
+			end
+
+			params[:team1].split.each do |id|
+				@team_member = Team.new(:prover => Prover.find(id), :topic => @topic, :team_type => team1_type)
+				@team_member.save!
+			end
+
+			if @topic.use_teams?
+
+				params[:team2].split.each do |id|
+					@team_member = Team.new(:prover => Prover.find(id), :topic => @topic, :team_type => team2_type)
+					@team_member.save!
+				end
+			end
+		end
+
 		@topic.save!
 		@post.save!
-
-		#
-    # respond_to do |format|
-    #   if @topic.save
-    #     format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
-    #     format.json { render :show, status: :created, location: @topic }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @topic.errors, status: :unprocessable_entity }
-    #   end
-    # end
 
 		redirect_to root_path
   end

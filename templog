@@ -1,0 +1,593 @@
+=> Booting WEBrick
+=> Rails 4.2.0 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+
+
+
+Started GET "/posts/new" for 127.0.0.1 at 2015-06-09 09:34:46 -0600
+Started GET "/posts/new" for 127.0.0.1 at 2015-06-09 09:34:46 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PostsController#new as HTML
+Processing by PostsController#new as HTML
+  [1m[35mProver Load (1.0ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[35mProver Load (1.0ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[36mProver Load (1.8ms)[0m  [1mSELECT "provers".* FROM "provers"  ORDER BY "provers"."provername" ASC[0m
+  [1m[36mProver Load (1.8ms)[0m  [1mSELECT "provers".* FROM "provers"  ORDER BY "provers"."provername" ASC[0m
+  Rendered posts/_create.html.erb (7.0ms)
+  Rendered posts/_create.html.erb (7.0ms)
+  Rendered posts/new.html.erb within layouts/application (15.3ms)
+  Rendered posts/new.html.erb within layouts/application (15.3ms)
+  [1m[35mProver Load (1.5ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  [1m[35mProver Load (1.5ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  Rendered provers/shared/_scoreboard.html.erb (7.5ms)
+  Rendered provers/shared/_scoreboard.html.erb (7.5ms)
+Completed 200 OK in 327ms (Views: 255.7ms | ActiveRecord: 9.7ms)
+Completed 200 OK in 327ms (Views: 255.7ms | ActiveRecord: 9.7ms)
+
+
+
+
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:34:47 -0600
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:34:47 -0600
+Processing by ProversController#scoreboard as */*
+Processing by ProversController#scoreboard as */*
+  [1m[36mProver Load (0.8ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+  [1m[36mProver Load (0.8ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+  [1m[35mProver Load (1.1ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  [1m[35mProver Load (1.1ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  Rendered provers/shared/_scoreboard.html.erb (5.1ms)
+  Rendered provers/shared/_scoreboard.html.erb (5.1ms)
+  Rendered provers/scoreboard.html.erb (9.9ms)
+  Rendered provers/scoreboard.html.erb (9.9ms)
+Completed 200 OK in 24ms (Views: 17.4ms | ActiveRecord: 1.9ms)
+Completed 200 OK in 24ms (Views: 17.4ms | ActiveRecord: 1.9ms)
+
+
+
+
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:34:57 -0600
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:34:57 -0600
+Processing by ProversController#scoreboard as */*
+Processing by ProversController#scoreboard as */*
+  [1m[36mProver Load (0.7ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+  [1m[36mProver Load (0.7ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+  [1m[35mProver Load (1.2ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  [1m[35mProver Load (1.2ms)[0m  SELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20
+  Rendered provers/shared/_scoreboard.html.erb (5.6ms)
+  Rendered provers/shared/_scoreboard.html.erb (5.6ms)
+  Rendered provers/scoreboard.html.erb (9.9ms)
+  Rendered provers/scoreboard.html.erb (9.9ms)
+Completed 200 OK in 20ms (Views: 14.3ms | ActiveRecord: 1.9ms)
+Completed 200 OK in 20ms (Views: 14.3ms | ActiveRecord: 1.9ms)
+
+
+
+
+Started POST "/topics" for 127.0.0.1 at 2015-06-09 09:35:00 -0600
+Started POST "/topics" for 127.0.0.1 at 2015-06-09 09:35:00 -0600
+Processing by TopicsController#create as 
+Processing by TopicsController#create as 
+  Parameters: {"type"=>"opinion", "authenticity_token"=>"pvnW1+r+JEmCqM+xhpQLm3rvd6FXoIL9jgn4NQFsYSPPJUitSd/XB7at9HCmsjoUXNykMIuyUZTny6HF43xm/Q==", "parentpost"=>"", "message"=>"test", "support"=>"test", "url"=>"", "provers_dropdown1"=>"72", "provers_dropdown2"=>"63", "commit"=>"Submit"}
+  Parameters: {"type"=>"opinion", "authenticity_token"=>"pvnW1+r+JEmCqM+xhpQLm3rvd6FXoIL9jgn4NQFsYSPPJUitSd/XB7at9HCmsjoUXNykMIuyUZTny6HF43xm/Q==", "parentpost"=>"", "message"=>"test", "support"=>"test", "url"=>"", "provers_dropdown1"=>"72", "provers_dropdown2"=>"63", "commit"=>"Submit"}
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1[0m  [["id", 60]]
+{"type"=>"opinion", "authenticity_token"=>"pvnW1+r+JEmCqM+xhpQLm3rvd6FXoIL9jgn4NQFsYSPPJUitSd/XB7at9HCmsjoUXNykMIuyUZTny6HF43xm/Q==", "parentpost"=>"", "message"=>"test", "support"=>"test", "url"=>"", "format"=>"private", "provers_dropdown1"=>"72", "provers_dropdown2"=>"63", "commit"=>"Submit", "controller"=>"topics", "action"=>"create"}
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "topics" ("private", "lone_wolf", "use_teams", "public_viewing", "public_comments", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["private", "t"], ["lone_wolf", "f"], ["use_teams", 0], ["public_viewing", "f"], ["public_comments", "f"], ["created_at", "2015-06-09 15:35:00.645507"], ["updated_at", "2015-06-09 15:35:00.645507"]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "topics" ("private", "lone_wolf", "use_teams", "public_viewing", "public_comments", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["private", "t"], ["lone_wolf", "f"], ["use_teams", 0], ["public_viewing", "f"], ["public_comments", "f"], ["created_at", "2015-06-09 15:35:00.645507"], ["updated_at", "2015-06-09 15:35:00.645507"]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "posts" ("message", "support", "kind", "url", "prover_id", "topic_id", "created_at", "updated_at", "status", "score", "level", "views", "children_opinions", "children_comments", "offspring_opinions", "offspring_comments", "points") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING "id"  [["message", "test"], ["support", "test"], ["kind", "opinion"], ["url", ""], ["prover_id", 60], ["topic_id", 328], ["created_at", "2015-06-09 15:35:00.649398"], ["updated_at", "2015-06-09 15:35:00.649398"], ["status", "t"], ["score", 100.0], ["level", 0], ["views", 0], ["children_opinions", 0], ["children_comments", 0], ["offspring_opinions", 0], ["offspring_comments", 0], ["points", 0]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "posts" ("message", "support", "kind", "url", "prover_id", "topic_id", "created_at", "updated_at", "status", "score", "level", "views", "children_opinions", "children_comments", "offspring_opinions", "offspring_comments", "points") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING "id"  [["message", "test"], ["support", "test"], ["kind", "opinion"], ["url", ""], ["prover_id", 60], ["topic_id", 328], ["created_at", "2015-06-09 15:35:00.649398"], ["updated_at", "2015-06-09 15:35:00.649398"], ["status", "t"], ["score", 100.0], ["level", 0], ["views", 0], ["children_opinions", 0], ["children_comments", 0], ["offspring_opinions", 0], ["offspring_comments", 0], ["points", 0]]
+  [1m[36mProver Load (4.8ms)[0m  [1mSELECT "provers".* FROM "provers"[0m
+  [1m[36mProver Load (4.8ms)[0m  [1mSELECT "provers".* FROM "provers"[0m
+  [1m[35mPost Load (1.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 61 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[35mPost Load (1.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 61 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[36m (0.8ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 61 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36m (0.8ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 61 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[36m (0.7ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36m (0.7ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 72 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mPost Load (1.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (1.0ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 60 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "highest_rating" = $2, "highest_rating_date" = $3, "updated_at" = $4 WHERE "provers"."id" = $5  [["rating", 61.98503259083154], ["highest_rating", 61.98503259083154], ["highest_rating_date", "2015-06-09 15:35:00.696554"], ["updated_at", "2015-06-09 15:35:00.698184"], ["id", 60]]
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "highest_rating" = $2, "highest_rating_date" = $3, "updated_at" = $4 WHERE "provers"."id" = $5  [["rating", 61.98503259083154], ["highest_rating", 61.98503259083154], ["highest_rating_date", "2015-06-09 15:35:00.696554"], ["updated_at", "2015-06-09 15:35:00.698184"], ["id", 60]]
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.7ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 63 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "updated_at" = $2 WHERE "provers"."id" = $3  [["rating", 77.81972645307363], ["updated_at", "2015-06-09 15:35:00.710495"], ["id", 63]]
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "updated_at" = $2 WHERE "provers"."id" = $3  [["rating", 77.81972645307363], ["updated_at", "2015-06-09 15:35:00.710495"], ["id", 63]]
+  [1m[36mPost Load (0.8ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.8ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.8ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.8ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 65 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "updated_at" = $2 WHERE "provers"."id" = $3  [["rating", 77.36811458534365], ["updated_at", "2015-06-09 15:35:00.722502"], ["id", 65]]
+  [1m[35mSQL (0.6ms)[0m  UPDATE "provers" SET "rating" = $1, "updated_at" = $2 WHERE "provers"."id" = $3  [["rating", 77.36811458534365], ["updated_at", "2015-06-09 15:35:00.722502"], ["id", 65]]
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 64 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 69 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 69 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 69 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 69 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 71 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 71 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[36m (0.6ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 71 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36m (0.6ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 71 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[35mPost Load (0.8ms)[0m  SELECT  "posts".* FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion') LIMIT 100) subquery_for_count[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 62 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 66 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 66 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 66 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 66 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 73 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 73 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 73 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.7ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 73 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 70 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE (prover_id = 70 AND kind = 'opinion')  ORDER BY "posts"."updated_at" ASC LIMIT 100[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 70 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "posts" WHERE (prover_id = 70 AND kind = 'opinion') LIMIT 100) subquery_for_count
+  [1m[36mProver Load (1.1ms)[0m  [1mSELECT "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC[0m
+  [1m[36mProver Load (1.1ms)[0m  [1mSELECT "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "provers"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "provers"[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "topics" SET "root_id" = $1, "updated_at" = $2 WHERE "topics"."id" = $3  [["root_id", 2930], ["updated_at", "2015-06-09 15:35:00.827694"], ["id", 328]]
+  [1m[35mSQL (0.6ms)[0m  UPDATE "topics" SET "root_id" = $1, "updated_at" = $2 WHERE "topics"."id" = $3  [["root_id", 2930], ["updated_at", "2015-06-09 15:35:00.827694"], ["id", 328]]
+  [1m[36m (20.2ms)[0m  [1mCOMMIT[0m
+  [1m[36m (20.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Redirected to http://localhost:3000/
+Completed 302 Found in 272ms (ActiveRecord: 54.5ms)
+Completed 302 Found in 272ms (ActiveRecord: 54.5ms)
+
+
+
+
+Started GET "/" for 127.0.0.1 at 2015-06-09 09:35:00 -0600
+Started GET "/" for 127.0.0.1 at 2015-06-09 09:35:00 -0600
+Processing by ApplicationController#homepage as HTML
+Processing by ApplicationController#homepage as HTML
+  [1m[35mProver Load (0.7ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[35mProver Load (0.7ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[36mTopic Load (0.8ms)[0m  [1mSELECT "topics".* FROM "topics"[0m
+  [1m[36mTopic Load (0.8ms)[0m  [1mSELECT "topics".* FROM "topics"[0m
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2878]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2878]]
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2879]]
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2879]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2880]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2880]]
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2881]]
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2881]]
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2882]]
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2882]]
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2885]]
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2885]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2886]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2886]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2890]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2890]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2891]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2891]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2894]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2894]]
+  [1m[35mPost Load (0.7ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2900]]
+  [1m[35mPost Load (0.7ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2900]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2903]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2903]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2911]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2911]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2912]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2912]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2924]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2924]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2925]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2925]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2926]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2926]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2927]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2927]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2928]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2928]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2929]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 2929]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2930]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2930]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 328]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 328]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2930  [["owner", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2930  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 327]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 327]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2929  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2929  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 326]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 326]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2928  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2928  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 325]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 325]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2927  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2927  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 324]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 324]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2926  [["owner", 60]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2926  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 323]]
+  [1m[36mTopic Load (0.5ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 323]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2925  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2925  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 322]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 322]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2924  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2924  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 321]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 321]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2912]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2912]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2912  [["owner", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2912  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 320]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 320]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2911]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2911]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2911  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2911  [["owner", 60]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 315]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 315]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2890  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2890  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 319]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 319]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2903]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 2903]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2903  [["owner", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2903  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 308]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 308]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2878  [["owner", 60]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2878  [["owner", 60]]
+  [1m[36mProver Load (0.7ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 65]]
+  [1m[36mProver Load (0.7ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 65]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 65]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 65]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 317]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 317]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2894  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2894  [["owner", 60]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 64]]
+  [1m[36mProver Load (0.6ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 64]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 64]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 64]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 318]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 318]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2900  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2900  [["owner", 60]]
+  [1m[36mProver Load (0.5ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[36mProver Load (0.5ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 312]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 312]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2882  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2882  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 64]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 64]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 64]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 64]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 316]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 316]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2891  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2891  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 314]]
+  [1m[36mTopic Load (0.3ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 314]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2886  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2886  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 62]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 62]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 313]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 313]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2885  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2885  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 60]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 309]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 309]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2879  [["owner", 60]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2879  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 311]]
+  [1m[36mTopic Load (0.4ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 311]]
+  [1m[35m (2.6ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2881  [["owner", 60]]
+  [1m[35m (2.6ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2881  [["owner", 60]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1 LIMIT 1[0m  [["id", 63]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "follows" WHERE "follows"."owner" = $1 AND "follows"."follows" = $2  [["owner", 60], ["follows", 63]]
+  [1m[36mTopic Load (0.8ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 310]]
+  [1m[36mTopic Load (0.8ms)[0m  [1mSELECT  "topics".* FROM "topics" WHERE "topics"."id" = $1 LIMIT 1[0m  [["id", 310]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2880  [["owner", 60]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "bookmarks" WHERE "bookmarks"."owner" = $1 AND "bookmarks"."post" = 2880  [["owner", 60]]
+  Rendered application/homepage.html.erb within layouts/application (178.3ms)
+  Rendered application/homepage.html.erb within layouts/application (178.3ms)
+  [1m[36mProver Load (1.2ms)[0m  [1mSELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20[0m
+  [1m[36mProver Load (1.2ms)[0m  [1mSELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20[0m
+  Rendered provers/shared/_scoreboard.html.erb (7.7ms)
+  Rendered provers/shared/_scoreboard.html.erb (7.7ms)
+Completed 200 OK in 372ms (Views: 304.6ms | ActiveRecord: 38.3ms)
+Completed 200 OK in 372ms (Views: 304.6ms | ActiveRecord: 38.3ms)
+
+
+
+
+Started GET "/assets/filters-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/filters-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/groups-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/groups-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/posts-645835848ea41b96592ab9b59919f7b9.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/posts-645835848ea41b96592ab9b59919f7b9.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/provers-699d2af63fa2c6d77196459f234da930.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/provers-699d2af63fa2c6d77196459f234da930.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/static_pages-edff2bd5a63df715cb49a322f9207d02.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/static_pages-edff2bd5a63df715cb49a322f9207d02.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/scaffolds-8ef4be5fd878b99bfbcb6178527df03b.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/scaffolds-8ef4be5fd878b99bfbcb6178527df03b.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/topics-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/topics-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/application-834b40f86bded4e54cb0169a03261c56.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/application-834b40f86bded4e54cb0169a03261c56.css?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/filters-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/filters-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/groups-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/groups-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/posts-64e62ddc273c2f5847f30d698ca14b67.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/posts-64e62ddc273c2f5847f30d698ca14b67.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/scoreboard-56c56bc7900dea1d2a71ac3ef0a8696e.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/scoreboard-56c56bc7900dea1d2a71ac3ef0a8696e.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/topics-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/topics-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/application-6b32fcbdde24c8964b921785effeb01e.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/application-6b32fcbdde24c8964b921785effeb01e.js?body=1" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/Scales-dd86a0724b08b59f6d0e763199db72fe.jpg" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/Scales-dd86a0724b08b59f6d0e763199db72fe.jpg" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/wolf3-66b71aa408439556c6bd635bf467af72.png" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/wolf3-66b71aa408439556c6bd635bf467af72.png" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/assets/link3-28ef0dc18850395b1258ef17523382de.png" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/assets/link3-28ef0dc18850395b1258ef17523382de.png" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+
+
+
+
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Started GET "/scoreboard" for 127.0.0.1 at 2015-06-09 09:35:01 -0600
+Processing by ProversController#scoreboard as */*
+Processing by ProversController#scoreboard as */*
+  [1m[35mProver Load (0.9ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[35mProver Load (0.9ms)[0m  SELECT  "provers".* FROM "provers" WHERE "provers"."id" = $1  ORDER BY "provers"."id" ASC LIMIT 1  [["id", 60]]
+  [1m[36mProver Load (2.3ms)[0m  [1mSELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20[0m
+  [1m[36mProver Load (2.3ms)[0m  [1mSELECT  "provers".* FROM "provers"  ORDER BY "provers"."rating" DESC LIMIT 20[0m
+  Rendered provers/shared/_scoreboard.html.erb (4.5ms)
+  Rendered provers/shared/_scoreboard.html.erb (4.5ms)
+  Rendered provers/scoreboard.html.erb (11.6ms)
+  Rendered provers/scoreboard.html.erb (11.6ms)
+Completed 200 OK in 34ms (Views: 17.3ms | ActiveRecord: 3.2ms)
+Completed 200 OK in 34ms (Views: 17.3ms | ActiveRecord: 3.2ms)

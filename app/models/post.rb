@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 
 	SECONDS_IN_WEEK = 60*60*24*7
 
-	validates :message, :length => { :maximum => 140 }
+	validates :message, :length => { :maximum => 140, :minimum => 1 }
 	validates :support, :length => { :maximum => 10000 }
 	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."
 

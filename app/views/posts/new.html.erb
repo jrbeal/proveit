@@ -11,11 +11,14 @@
 				$('#team2members').hide();
 
 				$("#provers_dropdown1").change(function(e) {
-					if($("#provers_dropdown1").val() == -1) {
+					var id = $("#provers_dropdown1").val();
+
+					if(id == -1) {
 						return false;
 					}
-					$('#team1members').show();
-					var name = $("#provers_dropdown1 option[value=" + $("#provers_dropdown1").val() + "]").text();
+
+					var name = $("#provers_dropdown1 option[value=" + id + "]").text();
+
 					if (jQuery.inArray(name, selectedNames1) > -1) {
 						if (selectedNames1.length == 0) {
 							$('#team1members').hide();
@@ -29,15 +32,20 @@
 					}	else {
 						selectedNames1.push(name);
 						$("#team1members").append(name + "<br>");
+						$("#team1").val($("#team1").val() + " " + id);
+						$('#team1members').show();
 					}
 				});
 
 				$("#provers_dropdown2").change(function(e) {
-					if($("#provers_dropdown2").val() == -1) {
+					var id = $("#provers_dropdown2").val();
+
+					if(id == -1) {
 						return false;
 					}
-					$('#team2members').show();
-					var name = $("#provers_dropdown2 option[value=" + $("#provers_dropdown2").val() + "]").text();
+
+					var name = $("#provers_dropdown2 option[value=" + id + "]").text();
+
 					if (jQuery.inArray(name, selectedNames2) > -1) {
 						if (selectedNames2.length == 0) {
 							$('#team2members').hide();
@@ -51,6 +59,8 @@
 					}	else {
 						selectedNames2.push(name);
 						$("#team2members").append(name + "<br>");
+						$("#team2").val($("#team2").val() + " " + id);
+						$('#team2members').show();
 					}
 				});
 
@@ -277,8 +287,11 @@
 
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 			<%= hidden_field_tag :parentpost, @post %>
+			<%= hidden_field_tag :team1 %>
+			<%= hidden_field_tag :team2 %>
 
 			<%= render "posts/create" %>
+
 		</form>
 	</div>
 </div>

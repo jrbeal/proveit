@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606210657) do
+ActiveRecord::Schema.define(version: 20150610023800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,12 +86,6 @@ ActiveRecord::Schema.define(version: 20150606210657) do
     t.integer "count"
   end
 
-  create_table "participants", force: :cascade do |t|
-    t.integer "topic_id"
-    t.integer "user_id"
-    t.string  "team"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -155,21 +149,21 @@ ActiveRecord::Schema.define(version: 20150606210657) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.integer "provers"
-    t.integer "topics"
-    t.string  "type"
+    t.integer "prover_id"
+    t.integer "topic_id"
+    t.string  "team_type"
   end
 
   create_table "topics", force: :cascade do |t|
     t.boolean  "private"
     t.boolean  "lone_wolf"
-    t.boolean  "teams"
     t.boolean  "public_viewing"
     t.boolean  "public_comments"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "root_id"
     t.integer  "categories_id"
+    t.boolean  "use_teams"
   end
 
   create_table "users_groups", force: :cascade do |t|
@@ -186,8 +180,8 @@ ActiveRecord::Schema.define(version: 20150606210657) do
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
   add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
-  add_foreign_key "teams", "provers", column: "provers", on_delete: :cascade
-  add_foreign_key "teams", "topics", column: "topics", on_delete: :cascade
+  add_foreign_key "teams", "provers", on_delete: :cascade
+  add_foreign_key "teams", "topics", on_delete: :cascade
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
   add_foreign_key "users_groups", "groups"

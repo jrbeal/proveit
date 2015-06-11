@@ -56,17 +56,17 @@ class TopicsController < ApplicationController
 					team1_type = Team::AGREE
 					team2_type = Team::DISAGREE
 				else
-					team1_type = Team::PARTICIPANTS
+					team1_type = Team::PARTICIPANT
 				end
 			when Post::INITIATOR
 				if @topic.use_teams?
 					team1_type = Team::TEAM1
 					team2_type = Team::TEAM2
 				else
-					team1_type = Team::PARTICIPANTS
+					team1_type = Team::PARTICIPANT
 				end
 			when Post::COMMENT
-				team1_type = Team::PARTICIPANTS
+				team1_type = Team::PARTICIPANT
 			else
 				puts "Invalid team type"
 			end
@@ -77,7 +77,6 @@ class TopicsController < ApplicationController
 			end
 
 			if @topic.use_teams?
-
 				params[:team2].split.each do |id|
 					@team_member = Team.new(:prover => Prover.find(id), :topic => @topic, :team_type => team2_type)
 					@team_member.save!

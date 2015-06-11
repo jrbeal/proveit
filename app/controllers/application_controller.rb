@@ -9,55 +9,93 @@ class ApplicationController < ActionController::Base
 	before_action :set_top_provers
 
 	def homepage
+
 		filter = (params[:filter] || current_prover.filter).downcase
+
 		case filter
 			when Prover::TOPICS
-				@topics = Topic.all
-				@posts = []
-				@topics.each do |topic|
-					@posts.push topic.root_id
+				if params[:prover]
+					@filter_results = Post.where("level = ? AND prover_id = ?", 0, params[:prover])
+				else
+					@filter_results = Post.where("level = ?", 0)
 				end
 			when Prover::OPINIONS
 				if params[:prover]
-					@posts = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+					@filter_results = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
 				else
-					@posts = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
+					@filter_results = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
 				end
 			when Prover::OBJECTIONS
 				if params[:prover]
-					@posts = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+					@filter_results = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
 				else
-					@posts = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
+					@filter_results = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
 				end
 			when Prover::INITIATORS
 				if params[:prover]
-					@posts = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover])
+					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover])
 				else
-					@posts = Post.where("kind = ?", Post::INITIATOR)
+					@filter_results = Post.where("kind = ?", Post::INITIATOR)
 				end
 			when Prover::COMMENTS
 				if params[:prover]
-					@posts = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover])
+					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover])
 				else
-					@posts = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
+					@filter_results = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
 				end
 			when Prover::FOLLOWING
-				@posts = []
+				@filter_results = []
 				Follow.where("owner = ?", current_prover).each do |f|
-					@posts = @posts + Post.where("prover_id = ?", f.follows)
+					@filter_results = @filter_results + Post.where("prover_id = ?", f.follows)
 				end
 			when Prover::BOOKMARKS
-				@posts = []
+				@filter_results = []
 				Bookmark.where("owner = ?", current_prover).each do |b|
-					@posts = @posts + Post.where("id = ?", b.post)
+					@filter_results = @filter_results + Post.where("id = ?", b.post)
 				end
 			else
-				@posts = []
+				@filter_results = []
 		end
 
-		@posts = @posts.to_a
+		@filter_results = @filter_results.to_a
 		# A more sophisticated sort to come...
-    @posts.sort! { |a,b| b.updated_at <=> a.updated_at }
+    @filter_results.sort! { |a,b| b.updated_at <=> a.updated_at }
+
+		# Now exclude the private posts...
+		@posts = []
+		@filter_results.each do |p|
+			if (!p.topic.private? || (p.topic.private? && (p.topic.public_viewing? || team_member(p) == true)))
+				@posts.push(p)
+			end
+		end
+
+		@posts.each do |p|
+			if p.topic.private?
+				case p.kind
+					when Post::OPINION
+						if p.topic.use_teams?
+							p.team1type = Team::AGREE
+							p.team2type = Team::DISAGREE
+							p.team2 = Team.where("topic_id = ? AND team_type = ?", p.topic_id, p.team2type)
+						else
+							p.team1type = Team::PARTICIPANT
+						end
+						p.team1 = Team.where("topic_id = ? AND team_type = ?", p.topic_id, p.team1type)
+					when Post::INITIATOR
+						if p.topic.use_teams?
+							p.team1type = Team::TEAM1
+							p.team2type = Team::TEAM2
+							p.team2 = Team.where("topic_id = ? AND team_type = ?", p.topic_id, p.team2type)
+						else
+							p.team1type = Team::PARTICIPANT
+						end
+						p.team1 = Team.where("topic_id = ? AND team_type = ?", p.topic_id, p.team1type)
+					when Post::COMMENT
+						p.team1type = Team::PARTICIPANT
+						p.team1 = Team.where("topic_id = ? AND team_type = ?", p.topic_id, p.team1type)
+				end
+			end
+		end
 	end
 
 	protected
@@ -78,5 +116,9 @@ class ApplicationController < ActionController::Base
 
 	def set_top_provers
 		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
+	end
+
+	def team_member(post)
+		Team.exists?(:topic_id => post.topic, :prover_id => current_prover)
 	end
 end

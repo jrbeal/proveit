@@ -7,7 +7,6 @@
 
 			$(function() {
 
-				$('#team1members').hide();
 				$('#team2members').hide();
 
 				$("#provers_dropdown1").change(function(e) {
@@ -24,14 +23,9 @@
 							$('#team1members').hide();
 						}
 						alert(name + " is already on this team");
-					} else if (jQuery.inArray(name, selectedNames2) > -1) {
-						if (selectedNames1.length == 0) {
-							$('#team1members').hide();
-						}
-						alert(name + " is on the other team");
 					}	else {
 						selectedNames1.push(name);
-						$("#team1members").append(name + "<br>");
+						$("#team1members").append("<br>" + name);
 						$("#team1").val($("#team1").val() + " " + id);
 						$('#team1members').show();
 					}
@@ -51,11 +45,6 @@
 							$('#team2members').hide();
 						}
 						alert(name + " is already on this team");
-					} else if (jQuery.inArray(name, selectedNames1) > -1) {
-						if (selectedNames2.length == 0) {
-							$('#team2members').hide();
-						}
-						alert(name + " is on the other team");
 					}	else {
 						selectedNames2.push(name);
 						$("#team2members").append(name + "<br>");
@@ -162,6 +151,11 @@
 
 				$('#format_private').on("click", function() {
 					console.log("Selecting private.");
+
+					if ($('#lone_wolf').is(':checked')) {
+						$('input[name="lone_wolf"][value="lone_wolf"]').click();
+					}
+
 					$('#postteam1').show();
 					if ($('#type_opinion').is(':checked')) {
 						console.log("Type opinion is selected...");
@@ -287,7 +281,7 @@
 
 			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 			<%= hidden_field_tag :parentpost, @post %>
-			<%= hidden_field_tag :team1 %>
+			<%= hidden_field_tag :team1, current_prover.id %>
 			<%= hidden_field_tag :team2 %>
 
 			<%= render "posts/create" %>

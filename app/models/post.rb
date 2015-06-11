@@ -22,6 +22,38 @@ class Post < ActiveRecord::Base
 	validates :support, :length => { :maximum => 10000 }
 	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."
 
+	def team1
+		instance_variable_get('@team1')
+	end
+
+	def team2
+		instance_variable_get('@team2')
+	end
+
+	def team1=(val)
+		instance_variable_set('@team1', val)
+	end
+
+	def team2=(val)
+		instance_variable_set('@team2', val)
+	end
+
+	def team1type
+		instance_variable_get('@team1type')
+	end
+
+	def team2type
+		instance_variable_get('@team2type')
+	end
+
+	def team1type=(val)
+		instance_variable_set('@team1type', val)
+	end
+
+	def team2type=(val)
+		instance_variable_set('@team2type', val)
+	end
+
 	def determine_status(id)				# Determine the status for the given post by or'ing the statuses
 																	# of all its children and returning the inverse.
 		result = FALSE

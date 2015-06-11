@@ -64,6 +64,7 @@
 		</div>
 		<%= select_tag 'provers_dropdown1', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown1" %>
 		<div id="team1members">
+			<%= current_prover.provername %>
 		</div>
 	</div>
 

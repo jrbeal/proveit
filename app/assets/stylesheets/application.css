@@ -83,6 +83,22 @@ h1 {
 	display: inline;
 }
 
+.teamlist {
+	font-size: 90%;
+}
+
+.flexcontainerpostrow {
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.flexitempostrow {
+	flex: auto;
+	margin-right: 5px;
+}
+
 .flexcontainer1 {
 	display: inline-flex;
 	flex-direction: row;
@@ -90,7 +106,7 @@ h1 {
 	align-items: center;
 }
 
-.flexitem1, .flexitem2, .flexitem3 {
+.flexitem1, .flexitem2, .flexitem3, .flexitem4{
 	flex: auto;
 	margin-right: 8px;
 }

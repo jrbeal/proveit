@@ -104,20 +104,39 @@ class Post < ActiveRecord::Base
 	def create_team_lists
 		if self.topic.private?
 			case self.kind
-				when Post::OPINION
-					if self.topic.use_teams?
-						self.team1type = Team::AGREE.capitalize
-						self.team2type = Team::DISAGREE.capitalize
-						if self.level.even?
-							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
-							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
-						else
-							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
-							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+				when Post::OPINION																									# Special case:
+					if self.parent.present? && self.parent.kind == Post::INITIATOR		# If parent is an initiator...
+						if self.topic.use_teams?																				# and topic is using teams...
+							if self.parent.which_team(self.prover_id) == Team::TEAM1			# and post's user is on initiator's Team 1
+								self.team1type = Team::AGREE.capitalize
+								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM1)
+								self.team2type = Team::DISAGREE.capitalize
+								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM2)
+							else																													# else post's user is on Team 2.
+								self.team1type = Team::AGREE.capitalize
+								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM2)
+								self.team2type = Team::DISAGREE.capitalize
+								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM1)
+							end
+						else																														# Topic is NOT using teams.
+							self.team1type = Team::PARTICIPANT.capitalize.pluralize				# So just create a participant list.
+							self.team1 = Team.where("topic_id = ?", self.topic_id)
 						end
-					else
-						self.team1type = Team::PARTICIPANT.capitalize.pluralize
-						self.team1 = Team.where("topic_id = ?", self.topic_id)
+					else																															# Normal case...
+						if self.topic.use_teams?
+							self.team1type = Team::AGREE.capitalize
+							self.team2type = Team::DISAGREE.capitalize
+							if self.level.even?
+								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
+							else
+								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
+								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+							end
+						else
+							self.team1type = Team::PARTICIPANT.capitalize.pluralize
+							self.team1 = Team.where("topic_id = ?", self.topic_id)
+						end
 					end
 				when Post::INITIATOR
 					if self.topic.use_teams?

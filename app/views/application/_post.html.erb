@@ -50,12 +50,6 @@
 				</div>
 			<% end %>
 
-			<% if post.topic.private? %>
-				<div class="flexitempostrow">
-					<%= image_tag('lock2.png', :size => '13x13') %>
-				</div>
-			<% end %>
-
 			<em><div class="message flexitempostrow">
 				<%= link_to post.message, post, {:style=>'color:blue;'} %>
 			</div></em>

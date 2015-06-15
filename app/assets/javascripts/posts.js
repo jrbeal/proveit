@@ -2,6 +2,11 @@ var currentProver = '<%= current_prover.id %>';
 
 function postReady() {
 
+
+
+
+
+
 	var selectedNames1 = [];
 	var selectedNames2 = [];
 

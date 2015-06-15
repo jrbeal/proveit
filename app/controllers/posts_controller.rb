@@ -103,6 +103,7 @@ class PostsController < ApplicationController
 				@kids.each do |p|
 					p.create_team_lists
 				end
+
 			else																													# If this post is public...
 				if @post.topic.lone_wolf																		# and it's a lone wolf...
 					if @post.topic.root_id.prover_id == current_prover.id			# and the user is the lone wolf...
@@ -124,6 +125,7 @@ class PostsController < ApplicationController
 			@kids.each do |p|
 				p.create_team_lists
 			end
+
 		end
 
 		@provers = Prover.all.order(:provername)

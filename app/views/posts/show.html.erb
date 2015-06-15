@@ -3,7 +3,7 @@
 		$(function() {
 
 			$('#type_opinion').on("click", function () {
-				console.log("Now we're in opinion mode.");
+				console.log("Opinion mode.");
 				$(".submit_text.message_text").text("In my opinion:");
 				$(".submit_text.support_text").text("Support (Optional):");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
@@ -11,7 +11,7 @@
 			});
 
 			$('#type_initiator').on("click", function () {
-				console.log("Now we're in initiator mode.");
+				console.log("Initiator mode.");
 				$(".submit_text.message_text").text("Initiator:");
 				$(".submit_text.support_text").text("Support (Optional):");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
@@ -19,7 +19,7 @@
 			});
 
 			$('#type_comment').on("click", function () {
-				console.log("Now we're in comment mode.");
+				console.log("Comment mode.");
 				$(".submit_text.message_text").text("Comment:");
 				$(".submit_text.support_text").text("Support (Optional): ");
 				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter comment here.';

@@ -81,8 +81,6 @@
 					</div>
 					<% unless post.kind == Post::COMMENT %>
 						<div class="flexitempostrow">
-							<% puts "Here1 #{post.team2type.inspect}" %>
-							<% puts "Here1 #{post.team2.inspect}" %>
 							<%= select_tag 'team2', content_tag(:option, post.team2type, :value => "-1") + options_from_collection_for_select(post.team2, "prover_id", "prover_name", :disabled => Proc.new { true }), :class => 'teamlist' %>
 						</div>
 					<% end %>

@@ -105,22 +105,17 @@ class Post < ActiveRecord::Base
 		if self.topic.private?
 			case self.kind
 				when Post::OPINION
-					puts "Here1"
 					if self.topic.use_teams?
-						puts "Here2"
 						self.team1type = Team::AGREE.capitalize
 						self.team2type = Team::DISAGREE.capitalize
 						if self.level.even?
-							puts "Here3"
 							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
 							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
 						else
-							puts "Here4"
 							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
 							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
 						end
 					else
-						puts "Here5"
 						self.team1type = Team::PARTICIPANT.capitalize.pluralize
 						self.team1 = Team.where("topic_id = ?", self.topic_id)
 					end

@@ -22,16 +22,32 @@ class Post < ActiveRecord::Base
 	validates :support, :length => { :maximum => 10000 }
 	validates_inclusion_of :kind, :in => [ OPINION, INITIATOR, COMMENT ], :message => "%s is not a valid post kind."
 
+	def opinion_repliable
+		instance_variable_get('@opinion_repliable')
+	end
+
+	def opinion_repliable=(val)
+		instance_variable_set('@opinion_repliable', val)
+	end
+
+	def comment_repliable
+		instance_variable_get('@comment_repliable')
+	end
+
+	def comment_repliable=(val)
+		instance_variable_set('@comment_repliable', val)
+	end
+
 	def team1
 		instance_variable_get('@team1')
 	end
 
-	def team2
-		instance_variable_get('@team2')
-	end
-
 	def team1=(val)
 		instance_variable_set('@team1', val)
+	end
+
+	def team2
+		instance_variable_get('@team2')
 	end
 
 	def team2=(val)
@@ -42,16 +58,24 @@ class Post < ActiveRecord::Base
 		instance_variable_get('@team1type')
 	end
 
-	def team2type
-		instance_variable_get('@team2type')
-	end
-
 	def team1type=(val)
 		instance_variable_set('@team1type', val)
 	end
 
+	def team2type
+		instance_variable_get('@team2type')
+	end
+
 	def team2type=(val)
 		instance_variable_set('@team2type', val)
+	end
+
+	def team_member?(current_prover)
+		!!Team.exists?(:topic_id => self.topic, :prover_id => current_prover)
+	end
+
+	def which_team(current_prover)
+		team = Team.where(:topic_id => self.topic, :prover_id => current_prover).first.team_type
 	end
 
 	def determine_status(id)				# Determine the status for the given post by or'ing the statuses
@@ -75,6 +99,51 @@ class Post < ActiveRecord::Base
 			count = count_offspring(k.id, k.kind, count) + 1
 		end
 		return count
+	end
+
+	def create_team_lists
+		if self.topic.private?
+			case self.kind
+				when Post::OPINION
+					puts "Here1"
+					if self.topic.use_teams?
+						puts "Here2"
+						self.team1type = Team::AGREE.capitalize
+						self.team2type = Team::DISAGREE.capitalize
+						if self.level.even?
+							puts "Here3"
+							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
+						else
+							puts "Here4"
+							self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
+							self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+						end
+					else
+						puts "Here5"
+						self.team1type = Team::PARTICIPANT.capitalize.pluralize
+						self.team1 = Team.where("topic_id = ?", self.topic_id)
+					end
+				when Post::INITIATOR
+					if self.topic.use_teams?
+						self.team1type = Team::TEAM1.capitalize
+						self.team2type = Team::TEAM2.capitalize
+						self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::TEAM1)
+						self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::TEAM2)
+					else
+						self.team1type = Team::PARTICIPANT.capitalize.pluralize
+						self.team1 = Team.where("topic_id = ?", self.topic_id)
+					end
+				when Post::COMMENT
+					self.team1type = Team::PARTICIPANT.capitalize.pluralize
+					self.team1 = Team.where("topic_id = ?", self.topic_id)
+				else
+					self.team1type = "Error"
+					self.team2type = "Error"
+					self.team1 = []
+					self.team2 = []
+			end
+		end
 	end
 
 	def count_levels(current, count) 		# Recursively increment count by the number of levels above a given post

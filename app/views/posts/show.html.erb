@@ -80,44 +80,40 @@
 
 
 			$('input[name="kidtype"]').on('click', function (e) {
-				console.log("click!");
 				var $tgt = $(e.target);
 				if ($tgt.val() == "<%= Post::COMMENT %>") {
 					console.log("kidtype = comment");
 					history.pushState('', '', window.location.toString().replace("opinion", "comment"));
 					$('.opinion').hide();
 					$('.comment').show();
-					$('#createkid').show();
+
+					<% if @post.comment_repliable %>
+						$('#createkid').show();
+					<% else %>
+						$('#createkid').hide();
+					<% end %>
 				} else if ($tgt.val() == "<%= Post::OPINION %>") {
 					console.log("kidtype = opinion");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-
-					<% if @post.topic.lone_wolf %>
-						<% if @post.topic.root_id.prover_id == current_prover.id %>
-							<% if @post.level.odd? %>
-								$('#createkid').show();
-							<% else %>
-								$('#createkid').hide();
-							<% end %>
-						<% else %>
-							<% if @post.level.even? %>
-								$('#createkid').show();
-							<% else %>
-								$('#createkid').hide();
-							<% end %>
-						<% end %>
-					<% else %>
-						$('#createkid').show();
-					<% end %>
-
 					$('.opinion').show();
 					$('.comment').hide();
+
+					<% if @post.opinion_repliable %>
+						$('#createkid').show();
+					<% else %>
+						$('#createkid').hide();
+					<% end %>
 				} else if ($tgt.val() == "<%= Post::INITIATOR %>") {
 					console.log("kidtype = initiator");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-					$('#createkid').show();
 					$('.opinion').show();
 					$('.comment').hide();
+
+					<% if @post.opinion_repliable %>
+					$('#createkid').show();
+					<% else %>
+					$('#createkid').hide();
+					<% end %>
 				} else {
 					console.log("Clicking unknown kidtype: " + $tgt.val());
 				}
@@ -374,7 +370,6 @@
 				$('#collapse').show();
 			<% end %>
 
-
 		});
 	</script>
 </head>
@@ -395,7 +390,7 @@
     </div>
 	</div>
 
-	<%= render partial: "application/post", object: @post, locals: {indent: 0} %>
+	<%= render partial: "application/post", object: @post, locals: {indent: 0, kind: ""} %>
 
   <div class="toppadding20 sidepadding">
 		<hr size="2" noshade>

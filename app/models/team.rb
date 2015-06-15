@@ -5,8 +5,8 @@ class Team < ActiveRecord::Base
 	PARTICIPANT = "participant"
 	AGREE = "agree"
 	DISAGREE = "disagree"
-	TEAM1 = "team1"
-	TEAM2 = "team2"
+	TEAM1 = "team 1"
+	TEAM2 = "team 2"
 
 	TYPES = [PARTICIPANT, AGREE, DISAGREE, TEAM1, TEAM2]
 

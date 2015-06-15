@@ -40,7 +40,6 @@ class TopicsController < ApplicationController
 			:public_comments => (params[:publiccomments] == "publiccomments"),
 		}
 
-
 		@post = Post.new(post_params)
     @topic = Topic.new(topic_params)
 

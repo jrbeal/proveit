@@ -90,7 +90,7 @@
 					document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
 					document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional clarification and supporting information here.';
 					if ($('#format_public').is(':checked')) {
-						$('#public').show();
+						$('#public').hide();
 						$('#private').hide();
 						$('#postteam1').hide();
 						$('#postteam2').hide();
@@ -141,7 +141,7 @@
 						$('#public').show();
 						$('#private').hide();
 					} else if ($('#type_initiator').is(':checked')) {
-						$('#public').show();
+						$('#public').hide();
 						$('#private').hide();
 					} else {
 						$('#public').hide();
@@ -157,6 +157,7 @@
 					}
 
 					$('#postteam1').show();
+
 					if ($('#type_opinion').is(':checked')) {
 						console.log("Type opinion is selected...");
 						$('#public').hide();

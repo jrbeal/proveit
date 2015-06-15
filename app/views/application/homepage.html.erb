@@ -70,58 +70,6 @@
 					console.log("Increasing post verbosity.");
 				});
 
-				$('.follow').on("click", function (e) {
-					var $tgt = $(e.target);
-					$.post('/follows', {owner: <%= current_prover.id %>, follows: $tgt.attr("data-prover-id") }, function(resp) {
-						var follow = JSON.parse(resp);
-						console.log(follow);
-					});
-
-					console.log("Following this prover.");
-					window.location.reload();
-					return false;
-				});
-
-				$('.unfollow').on("click", function (e) {
-					var $tgt = $(e.target);
-					$.ajax({
-						url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": $tgt.attr("data-prover-id")}),
-						type: 'DELETE',
-						success: function(resp) {
-							console.log("Unfollowing this prover.");
-							window.location.reload();
-						}
-					})
-
-					return false;
-				});
-
-				$('.bookmark').on("click", function (e) {
-					var $tgt = $(e.target);
-					$.post('/bookmarks', {owner: <%= current_prover.id %>, post: $tgt.attr("data-post") }, function(resp) {
-						var follow = JSON.parse(resp);
-						console.log(follow);
-					});
-
-					console.log("Bookmarking this post.");
-					window.location.reload();
-					return false;
-				});
-
-				$('.unbookmark').on("click", function (e) {
-					var $tgt = $(e.target);
-					$.ajax({
-						url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "post": $tgt.attr("data-post")}),
-						type: 'DELETE',
-						success: function(resp) {
-							console.log("Removing this bookmark.");
-							window.location.reload();
-						}
-					})
-
-					return false;
-				});
-
 				$(function () {
 					switch (verbosity) {
 						case 4:
@@ -174,9 +122,58 @@
 							$('.postimage').hide();
 					}
 				});
+			});
 
-				$('#team1').prop('disabled', false);
-				$('#team2').prop('disabled', false);
+			$('.follow').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.post('/follows', {owner: <%= current_prover.id %>, follows: $tgt.attr("data-prover-id") }, function(resp) {
+					var follow = JSON.parse(resp);
+					console.log(follow);
+				});
+
+				console.log("Following this prover.");
+				window.location.reload();
+				return false;
+			});
+
+			$('.unfollow').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.ajax({
+					url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": $tgt.attr("data-prover-id")}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Unfollowing this prover.");
+						window.location.reload();
+					}
+				})
+
+				return false;
+			});
+
+			$('.bookmark').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.post('/bookmarks', {owner: <%= current_prover.id %>, post: $tgt.attr("data-post") }, function(resp) {
+					var follow = JSON.parse(resp);
+					console.log(follow);
+				});
+
+				console.log("Bookmarking this post.");
+				window.location.reload();
+				return false;
+			});
+
+			$('.unbookmark').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.ajax({
+					url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "post": $tgt.attr("data-post")}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Removing this bookmark.");
+						window.location.reload();
+					}
+				})
+
+				return false;
 			});
 
 		</script>

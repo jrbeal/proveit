@@ -180,6 +180,7 @@ h1 {
 	border-style: solid;
 	border-width: 1px;
 	line-height: 20px;
+	overflow-y: auto;
 }
 
 .vlevel1 {

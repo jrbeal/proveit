@@ -2,13 +2,12 @@ var currentProver = '<%= current_prover.id %>';
 
 function postReady() {
 
-
-
-
-
-
 	var selectedNames1 = [];
 	var selectedNames2 = [];
+
+	var node = document.getElementById('team1members');
+	user = node.textContent.trim();
+	selectedNames1.push(user);
 
 	$('#team2members').hide();
 
@@ -20,18 +19,25 @@ function postReady() {
 		}
 
 		var name = $("#provers_dropdown1 option[value=" + id + "]").text();
+		console.log(name);
 
 		if (jQuery.inArray(name, selectedNames1) > -1) {
 			if (selectedNames1.length == 0) {
 				$('#team1members').hide();
 			}
 			alert(name + " is already on this team");
+		} else if (jQuery.inArray(name, selectedNames2) > -1) {
+			if (selectedNames2.length == 0) {
+				$('#team1members').hide();
+			}
+			alert(name + " is already on the other team");
 		}	else {
 			selectedNames1.push(name);
 			$("#team1members").append("<br>" + name);
 			$("#team1").val($("#team1").val() + " " + id);
 			$('#team1members').show();
 		}
+		console.info(selectedNames1)
 	});
 
 	$("#provers_dropdown2").change(function(e) {
@@ -48,6 +54,11 @@ function postReady() {
 				$('#team2members').hide();
 			}
 			alert(name + " is already on this team");
+		} else if (jQuery.inArray(name, selectedNames1) > -1) {
+			if (selectedNames1.length == 0) {
+				$('#team2members').hide();
+			}
+			alert(name + " is already on the other team");
 		}	else {
 			selectedNames2.push(name);
 			$("#team2members").append(name + "<br>");
@@ -253,15 +264,15 @@ function postReady() {
 		history.back();
 	});
 
-	$('.follow').on("click", function (e) {
-		var $tgt = $(e.target);
-		$.post('/follows', {owner: currentProver, follows: $tgt.attr("data-prover-id") }, function(resp) {
-					var follow = JSON.parse(resp);
-					console.log(follow);
-				});
-
-		console.log("Following this prover.");
-		window.location.reload();
-		return false;
-	});
+//	$('.follow').on("click", function (e) {
+//		var $tgt = $(e.target);
+//		$.post('/follows', {owner: currentProver, follows: $tgt.attr("data-prover-id") }, function(resp) {
+//					var follow = JSON.parse(resp);
+//					console.log(follow);
+//				});
+//
+//		console.log("Following this prover.");
+//		window.location.reload();
+//		return false;
+//	});
 };

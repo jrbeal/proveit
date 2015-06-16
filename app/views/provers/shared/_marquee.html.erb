@@ -1,0 +1,11 @@
+<div id="marqueetitle">
+	Marquee
+</div>
+
+<% @top_topics.each do |t| %>
+	<hr size="1" noshade>
+	<div class="marqueeline">
+		<%= link_to t.root_id.message, t.root_id, {:style=>'color:blue;'} %>
+	</div>
+
+<% end %>

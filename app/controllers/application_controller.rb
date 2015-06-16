@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
 	before_action :authenticate_prover!, :except => [:help, :about, :contact]
 	before_action :set_top_provers
+	before_action :top_semi_private_debates
 
 	def homepage
 
@@ -15,33 +16,33 @@ class ApplicationController < ActionController::Base
 		case filter
 			when Prover::TOPICS
 				if params[:prover]
-					@filter_results = Post.where("level = ? AND prover_id = ?", 0, params[:prover])
+					@filter_results = Post.where("level = ? AND prover_id = ?", 0, params[:prover]).order(:updated_at).reverse_order
 				else
-					@filter_results = Post.where("level = ?", 0)
+					@filter_results = Post.where("level = ?", 0).order(:updated_at).reverse_order
 				end
 			when Prover::OPINIONS
 				if params[:prover]
-					@filter_results = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+					@filter_results = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover]).order(:updated_at).reverse_order
 				else
-					@filter_results = Post.where("kind = ? AND level = ?", Post::OPINION, 0)
+					@filter_results = Post.where("kind = ? AND level = ?", Post::OPINION, 0).order(:updated_at).reverse_order
 				end
 			when Prover::OBJECTIONS
 				if params[:prover]
-					@filter_results = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover])
+					@filter_results = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover]).order(:updated_at).reverse_order
 				else
-					@filter_results = Post.where("kind = ? AND level > ?", Post::OPINION, 0)
+					@filter_results = Post.where("kind = ? AND level > ?", Post::OPINION, 0).order(:updated_at).reverse_order
 				end
 			when Prover::INITIATORS
 				if params[:prover]
-					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover])
+					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover]).order(:updated_at).reverse_order
 				else
-					@filter_results = Post.where("kind = ?", Post::INITIATOR)
+					@filter_results = Post.where("kind = ?", Post::INITIATOR).order(:updated_at).reverse_order
 				end
 			when Prover::COMMENTS
 				if params[:prover]
-					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover])
+					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover]).order(:updated_at).reverse_order
 				else
-					@filter_results = Post.where("kind = ? AND level = ?", Post::COMMENT, 0)
+					@filter_results = Post.where("kind = ? AND level = ?", Post::COMMENT, 0).order(:updated_at).reverse_order
 				end
 			when Prover::FOLLOWING
 				@filter_results = []
@@ -56,10 +57,6 @@ class ApplicationController < ActionController::Base
 			else
 				@filter_results = []
 		end
-
-		@filter_results = @filter_results.to_a
-		# A more sophisticated sort to come...
-    @filter_results.sort! { |a,b| b.updated_at <=> a.updated_at }
 
 		# Now exclude the private posts (of which user is not a member and that don't allow public viewing)
 		@posts = []
@@ -91,6 +88,10 @@ class ApplicationController < ActionController::Base
 
 	def set_top_provers
 		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
+	end
+
+	def top_semi_private_debates
+		@top_topics = Topic.where("private = ? AND public_comments = ?", true, true).limit(10).order(:updated_at).reverse_order
 	end
 
 end

@@ -246,6 +246,37 @@ h1 {
 	display: inline;
 }
 
+#marquee {
+	margin-top: 28px;
+	margin-left: 10%;
+	margin-right:10%;
+	padding-bottom: 5px;
+	width: max-content;
+	height: max-content;
+	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
+	overflow: auto;
+}
+
+#marqueetitle {
+	text-decoration: underline;
+	margin-top: 5px;
+	font-style: italic;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.marqueeline {
+	color: blue;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 10px;
+	line-height: 12px;
+}
+
 #scoreboard {
 	margin-top: 28px;
 	margin-left: 10%;

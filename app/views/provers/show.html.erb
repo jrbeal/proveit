@@ -238,6 +238,22 @@
 				return false;
 			});
 
+			$('.resignteam').on("click", function (e) {
+				var $tgt = $(e.target);
+				var teamId = $('#teams_dropdown').val();
+				console.log(teamId);
+				$.ajax({
+					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": teamId}),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Removing team member.");
+						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
 			$('input[name="profile"][value="<%= @default_tab %>"]').click();
 			$('input[name="filter"][value="<%= @prover.filter %>"]').click();
 			$('input[name="verbosity"][value= <%= @prover.verbosity %>]').click();
@@ -443,10 +459,15 @@
 						<div class="profilepagediv2">
 							<div id="teams">
 								<b>My Teams:</b> &nbsp
-								<%= search_field_tag 'team' %> &nbsp
-								<button type="button">Resign</button>
+								<% if @teams.count > 0 %>
+									<%= select_tag 'teams_dropdown', options_from_collection_for_select(@teams, "id", "topic_message") %> &nbsp
+									<%= link_to "Resign", "#", :class => "resignteam" %>
+								<% else %>
+									You are not a member of any teams right now.
+								<% end %>
 							</div>
 						</div>
+
 						<div class="profilepagediv2">
 							<div id="groups">
 								<b>My Groups:</b> &nbsp

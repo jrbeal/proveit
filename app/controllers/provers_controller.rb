@@ -13,6 +13,7 @@ class ProversController < ApplicationController
 		@follows = Follow.where("owner = ?", @prover)
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
+		@teams = Team.where("prover_id = ?", @prover)
 	end
 
 	def reset_highest_rating

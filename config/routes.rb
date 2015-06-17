@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   get 'posts/new'   => 'posts#new'
 	get 'follow'			=> 'follow'
 	get 'bookmark'		=> 'bookmark'
+	get 'team'				=> 'team'
 	get 'scoreboard' 	=> 'provers#scoreboard'
 	get 'resetscore' 	=> 'provers#reset_highest_rating'
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 
 	delete 'follows' 	=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
+	delete 'teams' 		=> 'teams#destroy'
 
 	resources :filters
   resources :groups
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
 	resources :provers
 	resources :follows, :except => :destroy
 	resources :bookmarks, :except => :destroy
+	resources :teams, :except => :destroy
 
   root 'application#homepage'
 

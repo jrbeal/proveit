@@ -21,10 +21,17 @@ class ApplicationController < ActionController::Base
 					@filter_results = Post.where("level = ?", 0).order(:updated_at).reverse_order
 				end
 			when Prover::OPINIONS
+				@initiator_opinions = []
 				if params[:prover]
-					@filter_results = Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover]).order(:updated_at).reverse_order
+					Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover]).each do |p|
+						@initiator_opinions = @initiator_opinions + Post.where("parent_id = ? AND kind = ? AND prover_id = ?", p.id, Post::OPINION, params[:prover])
+					end
+					@filter_results = (Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover]) + @initiator_opinions).sort_by(&:updated_at).reverse
 				else
-					@filter_results = Post.where("kind = ? AND level = ?", Post::OPINION, 0).order(:updated_at).reverse_order
+					Post.where("kind = ?", Post::INITIATOR).each do |p|
+						@initiator_opinions = @initiator_opinions + Post.where("parent_id = ? AND kind = ?", p.id, Post::OPINION)
+					end
+					@filter_results = (Post.where("kind = ? AND level = ?", Post::OPINION, 0) + @initiator_opinions).sort_by(&:updated_at).reverse
 				end
 			when Prover::OBJECTIONS
 				if params[:prover]

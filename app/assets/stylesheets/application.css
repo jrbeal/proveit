@@ -84,8 +84,15 @@ h1 {
 }
 
 .teamlist {
-	font-size: 90%;
+	font-size: 10px;
+	font-style: italic;
 }
+
+input:disabled {
+	background: red;
+	font-weight: bold;
+}
+
 
 .flexcontainerpostrow {
 	display: inline-flex;

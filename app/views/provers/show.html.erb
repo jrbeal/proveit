@@ -450,7 +450,7 @@
 								<% if @bookmarks.count > 0 %>
 									<%= select_tag 'bookmark_dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
 									<%= link_to "Remove", "#", :class => "unbookmark" %>
-							<% else %>
+								<% else %>
 									You have no bookmarks right now.
 								<% end %>
 							</div>
@@ -472,15 +472,15 @@
 							<div id="groups">
 								<b>My Groups:</b> &nbsp
 								<%= search_field_tag 'group' %> &nbsp
-								<button type="button">Resign</button> &nbsp
-								<button type="button">Disband</button>
+								<%= link_to "Resign", "#", :class => "resigngroup" %> &nbsp
+								<%= link_to "Disband", "#", :class => "disbandgroup" %>
 							</div>
 							<div class="profilepagediv2">
 								<div id="groupsmanage">
 									<b>Create:</b> &nbsp
 									<%= search_field_tag 'name' %> &nbsp Members: &nbsp
 									<%= search_field_tag 'groupmembers' %> &nbsp
-									<button type="button" id="addgroupmemberbutton">Add</button> &nbsp
+									<%= link_to "Add", "#", :class => "addgroup" %> &nbsp
 									<%= submit_tag("Save") %>
 								</div>
 							</div>

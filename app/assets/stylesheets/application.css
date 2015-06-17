@@ -323,7 +323,7 @@ input:disabled {
 	vertical-align: middle;
 }
 
-.follow, .unfollow, .unfollowedby, .unbookmark, .resign, .disband, {
+.follow, .unfollow, .unfollowedby, .unbookmark, .resign, .disband, .teams, .resignteam, .resigngroup, .disbandgroup, .addgroup {
 	font-size: 10px;
 }
 

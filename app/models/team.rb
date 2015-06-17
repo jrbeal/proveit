@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+	include ActionView::Helpers
+
   belongs_to :topic
   belongs_to :prover
 
@@ -21,7 +23,8 @@ class Team < ActiveRecord::Base
 	end
 
 	def topic_message
-		topic.root_id.prover.provername + ": " + topic.root_id.message + " (" + self.team_type + ")"
+		topic.root_id.prover.provername + ": " + topic.root_id.message + " [" + self.team_type + "]"
+		# topic.root_id.message
 	end
 
 	def prover_name

@@ -44,6 +44,18 @@
 				</div>
 			<% end %>
 
+			<% if post.topic.public_viewing %>
+				<div class="flexitempostrow">
+					<%= image_tag('eye.png', :size => '13x15') %>
+				</div>
+			<% end %>
+
+			<% if post.topic.public_comments %>
+				<div class="flexitempostrow">
+					<%= image_tag('comment.png', :size => '11x15') %>
+				</div>
+			<% end %>
+
 			<% unless post.url.empty? %>
 				<div class="flexitempostrow">
 					<%= link_to image_tag('link3.png', :size => '13x13'), post.url %>

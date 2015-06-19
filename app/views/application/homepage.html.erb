@@ -185,7 +185,6 @@
 				<div style="display:inline; margin-left: 40%">
 					Filter: <%= link_to current_prover.filter.capitalize, prover_path(current_prover, :default_tab => "filters") %>
 					<%= select_tag 'filterlist', options_from_collection_for_select(current_prover.filters, "filter_id", "filter_name"), :class => 'filterlist' %>
-					<%= select_tag 'team2', content_tag(:option, post.team2type, :value => "-1") + options_from_collection_for_select(post.team2, "prover_id", "prover_name", :disabled => Proc.new { true }), :class => 'teamlist' %>
 				</div>
 				<div class="right" style="margin-right: 5px;">
 					<%= link_to "Less", "#", :id => "lessmaster"%>

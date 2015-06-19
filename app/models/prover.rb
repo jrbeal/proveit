@@ -10,6 +10,7 @@ class Prover < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+	ADMIN = "admin"
 	TOPICS = "topics"
 	OPINIONS = "opinions"
 	OBJECTIONS = "objections"

@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
 		# Now exclude the private posts (of which user is not a member and that don't allow public viewing)
 		@posts = []
 		@filter_results.each do |p|
-			unless (p.topic.private? && !(p.topic.public_viewing? || p.team_member?(current_prover)))
+			if (current_prover.administrator || !(p.topic.private? && !(p.topic.public_viewing? || p.team_member?(current_prover))))
 				# For private posts, create_team_lists builds a list of names for each team associated with the post's
 				# topic and generates the team type names to be used in the select_tag pull down menus of each post.
 				p.create_team_lists

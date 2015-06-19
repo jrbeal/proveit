@@ -240,7 +240,7 @@
 
 			$('.resignteam').on("click", function (e) {
 				var $tgt = $(e.target);
-				var teamId = $('#teams_dropdown').val();
+				var teamId = $('#teammembership_dropdown').val();
 				console.log(teamId);
 				$.ajax({
 					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": teamId}),
@@ -455,19 +455,37 @@
 								<% end %>
 							</div>
 						</div>
+					</div>
 
+					<div class="profilepagediv1">
+						<b>Teams:</b>
 						<div class="profilepagediv2">
-							<div id="teams">
-								<b>My Teams:</b> &nbsp
-								<% if @teams.count > 0 %>
-									<%= select_tag 'teams_dropdown', options_from_collection_for_select(@teams, "id", "topic_message") %> &nbsp
+							<div id="teammembership">
+								<b>Membership:</b> &nbsp
+								<% if @teammembership.count > 0 %>
+									<%= select_tag 'teammembership_dropdown', options_from_collection_for_select(@teammembership, "id", "team_membership") %> &nbsp
 									<%= link_to "Resign", "#", :class => "resignteam" %>
 								<% else %>
 									You are not a member of any teams right now.
 								<% end %>
 							</div>
 						</div>
+						<div class="profilepagediv2">
+							<div id="teamownership">
+								<b>Ownership:</b> &nbsp
+								<% if @teamownership.count > 0 %>
+									<%= select_tag 'teamownership_dropdown', options_from_collection_for_select(@teamownership, "id", "team_ownership") %> &nbsp
+									<%= link_to "Manage", "#", :class => "resignteam" %>
+								<% else %>
+									You do not own any teams right now.
+								<% end %>
+							</div>
+						</div>
 
+					</div>
+
+					<div class="profilepagediv1">
+						<b>Groups:</b>
 						<div class="profilepagediv2">
 							<div id="groups">
 								<b>My Groups:</b> &nbsp

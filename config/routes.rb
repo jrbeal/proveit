@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
   devise_for :provers, :path => 'accounts'
-	get 'help'		    => 'static_pages#help'
-	get 'about'		    => 'static_pages#about'
-	get 'contact'	    => 'static_pages#contact'
-  get 'posts/new'   => 'posts#new'
-	get 'follow'			=> 'follow'
-	get 'bookmark'		=> 'bookmark'
-	get 'team'				=> 'team'
-	get 'scoreboard' 	=> 'provers#scoreboard'
-	get 'resetscore' 	=> 'provers#reset_highest_rating'
+	get 'help'		   	  => 'static_pages#help'
+	get 'about'		   	  => 'static_pages#about'
+	get 'contact'	    	=> 'static_pages#contact'
+  get 'posts/new'   	=> 'posts#new'
+	get 'follow'				=> 'follow'
+	get 'bookmark'			=> 'bookmark'
+	get 'team'					=> 'team'
+	get 'scoreboard' 		=> 'provers#scoreboard'
+	get 'resetscore' 		=> 'provers#reset_highest_rating'
+
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 
-	delete 'follows' 	=> 'follows#destroy'
+	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
-	delete 'teams' 		=> 'teams#destroy'
+	delete 'teams' 			=> 'teams#destroy'
 
 	resources :filters
   resources :groups

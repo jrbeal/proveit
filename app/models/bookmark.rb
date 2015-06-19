@@ -4,5 +4,5 @@ class Bookmark < ActiveRecord::Base
 end
 
 def post_message
-	post.prover.provername + ": " + post.message
+	post.message + " [" + post.prover.provername + "]"
 end

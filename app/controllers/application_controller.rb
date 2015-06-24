@@ -22,20 +22,20 @@ class ApplicationController < ActionController::Base
 		end
 
 		@filter_results = []
-		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR) if @filter.topics
-		@filter_results = Post.where(kind: Post::OPINION) if @filter.opinions
-		@filter_results = Post.where(kind: Post::COMMENT) if @filter.comments
-		@filter_results = Post.where(kind: Post::INITIATOR) if @filter.initiators
+		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR).order(updated_at: :desc) if @filter.topics
+		@filter_results = Post.where(kind: Post::OPINION).order(updated_at: :desc) if @filter.opinions
+		@filter_results = Post.where(kind: Post::COMMENT).order(updated_at: :desc) if @filter.comments
+		@filter_results = Post.where(kind: Post::INITIATOR).order(updated_at: :desc) if @filter.initiators
 
 		if @filter.following
 			Follow.where(owner: current_prover).each do |f|
-				@filter_results = Post.where(prover_id: f.follows)
+				@filter_results = Post.where(prover_id: f.follows).order(updated_at: :desc)
 			end
 		end
 
 		if @filter.bookmarks
 			Bookmark.where(owner: current_prover).each do |b|
-				@filter_results = Post.where(id: b.post)
+				@filter_results = Post.where(id: b.post).order(updated_at: :desc)
 			end
 		end
 

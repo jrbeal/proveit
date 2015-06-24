@@ -11,59 +11,50 @@ class ApplicationController < ActionController::Base
 
 	def homepage
 
-		filter = (params[:filter] || current_prover.filter).downcase
+		@defaultfilters = Filter.where(sitedefault: true)
+		# @customfilters = Filter.where(prover_id: current_prover.id)
+		@customfilters = Filter.where(sitedefault: false)		# Do this until custom filters are implemented
 
-		case filter
-			when Prover::TOPICS
-				if params[:prover]
-					@filter_results = Post.where("level = ? AND prover_id = ?", 0, params[:prover]).order(:updated_at).reverse_order
-				else
-					@filter_results = Post.where("level = ?", 0).order(:updated_at).reverse_order
-				end
-			when Prover::OPINIONS
-				@initiator_opinions = []
-				if params[:prover]
-					Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover]).each do |p|
-						@initiator_opinions = @initiator_opinions + Post.where("parent_id = ? AND kind = ? AND prover_id = ?", p.id, Post::OPINION, params[:prover])
-					end
-					@filter_results = (Post.where("kind = ? AND level = ? AND prover_id = ?", Post::OPINION, 0, params[:prover]) + @initiator_opinions).sort_by(&:updated_at).reverse
-				else
-					Post.where("kind = ?", Post::INITIATOR).each do |p|
-						@initiator_opinions = @initiator_opinions + Post.where("parent_id = ? AND kind = ?", p.id, Post::OPINION)
-					end
-					@filter_results = (Post.where("kind = ? AND level = ?", Post::OPINION, 0) + @initiator_opinions).sort_by(&:updated_at).reverse
-				end
-			when Prover::OBJECTIONS
-				if params[:prover]
-					@filter_results = Post.where("kind = ? AND level > ? AND prover_id = ?", Post::OPINION, 0, params[:prover]).order(:updated_at).reverse_order
-				else
-					@filter_results = Post.where("kind = ? AND level > ?", Post::OPINION, 0).order(:updated_at).reverse_order
-				end
-			when Prover::INITIATORS
-				if params[:prover]
-					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::INITIATOR, params[:prover]).order(:updated_at).reverse_order
-				else
-					@filter_results = Post.where("kind = ?", Post::INITIATOR).order(:updated_at).reverse_order
-				end
-			when Prover::COMMENTS
-				if params[:prover]
-					@filter_results = Post.where("kind = ? AND prover_id = ?", Post::COMMENT, params[:prover]).order(:updated_at).reverse_order
-				else
-					@filter_results = Post.where("kind = ? AND level = ?", Post::COMMENT, 0).order(:updated_at).reverse_order
-				end
-			when Prover::FOLLOWING
-				@filter_results = []
-				Follow.where("owner = ?", current_prover).each do |f|
-					@filter_results = @filter_results + Post.where("prover_id = ?", f.follows)
-				end
-			when Prover::BOOKMARKS
-				@filter_results = []
-				Bookmark.where("owner = ?", current_prover).each do |b|
-					@filter_results = @filter_results + Post.where("id = ?", b.post)
-				end
-			else
-				@filter_results = []
+		if current_prover.cur_filter.present?
+			@filter = current_prover.cur_filter 																# Get user's current filter...
+		else
+			@filter = Filter.find_by(name: Filter::TOPICS, sitedefault: true)		# or just use "Topics" as a default
 		end
+
+		@filter_results = []
+		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR) if @filter.topics
+		@filter_results = Post.where(kind: Post::OPINION) if @filter.opinions
+		@filter_results = Post.where(kind: Post::COMMENT) if @filter.comments
+		@filter_results = Post.where(kind: Post::INITIATOR) if @filter.initiators
+
+		if @filter.following
+			Follow.where(owner: current_prover).each do |f|
+				@filter_results = Post.where(prover_id: f.follows)
+			end
+		end
+
+		if @filter.bookmarks
+			Bookmark.where(owner: current_prover).each do |b|
+				@filter_results = Post.where(id: b.post)
+			end
+		end
+
+		unless @filter.sitedefault   # This is temporary... until custom filters are working...
+			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.topics
+			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.opinions
+			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.comments
+			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.initiators
+		end
+
+			# Now filter stuff out...
+
+		@filter_results = @filter_results.where(status: false) if @filter.contested
+		@filter_results = @filter_results.where(status: true) if @filter.uncontested
+		@filter_results = @filter_results.where(level: 0) if @filter.level_zero
+		@filter_results = @filter_results.where("level > ?", 0) if @filter.level_nonzero
+		@filter_results = @filter_results.where(:created_at => 1.day.ago..Time.now) if @filter.today
+		@filter_results = @filter_results.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
+		@filter_results = @filter_results.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
 
 		# Now exclude the private posts (of which user is not a member and that don't allow public viewing)
 		@posts = []

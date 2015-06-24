@@ -41,12 +41,11 @@ class TopicsController < ApplicationController
 		}
 
 		@post = Post.new(post_params)
-    @topic = Topic.new(topic_params)
-
+		@topic = Topic.new(topic_params)
 		@post.topic = @topic
-		@post.parent = nil
+		@topic.root = @post
+		@topic.prover = current_prover
 		@post.prover = current_prover
-		@topic.root_id = @post
 
 		if @topic.private?
 			case params[:type]

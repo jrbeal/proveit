@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :provers, :path => 'accounts'
+  devise_for :provers
 	get 'help'		   	  => 'static_pages#help'
 	get 'about'		   	  => 'static_pages#about'
 	get 'contact'	    	=> 'static_pages#contact'
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
+	post 'changefilter'	=> 'provers#change_filter'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

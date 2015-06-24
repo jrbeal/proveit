@@ -1,3 +1,3 @@
 class Category < ActiveRecord::Base
-	belongs_to :topic
+	has_one :topic
 end

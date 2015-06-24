@@ -19,7 +19,6 @@ function postReady() {
 		}
 
 		var name = $("#provers_dropdown1 option[value=" + id + "]").text();
-		console.log(name);
 
 		if (jQuery.inArray(name, selectedNames1) > -1) {
 			if (selectedNames1.length == 0) {
@@ -68,7 +67,6 @@ function postReady() {
 	});
 
 	$('#type_opinion').on("click", function() {
-		console.log("Now we're in opinion mode.");
 		$(".submit_text.message_text").text("In my opinion:");
 		$(".submit_text.support_text").text("Support (Optional):");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter opinion here. Be as concise as possible.';
@@ -98,7 +96,6 @@ function postReady() {
 	});
 
 	$('#type_initiator').on("click", function() {
-		console.log("Now we're in initiator mode.");
 		$(".submit_text.message_text").text("Initiator:");
 		$(".submit_text.support_text").text("Support (Optional):");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
@@ -128,7 +125,6 @@ function postReady() {
 	});
 
 	$('#type_comment').on("click", function() {
-		console.log("Now we're in casual mode.");
 		$(".submit_text.message_text").text("Comment:");
 		$(".submit_text.support_text").text("Support (Optional): ");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter casual comment here.';
@@ -147,7 +143,6 @@ function postReady() {
 	});
 
 	$('#format_public').on("click", function() {
-		console.log("Selecting public.");
 		$('#postteam1').hide();
 		$('#postteam2').hide();
 
@@ -164,8 +159,6 @@ function postReady() {
 	});
 
 	$('#format_private').on("click", function() {
-		console.log("Selecting private.");
-
 		if ($('#lone_wolf').is(':checked')) {
 			$('input[name="lone_wolf"][value="lone_wolf"]').click();
 		}
@@ -173,7 +166,6 @@ function postReady() {
 		$('#postteam1').show();
 
 		if ($('#type_opinion').is(':checked')) {
-			console.log("Type opinion is selected...");
 			$('#public').hide();
 			$('#private').show();
 			$('#postteam1').show();
@@ -190,7 +182,6 @@ function postReady() {
 				$('#postteam2heading2').hide();
 			}
 		} else if ($('#type_initiator').is(':checked')) {
-			console.log("Type initiator is selected...");
 			$('#public').hide();
 			$('#private').show();
 			$('#postteam1').show();
@@ -207,7 +198,6 @@ function postReady() {
 				$('#postteam2heading3').hide();
 			}
 		} else {
-			console.log("Type Casual is selected...");
 			$('#public').hide();
 			$('#private').hide();
 			$('#postteam1').show();
@@ -218,7 +208,6 @@ function postReady() {
 	});
 
 	$('#teams').on("click", function(e) {
-		console.log("Clicking teams checkbox.");
 		var $tgt = $(e.target);
 		if($tgt.prop("checked")) {
 			$('#postteam1').show();
@@ -247,7 +236,6 @@ function postReady() {
 	});
 
 	$('#publicviewing').on("click", function(e) {
-		console.log("Clicking public viewing checkbox.");
 		var $tgt = $(e.target);
 		if($tgt.prop("checked")) {
 			$('#pubcomments').show();
@@ -260,19 +248,7 @@ function postReady() {
 	$('#pubcomments').hide();
 
 	$('#createcancelbutton').on("click", function () {
-		console.log("Selecting quit button.");
 		history.back();
 	});
 
-//	$('.follow').on("click", function (e) {
-//		var $tgt = $(e.target);
-//		$.post('/follows', {owner: currentProver, follows: $tgt.attr("data-prover-id") }, function(resp) {
-//					var follow = JSON.parse(resp);
-//					console.log(follow);
-//				});
-//
-//		console.log("Following this prover.");
-//		window.location.reload();
-//		return false;
-//	});
 };

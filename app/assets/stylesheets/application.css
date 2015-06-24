@@ -88,12 +88,6 @@ h1 {
 	font-style: italic;
 }
 
-input:disabled {
-	background: red;
-	font-weight: bold;
-}
-
-
 .flexcontainerpostrow {
 	display: inline-flex;
 	flex-direction: row;
@@ -333,5 +327,9 @@ input:disabled {
 	white-space: nowrap;
 	vertical-align: middle;
 	text-align: center;
+}
+
+.filterlist {
+	font-size: 13px;
 }
 

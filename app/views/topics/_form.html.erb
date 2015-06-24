@@ -12,7 +12,7 @@
   <% end %>
 
   <% p = Post.new %>
-  <% @topic.root_id = p %>
+  <% @topic.root = p %>
 
   <% p.message = "Test Message" %>
   <% p.support = "Test Support" %>
@@ -25,7 +25,7 @@
   <% p.offspring = 0 %>
   <% p.points = 0 %>
   <% p.kind = Post::OPINION %>
-  <% p.parent_id = nil %>
+  <% p.parent = nil %>
   <% p.save! %>
 
   <div class="field">

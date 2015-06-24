@@ -17,10 +17,13 @@ class ProversController < ApplicationController
 
 		@teamownership = []
 		@teammembership.each do |team|
-			if team.topic.root_id.prover == current_prover
+			if team.topic.prover == current_prover
 				@teamownership.push(team)
 			end
 		end
+
+		@defaultfilters = Filter.where("defaultfilter = ?", true)
+		@customfilters = Filter.where("prover_id = ?", current_prover)
 	end
 
 	def reset_highest_rating
@@ -43,6 +46,13 @@ class ProversController < ApplicationController
 		limit = params[:limit] || 20
 		@top_provers = Prover.order(:rating => :desc).take(limit)
 		render :scoreboard, :layout => false
+	end
+
+	def change_filter
+		puts "params = #{params[:filter_id]}"
+		current_prover.cur_filter = Filter.find params[:filter_id]
+		current_prover.save!
+		render :nothing => true
 	end
 
 	def toggle_offspring_setting

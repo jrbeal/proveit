@@ -384,7 +384,7 @@
   <div class="sidepadding spacing">
     <%= link_to 'Home', root_path %>
     <%= link_to_unless @post.parent == nil, 'Parent', @post.parent %>
-    <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root_id %>
+    <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root %>
 
  	  <div class="right" style="margin-right: 5px;">
 			<%= link_to "Less", "#", :id => "lessmaster"%>
@@ -461,6 +461,9 @@
 					<hr size="2" noshade>
 				</div>
 
+				<% puts "post = #{@post}" %>
+				<% puts "post.id = #{@post.id}" %>
+				<% puts "post inspect = #{@post.inspect}" %>
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>

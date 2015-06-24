@@ -9,7 +9,7 @@
 				<%= link_to tmp, post.prover %>,
 			</div>
 
-			<% if post.topic.lone_wolf && (post.prover == post.topic.root_id.prover) %>
+			<% if post.topic.lone_wolf && (post.prover == post.topic.prover) %>
 				<div class="flexitempostrow">
 					<%= image_tag('wolf3.png', :size => '9x12') %>
 				</div>

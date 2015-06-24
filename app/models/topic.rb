@@ -1,8 +1,15 @@
 class Topic < ActiveRecord::Base
-	belongs_to :root_id, class_name: "Post", :foreign_key => "root_id", dependent: :destroy
-	belongs_to :category, class_name: "Category", :foreign_key => "categories_id", dependent: :destroy
+	belongs_to :root, :class_name => "Post", :foreign_key => "root_id", dependent: :destroy
+	belongs_to :category, dependent: :destroy
+	belongs_to :prover
 
   has_many :posts, dependent: :destroy
 	has_many :teams, dependent: :destroy
 	has_many :provers, through: :teams
+
+	def root=(post)
+		post.topic = self
+		post.save!
+		write_attribute(:root_id, post.id)
+	end
 end

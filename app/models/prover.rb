@@ -1,9 +1,13 @@
 class Prover < ActiveRecord::Base
-	has_many :filters, dependent: :destroy
-	has_many :posts, dependent: :destroy
-	has_and_belongs_to_many :groups, dependent: :destroy
-	has_many :teams, dependent: :destroy
+	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter",  dependent: :destroy
+
+	has_many :follows, dependent: :destroy
+	has_many :topics, dependent: :destroy
 	has_many :topics, through: :teams
+	has_many :posts, dependent: :destroy
+	has_many :bookmarks, dependent: :destroy
+	has_many :teams, dependent: :destroy
+	has_many :filters, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -25,7 +29,13 @@ class Prover < ActiveRecord::Base
 	before_create do # Initialize the new user
 		self.verbosity = 3
 		self.offspring_style = COLLAPSED
-		self.filter = TOPICS
+
+		cf = Filter.find_by sitedefault: true, name: Filter::TOPICS
+
+		puts cf.inspect
+		self.cur_filter = cf
+
+		puts self.cur_filter.inspect
 		self.rating = 0.0
 		self.highest_rating = 0.0
 		self.highest_rating_date = Time.now

@@ -23,11 +23,11 @@ class Team < ActiveRecord::Base
 	end
 
 	def team_membership
-		topic.root_id.message + " [" + self.team_type + "]"
+		topic.root.message + " [" + self.team_type + "]"
 	end
 
 	def team_ownership
-		topic.root_id.message + " [" + self.team_type + "]"
+		topic.root.message + " [" + self.team_type + "]"
 	end
 
 	def prover_name

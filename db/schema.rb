@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619014229) do
+ActiveRecord::Schema.define(version: 20150623151305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,28 +44,28 @@ ActiveRecord::Schema.define(version: 20150619014229) do
 
   create_table "filters", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "contested_opinions"
-    t.boolean  "uncontested_opinions"
-    t.boolean  "contested_objections"
-    t.boolean  "uncontested_objections"
-    t.boolean  "comments"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "prover_id"
+    t.boolean  "sitedefault"
+    t.boolean  "opinions"
+    t.boolean  "contested"
+    t.boolean  "uncontested"
     t.boolean  "initiators"
+    t.boolean  "comments"
     t.boolean  "following"
-    t.boolean  "active"
     t.boolean  "bookmarks"
-    t.boolean  "hot_topics"
-    t.boolean  "categories"
-    t.boolean  "key_words"
-    t.boolean  "levels"
-    t.boolean  "range"
+    t.boolean  "level_zero"
+    t.boolean  "level_nonzero"
     t.boolean  "today"
     t.boolean  "last_week"
     t.boolean  "last_month"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.boolean  "public"
-    t.integer  "prover_id"
-    t.boolean  "default"
+    t.boolean  "private"
+    t.boolean  "public_viewing"
+    t.boolean  "public_comments"
+    t.boolean  "sort_by_date"
+    t.boolean  "sort_by_votes"
+    t.boolean  "sort_by_views"
     t.boolean  "topics"
   end
 
@@ -134,11 +134,11 @@ ActiveRecord::Schema.define(version: 20150619014229) do
     t.string   "education"
     t.string   "occupation"
     t.string   "location"
-    t.string   "filter"
     t.integer  "ranking"
     t.float    "highest_rating"
     t.datetime "highest_rating_date"
     t.boolean  "administrator"
+    t.integer  "cur_filter"
   end
 
   add_index "provers", ["email"], name: "index_provers_on_email", unique: true, using: :btree
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20150619014229) do
     t.integer  "root_id"
     t.integer  "categories_id"
     t.boolean  "use_teams"
+    t.integer  "prover_id"
   end
 
   create_table "users_groups", force: :cascade do |t|
@@ -176,17 +177,19 @@ ActiveRecord::Schema.define(version: 20150619014229) do
 
   add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
   add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
-  add_foreign_key "filters", "provers"
+  add_foreign_key "filters", "provers", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "owner", on_delete: :cascade
   add_foreign_key "groups", "provers", column: "owner"
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
   add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade
+  add_foreign_key "provers", "filters", column: "cur_filter"
   add_foreign_key "teams", "provers", on_delete: :cascade
   add_foreign_key "teams", "topics", on_delete: :cascade
   add_foreign_key "topics", "categories", column: "categories_id"
   add_foreign_key "topics", "posts", column: "root_id"
+  add_foreign_key "topics", "provers", on_delete: :cascade
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "provers"
 end

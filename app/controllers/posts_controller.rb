@@ -70,7 +70,7 @@ class PostsController < ApplicationController
 				end
 			else																													# If this post is public....
 				if @post.topic.lone_wolf																		# and it's a lone wolf...
-					if @post.topic.root_id.prover_id == current_prover.id			# and user is the lone wolf...
+					if @post.topic.prover_id == current_prover.id							# and user is the lone wolf...
 						@post.opinion_repliable = @post.level.odd?							# he can only reply to odd level posts.
 					else																											# If he is not the lone wolf...
 						@post.opinion_repliable = @post.level.even?							# he can only reply to even level posts.
@@ -122,9 +122,14 @@ class PostsController < ApplicationController
 
 		@post = Post.new(post_params)
 
+
+		puts "parent = #{params[:parentpost]}"
+		puts "topic = #{params[:topic]}"
 		@post.parent = Post.find params[:parentpost]
 		@post.topic = Topic.find params[:topic]
 		@post.prover = current_prover
+		puts "parent = #{@post.parent}"
+		puts "topic = #{@post.topic}"
 
 		@post.save!
 

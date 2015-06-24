@@ -57,7 +57,7 @@ class TeamsController < ApplicationController
 		@team = Team.where(:prover_id => params[:owner], :id => params[:id])
 
 		@team.each do |team|
-			if (team.topic.root_id.prover.id.to_s == params[:owner])
+			if (team.topic.prover.id.to_s == params[:owner])
 				puts ("Error: You can not resign from a team you created.")
 			else
 				team.destroy

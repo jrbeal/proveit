@@ -1,10 +1,10 @@
 class Post < ActiveRecord::Base
-  belongs_to :topic, :class_name => "Topic"
-	belongs_to :parent, :class_name =>"Post", dependent: :destroy
-	belongs_to :prover, :class_name => "Prover"
+	belongs_to :parent, :foreign_key => "parent_id", :class_name => "Post", dependent: :destroy
+	belongs_to :prover, :foreign_key => "prover_id", :class_name => "Prover"
+	belongs_to :topic, :foreign_key => "topic_id", :class_name => "Topic"
 
-  has_many :posts, dependent: :destroy
-  has_many :topics, dependent: :destroy
+	has_many :bookmarks, dependent: :destroy
+
 
 	OPINION = "opinion"
 	INITIATOR = "initiator"
@@ -161,8 +161,8 @@ class Post < ActiveRecord::Base
 	end
 
 	def count_levels(current, count) 		# Recursively increment count by the number of levels above a given post
-		if current.parent_id.present?
-			p = Post.find_by id: current.parent_id
+		if current.parent.present?
+			p = Post.find_by id: current.parent
 			if p.kind == current.kind				# Keep going until the post kind differs from its parent
 				count = count_levels(p, count) + 1
 			else

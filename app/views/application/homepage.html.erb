@@ -174,32 +174,48 @@
 
 					return false;
 				});
+
+				$('#filteroptions').on("change", function(e) {
+					var filterId = $('#filteroptions').val();
+					console.log("Selecting filter.");
+					var $tgt = $(e.target);
+					$.ajax({
+						url: '/changefilter?' + $.param({"filter_id": filterId}),
+						type: 'POST',
+						success: function(resp) {
+							console.log("Selecting this filter.");
+							window.location.reload();
+						}
+					})
+
+					return false;
+				});
+
 			});
 
 		</script>
 	</head>
 
 	<body>
-			<div class="sidepadding spacing">
-				<%= link_to 'Create', posts_new_path %>
-				<div style="display:inline; margin-left: 40%">
-					Filter: <%= link_to current_prover.filter.capitalize, prover_path(current_prover, :default_tab => "filters") %>
-					<%= select_tag 'filterlist', options_from_collection_for_select(current_prover.filters, "filter_id", "filter_name"), :class => 'filterlist' %>
-				</div>
-				<div class="right" style="margin-right: 5px;">
-					<%= link_to "Less", "#", :id => "lessmaster"%>
-					<span class="vlevelindicator1"><1></span>
-					<span class="vlevelindicator2"><2></span>
-					<span class="vlevelindicator3"><3></span>
-					<span class="vlevelindicator4"><4></span>
-					<%= link_to "More", "#", :id => "moremaster"%>
-				</div>
+		<div class="sidepadding spacing">
+			<%= link_to 'Create', posts_new_path %>
+			<div style="display:inline; margin-left: 40%">
+				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, "-------------", :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
 			</div>
+			<div class="right" style="margin-right: 5px;">
+				<%= link_to "Less", "#", :id => "lessmaster"%>
+				<span class="vlevelindicator1"><1></span>
+				<span class="vlevelindicator2"><2></span>
+				<span class="vlevelindicator3"><3></span>
+				<span class="vlevelindicator4"><4></span>
+				<%= link_to "More", "#", :id => "moremaster"%>
+			</div>
+		</div>
 
-			<div class="toppadding10">
-				<% @posts.each do |post| %>
-					<%= render partial: "application/post", object: post, locals: {indent: 0, kind: ""} %>
-				<% end %>
-			</div>
+		<div class="toppadding10">
+			<% @posts.each do |post| %>
+				<%= render partial: "application/post", object: post, locals: {indent: 0, kind: ""} %>
+			<% end %>
+		</div>
 	</body>
 </html>

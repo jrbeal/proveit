@@ -4,6 +4,6 @@ class CreatePosts < ActiveRecord::Migration
 
       t.timestamp :activityDate, :null => false
       t.timestamps null: false
-    end
+		end
   end
 end

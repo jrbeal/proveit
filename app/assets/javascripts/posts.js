@@ -11,7 +11,7 @@ function postReady() {
 
 	$('#team2members').hide();
 
-	$("#provers_dropdown1").change(function(e) {
+	$("#provers_dropdown1").on("click", function(e) {
 		var id = $("#provers_dropdown1").val();
 
 		if(id == -1) {
@@ -39,7 +39,7 @@ function postReady() {
 		console.info(selectedNames1)
 	});
 
-	$("#provers_dropdown2").change(function(e) {
+	$("#provers_dropdown2").on("click", function(e) {
 		var id = $("#provers_dropdown2").val();
 
 		if(id == -1) {

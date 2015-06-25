@@ -200,7 +200,7 @@
 		<div class="sidepadding spacing">
 			<%= link_to 'Create', posts_new_path %>
 			<div style="display:inline; margin-left: 40%">
-				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, "-------------", :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
+				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
 			</div>
 			<div class="right" style="margin-right: 5px;">
 				<%= link_to "Less", "#", :id => "lessmaster"%>

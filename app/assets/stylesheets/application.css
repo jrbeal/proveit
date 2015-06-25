@@ -330,6 +330,7 @@ h1 {
 }
 
 .filterlist {
-	font-size: 13px;
+	font-size: 11px;
+	font-family: monospace;
 }
 

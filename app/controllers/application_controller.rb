@@ -15,6 +15,16 @@ class ApplicationController < ActionController::Base
 		# @customfilters = Filter.where(prover_id: current_prover.id)
 		@customfilters = Filter.where(sitedefault: false)		# Do this until custom filters are implemented
 
+		length = 0
+		@defaultfilters.each do |f|
+			length = f.name.length if f.name.length > length
+		end
+		@customfilters.each do |f|
+			length = f.name.length if f.name.length > length
+		end
+
+		@divider = "-" * length
+
 		if current_prover.cur_filter.present?
 			@filter = current_prover.cur_filter 																# Get user's current filter...
 		else

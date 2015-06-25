@@ -24,6 +24,7 @@ class ProversController < ApplicationController
 
 		@defaultfilters = Filter.where("defaultfilter = ?", true)
 		@customfilters = Filter.where("prover_id = ?", current_prover)
+
 	end
 
 	def reset_highest_rating

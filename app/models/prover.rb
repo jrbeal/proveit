@@ -27,7 +27,7 @@ class Prover < ActiveRecord::Base
 	COLLAPSED = "collapsed"
 
 	before_create do # Initialize the new user
-		self.verbosity = 3
+		self.verbosity = 4
 		self.offspring_style = COLLAPSED
 
 		cf = Filter.find_by sitedefault: true, name: Filter::TOPICS

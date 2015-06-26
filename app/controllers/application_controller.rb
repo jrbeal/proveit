@@ -38,9 +38,13 @@ class ApplicationController < ActionController::Base
 		@filter_results = Post.where(kind: Post::INITIATOR).order(updated_at: :desc) if @filter.initiators
 
 		if @filter.following
+			string = ""
 			Follow.where(owner: current_prover).each do |f|
-				@filter_results = Post.where(prover_id: f.follows).order(updated_at: :desc)
+				string = string + " OR " if string.length > 0
+				string = string + "prover_id = '#{f.follows.id}'"
 			end
+			puts "string = #{string}"
+			@filter_results = Post.where(string).order(updated_at: :desc) if string.length > 0
 		end
 
 		if @filter.bookmarks

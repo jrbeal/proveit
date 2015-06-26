@@ -165,8 +165,6 @@ class Post < ActiveRecord::Base
 			p = Post.find_by id: current.parent
 			if p.kind == current.kind				# Keep going until the post kind differs from its parent
 				count = count_levels(p, count) + 1
-			else
-				count += 1
 			end
 		end
 		return count

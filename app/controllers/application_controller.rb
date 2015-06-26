@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 		end
 
 		@filter_results = []
-		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR).order(updated_at: :desc) if @filter.topics
+		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR).order(updated_at: :desc) if @filter.all_topics
 		@filter_results = Post.where(kind: Post::OPINION).order(updated_at: :desc) if @filter.opinions
 		@filter_results = Post.where(kind: Post::COMMENT).order(updated_at: :desc) if @filter.comments
 		@filter_results = Post.where(kind: Post::INITIATOR).order(updated_at: :desc) if @filter.initiators
@@ -49,15 +49,13 @@ class ApplicationController < ActionController::Base
 			end
 		end
 
-		unless @filter.sitedefault   # This is temporary... until custom filters are working...
-			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.topics
-			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.opinions
-			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.comments
-			@filter_results = @filter_results.where("prover_id = ?", current_prover.id) if @filter.initiators
-		end
+		unless @filter.sitedefault  																									# This is temporary until custom filters are working...
+			@filter_results = @filter_results.where("prover_id = ?", current_prover.id)	# sitedefault "false" means it's a customfilter (for now)
+		end																																						# This filters out all but the current user's posts
 
-			# Now filter stuff out...
-
+		# Now filter stuff out...
+		@filter_results = @filter_results.where.not("parent_id" => nil) if @filter.has_parent
+		@filter_results = @filter_results.where(parent_id: nil) if @filter.has_no_parent
 		@filter_results = @filter_results.where(status: false) if @filter.contested
 		@filter_results = @filter_results.where(status: true) if @filter.uncontested
 		@filter_results = @filter_results.where(level: 0) if @filter.level_zero
@@ -65,6 +63,7 @@ class ApplicationController < ActionController::Base
 		@filter_results = @filter_results.where(:created_at => 1.day.ago..Time.now) if @filter.today
 		@filter_results = @filter_results.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
 		@filter_results = @filter_results.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
+		@filter_results = @filter_results.where(:created_at => 1.year.ago..Time.now) if @filter.last_year
 
 		# Now exclude the private posts (of which user is not a member and that don't allow public viewing)
 		@posts = []

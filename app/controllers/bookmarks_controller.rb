@@ -59,7 +59,11 @@ class BookmarksController < ApplicationController
 	# DELETE /bookmark/1
 	# DELETE /bookmark/1.json
 	def destroy
-		@bookmark = Bookmark.where(:owner => params[:owner], :id => params[:id])
+		if params[:owner].present? && params[:post].present?
+			@bookmark = Bookmark.where(:owner => params[:owner], :post => params[:post])
+		elsif params[:id].present?
+			@bookmark = Bookmark.where(:id => params[:id])
+		end
 
 		@bookmark.each do |b|
 			b.destroy

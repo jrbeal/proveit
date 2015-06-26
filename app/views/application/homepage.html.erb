@@ -161,19 +161,21 @@
 					return false;
 				});
 
-				$('.unbookmark').on("click", function (e) {
+				$('.unbookmark1').on("click", function (e) {
 					var $tgt = $(e.target);
+					console.log ("Deleting bookmark " + $tgt.attr("data-post"))
 					$.ajax({
 						url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "post": $tgt.attr("data-post")}),
 						type: 'DELETE',
 						success: function(resp) {
-							console.log("Removing this bookmark.");
+							console.log("Removing thi bookmark.");
 							window.location.reload();
 						}
 					})
 
 					return false;
 				});
+
 
 				$('#filteroptions').on("change", function(e) {
 					var filterId = $('#filteroptions').val();

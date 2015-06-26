@@ -43,14 +43,17 @@ class ApplicationController < ActionController::Base
 				string = string + " OR " if string.length > 0
 				string = string + "prover_id = '#{f.follows.id}'"
 			end
-			puts "string = #{string}"
 			@filter_results = Post.where(string).order(updated_at: :desc) if string.length > 0
 		end
 
 		if @filter.bookmarks
+			string = ""
 			Bookmark.where(owner: current_prover).each do |b|
-				@filter_results = Post.where(id: b.post).order(updated_at: :desc)
+				string = string + " OR " if string.length > 0
+				string = string + "id = '#{b.post.id}'"
 			end
+			puts "string = #{string}"
+			@filter_results = Post.where(string).order(updated_at: :desc) if string.length > 0
 		end
 
 		unless @filter.sitedefault  																									# This is temporary until custom filters are working...

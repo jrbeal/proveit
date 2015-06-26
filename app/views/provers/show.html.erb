@@ -222,12 +222,12 @@
 				return false;
 			});
 
-			$('.unbookmark').on("click", function (e) {
+			$('.unbookmark2').on("click", function (e) {
 				var $tgt = $(e.target);
 				var bookmarkId = $('#bookmark_dropdown').val();
 				console.log(bookmarkId);
 				$.ajax({
-					url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "id": bookmarkId}),
+					url: '/bookmarks?' + $.param({"id": bookmarkId}),
 					type: 'DELETE',
 					success: function(resp) {
 						console.log("Removing this bookmark.");
@@ -448,7 +448,7 @@
 								<b>Bookmarks:</b> &nbsp
 								<% if @bookmarks.count > 0 %>
 									<%= select_tag 'bookmark_dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
-									<%= link_to "Remove", "#", :class => "unbookmark" %>
+									<%= link_to "Remove", "#", :class => "unbookmark2" %>
 								<% else %>
 									You have no bookmarks right now.
 								<% end %>

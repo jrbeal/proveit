@@ -380,44 +380,6 @@
 					</div>
 
 					<div class="profilepagediv1">
-						<b>Quicklook Counts:</b>
-						<div class="profilepagediv2">
-							<b>Default Filters:</b>
-							<%= check_box_tag 'quicklook', 'topics', true %>
-							<%= label_tag 'Topics' %>
-							<%= check_box_tag 'quicklook', 'opinions', true %>
-							<%= label_tag 'Opinions' %>
-							<%= check_box_tag 'quicklook', 'objections', true %>
-							<%= label_tag 'Objections' %>
-							<%= check_box_tag 'quicklook', 'initiators', false %>
-							<%= label_tag 'Initiators' %>
-							<%= check_box_tag 'quicklook', 'comments', false %>
-							<%= label_tag 'Comments' %>
-							<%= check_box_tag 'quicklook', 'following', false %>
-							<%= label_tag 'Following' %>
-							<%= check_box_tag 'quicklook', 'bookmarks', false %>
-							<%= label_tag 'Bookmarks' %>
-						</div>
-						<div class="profilepagediv2">
-							<b>Custom Filters:</b>
-							<%= check_box_tag 'quicklook', 'myopinions', true %>
-							<%= label_tag 'MyOpinions' %>
-							<%= check_box_tag 'quicklook', 'opinions', false %>
-							<%= label_tag 'MyComments' %>
-							<%= check_box_tag 'quicklook', 'objections', false %>
-							<%= label_tag 'MyInitiators' %>
-							<%= check_box_tag 'quicklook', 'initiators', false %>
-							<%= label_tag 'MyObjections' %>
-							<%= check_box_tag 'quicklook', 'comments', true %>
-							<%= label_tag 'MyFamily' %>
-							<%= check_box_tag 'quicklook', 'following', false %>
-							<%= label_tag 'Contested' %>
-							<%= check_box_tag 'quicklook', 'bookmarks', false %>
-							<%= label_tag 'Uncontested' %>
-						</div>
-					</div>
-
-					<div class="profilepagediv1">
 						<b>Lists:</b>
 						<div class="profilepagediv2">
 							<div id="following">
@@ -508,20 +470,85 @@
 				<div id="profilefilters">
 					<div class="profilepagediv1">
 						<b>Filters:</b>
-						<div class="profilepagediv2">
-							<%= check_box_tag 'filter', 'who', true %>
-							<%= label_tag 'Who' %>
-							<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %>
-							<div id="teammembers">
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>Who:</b> &nbsp
+							<div class="profilepagediv2">
+								<b>Users:</b> &nbsp
+								<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+								<b>Following:</b> &nbsp
+								<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+								<div id="teammembers">
+								</div>
 							</div>
 						</div>
-						<div class="profilepagediv2">
-							<%= check_box_tag 'filter', 'what', true %>
-							<%= label_tag 'What' %>
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>What:</b>
+							<div class="profilepagediv2">
+								<b>Post type:</b> &nbsp
+								<%= check_box_tag 'filter', 'opinions', true %>
+								<%= label_tag 'Opinions' %> &nbsp
+								<%= check_box_tag 'filter', 'initiators', true %>
+								<%= label_tag 'Initiators' %> &nbsp
+								<%= check_box_tag 'filter', 'comments', true %>
+								<%= label_tag 'Comments' %> &nbsp
+								<%= check_box_tag 'lists', 'bookmarks', false %>
+								<%= label_tag 'Bookmarks' %> &nbsp
+								<%= check_box_tag 'privacy', 'private', false %>
+								<%= label_tag 'Private' %> &nbsp
+								<%= check_box_tag 'privacy', 'publicviewing', false %>
+								<%= label_tag 'Public Viewing' %> &nbsp
+								<%= check_box_tag 'privacy', 'publiccomments', false %>
+								<%= label_tag 'Public Comments' %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Status:</b> &nbsp
+								<%= radio_button_tag(:status, "contested") %>
+								<%= label_tag(:status, "Contested") %> &nbsp
+								<%= radio_button_tag(:status, "uncontested") %>
+								<%= label_tag(:status, "Uncontested") %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Parents:</b> &nbsp
+								<%= radio_button_tag(:parents, "hasaparent") %>
+								<%= label_tag(:parents, "Has a parent") %> &nbsp
+								<%= radio_button_tag(:parents, "hasnoparent") %>
+								<%= label_tag(:parents, "Has no parent") %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Level:</b> &nbsp
+								<%= radio_button_tag(:level, "zero") %>
+								<%= label_tag(:level, "Zero") %> &nbsp
+								<%= radio_button_tag(:level, "nonzero") %>
+								<%= label_tag(:level, "Non-zero") %> &nbsp
+							</div>
 						</div>
-						<div class="profilepagediv2">
-							<%= check_box_tag 'filter', 'when', true %>
-							<%= label_tag 'When' %>
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>When:</b>
+							<div class="profilepagediv2">
+								<b>Range:</b> &nbsp
+								<%= radio_button_tag(:timerange, "today") %>
+								<%= label_tag(:timerange, "Today") %> &nbsp
+								<%= radio_button_tag(:timerange, "lastweek") %>
+								<%= label_tag(:timerange, "Last Week") %> &nbsp
+								<%= radio_button_tag(:timerange, "lastmonth") %>
+								<%= label_tag(:timerange, "Last Month") %> &nbsp
+								<%= radio_button_tag(:timerange, "lastyear") %>
+								<%= label_tag(:timerange, "Last Year") %> &nbsp
+							</div>
+						</div>
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>Sort:</b>
+							<div class="profilepagediv2">
+								<b>By:</b> &nbsp
+								<%= radio_button_tag(:sort, "createddate") %>
+								<%= label_tag(:sort, "Created date") %> &nbsp
+								<%= radio_button_tag(:sort, "updateddate") %>
+								<%= label_tag(:sort, "Updated date") %> &nbsp
+								<%= radio_button_tag(:sort, "views") %>
+								<%= label_tag(:sort, "Views") %> &nbsp
+								<%= radio_button_tag(:sort, "popularity") %>
+								<%= label_tag(:sort, "Popularity") %> &nbsp
+							</div>
 						</div>
 					</div>
 				</div>

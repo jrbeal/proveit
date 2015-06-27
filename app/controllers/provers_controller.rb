@@ -14,6 +14,7 @@ class ProversController < ApplicationController
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
 		@teammembership = Team.where("prover_id = ?", @prover)
+		@provers = Prover.all.order(:provername)
 
 		@teamownership = []
 		@teammembership.each do |team|

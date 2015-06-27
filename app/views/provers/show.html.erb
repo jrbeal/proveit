@@ -509,21 +509,19 @@
 					<div class="profilepagediv1">
 						<b>Filters:</b>
 						<div class="profilepagediv2">
-							<b>Defaults:</b>
-							<%= radio_button_tag(:filter, "topics") %>
-							<%= label_tag(:filter, "Topics") %>
-							<%= radio_button_tag(:filter, "opinions") %>
-							<%= label_tag(:filter, "Opinions") %>
-							<%= radio_button_tag(:filter, "objections") %>
-							<%= label_tag(:filter, "Objections") %>
-							<%= radio_button_tag(:filter, "initiators") %>
-							<%= label_tag(:filter, "Initiators") %>
-							<%= radio_button_tag(:filter, "comments") %>
-							<%= label_tag(:filter, "Comments") %>
-							<%= radio_button_tag(:filter, "following") %>
-							<%= label_tag(:filter, "Following") %>
-							<%= radio_button_tag(:filter, "bookmarks") %>
-							<%= label_tag(:filter, "Bookmarks") %>
+							<%= check_box_tag 'filter', 'who', true %>
+							<%= label_tag 'Who' %>
+							<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %>
+							<div id="teammembers">
+							</div>
+						</div>
+						<div class="profilepagediv2">
+							<%= check_box_tag 'filter', 'what', true %>
+							<%= label_tag 'What' %>
+						</div>
+						<div class="profilepagediv2">
+							<%= check_box_tag 'filter', 'when', true %>
+							<%= label_tag 'When' %>
 						</div>
 					</div>
 				</div>

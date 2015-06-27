@@ -31,37 +31,50 @@ class ApplicationController < ActionController::Base
 			@filter = Filter.find_by(name: Filter::TOPICS, sitedefault: true)		# or just use "Topics" as a default
 		end
 
+		ids = []
+		if @filter.opinions
+			Post.where(kind: Post::OPINION).each do |p|
+				ids.push p.id
+			end
+		end
+		if @filter.initiators
+			Post.where(kind: Post::INITIATOR).each do |p|
+				ids.push p.id
+			end
+		end
+		if @filter.comments
+			Post.where(kind: Post::COMMENT).each do |p|
+				ids.push p.id
+			end
+		end
 		@filter_results = []
-		@filter_results = Post.where("kind = ? OR kind = ? OR kind = ?", Post::OPINION, Post::COMMENT, Post::INITIATOR).order(updated_at: :desc) if @filter.all_topics
-		@filter_results = Post.where(kind: Post::OPINION).order(updated_at: :desc) if @filter.opinions
-		@filter_results = Post.where(kind: Post::COMMENT).order(updated_at: :desc) if @filter.comments
-		@filter_results = Post.where(kind: Post::INITIATOR).order(updated_at: :desc) if @filter.initiators
+		@filter_results = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
 
 		if @filter.following
-			string = ""
+			ids = []
 			Follow.where(owner: current_prover).each do |f|
-				string = string + " OR " if string.length > 0
-				string = string + "prover_id = '#{f.follows.id}'"
+				Post.where(prover_id: f.follows.id).each do |p|
+					ids.push p.id
+				end
 			end
-			@filter_results = Post.where(string).order(updated_at: :desc) if string.length > 0
+			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
 		end
 
 		if @filter.bookmarks
-			string = ""
+			ids = []
 			Bookmark.where(owner: current_prover).each do |b|
-				string = string + " OR " if string.length > 0
-				string = string + "id = '#{b.post.id}'"
+				ids.push b.post.id
 			end
-			puts "string = #{string}"
-			@filter_results = Post.where(string).order(updated_at: :desc) if string.length > 0
+
+			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
 		end
 
-		unless @filter.sitedefault  																									# This is temporary until custom filters are working...
-			@filter_results = @filter_results.where("prover_id = ?", current_prover.id)	# sitedefault "false" means it's a customfilter (for now)
-		end																																						# This filters out all but the current user's posts
+		unless @filter.sitedefault  																						# This is temporary until custom filters are working...
+			@filter_results = @filter_results.where(prover_id: current_prover.id)	# sitedefault "false" means it's a customfilter (for now)
+		end																																			# This filters out all but the current user's posts
 
 		# Now filter stuff out...
-		@filter_results = @filter_results.where.not("parent_id" => nil) if @filter.has_parent
+		@filter_results = @filter_results.where.not(parent_id: nil) if @filter.has_parent
 		@filter_results = @filter_results.where(parent_id: nil) if @filter.has_no_parent
 		@filter_results = @filter_results.where(status: false) if @filter.contested
 		@filter_results = @filter_results.where(status: true) if @filter.uncontested

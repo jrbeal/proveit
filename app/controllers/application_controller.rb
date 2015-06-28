@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 			length = f.name.length if f.name.length > length
 		end
 
-		@divider = "-" * length
+		@divider = "-" * (length * 1.5)
 
 		if current_prover.cur_filter.present?
 			@filter = current_prover.cur_filter 																# Get user's current filter...

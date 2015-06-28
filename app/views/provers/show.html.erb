@@ -610,7 +610,11 @@
 							<b>My Filters:</b> &nbsp
 						</div>
 						<div class="flexitem1">
-							<%= select_tag 'myfilters', options_from_collection_for_select(@myfilters, "id", "name"), :class => "myfilters" %> &nbsp
+							<% if current_prover.administrator? %>
+								<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+							<% else %>
+								<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+						<% end %>
 						</div>
 						<div class="flexitem1" style="margin-top:6px; font-size: 10px">
 							<textarea class="myfiltername" name="myfiltername" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
@@ -619,7 +623,10 @@
 							<button>Save</button> &nbsp
 						</div>
 						<div class="flexitem1">
-							<button>Delete</button>
+							<button>Delete</button> &nbsp
+						</div>
+						<div class="flexitem1">
+							<button>Clear</button>
 						</div>
 					</div>
 				</div>

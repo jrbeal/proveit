@@ -14,7 +14,8 @@ class ProversController < ApplicationController
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
 		@provers = Prover.all.order(:provername)
-		@myfilters = Filter.where(sitedefault: false)
+		@customfilters = Filter.where(sitedefault: false)
+		@defaultfilters = Filter.where(sitedefault: true)
 		@teammembership = Team.where("prover_id = ?", @prover)
 		@teamownership = []
 		@teammembership.each do |team|
@@ -22,6 +23,16 @@ class ProversController < ApplicationController
 				@teamownership.push(team)
 			end
 		end
+
+		length = 0
+		@defaultfilters.each do |f|
+			length = f.name.length if f.name.length > length
+		end
+		@customfilters.each do |f|
+			length = f.name.length if f.name.length > length
+		end
+
+		@divider = "-" * (length * 1.5)
 	end
 
 	def reset_highest_rating

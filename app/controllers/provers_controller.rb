@@ -13,19 +13,15 @@ class ProversController < ApplicationController
 		@follows = Follow.where("owner = ?", @prover)
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
-		@teammembership = Team.where("prover_id = ?", @prover)
 		@provers = Prover.all.order(:provername)
-
+		@myfilters = Filter.where(sitedefault: false)
+		@teammembership = Team.where("prover_id = ?", @prover)
 		@teamownership = []
 		@teammembership.each do |team|
 			if team.topic.prover == current_prover
 				@teamownership.push(team)
 			end
 		end
-
-		@defaultfilters = Filter.where("defaultfilter = ?", true)
-		@customfilters = Filter.where("prover_id = ?", current_prover)
-
 	end
 
 	def reset_highest_rating
@@ -41,7 +37,8 @@ class ProversController < ApplicationController
 		end
 
 		current_prover.update clean_params
-		redirect_to root_path
+		# redirect_to root_path
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => params[:default_tab]
 	end
 
 	def scoreboard
@@ -66,7 +63,7 @@ class ProversController < ApplicationController
 	private
 
 	def prover_params
-		params.permit([:id, :first_name, :last_name, :verbosity, :location, :occupation, :education, :aboutme, :filter, :offspring_style])
+		params.permit([:id, :first_name, :last_name, :verbosity, :location, :occupation, :education, :aboutme, :offspring_style])
 	end
 
 	def upload_image

@@ -176,11 +176,9 @@
 					return false;
 				});
 
-
 				$('#filteroptions').on("change", function(e) {
 					var filterId = $('#filteroptions').val();
 					console.log("Selecting filter.");
-					var $tgt = $(e.target);
 					$.ajax({
 						url: '/changefilter?' + $.param({"filter_id": filterId}),
 						type: 'POST',

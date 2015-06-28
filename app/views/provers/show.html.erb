@@ -264,52 +264,52 @@
 
 <body>
 
-	<%= form_for @prover do |prover_form| %>
+	<div id="userprofiletabs">
+		<div class="sidepadding">
+			<%= link_to 'Home', root_path %>
+			<div class="right sidepadding">
+				<%= radio_button_tag(:profile, "profile") %>
+				<%= label_tag(:profile, "Profile") %>
+				<%= radio_button_tag(:profile, "posts") %>
+				<%= label_tag(:profile, "Posts") %>
+				<%= radio_button_tag(:profile, "account") if @owner  %>
+				<%= label_tag(:profile, "Account") if @owner %>
+				<%= radio_button_tag(:profile, "password") if @owner %>
+				<%= label_tag(:profile, "Password") if @owner %>
+				<%= radio_button_tag(:profile, "settings") if @owner %>
+				<%= label_tag(:profile, "Settings") if @owner %>
+				<%= radio_button_tag(:profile, "filters") if @owner %>
+				<%= label_tag(:profile, "Filters") if @owner %>
+				<%= radio_button_tag(:profile, "mobile") if @owner %>
+				<%= label_tag(:profile, "Mobile") if @owner %>
+				<%= radio_button_tag(:profile, "email") if @owner %>
+				<%= label_tag(:profile, "Email") if @owner %>
+				<%= radio_button_tag(:profile, "apps") if @owner %>
+				<%= label_tag(:profile, "Apps") if @owner %>
+				<%= radio_button_tag(:profile, "rating") %>
+				<%= label_tag(:profile, "Rating") %>
+				<%= radio_button_tag(:profile, "administrative") if @owner %>
+				<%= label_tag(:profile, "Administrative") if @owner %>
+			</div>
+		</div>
 
-		<div id="userprofiletabs">
-			<div class="sidepadding">
-				<%= link_to 'Home', root_path %>
-				<div class="right sidepadding">
-					<%= radio_button_tag(:profile, "profile") %>
-					<%= label_tag(:profile, "Profile") %>
-					<%= radio_button_tag(:profile, "posts") %>
-					<%= label_tag(:profile, "Posts") %>
-					<%= radio_button_tag(:profile, "account") if @owner  %>
-					<%= label_tag(:profile, "Account") if @owner %>
-					<%= radio_button_tag(:profile, "password") if @owner %>
-					<%= label_tag(:profile, "Password") if @owner %>
-					<%= radio_button_tag(:profile, "settings") if @owner %>
-					<%= label_tag(:profile, "Settings") if @owner %>
-					<%= radio_button_tag(:profile, "filters") if @owner %>
-					<%= label_tag(:profile, "Filters") if @owner %>
-					<%= radio_button_tag(:profile, "mobile") if @owner %>
-					<%= label_tag(:profile, "Mobile") if @owner %>
-					<%= radio_button_tag(:profile, "email") if @owner %>
-					<%= label_tag(:profile, "Email") if @owner %>
-					<%= radio_button_tag(:profile, "apps") if @owner %>
-					<%= label_tag(:profile, "Apps") if @owner %>
-					<%= radio_button_tag(:profile, "rating") %>
-					<%= label_tag(:profile, "Rating") %>
-					<%= radio_button_tag(:profile, "administrative") if @owner %>
-					<%= label_tag(:profile, "Administrative") if @owner %>
-				</div>
+		<div class="profilepage">
+			<div id="profilename">
+				<%= @prover.provername %>
+				(<%= @prover.first_name %>
+				<%= @prover.last_name %>) &nbsp
+				<% if !@owner %>
+					<% if already_following(@prover.id) %>
+						<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{@prover.id}"} %>
+					<% else %>
+						<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{@prover.id}"} %>
+					<% end %>
+				<% end %>
 			</div>
 
-			<div class="profilepage">
-				<div id="profilename">
-					<%= @prover.provername %>
-					(<%= @prover.first_name %>
-					<%= @prover.last_name %>) &nbsp
-					<% if !@owner %>
-						<% if already_following(@prover.id) %>
-							<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{@prover.id}"} %>
-						<% else %>
-							<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{@prover.id}"} %>
-						<% end %>
-					<% end %>
-				</div>
+			<div id="profileprofile">
 
-				<div id="profileprofile">
+				<%= form_for @prover do |prover_form| %>
 
 					<%= image_tag(@prover.image_url, :class => "profileproverimage") %>
 
@@ -335,27 +335,38 @@
 					<div id="profileprofilefields3">
 						<div>About Me: <textarea <%= "disabled" if !@owner %> class="message profiletextfield2" name="aboutme" rows="10"><%= @prover.aboutme %></textarea></div>
 					</div>
-				</div>
 
-				<div id="profileposts">
-					<div class="profilepagediv1">
-						<li>Opinions: <%= link_to @opinions.count, root_path(:filter => Prover::OPINIONS, :prover => @prover) %>
-						<li>Objections: <%= link_to @objections.count, root_path(:filter => Prover::OBJECTIONS, :prover => @prover) %>
-						<li>Initiators: <%= link_to @initiators.count, root_path(:filter => Prover::INITIATORS, :prover => @prover) %>
-						<li>Comments: <%= link_to @comments.count, root_path(:filter => Prover::COMMENTS, :prover => @prover)  %>
-					</div>
-				</div>
+					<% if @owner %>
+						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+						<%= hidden_field_tag :default_tab, "profile" %>
+						<div class="toppadding10 sidepadding">
+							<%= submit_tag("Save") %>
+						</div>
+					<% end %>
+				<% end %>
 
-				<div id="profileaccount">
-					Profile Account
-				</div>
+			</div>
 
-				<div id="profilepassword">
-					Profile Password
+			<div id="profileposts">
+				<div class="profilepagediv1">
+					<li>Opinions: <%= @opinions.count %>
+					<li>Objections: <%= @objections.count %>
+					<li>Initiators: <%= @initiators.count %>
+					<li>Comments: <%= @comments.count %>
 				</div>
+			</div>
 
-				<div id="profilesettings">
-					<div class="profilepagediv1">
+			<div id="profileaccount">
+				Profile Account
+			</div>
+
+			<div id="profilepassword">
+				Profile Password
+			</div>
+
+			<div id="profilesettings">
+				<div class="profilepagediv1">
+					<%= form_for @prover do |prover_form| %>
 						<b>Defaults:</b>
 						<div class="profilepagediv2">
 							<b>Verbosity:</b>
@@ -369,7 +380,6 @@
 							<%= label_tag(:verbosity, "4") %>
 						</div>
 
-
 						<div class="profilepagediv2">
 							<b>Offspring:</b>
 							<%= radio_button_tag(:offspring_style, "collapsed") %>
@@ -377,245 +387,265 @@
 							<%= radio_button_tag(:offspring_style, "expanded") %>
 							<%= label_tag(:offspring_style, "Expanded") %>
 						</div>
+
+						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+						<%= hidden_field_tag :default_tab, "settings" %>
+						<div class="toppadding10 sidepadding">
+							<%= submit_tag("Save") %>
+						</div>
+					<% end %>
+				</div>
+
+				<div class="profilepagediv1">
+					<b>Lists:</b>
+					<div class="profilepagediv2">
+						<div id="following">
+							<b>Following:</b> &nbsp
+							<% if @follows.count > 0 %>
+								<%= select_tag 'following_dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
+								<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:current_prover_id => "#{@prover.id}"} %>
+							<% else %>
+								You are not following anyone right now.
+							<% end %>
+						</div>
 					</div>
 
-					<div class="profilepagediv1">
-						<b>Lists:</b>
+					<div class="profilepagediv2">
+						<div id="followers">
+							<b>Followed By:</b> &nbsp
+							<% if @followed.count > 0 %>
+								<%= select_tag 'followers_dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
+								<%= link_to "Remove", "#", :class => "unfollowedby", :data => {:current_prover_id => "#{@prover.id}"} %>
+							<% else %>
+								No one is following you right now.
+							<% end %>
+						</div>
+					</div>
+
+					<div class="profilepagediv2">
+						<div id="bookmark">
+							<b>Bookmarks:</b> &nbsp
+							<% if @bookmarks.count > 0 %>
+								<%= select_tag 'bookmark_dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
+								<%= link_to "Remove", "#", :class => "unbookmark2" %>
+							<% else %>
+								You have no bookmarks right now.
+							<% end %>
+						</div>
+					</div>
+				</div>
+
+				<div class="profilepagediv1">
+					<b>Teams:</b>
+					<div class="profilepagediv2">
+						<div id="teammembership">
+							<b>Membership:</b> &nbsp
+							<% if @teammembership.count > 0 %>
+								<%= select_tag 'teammembership_dropdown', options_from_collection_for_select(@teammembership, "id", "team_membership") %> &nbsp
+								<%= link_to "Resign", "#", :class => "resignteam" %>
+							<% else %>
+								You are not a member of any teams right now.
+							<% end %>
+						</div>
+					</div>
+					<div class="profilepagediv2">
+						<div id="teamownership">
+							<b>Ownership:</b> &nbsp
+							<% if @teamownership.count > 0 %>
+								<%= select_tag 'teamownership_dropdown', options_from_collection_for_select(@teamownership, "id", "team_ownership") %> &nbsp
+								<%= link_to "Manage", "#", :class => "resignteam" %>
+							<% else %>
+								You do not own any teams right now.
+							<% end %>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="profilepagediv1">
+					<b>Groups:</b>
+					<div class="profilepagediv2">
+						<div id="groups">
+							<b>My Groups:</b> &nbsp
+							<%= search_field_tag 'group' %> &nbsp
+							<%= link_to "Resign", "#", :class => "resigngroup" %> &nbsp
+							<%= link_to "Disband", "#", :class => "disbandgroup" %>
+						</div>
 						<div class="profilepagediv2">
-							<div id="following">
-								<b>Following:</b> &nbsp
-								<% if @follows.count > 0 %>
-									<%= select_tag 'following_dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
-									<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:current_prover_id => "#{@prover.id}"} %>
-								<% else %>
-									You are not following anyone right now.
-								<% end %>
-							</div>
-						</div>
-
-						<div class="profilepagediv2">
-							<div id="followers">
-								<b>Followed By:</b> &nbsp
-								<% if @followed.count > 0 %>
-									<%= select_tag 'followers_dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
-									<%= link_to "Remove", "#", :class => "unfollowedby", :data => {:current_prover_id => "#{@prover.id}"} %>
-								<% else %>
-									No one is following you right now.
-								<% end %>
-							</div>
-						</div>
-
-						<div class="profilepagediv2">
-							<div id="bookmark">
-								<b>Bookmarks:</b> &nbsp
-								<% if @bookmarks.count > 0 %>
-									<%= select_tag 'bookmark_dropdown', options_from_collection_for_select(@bookmarks, "id", "post_message") %> &nbsp
-									<%= link_to "Remove", "#", :class => "unbookmark2" %>
-								<% else %>
-									You have no bookmarks right now.
-								<% end %>
-							</div>
-						</div>
-					</div>
-
-					<div class="profilepagediv1">
-						<b>Teams:</b>
-						<div class="profilepagediv2">
-							<div id="teammembership">
-								<b>Membership:</b> &nbsp
-								<% if @teammembership.count > 0 %>
-									<%= select_tag 'teammembership_dropdown', options_from_collection_for_select(@teammembership, "id", "team_membership") %> &nbsp
-									<%= link_to "Resign", "#", :class => "resignteam" %>
-								<% else %>
-									You are not a member of any teams right now.
-								<% end %>
-							</div>
-						</div>
-						<div class="profilepagediv2">
-							<div id="teamownership">
-								<b>Ownership:</b> &nbsp
-								<% if @teamownership.count > 0 %>
-									<%= select_tag 'teamownership_dropdown', options_from_collection_for_select(@teamownership, "id", "team_ownership") %> &nbsp
-									<%= link_to "Manage", "#", :class => "resignteam" %>
-								<% else %>
-									You do not own any teams right now.
-								<% end %>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="profilepagediv1">
-						<b>Groups:</b>
-						<div class="profilepagediv2">
-							<div id="groups">
-								<b>My Groups:</b> &nbsp
-								<%= search_field_tag 'group' %> &nbsp
-								<%= link_to "Resign", "#", :class => "resigngroup" %> &nbsp
-								<%= link_to "Disband", "#", :class => "disbandgroup" %>
-							</div>
-							<div class="profilepagediv2">
-								<div id="groupsmanage">
-									<b>Create:</b> &nbsp
-									<%= search_field_tag 'name' %> &nbsp Members: &nbsp
-									<%= search_field_tag 'groupmembers' %> &nbsp
-									<%= link_to "Add", "#", :class => "addgroup" %> &nbsp
-									<%= submit_tag("Save") %>
-								</div>
+							<div id="groupsmanage">
+								<b>Create:</b> &nbsp
+								<%= search_field_tag 'name' %> &nbsp Members: &nbsp
+								<%= search_field_tag 'groupmembers' %> &nbsp
+								<%= link_to "Add", "#", :class => "addgroup" %> &nbsp
+								<button>Save</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div id="profilefilters">
-					<div class="profilepagediv1">
-						<b>Filters:</b>
-						<div class="profilepagediv2" style="border-width: 2px">
-							<b>Who:</b> &nbsp
-							<div class="profilepagediv2">
-								<b>Users:</b> &nbsp
-								<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
-								<b>Following:</b> &nbsp
-								<%= select_tag 'provers_dropdown', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
-								<div id="teammembers">
-								</div>
-							</div>
-						</div>
-						<div class="profilepagediv2" style="border-width: 2px">
-							<b>What:</b>
-							<div class="profilepagediv2">
-								<b>Post type:</b> &nbsp
-								<%= check_box_tag 'filter', 'opinions', true %>
-								<%= label_tag 'Opinions' %> &nbsp
-								<%= check_box_tag 'filter', 'initiators', true %>
-								<%= label_tag 'Initiators' %> &nbsp
-								<%= check_box_tag 'filter', 'comments', true %>
-								<%= label_tag 'Comments' %> &nbsp
-								<%= check_box_tag 'lists', 'bookmarks', false %>
-								<%= label_tag 'Bookmarks' %> &nbsp
-								<%= check_box_tag 'privacy', 'private', false %>
-								<%= label_tag 'Private' %> &nbsp
-								<%= check_box_tag 'privacy', 'publicviewing', false %>
-								<%= label_tag 'Public Viewing' %> &nbsp
-								<%= check_box_tag 'privacy', 'publiccomments', false %>
-								<%= label_tag 'Public Comments' %> &nbsp
-							</div>
-							<div class="profilepagediv2">
-								<b>Status:</b> &nbsp
-								<%= radio_button_tag(:status, "contested") %>
-								<%= label_tag(:status, "Contested") %> &nbsp
-								<%= radio_button_tag(:status, "uncontested") %>
-								<%= label_tag(:status, "Uncontested") %> &nbsp
-							</div>
-							<div class="profilepagediv2">
-								<b>Parents:</b> &nbsp
-								<%= radio_button_tag(:parents, "hasaparent") %>
-								<%= label_tag(:parents, "Has a parent") %> &nbsp
-								<%= radio_button_tag(:parents, "hasnoparent") %>
-								<%= label_tag(:parents, "Has no parent") %> &nbsp
-							</div>
-							<div class="profilepagediv2">
-								<b>Level:</b> &nbsp
-								<%= radio_button_tag(:level, "zero") %>
-								<%= label_tag(:level, "Zero") %> &nbsp
-								<%= radio_button_tag(:level, "nonzero") %>
-								<%= label_tag(:level, "Non-zero") %> &nbsp
-							</div>
-						</div>
-						<div class="profilepagediv2" style="border-width: 2px">
-							<b>When:</b>
-							<div class="profilepagediv2">
-								<b>Range:</b> &nbsp
-								<%= radio_button_tag(:timerange, "today") %>
-								<%= label_tag(:timerange, "Today") %> &nbsp
-								<%= radio_button_tag(:timerange, "lastweek") %>
-								<%= label_tag(:timerange, "Last Week") %> &nbsp
-								<%= radio_button_tag(:timerange, "lastmonth") %>
-								<%= label_tag(:timerange, "Last Month") %> &nbsp
-								<%= radio_button_tag(:timerange, "lastyear") %>
-								<%= label_tag(:timerange, "Last Year") %> &nbsp
-							</div>
-						</div>
-						<div class="profilepagediv2" style="border-width: 2px">
-							<b>Sort:</b>
-							<div class="profilepagediv2">
-								<b>By:</b> &nbsp
-								<%= radio_button_tag(:sort, "createddate") %>
-								<%= label_tag(:sort, "Created date") %> &nbsp
-								<%= radio_button_tag(:sort, "updateddate") %>
-								<%= label_tag(:sort, "Updated date") %> &nbsp
-								<%= radio_button_tag(:sort, "views") %>
-								<%= label_tag(:sort, "Views") %> &nbsp
-								<%= radio_button_tag(:sort, "popularity") %>
-								<%= label_tag(:sort, "Popularity") %> &nbsp
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div id="profilemobile">
-					Profile Mobile
-				</div>
-
-				<div id="profileemail">
-					Profile Email
-				</div>
-
-				<div id="profileapps">
-					Profile Apps
-				</div>
-
-				<div id="profilerating">
-					<div id="profileratingstats">
-						<li>Current Rating = <%= @prover.rating.round(2) %></li>
-						<li>Current Rank = <%= @prover.ranking %></li>
-						<li>Percentile = <%= @prover.percentile.round(2) %></li>
-						<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>) &nbsp
-						<% if @owner %>
-							<button class="resethighestratingbutton" name="Reset" type="button">
-								Reset
-							</button>
-						<% end %> </li>
-					</div>
-
-					<div id="ratingexplanation">
-						<b><div>
-							Explanation:
-						</div></b>
-
-						<div style="margin-top: 10px">
-							When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
-							Once contested, its status will become false (red) and its score reduced to 0. Whenever a
-							post's status is true, its score will decay using a half-life formula set by the site
-							administrator. For example, with a 26-week half-life, the score for a true post would be reduced to
-							60.62 after 19 weeks. If its status reverts to false, its score would be reduced to 0. If it became
-							true again, it would reset (to 100) and the decay process would start over. A post will likely toggle
-							back and forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
-						</div>
-
-						<div style="margin-top: 10px">
-							<b><u><em>
-								A user's rating is calculated by averaging his/her 100 most recently active post<b>*</b> scores.
-							</em></u></b>
-						</div>
-
-						<div style="margin-top: 10px">
-							<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
-						</div>
-					</div>
-				</div>
-
-				<div id="profileadministrative">
-					Profile Administrative
-				</div>
-      </div>
-			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-		</div>
-
-		<% if @owner %>
-			<div class="toppadding10 sidepadding">
-				<%= submit_tag("Save") %>
 			</div>
-		<% end %>
-	<% end %>
+
+			<div id="profilefilters">
+				<div class="profilepagediv1">
+					<b>Filters:</b>
+					<div class="profilepagediv2" style="border-width: 2px">
+						<b>Who:</b> &nbsp
+						<div class="profilepagediv2">
+							<div class="flexcontainer1">
+								<div class="flexitem1">
+									<b>Users:</b>
+								</div>
+								<div class="flexitem1">
+									<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") +options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="profilepagediv2" style="border-width: 2px">
+						<b>What:</b>
+						<div class="profilepagediv2">
+							<b>Post type:</b> &nbsp
+							<%= check_box_tag 'filter', 'opinions', true %>
+							<%= label_tag 'Opinions' %> &nbsp
+							<%= check_box_tag 'filter', 'initiators', true %>
+							<%= label_tag 'Initiators' %> &nbsp
+							<%= check_box_tag 'filter', 'comments', true %>
+							<%= label_tag 'Comments' %> &nbsp
+							<%= check_box_tag 'lists', 'bookmarks', false %>
+							<%= label_tag 'Bookmarks' %> &nbsp
+							<%= check_box_tag 'privacy', 'private', false %>
+							<%= label_tag 'Private' %> &nbsp
+							<%= check_box_tag 'privacy', 'publicviewing', false %>
+							<%= label_tag 'Public Viewing' %> &nbsp
+							<%= check_box_tag 'privacy', 'publiccomments', false %>
+							<%= label_tag 'Public Comments' %> &nbsp
+						</div>
+						<div class="profilepagediv2">
+							<b>Status:</b> &nbsp
+							<%= radio_button_tag(:status, "contested") %>
+							<%= label_tag(:status, "Contested") %> &nbsp
+							<%= radio_button_tag(:status, "uncontested") %>
+							<%= label_tag(:status, "Uncontested") %> &nbsp
+						</div>
+						<div class="profilepagediv2">
+							<b>Parents:</b> &nbsp
+							<%= radio_button_tag(:parents, "hasaparent") %>
+							<%= label_tag(:parents, "Has a parent") %> &nbsp
+							<%= radio_button_tag(:parents, "hasnoparent") %>
+							<%= label_tag(:parents, "Has no parent") %> &nbsp
+						</div>
+						<div class="profilepagediv2">
+							<b>Level:</b> &nbsp
+							<%= radio_button_tag(:level, "zero") %>
+							<%= label_tag(:level, "Zero") %> &nbsp
+							<%= radio_button_tag(:level, "nonzero") %>
+							<%= label_tag(:level, "Non-zero") %> &nbsp
+						</div>
+					</div>
+					<div class="profilepagediv2" style="border-width: 2px">
+						<b>When:</b>
+						<div class="profilepagediv2">
+							<b>Updated:</b> &nbsp
+							<%= radio_button_tag(:timerange, "today") %>
+							<%= label_tag(:timerange, "Today") %> &nbsp
+							<%= radio_button_tag(:timerange, "lastweek") %>
+							<%= label_tag(:timerange, "Last Week") %> &nbsp
+							<%= radio_button_tag(:timerange, "lastmonth") %>
+							<%= label_tag(:timerange, "Last Month") %> &nbsp
+							<%= radio_button_tag(:timerange, "lastyear") %>
+							<%= label_tag(:timerange, "Last Year") %> &nbsp
+						</div>
+					</div>
+					<div class="profilepagediv2" style="border-width: 2px; margin-bottom: 20px">
+						<b>Sort:</b>
+						<div class="profilepagediv2">
+							<b>By:</b> &nbsp
+							<%= radio_button_tag(:sort, "createddate") %>
+							<%= label_tag(:sort, "Created date") %> &nbsp
+							<%= radio_button_tag(:sort, "updateddate") %>
+							<%= label_tag(:sort, "Updated date") %> &nbsp
+							<%= radio_button_tag(:sort, "views") %>
+							<%= label_tag(:sort, "Views") %> &nbsp
+							<%= radio_button_tag(:sort, "popularity") %>
+							<%= label_tag(:sort, "Popularity") %> &nbsp
+						</div>
+					</div>
+
+					<div class="flexcontainer1">
+						<div class="flexitem1">
+							<b>My Filters:</b> &nbsp
+						</div>
+						<div class="flexitem1">
+							<%= select_tag 'filters_dropdown', options_from_collection_for_select(@myfilters, "id", "name"), :class => "filters_dropdown" %> &nbsp
+						</div>
+						<div class="flexitem1" style="margin-top:5px; font-size: 10px">
+							<textarea class="filtername" name="message" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
+						</div>
+						<div class="flexitem1">
+							<button>Save</button> &nbsp
+						</div>
+						<div class="flexitem1">
+							<button>Delete</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="profilemobile">
+				Profile Mobile
+			</div>
+
+			<div id="profileemail">
+				Profile Email
+			</div>
+
+			<div id="profileapps">
+				Profile Apps
+			</div>
+
+			<div id="profilerating">
+				<div id="profileratingstats">
+					<li>Current Rating = <%= @prover.rating.round(2) %></li>
+					<li>Current Rank = <%= @prover.ranking %></li>
+					<li>Percentile = <%= @prover.percentile.round(2) %></li>
+					<li>Highest Rating = <%= @prover.highest_rating.round(2) %> (<%= @prover.highest_rating_date.strftime('%x') %>) &nbsp
+					<% if @owner %>
+						<button class="resethighestratingbutton" name="Reset" type="button">
+							Reset
+						</button>
+					<% end %> </li>
+				</div>
+
+				<div id="ratingexplanation">
+					<b><div>
+						Explanation:
+					</div></b>
+
+					<div style="margin-top: 10px">
+						When a post<b>*</b> is first submitted, its status will be set to "true" (green) and its score to 100.
+						Once contested, its status will become false (red) and its score reduced to 0. As long as a
+						post's status remains true, its score will decay using a half-life formula set by the site
+						administrator. For example, with a 26-week half-life, the score for a true post would be reduced to
+						60.62 after 19 weeks. If its status reverts to false, its score would be reduced to 0. If it became
+						true again, it would reset (to 100) and the decay process would start over. A post will likely toggle
+						back and forth between true and false throughout it's lifetime with its score ranging between 0 and 100.
+					</div>
+
+					<div style="margin-top: 10px">
+						<b><u><em>
+							A user's rating is calculated by averaging his/her 100 most recently active post<b>*</b> scores.
+						</em></u></b>
+					</div>
+
+					<div style="margin-top: 10px">
+						<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
+					</div>
+				</div>
+			</div>
+
+			<div id="profileadministrative">
+				Profile Administrative
+			</div>
+		</div>
+	</div>
+
 </body>

@@ -10,6 +10,12 @@ class FiltersController < ApplicationController
   # GET /filters/1
   # GET /filters/1.json
   def show
+		puts "Getting #{params["id"]}"
+		@filter = Filter.find(params[:id])
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => @filter.to_json }
+		end
   end
 
   # GET /filters/new

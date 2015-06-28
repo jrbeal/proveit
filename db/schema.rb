@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627030635) do
+ActiveRecord::Schema.define(version: 20150628130340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20150627030635) do
 
   create_table "filters", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "prover_id"
     t.boolean  "sitedefault"
     t.boolean  "opinions"
@@ -63,12 +63,14 @@ ActiveRecord::Schema.define(version: 20150627030635) do
     t.boolean  "private"
     t.boolean  "public_viewing"
     t.boolean  "public_comments"
-    t.boolean  "sort_by_date"
     t.boolean  "sort_by_votes"
     t.boolean  "sort_by_views"
     t.boolean  "has_parent"
     t.boolean  "has_no_parent"
     t.boolean  "last_year"
+    t.boolean  "sort_by_updated_at"
+    t.boolean  "sort_by_created_at"
+    t.integer  "who_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -179,6 +181,7 @@ ActiveRecord::Schema.define(version: 20150627030635) do
 
   add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
   add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
+  add_foreign_key "filters", "provers", column: "who_id"
   add_foreign_key "filters", "provers", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "owner", on_delete: :cascade

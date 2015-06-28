@@ -222,8 +222,7 @@
 				return false;
 			});
 
-			$('.unbookmark2').on("click", function (e) {
-				var $tgt = $(e.target);
+			$('.unbookmark2').on("click", function () {
 				var bookmarkId = $('#bookmark_dropdown').val();
 				console.log(bookmarkId);
 				$.ajax({
@@ -239,15 +238,51 @@
 			});
 
 			$('.resignteam').on("click", function (e) {
-				var $tgt = $(e.target);
 				var teamId = $('#teammembership_dropdown').val();
 				console.log(teamId);
 				$.ajax({
-					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": teamId}),
-					type: 'DELETE',
+					url: '/filter?' + $.param({"owner": <%= current_prover.id %>, "name": teamId}),
+					type: 'GET',
 					success: function(resp) {
 						console.log("Removing team member.");
 						window.location.reload();
+					}
+				});
+
+				return false;
+			});
+
+			$('.myfilters').on("click", function (e) {
+				var $tgt = $(e.target);
+				$.ajax({
+					url: '/filters/' + $tgt.val() + '.json?' + $.param({"id": $tgt.val()}),
+					type: 'GET',
+					success: function(filter) {
+						console.log(filter);
+						$('input[name="filter"][value="opinions"]').prop('checked', filter.opinions);
+						$('input[name="filter"][value="initiators"]').prop('checked', filter.initiators);
+						$('input[name="filter"][value="comments"]').prop('checked', filter.comments);
+						$('input[name="filter"][value="bookmarks"]').prop('checked', filter.bookmarks);
+						$('input[name="filter"][value="private"]').prop('checked', filter.private);
+						$('input[name="filter"][value="public_viewing"]').prop('checked', filter.public_viewing);
+						$('input[name="filter"][value="public_comments"]').prop('checked', filter.public_comments);
+						$('input[name="status"][value="contested"]').prop('checked', filter.contested);
+						$('input[name="status"][value="uncontested"]').prop('checked', filter.uncontested);
+						$('input[name="filter"][value="following"]').prop('checked', filter.following);
+						$('input[name="parents"][value="has_parent"]').prop('checked', filter.has_parent);
+						$('input[name="parents"][value="has_no_parent"]').prop('checked', filter.has_no_parent);
+						$('input[name="level"][value="level_zero"]').prop('checked', filter.level_zero);
+						$('input[name="level"][value="level_nonzero"]').prop('checked', filter.level_nonzero);
+						$('input[name="timerange"][value="today"]').prop('checked', filter.today);
+						$('input[name="timerange"][value="last_week"]').prop('checked', filter.last_week);
+						$('input[name="timerange"][value="last_month"]').prop('checked', filter.last_month);
+						$('input[name="timerange"][value="last_year"]').prop('checked', filter.last_year);
+						$('input[name="sort"][value="sort_by_created_date"]').prop('checked', filter.sort_by_created_date);
+						$('input[name="sort"][value="sort_by_updated_date"]').prop('checked', filter.sort_by_updated_date);
+						$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
+						$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
+						$('input[name="myfiltername"]').val(filter.name);
+						$('.myfiltername').val(filter.name);
 					}
 				});
 
@@ -504,19 +539,19 @@
 						<b>What:</b>
 						<div class="profilepagediv2">
 							<b>Post type:</b> &nbsp
-							<%= check_box_tag 'filter', 'opinions', true %>
+							<%= check_box_tag 'filter', 'opinions', false %>
 							<%= label_tag 'Opinions' %> &nbsp
-							<%= check_box_tag 'filter', 'initiators', true %>
+							<%= check_box_tag 'filter', 'initiators', false %>
 							<%= label_tag 'Initiators' %> &nbsp
-							<%= check_box_tag 'filter', 'comments', true %>
+							<%= check_box_tag 'filter', 'comments', false %>
 							<%= label_tag 'Comments' %> &nbsp
-							<%= check_box_tag 'lists', 'bookmarks', false %>
+							<%= check_box_tag 'filter', 'bookmarks', false %>
 							<%= label_tag 'Bookmarks' %> &nbsp
-							<%= check_box_tag 'privacy', 'private', false %>
+							<%= check_box_tag 'filter', 'private', false %>
 							<%= label_tag 'Private' %> &nbsp
-							<%= check_box_tag 'privacy', 'publicviewing', false %>
+							<%= check_box_tag 'filter', 'public_viewing', false %>
 							<%= label_tag 'Public Viewing' %> &nbsp
-							<%= check_box_tag 'privacy', 'publiccomments', false %>
+							<%= check_box_tag 'filter', 'public_comments', false %>
 							<%= label_tag 'Public Comments' %> &nbsp
 						</div>
 						<div class="profilepagediv2">
@@ -528,16 +563,16 @@
 						</div>
 						<div class="profilepagediv2">
 							<b>Parents:</b> &nbsp
-							<%= radio_button_tag(:parents, "hasaparent") %>
+							<%= radio_button_tag(:parents, "has_parent") %>
 							<%= label_tag(:parents, "Has a parent") %> &nbsp
-							<%= radio_button_tag(:parents, "hasnoparent") %>
+							<%= radio_button_tag(:parents, "has_no_parent") %>
 							<%= label_tag(:parents, "Has no parent") %> &nbsp
 						</div>
 						<div class="profilepagediv2">
 							<b>Level:</b> &nbsp
-							<%= radio_button_tag(:level, "zero") %>
+							<%= radio_button_tag(:level, "level_zero") %>
 							<%= label_tag(:level, "Zero") %> &nbsp
-							<%= radio_button_tag(:level, "nonzero") %>
+							<%= radio_button_tag(:level, "level_nonzero") %>
 							<%= label_tag(:level, "Non-zero") %> &nbsp
 						</div>
 					</div>
@@ -547,11 +582,11 @@
 							<b>Updated:</b> &nbsp
 							<%= radio_button_tag(:timerange, "today") %>
 							<%= label_tag(:timerange, "Today") %> &nbsp
-							<%= radio_button_tag(:timerange, "lastweek") %>
+							<%= radio_button_tag(:timerange, "last_week") %>
 							<%= label_tag(:timerange, "Last Week") %> &nbsp
-							<%= radio_button_tag(:timerange, "lastmonth") %>
+							<%= radio_button_tag(:timerange, "last_month") %>
 							<%= label_tag(:timerange, "Last Month") %> &nbsp
-							<%= radio_button_tag(:timerange, "lastyear") %>
+							<%= radio_button_tag(:timerange, "last_year") %>
 							<%= label_tag(:timerange, "Last Year") %> &nbsp
 						</div>
 					</div>
@@ -559,13 +594,13 @@
 						<b>Sort:</b>
 						<div class="profilepagediv2">
 							<b>By:</b> &nbsp
-							<%= radio_button_tag(:sort, "createddate") %>
+							<%= radio_button_tag(:sort, "sort_by_created_date") %>
 							<%= label_tag(:sort, "Created date") %> &nbsp
-							<%= radio_button_tag(:sort, "updateddate") %>
+							<%= radio_button_tag(:sort, "sort_by_updated_date") %>
 							<%= label_tag(:sort, "Updated date") %> &nbsp
-							<%= radio_button_tag(:sort, "views") %>
+							<%= radio_button_tag(:sort, "sort_by_views") %>
 							<%= label_tag(:sort, "Views") %> &nbsp
-							<%= radio_button_tag(:sort, "popularity") %>
+							<%= radio_button_tag(:sort, "sort_by_votes") %>
 							<%= label_tag(:sort, "Popularity") %> &nbsp
 						</div>
 					</div>
@@ -575,10 +610,10 @@
 							<b>My Filters:</b> &nbsp
 						</div>
 						<div class="flexitem1">
-							<%= select_tag 'filters_dropdown', options_from_collection_for_select(@myfilters, "id", "name"), :class => "filters_dropdown" %> &nbsp
+							<%= select_tag 'myfilters', options_from_collection_for_select(@myfilters, "id", "name"), :class => "myfilters" %> &nbsp
 						</div>
-						<div class="flexitem1" style="margin-top:5px; font-size: 10px">
-							<textarea class="filtername" name="message" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
+						<div class="flexitem1" style="margin-top:6px; font-size: 10px">
+							<textarea class="myfiltername" name="myfiltername" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
 						</div>
 						<div class="flexitem1">
 							<button>Save</button> &nbsp

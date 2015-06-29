@@ -74,23 +74,25 @@ class ApplicationController < ActionController::Base
 				ids.push p.id if p.topic.private
 			end
 			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+
+			unless @filter.public_viewing
+				ids = []
+				@filter_results.each do |p|
+					ids.push p.id unless p.topic.public_viewing
+				end
+				@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+
+				unless @filter.public_comments
+					ids = []
+					@filter_results.each do |p|
+						ids.push p.id unless p.topic.public_comments
+					end
+					@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+				end
+			end
 		end
 
-		if @filter.public_viewing
-			ids = []
-			@filter_results.each do |p|
-				ids.push p.id if p.topic.public_viewing
-			end
-			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
-		end
 
-		if @filter.public_comments
-			ids = []
-			@filter_results.each do |p|
-				ids.push p.id if p.topic.public_comments
-			end
-			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
-		end
 
 		# Now filter stuff out...
 		@filter_results = @filter_results.where(prover_id: @filter.who_id) if @filter.who_id

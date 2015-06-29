@@ -259,16 +259,16 @@
 					type: 'GET',
 					success: function(filter) {
 						console.log(filter);
-						$('input[name="filter"][value="opinions"]').prop('checked', filter.opinions);
-						$('input[name="filter"][value="initiators"]').prop('checked', filter.initiators);
-						$('input[name="filter"][value="comments"]').prop('checked', filter.comments);
-						$('input[name="filter"][value="bookmarks"]').prop('checked', filter.bookmarks);
-						$('input[name="filter"][value="private"]').prop('checked', filter.private);
-						$('input[name="filter"][value="public_viewing"]').prop('checked', filter.public_viewing);
-						$('input[name="filter"][value="public_comments"]').prop('checked', filter.public_comments);
+						$('input[name="opinions"][value="true"]').prop('checked', filter.opinions);
+						$('input[name="initiators"][value="true"]').prop('checked', filter.initiators);
+						$('input[name="comments"][value="true"]').prop('checked', filter.comments);
+						$('input[name="bookmarks"][value="true"]').prop('checked', filter.bookmarks);
+						$('input[name="privateposts"][value="true"]').prop('checked', filter.private);
+						$('input[name="pubic_viewing"][value="true"]').prop('checked', filter.public_viewing);
+						$('input[name="public_comments"][value="true"]').prop('checked', filter.public_comments);
+						$('input[name="following"][value="true"]').prop('checked', filter.following);
 						$('input[name="status"][value="contested"]').prop('checked', filter.contested);
 						$('input[name="status"][value="uncontested"]').prop('checked', filter.uncontested);
-						$('input[name="filter"][value="following"]').prop('checked', filter.following);
 						$('input[name="parents"][value="has_parent"]').prop('checked', filter.has_parent);
 						$('input[name="parents"][value="has_no_parent"]').prop('checked', filter.has_no_parent);
 						$('input[name="level"][value="level_zero"]').prop('checked', filter.level_zero);
@@ -281,8 +281,8 @@
 						$('input[name="sort"][value="sort_by_updated_date"]').prop('checked', filter.sort_by_updated_date);
 						$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
 						$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
-						$('input[name="myfiltername"]').val(filter.name);
 						$('.myfiltername').val(filter.name);
+						$('.provers_dropdown').val(filter.who_id)
 					}
 				});
 
@@ -292,6 +292,33 @@
 			$('input[name="profile"][value="<%= @default_tab %>"]').click();
 			$('input[name="verbosity"][value= <%= @prover.verbosity %>]').click();
 			$('input[name="offspring_style"][value="<%= @prover.offspring_style %>"]').click();
+
+			$('#privateposts').on("click", function (e) {
+				var $tgt = $(e.target);
+				if ($tgt.prop("checked")) {
+					$('#public_viewing').show();
+					$('.publicviewinglabel').show();
+				} else {
+					$('#public_viewing').hide();
+					$('.publicviewinglabel').hide();
+				}
+			});
+
+			$('#public_viewing').on("click", function (e) {
+				var $tgt = $(e.target);
+				if ($tgt.prop("checked")) {
+					$('#public_comments').show();
+					$('.publiccommentslabel').show();
+				} else {
+					$('#public_comments').hide();
+					$('.publiccommentslabel').hide();
+				}
+			});
+
+			$('#public_viewing').hide();
+			$('.publicviewinglabel').hide();
+			$('#public_comments').hide();
+			$('.publiccommentslabel').hide();
 		});
 
 	</script>
@@ -521,114 +548,120 @@
 
 			<div id="profilefilters">
 				<div class="profilepagediv1">
-					<b>Filters:</b>
-					<div class="profilepagediv2" style="border-width: 2px">
-						<b>Who:</b> &nbsp
-						<div class="profilepagediv2">
-							<div class="flexcontainer1">
-								<div class="flexitem1">
-									<b>Users:</b>
-								</div>
-								<div class="flexitem1">
-									<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") +options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+					<form action="<%= filters_path %>" method="post">
+						<b>Filters:</b>
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>Who:</b> &nbsp
+							<div class="profilepagediv2">
+								<div class="flexcontainer1">
+									<div class="flexitem1">
+										<b>Users:</b>
+									</div>
+									<div class="flexitem1">
+										<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") +options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="profilepagediv2" style="border-width: 2px">
-						<b>What:</b>
-						<div class="profilepagediv2">
-							<b>Post type:</b> &nbsp
-							<%= check_box_tag 'filter', 'opinions', false %>
-							<%= label_tag 'Opinions' %> &nbsp
-							<%= check_box_tag 'filter', 'initiators', false %>
-							<%= label_tag 'Initiators' %> &nbsp
-							<%= check_box_tag 'filter', 'comments', false %>
-							<%= label_tag 'Comments' %> &nbsp
-							<%= check_box_tag 'filter', 'bookmarks', false %>
-							<%= label_tag 'Bookmarks' %> &nbsp
-							<%= check_box_tag 'filter', 'private', false %>
-							<%= label_tag 'Private' %> &nbsp
-							<%= check_box_tag 'filter', 'public_viewing', false %>
-							<%= label_tag 'Public Viewing' %> &nbsp
-							<%= check_box_tag 'filter', 'public_comments', false %>
-							<%= label_tag 'Public Comments' %> &nbsp
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>What:</b>
+							<div class="profilepagediv2">
+								<b>Post type:</b> &nbsp
+								<%= check_box_tag 'opinions', 'true', false %>
+								<%= label_tag 'Opinions' %> &nbsp
+								<%= check_box_tag 'initiators', 'true', false %>
+								<%= label_tag 'Initiators' %> &nbsp
+								<%= check_box_tag 'comments', 'true', false %>
+								<%= label_tag 'Comments' %> &nbsp
+								<%= check_box_tag 'bookmarks', 'true', false %>
+								<%= label_tag 'Bookmarks' %> &nbsp
+								<%= check_box_tag 'following', 'true', false %>
+								<%= label_tag 'Following' %> &nbsp
+								<%= check_box_tag 'privateposts', 'true', false %>
+								<%= label_tag 'Private' %> &nbsp
+								<%= check_box_tag 'public_viewing', 'true', false %>
+								<%= label_tag 'Public Viewing', nil, class: 'publicviewinglabel' %> &nbsp
+								<%= check_box_tag 'public_comments', 'true', false %>
+								<%= label_tag 'Public Comments', nil, class: 'publiccommentslabel' %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Status:</b> &nbsp
+								<%= radio_button_tag(:status, "contested") %>
+								<%= label_tag(:status, "Contested") %> &nbsp
+								<%= radio_button_tag(:status, "uncontested") %>
+								<%= label_tag(:status, "Uncontested") %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Parents:</b> &nbsp
+								<%= radio_button_tag(:parents, "has_parent") %>
+								<%= label_tag(:parents, "Has a parent") %> &nbsp
+								<%= radio_button_tag(:parents, "has_no_parent") %>
+								<%= label_tag(:parents, "Has no parent") %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Level:</b> &nbsp
+								<%= radio_button_tag(:level, "zero") %>
+								<%= label_tag(:level, "Zero") %> &nbsp
+								<%= radio_button_tag(:level, "nonzero") %>
+								<%= label_tag(:level, "Non-zero") %> &nbsp
+							</div>
 						</div>
-						<div class="profilepagediv2">
-							<b>Status:</b> &nbsp
-							<%= radio_button_tag(:status, "contested") %>
-							<%= label_tag(:status, "Contested") %> &nbsp
-							<%= radio_button_tag(:status, "uncontested") %>
-							<%= label_tag(:status, "Uncontested") %> &nbsp
+						<div class="profilepagediv2" style="border-width: 2px">
+							<b>When:</b>
+							<div class="profilepagediv2">
+								<b>Updated:</b> &nbsp
+								<%= radio_button_tag(:timerange, "today") %>
+								<%= label_tag(:timerange, "Today") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_week") %>
+								<%= label_tag(:timerange, "Last Week") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_month") %>
+								<%= label_tag(:timerange, "Last Month") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_year") %>
+								<%= label_tag(:timerange, "Last Year") %> &nbsp
+							</div>
 						</div>
-						<div class="profilepagediv2">
-							<b>Parents:</b> &nbsp
-							<%= radio_button_tag(:parents, "has_parent") %>
-							<%= label_tag(:parents, "Has a parent") %> &nbsp
-							<%= radio_button_tag(:parents, "has_no_parent") %>
-							<%= label_tag(:parents, "Has no parent") %> &nbsp
+						<div class="profilepagediv2" style="border-width: 2px; margin-bottom: 20px">
+							<b>Sort:</b>
+							<div class="profilepagediv2">
+								<b>By:</b> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_created_date") %>
+								<%= label_tag(:sort, "Created date") %> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_updated_date") %>
+								<%= label_tag(:sort, "Updated date") %> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_views") %>
+								<%= label_tag(:sort, "Views") %> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_votes") %>
+								<%= label_tag(:sort, "Popularity") %> &nbsp
+							</div>
 						</div>
-						<div class="profilepagediv2">
-							<b>Level:</b> &nbsp
-							<%= radio_button_tag(:level, "level_zero") %>
-							<%= label_tag(:level, "Zero") %> &nbsp
-							<%= radio_button_tag(:level, "level_nonzero") %>
-							<%= label_tag(:level, "Non-zero") %> &nbsp
-						</div>
-					</div>
-					<div class="profilepagediv2" style="border-width: 2px">
-						<b>When:</b>
-						<div class="profilepagediv2">
-							<b>Updated:</b> &nbsp
-							<%= radio_button_tag(:timerange, "today") %>
-							<%= label_tag(:timerange, "Today") %> &nbsp
-							<%= radio_button_tag(:timerange, "last_week") %>
-							<%= label_tag(:timerange, "Last Week") %> &nbsp
-							<%= radio_button_tag(:timerange, "last_month") %>
-							<%= label_tag(:timerange, "Last Month") %> &nbsp
-							<%= radio_button_tag(:timerange, "last_year") %>
-							<%= label_tag(:timerange, "Last Year") %> &nbsp
-						</div>
-					</div>
-					<div class="profilepagediv2" style="border-width: 2px; margin-bottom: 20px">
-						<b>Sort:</b>
-						<div class="profilepagediv2">
-							<b>By:</b> &nbsp
-							<%= radio_button_tag(:sort, "sort_by_created_date") %>
-							<%= label_tag(:sort, "Created date") %> &nbsp
-							<%= radio_button_tag(:sort, "sort_by_updated_date") %>
-							<%= label_tag(:sort, "Updated date") %> &nbsp
-							<%= radio_button_tag(:sort, "sort_by_views") %>
-							<%= label_tag(:sort, "Views") %> &nbsp
-							<%= radio_button_tag(:sort, "sort_by_votes") %>
-							<%= label_tag(:sort, "Popularity") %> &nbsp
-						</div>
-					</div>
 
-					<div class="flexcontainer1">
-						<div class="flexitem1">
-							<b>My Filters:</b> &nbsp
+						<div class="flexcontainer1">
+							<div class="flexitem1">
+								<b>My Filters:</b> &nbsp
+							</div>
+							<div class="flexitem1">
+								<% if current_prover.administrator? %>
+									<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+								<% else %>
+									<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+							<% end %>
+							</div>
+							<div class="flexitem1" style="margin-top:6px; font-size: 10px">
+								<textarea class="myfiltername" name="myfiltername" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
+							</div>
+							<div class="flexitem1">
+								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+								<%= hidden_field_tag :default_tab, "filters" %>
+								<%= submit_tag("Save") %>
+							</div>
+							<div class="flexitem1">
+								<button>Delete</button> &nbsp
+							</div>
+							<div class="flexitem1">
+								<button>Clear</button>
+							</div>
 						</div>
-						<div class="flexitem1">
-							<% if current_prover.administrator? %>
-								<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
-							<% else %>
-								<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
-						<% end %>
-						</div>
-						<div class="flexitem1" style="margin-top:6px; font-size: 10px">
-							<textarea class="myfiltername" name="myfiltername" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
-						</div>
-						<div class="flexitem1">
-							<button>Save</button> &nbsp
-						</div>
-						<div class="flexitem1">
-							<button>Delete</button> &nbsp
-						</div>
-						<div class="flexitem1">
-							<button>Clear</button>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 

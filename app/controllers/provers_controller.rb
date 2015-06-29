@@ -14,8 +14,9 @@ class ProversController < ApplicationController
 		@followed = Follow.where("follows = ?", @prover)
 		@bookmarks = Bookmark.where("owner = ?", @prover)
 		@provers = Prover.all.order(:provername)
-		@customfilters = Filter.where(sitedefault: false)
+		@customfilters = Filter.where(prover_id: current_prover)
 		@defaultfilters = Filter.where(sitedefault: true)
+		@filter = Filter.new
 		@teammembership = Team.where("prover_id = ?", @prover)
 		@teamownership = []
 		@teammembership.each do |team|
@@ -48,7 +49,7 @@ class ProversController < ApplicationController
 		end
 
 		current_prover.update clean_params
-		# redirect_to root_path
+
 		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => params[:default_tab]
 	end
 

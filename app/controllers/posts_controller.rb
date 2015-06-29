@@ -130,14 +130,9 @@ class PostsController < ApplicationController
 
 		@post = Post.new(post_params)
 
-
-		puts "parent = #{params[:parentpost]}"
-		puts "topic = #{params[:topic]}"
 		@post.parent = Post.find params[:parentpost]
 		@post.topic = Topic.find params[:topic]
 		@post.prover = current_prover
-		puts "parent = #{@post.parent}"
-		puts "topic = #{@post.topic}"
 
 		@post.save!
 

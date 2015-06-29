@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
 	def homepage
 
 		@defaultfilters = Filter.where(sitedefault: true)
-		# @customfilters = Filter.where(prover_id: current_prover.id)
-		@customfilters = Filter.where(sitedefault: false)		# Do this until custom filters are implemented
+		@customfilters = Filter.where(prover_id: current_prover)
 
 		length = 0
 		@defaultfilters.each do |f|
@@ -26,9 +25,9 @@ class ApplicationController < ActionController::Base
 		@divider = "-" * (length * 1.5)
 
 		if current_prover.cur_filter.present?
-			@filter = current_prover.cur_filter 																# Get user's current filter...
+			@filter = current_prover.cur_filter 					# Get user's current filter (should exist)
 		else
-			@filter = Filter.find_by(name: Filter::TOPICS, sitedefault: true)		# or just use "Topics" as a default
+			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
 		ids = []
@@ -69,11 +68,32 @@ class ApplicationController < ActionController::Base
 			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
 		end
 
-		unless @filter.sitedefault  																						# This is temporary until custom filters are working...
-			@filter_results = @filter_results.where(prover_id: current_prover.id)	# sitedefault "false" means it's a customfilter (for now)
-		end																																			# This filters out all but the current user's posts
+		if @filter.private
+			ids = []
+			@filter_results.each do |p|
+				ids.push p.id if p.topic.private
+			end
+			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+		end
+
+		if @filter.public_viewing
+			ids = []
+			@filter_results.each do |p|
+				ids.push p.id if p.topic.public_viewing
+			end
+			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+		end
+
+		if @filter.public_comments
+			ids = []
+			@filter_results.each do |p|
+				ids.push p.id if p.topic.public_comments
+			end
+			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+		end
 
 		# Now filter stuff out...
+		@filter_results = @filter_results.where(prover_id: @filter.who_id) if @filter.who_id
 		@filter_results = @filter_results.where.not(parent_id: nil) if @filter.has_parent
 		@filter_results = @filter_results.where(parent_id: nil) if @filter.has_no_parent
 		@filter_results = @filter_results.where(status: false) if @filter.contested
@@ -85,7 +105,7 @@ class ApplicationController < ActionController::Base
 		@filter_results = @filter_results.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
 		@filter_results = @filter_results.where(:created_at => 1.year.ago..Time.now) if @filter.last_year
 
-		# Now exclude the private posts (of which user is not a member and that don't allow public viewing)
+		# Now exclude the private posts of which user is not a member and that don't allow public viewing
 		@posts = []
 		@filter_results.each do |p|
 			if (current_prover.administrator || !(p.topic.private? && !(p.topic.public_viewing? || p.team_member?(current_prover))))

@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
 				ids.push p.id
 			end
 		end
-		@filter_results = []
-		@filter_results = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
+		@posts = []
+		@posts = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
 
 		if @filter.following
 			ids = []
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
 					ids.push p.id
 				end
 			end
-			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc)
 		end
 
 		if @filter.bookmarks
@@ -65,57 +65,44 @@ class ApplicationController < ActionController::Base
 				ids.push b.post.id
 			end
 
-			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc)
 		end
 
 		if @filter.private
 			ids = []
-			@filter_results.each do |p|
-				ids.push p.id if p.topic.private
-			end
-			@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
-
-			unless @filter.public_viewing
-				ids = []
-				@filter_results.each do |p|
-					ids.push p.id unless p.topic.public_viewing
-				end
-				@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
-
-				unless @filter.public_comments
-					ids = []
-					@filter_results.each do |p|
-						ids.push p.id unless p.topic.public_comments
+			if @filter.public_viewing
+				if @filter.public_comments
+					@posts.each do |p|
+						ids.push p.id if (p.topic.private && p.topic.public_viewing && p.topic.public_comments)
 					end
-					@filter_results = @filter_results.where(id: ids).order(updated_at: :desc)
+				else
+					@posts.each do |p|
+						ids.push p.id if current_prover.administrator || p.team_member?(current_prover) || (p.topic.private && p.topic.public_viewing)
+					end
+				end
+			else
+				@posts.each do |p|
+					ids.push p.id if current_prover.administrator ||  p.team_member?(current_prover)
 				end
 			end
+
+			@posts = @posts.where(id: ids).order(updated_at: :desc)
 		end
 
+		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id
+		@posts = @posts.where.not(parent_id: nil) if @filter.has_parent
+		@posts = @posts.where(parent_id: nil) if @filter.has_no_parent
+		@posts = @posts.where(status: false) if @filter.contested
+		@posts = @posts.where(status: true) if @filter.uncontested
+		@posts = @posts.where(level: 0) if @filter.level_zero
+		@posts = @posts.where("level > ?", 0) if @filter.level_nonzero
+		@posts = @posts.where(:created_at => 1.day.ago..Time.now) if @filter.today
+		@posts = @posts.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
+		@posts = @posts.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
+		@posts = @posts.where(:created_at => 1.year.ago..Time.now) if @filter.last_year
 
-
-		# Now filter stuff out...
-		@filter_results = @filter_results.where(prover_id: @filter.who_id) if @filter.who_id
-		@filter_results = @filter_results.where.not(parent_id: nil) if @filter.has_parent
-		@filter_results = @filter_results.where(parent_id: nil) if @filter.has_no_parent
-		@filter_results = @filter_results.where(status: false) if @filter.contested
-		@filter_results = @filter_results.where(status: true) if @filter.uncontested
-		@filter_results = @filter_results.where(level: 0) if @filter.level_zero
-		@filter_results = @filter_results.where("level > ?", 0) if @filter.level_nonzero
-		@filter_results = @filter_results.where(:created_at => 1.day.ago..Time.now) if @filter.today
-		@filter_results = @filter_results.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
-		@filter_results = @filter_results.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
-		@filter_results = @filter_results.where(:created_at => 1.year.ago..Time.now) if @filter.last_year
-
-		# Now exclude the private posts of which user is not a member and that don't allow public viewing
-		@posts = []
-		@filter_results.each do |p|
-			if (current_prover.administrator || !(p.topic.private? && !(p.topic.public_viewing? || p.team_member?(current_prover))))
-				# For private posts, create_team_lists builds a list of names for each team associated with the post's
-				# topic and generates the team type names to be used in the select_tag pull down menus of each post.
-				p.create_team_lists
-				@posts.push(p)
-			end
+		@posts.each do |p|
+			p.create_team_lists
 		end
 	end
 

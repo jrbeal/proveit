@@ -237,7 +237,7 @@
 				return false;
 			});
 
-			$('.resignteam').on("click", function (e) {
+			$('.resignteam').on("click", function () {
 				var teamId = $('#teammembership_dropdown').val();
 				console.log(teamId);
 				$.ajax({
@@ -263,6 +263,7 @@
 						$('input[name="initiators"][value="true"]').prop('checked', filter.initiators);
 						$('input[name="comments"][value="true"]').prop('checked', filter.comments);
 						$('input[name="bookmarks"][value="true"]').prop('checked', filter.bookmarks);
+						$('input[name="lone_wolf"][value="true"]').prop('checked', filter.lone_wolf);
 						$('input[name="privateposts"][value="true"]').prop('checked', filter.private);
 						$('input[name="pubic_viewing"][value="true"]').prop('checked', filter.public_viewing);
 						$('input[name="public_comments"][value="true"]').prop('checked', filter.public_comments);
@@ -282,7 +283,49 @@
 						$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
 						$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
 						$('.myfiltername').val(filter.name);
-						$('.provers_dropdown').val(filter.who_id)
+						$('.provers_dropdown').val(filter.who_id);
+					}
+				});
+
+				return false;
+			});
+
+			$('#filterresetbutton').on("click", function () {
+				$('.myfiltername').val("");
+				$('input[name="opinions"][value="true"]').prop('checked', false);
+				$('input[name="initiators"][value="true"]').prop('checked', false);
+				$('input[name="comments"][value="true"]').prop('checked', false);
+				$('input[name="bookmarks"][value="true"]').prop('checked', false);
+				$('input[name="lone_wolf"][value="true"]').prop('checked', false);
+				$('input[name="privateposts"][value="true"]').prop('checked', false);
+				$('input[name="pubic_viewing"][value="true"]').prop('checked', false);
+				$('input[name="public_comments"][value="true"]').prop('checked', false);
+				$('input[name="following"][value="true"]').prop('checked', false);
+				$('input[name="status"][value="contested"]').prop('checked', false);
+				$('input[name="status"][value="uncontested"]').prop('checked', false);
+				$('input[name="parents"][value="has_parent"]').prop('checked', false);
+				$('input[name="parents"][value="has_no_parent"]').prop('checked', false);
+				$('input[name="level"][value="level_zero"]').prop('checked', false);
+				$('input[name="level"][value="level_nonzero"]').prop('checked', false);
+				$('input[name="timerange"][value="today"]').prop('checked', false);
+				$('input[name="timerange"][value="last_week"]').prop('checked', false);
+				$('input[name="timerange"][value="last_month"]').prop('checked', false);
+				$('input[name="timerange"][value="last_year"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_created_date"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_updated_date"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_views"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_votes"]').prop('checked', false);
+			});
+
+			$('#filterdeletebutton').on("click", function () {
+				var filterId = $('#myfilters').val();
+				console.log(filterId);
+				$.ajax({
+					url: '/filters/' + filterId + '.json?',
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Deleting filter.");
+						window.location.reload();
 					}
 				});
 
@@ -293,12 +336,19 @@
 			$('input[name="verbosity"][value= <%= @prover.verbosity %>]').click();
 			$('input[name="offspring_style"][value="<%= @prover.offspring_style %>"]').click();
 
+			$('.postedbyself').on("click", function () {
+				$('.provers_dropdown').val(<%= current_prover.id %>)
+			});
+
 			$('#privateposts').on("click", function (e) {
 				var $tgt = $(e.target);
 				if ($tgt.prop("checked")) {
 					$('#public_viewing').show();
 					$('.publicviewinglabel').show();
 				} else {
+					if ($('#public_viewing').is(':checked')) {
+						$('#public_viewing').click();
+					}
 					$('#public_viewing').hide();
 					$('.publicviewinglabel').hide();
 				}
@@ -310,6 +360,9 @@
 					$('#public_comments').show();
 					$('.publiccommentslabel').show();
 				} else {
+					if ($('#public_comments').is(':checked')) {
+						$('#public_comments').click();
+					}
 					$('#public_comments').hide();
 					$('.publiccommentslabel').hide();
 				}
@@ -555,10 +608,13 @@
 							<div class="profilepagediv2">
 								<div class="flexcontainer1">
 									<div class="flexitem1">
-										<b>Users:</b>
+										<b>Posted by:</b>
 									</div>
 									<div class="flexitem1">
 										<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") +options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+									</div>
+									<div class="flexitem1">
+										<%= link_to "Self", "#", :class => "postedbyself" %>
 									</div>
 								</div>
 							</div>
@@ -572,7 +628,13 @@
 								<%= check_box_tag 'initiators', 'true', false %>
 								<%= label_tag 'Initiators' %> &nbsp
 								<%= check_box_tag 'comments', 'true', false %>
-								<%= label_tag 'Comments' %> &nbsp
+								<%= label_tag 'Comments' %> &nbsp &nbsp &nbsp
+								(Select at least one)
+							</div>
+							<div class="profilepagediv2">
+								<b>Constraints:</b> &nbsp
+								<%= check_box_tag 'lone_wolf', 'true', false %>
+								<%= label_tag 'Lone wolf' %> &nbsp
 								<%= check_box_tag 'bookmarks', 'true', false %>
 								<%= label_tag 'Bookmarks' %> &nbsp
 								<%= check_box_tag 'following', 'true', false %>
@@ -652,13 +714,13 @@
 							<div class="flexitem1">
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 								<%= hidden_field_tag :default_tab, "filters" %>
-								<%= submit_tag("Save") %>
+								<%= submit_tag("Save") %> &nbsp
 							</div>
 							<div class="flexitem1">
-								<button>Delete</button> &nbsp
+								<button id="filterdeletebutton">Delete</button> &nbsp
 							</div>
 							<div class="flexitem1">
-								<button>Clear</button>
+								<button id="filterresetbutton">Reset</button> &nbsp
 							</div>
 						</div>
 					</form>

@@ -64,7 +64,14 @@ class ApplicationController < ActionController::Base
 			Bookmark.where(owner: current_prover).each do |b|
 				ids.push b.post.id
 			end
+			@posts = @posts.where(id: ids).order(updated_at: :desc)
+		end
 
+		if @filter.lone_wolf
+			ids = []
+			@posts.each do |p|
+				ids.push p.id if p.topic.lone_wolf
+			end
 			@posts = @posts.where(id: ids).order(updated_at: :desc)
 		end
 

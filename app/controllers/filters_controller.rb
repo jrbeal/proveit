@@ -30,41 +30,47 @@ class FiltersController < ApplicationController
   # POST /filters
   # POST /filters.json
   def create
+		puts "Creating new filter"
 		filter_params = {}
-		filter_params[:name] = params[:myfiltername] if params[:myfiltername].length > 0
 		filter_params[:prover_id] = current_prover.id
-		filter_params[:sitedefault] = true if params[:sitedefault] == "true"
-		filter_params[:opinions] = true if params[:opinions] == "true"
-		filter_params[:initiators] = true if params[:initiators] == "true"
-		filter_params[:comments] = true if params[:comments] == "true"
-		filter_params[:bookmarks] = true if params[:bookmarks] == "true"
-		filter_params[:following] = true if params[:following] == "true"
-		filter_params[:private] = true if params[:privateposts] == "true"
-		filter_params[:public_viewing] = true if params[:public_viewing] == "true"
-		filter_params[:public_comments] = true if params[:public_comments] == "true"
-		filter_params[:contested] = true if params[:status] == "contested"
-		filter_params[:uncontested] = true if params[:status] == "uncontested"
-		filter_params[:has_parent] = true if params[:parents] == "has_parent"
-		filter_params[:has_no_parent] = true if params[:parents] == "has_no_parent"
-		filter_params[:level_zero] = true if params[:level] == "zero"
-		filter_params[:level_nonzero] = true if params[:level] == "nonzero"
-		filter_params[:today] = true if params[:timerange] == "today"
-		filter_params[:last_week] = true if params[:timerange] == "last_week"
-		filter_params[:last_month] = true if params[:timerange] == "last_month"
-		filter_params[:last_year] = true if params[:timerange] == "last_year"
-		filter_params[:sort_by_created_at] = true if params[:sort] == "sort_by_created_at"
-		filter_params[:sort_by_updated_at] = true if params[:sort] == "sort_by_updated_at"
-		filter_params[:sort_by_votes] = true if params[:sort] == "sort_by_votes"
-		filter_params[:sort_by_views] = true if params[:sort] == "sort_by_views"
+		filter_params[:sitedefault] = params[:sitedefault] == "true"
+		filter_params[:opinions] = params[:opinions] == "true"
+		filter_params[:initiators] = params[:initiators] == "true"
+		filter_params[:comments] = params[:comments] == "true"
+		filter_params[:bookmarks] = params[:bookmarks] == "true"
+		filter_params[:lone_wolf] = params[:lone_wolf] == "true"
+		filter_params[:following] = params[:following] == "true"
+		filter_params[:private] = params[:privateposts] == "true"
+		filter_params[:public_viewing] = params[:public_viewing] == "true"
+		filter_params[:public_comments] = params[:public_comments] == "true"
+		filter_params[:contested] = params[:status] == "contested"
+		filter_params[:uncontested] = params[:status] == "uncontested"
+		filter_params[:has_parent] = params[:parents] == "has_parent"
+		filter_params[:has_no_parent] = params[:parents] == "has_no_parent"
+		filter_params[:level_zero] = params[:level] == "zero"
+		filter_params[:level_nonzero] = params[:level] == "nonzero"
+		filter_params[:today] = params[:timerange] == "today"
+		filter_params[:last_week] = params[:timerange] == "last_week"
+		filter_params[:last_month] = params[:timerange] == "last_month"
+		filter_params[:last_year] = params[:timerange] == "last_year"
+		filter_params[:sort_by_created_at] = params[:sort] == "sort_by_created_at"
+		filter_params[:sort_by_updated_at] = params[:sort] == "sort_by_updated_at"
+		filter_params[:sort_by_votes] = params[:sort] == "sort_by_votes"
+		filter_params[:sort_by_views] = params[:sort] == "sort_by_views"
 		filter_params[:who_id] = params[:filter_users_dropdown] if params[:filter_users_dropdown] != "-1"
 
-		@filter = Filter.new(filter_params)
-		puts "Creating #{filter_params}"
+		if params[:myfiltername].length > 0
+			filter = Filter.find_by name: params[:myfiltername]
+			filter_params[:name] = params[:myfiltername]
+			if filter
+				filter.update(filter_params)
+			else
+				Filter.new(filter_params).save!
+			end
+		end
 
-		@filter.save
 		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "filters"
-
-  end
+	end
 
   # PATCH/PUT /filters/1
   # PATCH/PUT /filters/1.json
@@ -85,11 +91,9 @@ class FiltersController < ApplicationController
   # DELETE /filters/1
   # DELETE /filters/1.json
   def destroy
-    @filter.destroy
-    respond_to do |format|
-      format.html { redirect_to filters_url, notice: 'Filter was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+		puts "Deleting #{params}"
+		@filter.destroy
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "filters"
   end
 
   private
@@ -110,6 +114,7 @@ class FiltersController < ApplicationController
 				:comments,
 				:following,
 				:bookmarks,
+				:lone_wolf,
 				:level_zero,
 				:level_nonzero,
 				:private,

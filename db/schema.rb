@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628130340) do
+ActiveRecord::Schema.define(version: 20150630160522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150628130340) do
     t.boolean  "sort_by_updated_at"
     t.boolean  "sort_by_created_at"
     t.integer  "who_id"
+    t.boolean  "lone_wolf"
   end
 
   create_table "follows", force: :cascade do |t|

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
 	delete 'teams' 			=> 'teams#destroy'
+	delete 'filters'		=> 'filters#destroy'
 
 	resources :filters
   resources :groups

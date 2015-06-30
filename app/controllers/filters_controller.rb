@@ -55,8 +55,8 @@ class FiltersController < ApplicationController
 		filter_params[:last_year] = params[:timerange] == "last_year"
 		filter_params[:sort_by_created_at] = params[:sort] == "sort_by_created_at"
 		filter_params[:sort_by_updated_at] = params[:sort] == "sort_by_updated_at"
-		filter_params[:sort_by_votes] = params[:sort] == "sort_by_votes"
 		filter_params[:sort_by_views] = params[:sort] == "sort_by_views"
+		filter_params[:sort_by_votes] = params[:sort] == "sort_by_votes"
 		filter_params[:who_id] = params[:filter_users_dropdown] if params[:filter_users_dropdown] != "-1"
 
 		if params[:myfiltername].length > 0
@@ -93,8 +93,9 @@ class FiltersController < ApplicationController
   def destroy
 		puts "Deleting #{params}"
 		@filter.destroy
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "filters"
-  end
+
+		render :nothing => true
+	end
 
   private
     # Use callbacks to share common setup or constraints between actions.

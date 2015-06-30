@@ -244,7 +244,7 @@
 					url: '/filter?' + $.param({"owner": <%= current_prover.id %>, "name": teamId}),
 					type: 'GET',
 					success: function(resp) {
-						console.log("Removing team member.");
+						console.log("Removed team member.");
 						window.location.reload();
 					}
 				});
@@ -264,22 +264,30 @@
 						$('input[name="comments"][value="true"]').prop('checked', filter.comments);
 						$('input[name="bookmarks"][value="true"]').prop('checked', filter.bookmarks);
 						$('input[name="lone_wolf"][value="true"]').prop('checked', filter.lone_wolf);
-						$('input[name="privateposts"][value="true"]').prop('checked', filter.private);
-						$('input[name="pubic_viewing"][value="true"]').prop('checked', filter.public_viewing);
+						if (filter.private) {
+							$('input[name="privateposts"][value="true"]').prop('checked', true);
+							$('#public_viewing').show();
+							$('.publicviewinglabel').show();
+						}
+						if (filter.public_viewing) {
+							$('input[name="public_viewing"][value="true"]').prop('checked', true);
+							$('#public_comments').show();
+							$('.publiccommentslabel').show();
+						}
 						$('input[name="public_comments"][value="true"]').prop('checked', filter.public_comments);
 						$('input[name="following"][value="true"]').prop('checked', filter.following);
 						$('input[name="status"][value="contested"]').prop('checked', filter.contested);
 						$('input[name="status"][value="uncontested"]').prop('checked', filter.uncontested);
 						$('input[name="parents"][value="has_parent"]').prop('checked', filter.has_parent);
 						$('input[name="parents"][value="has_no_parent"]').prop('checked', filter.has_no_parent);
-						$('input[name="level"][value="level_zero"]').prop('checked', filter.level_zero);
-						$('input[name="level"][value="level_nonzero"]').prop('checked', filter.level_nonzero);
+						$('input[name="level"][value="zero"]').prop('checked', filter.level_zero);
+						$('input[name="level"][value="nonzero"]').prop('checked', filter.level_nonzero);
 						$('input[name="timerange"][value="today"]').prop('checked', filter.today);
 						$('input[name="timerange"][value="last_week"]').prop('checked', filter.last_week);
 						$('input[name="timerange"][value="last_month"]').prop('checked', filter.last_month);
 						$('input[name="timerange"][value="last_year"]').prop('checked', filter.last_year);
-						$('input[name="sort"][value="sort_by_created_date"]').prop('checked', filter.sort_by_created_date);
-						$('input[name="sort"][value="sort_by_updated_date"]').prop('checked', filter.sort_by_updated_date);
+						$('input[name="sort"][value="sort_by_created_at"]').prop('checked', filter.sort_by_created_at);
+						$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', filter.sort_by_updated_at);
 						$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
 						$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
 						$('.myfiltername').val(filter.name);
@@ -305,26 +313,25 @@
 				$('input[name="status"][value="uncontested"]').prop('checked', false);
 				$('input[name="parents"][value="has_parent"]').prop('checked', false);
 				$('input[name="parents"][value="has_no_parent"]').prop('checked', false);
-				$('input[name="level"][value="level_zero"]').prop('checked', false);
-				$('input[name="level"][value="level_nonzero"]').prop('checked', false);
+				$('input[name="level"][value="zero"]').prop('checked', false);
+				$('input[name="level"][value="nonzero"]').prop('checked', false);
 				$('input[name="timerange"][value="today"]').prop('checked', false);
 				$('input[name="timerange"][value="last_week"]').prop('checked', false);
 				$('input[name="timerange"][value="last_month"]').prop('checked', false);
 				$('input[name="timerange"][value="last_year"]').prop('checked', false);
-				$('input[name="sort"][value="sort_by_created_date"]').prop('checked', false);
-				$('input[name="sort"][value="sort_by_updated_date"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_created_at"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_views"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_votes"]').prop('checked', false);
 			});
 
 			$('#filterdeletebutton').on("click", function () {
 				var filterId = $('#myfilters').val();
-				console.log(filterId);
 				$.ajax({
 					url: '/filters/' + filterId + '.json?',
 					type: 'DELETE',
 					success: function(resp) {
-						console.log("Deleting filter.");
+						console.log("Deleted filter.");
 						window.location.reload();
 					}
 				});
@@ -686,9 +693,9 @@
 							<b>Sort:</b>
 							<div class="profilepagediv2">
 								<b>By:</b> &nbsp
-								<%= radio_button_tag(:sort, "sort_by_created_date") %>
+								<%= radio_button_tag(:sort, "sort_by_created_at") %>
 								<%= label_tag(:sort, "Created date") %> &nbsp
-								<%= radio_button_tag(:sort, "sort_by_updated_date") %>
+								<%= radio_button_tag(:sort, "sort_by_updated_at") %>
 								<%= label_tag(:sort, "Updated date") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_views") %>
 								<%= label_tag(:sort, "Views") %> &nbsp
@@ -705,7 +712,7 @@
 								<% if current_prover.administrator? %>
 									<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
 								<% else %>
-									<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+									<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
 							<% end %>
 							</div>
 							<div class="flexitem1" style="margin-top:6px; font-size: 10px">
@@ -716,14 +723,17 @@
 								<%= hidden_field_tag :default_tab, "filters" %>
 								<%= submit_tag("Save") %> &nbsp
 							</div>
-							<div class="flexitem1">
-								<button id="filterdeletebutton">Delete</button> &nbsp
-							</div>
-							<div class="flexitem1">
-								<button id="filterresetbutton">Reset</button> &nbsp
+							<div class="flexcontainer1">
+								<div class="flexitem1">
+									<button id="filterdeletebutton">Delete</button> &nbsp
+								</div>
+								<div class="flexitem1">
+									<button id="filterresetbutton">Reset</button> &nbsp
+								</div>
 							</div>
 						</div>
 					</form>
+
 				</div>
 			</div>
 

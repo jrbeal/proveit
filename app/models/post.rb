@@ -81,7 +81,7 @@ class Post < ActiveRecord::Base
 	def determine_status(id)				# Determine the status for the given post by or'ing the statuses
 																	# of all its children and returning the inverse.
 		result = FALSE
-		kids = Post.where("parent_id = ? AND kind = ?", id, OPINION)
+		kids = Post.where(parent_id: id, kind: OPINION)
     kids.each do |k|
  			result = result | k.status	# If any of the kids are true...
     end
@@ -89,12 +89,12 @@ class Post < ActiveRecord::Base
 	end
 	
 	def count_children(id, kind) 		# Count the number of children (of a given kind) under the given post
-		kids = Post.where("parent_id = ? AND kind = ?", id, kind)
+		kids = Post.where(parent_id: id, kind: kind)
 		return kids.count
 	end
 	
 	def count_offspring(id, kind, count)	# Recursively increment count the number of offspring under the given post
-		kids = Post.where("parent_id = ? AND kind = ?", id, kind)
+		kids = Post.where(parent_id: id, kind: kind)
 		kids.each do |k|
 			count = count_offspring(k.id, k.kind, count) + 1
 		end
@@ -109,48 +109,48 @@ class Post < ActiveRecord::Base
 						if self.topic.use_teams?																				# and topic is using teams...
 							if self.parent.which_team(self.prover_id) == Team::TEAM1			# and post's user is on initiator's Team 1
 								self.team1type = Team::AGREE.capitalize
-								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM1)
+								self.team1 = Team.where(topic_id: self.parent.topic_id, team_type: Team::TEAM1)
 								self.team2type = Team::DISAGREE.capitalize
-								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM2)
+								self.team2 = Team.where(topic_id: self.parent.topic_id, team_type: Team::TEAM2)
 							else																													# else post's user is on Team 2.
 								self.team1type = Team::AGREE.capitalize
-								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM2)
+								self.team1 = Team.where(topic_id: self.parent.topic_id, team_type: Team::TEAM2)
 								self.team2type = Team::DISAGREE.capitalize
-								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.parent.topic_id, Team::TEAM1)
+								self.team2 = Team.where(topic_id: self.parent.topic_id, team_type: Team::TEAM1)
 							end
 						else																														# Topic is NOT using teams.
 							self.team1type = Team::PARTICIPANT.capitalize.pluralize				# So just create a participant list.
-							self.team1 = Team.where("topic_id = ?", self.topic_id)
+							self.team1 = Team.where(topic_id: self.topic_id)
 						end
 					else																															# Normal case...
 						if self.topic.use_teams?
 							self.team1type = Team::AGREE.capitalize
 							self.team2type = Team::DISAGREE.capitalize
 							if self.level.even?
-								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
-								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
+								self.team1 = Team.where(topic_id: self.topic_id, team_type: Team::AGREE)
+								self.team2 = Team.where(topic_id: self.topic_id, team_type: Team::DISAGREE)
 							else
-								self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::DISAGREE)
-								self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::AGREE)
+								self.team1 = Team.where(topic_id: self.topic_id, team_type: Team::DISAGREE)
+								self.team2 = Team.where(topic_id: self.topic_id, team_type: Team::AGREE)
 							end
 						else
 							self.team1type = Team::PARTICIPANT.capitalize.pluralize
-							self.team1 = Team.where("topic_id = ?", self.topic_id)
+							self.team1 = Team.where(topic_id: self.topic_id)
 						end
 					end
 				when Post::INITIATOR
 					if self.topic.use_teams?
 						self.team1type = Team::TEAM1.capitalize
 						self.team2type = Team::TEAM2.capitalize
-						self.team1 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::TEAM1)
-						self.team2 = Team.where("topic_id = ? AND team_type = ?", self.topic_id, Team::TEAM2)
+						self.team1 = Team.where(topic_id: self.topic_id, team_type: Team::TEAM1)
+						self.team2 = Team.where(topic_id: self.topic_id, team_type: Team::TEAM2)
 					else
 						self.team1type = Team::PARTICIPANT.capitalize.pluralize
-						self.team1 = Team.where("topic_id = ?", self.topic_id)
+						self.team1 = Team.where(topic_id: self.topic_id)
 					end
 				when Post::COMMENT
 					self.team1type = Team::PARTICIPANT.capitalize.pluralize
-					self.team1 = Team.where("topic_id = ?", self.topic_id)
+					self.team1 = Team.where(topic_id: self.topic_id)
 				else
 					self.team1type = "Error"
 					self.team2type = "Error"

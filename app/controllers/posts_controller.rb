@@ -31,19 +31,6 @@ class PostsController < ApplicationController
 			p.create_team_lists
 		end
 
-		# Not sure if this is necessary yet... I'm thinking not... Private topics are excluded from the
-		# initial post list generated in the homepage view. However, it's possible to access a user's Posts
-		# from their profile, some of which might be private... Might need to deal with this later...
-		#
-		# Now exclude the private posts...
-		# @posts = []
-		# @filter_results.each do |p|
-		# 	if (!p.topic.private? || (p.topic.private? && (p.topic.public_viewing? || p.team_member?(current_prover))))
-		# 		@posts.push(p)
-		# 	end
-		# end
-		#
-
 		# Determine if the featured post is "repliable" based on settings in the topic and post...
 		if @post.kind == Post::OPINION																	# If this post is an OPINION...
 			if @post.topic.private																				# and the topic is private...

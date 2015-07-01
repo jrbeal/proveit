@@ -6,18 +6,18 @@ class ProversController < ApplicationController
 		@default_tab = params[:default_tab] || "profile"
 		@prover = Prover.find(params[:id])
 		@owner = @prover == current_prover
-		@opinions = Post.where("prover_id = ? AND kind = ? AND level = ?", @prover, Post::OPINION, 0)
-		@objections = Post.where("prover_id = ? AND kind = ? AND level > ?", @prover, Post::OPINION, 0)
-		@initiators = Post.where("prover_id = ? AND kind = ?", @prover, Post::INITIATOR)
-		@comments = Post.where("prover_id = ? AND kind = ?", @prover, Post::COMMENT)
-		@follows = Follow.where("owner = ?", @prover)
-		@followed = Follow.where("follows = ?", @prover)
-		@bookmarks = Bookmark.where("owner = ?", @prover)
+		@opinions = Post.where(prover_id: @prover, kind: Post::OPINION, level: 0)
+		@objections = Post.where(prover_id: @prover, kind: Post::OPINION, level: 0)
+		@initiators = Post.where(prover_id: @prover, kind: Post::INITIATOR)
+		@comments = Post.where(prover_id: @prover, kind: Post::COMMENT)
+		@follows = Follow.where(owner: @prover)
+		@followed = Follow.where(follows: @prover)
+		@bookmarks = Bookmark.where(owner: @prover)
 		@provers = Prover.all.order(:provername)
 		@customfilters = Filter.where(prover_id: current_prover)
 		@defaultfilters = Filter.where(sitedefault: true)
 		@filter = Filter.new
-		@teammembership = Team.where("prover_id = ?", @prover)
+		@teammembership = Team.where(prover_id: @prover)
 		@teamownership = []
 		@teammembership.each do |team|
 			if team.topic.prover == current_prover
@@ -60,7 +60,6 @@ class ProversController < ApplicationController
 	end
 
 	def change_filter
-		puts "params = #{params[:filter_id]}"
 		current_prover.cur_filter = Filter.find params[:filter_id]
 		current_prover.save!
 		render :nothing => true

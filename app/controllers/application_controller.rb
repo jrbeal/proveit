@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def top_semi_private_debates
-		@top_topics = Topic.where("private = ? AND public_comments = ?", true, true).limit(10).order(:updated_at).reverse_order
+		@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
 	end
 
 end

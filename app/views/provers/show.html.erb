@@ -258,7 +258,6 @@
 					url: '/filters/' + $tgt.val() + '.json?' + $.param({"id": $tgt.val()}),
 					type: 'GET',
 					success: function(filter) {
-						console.log(filter);
 						$('input[name="opinions"][value="true"]').prop('checked', filter.opinions);
 						$('input[name="initiators"][value="true"]').prop('checked', filter.initiators);
 						$('input[name="comments"][value="true"]').prop('checked', filter.comments);
@@ -329,6 +328,8 @@
 				$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_views"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_votes"]').prop('checked', false);
+				$('.provers_dropdown').val(-1);
+				$('.myfilters').val(-1);
 			});
 
 			$('#filterdeletebutton').on("click", function () {
@@ -624,7 +625,7 @@
 										<b>Posted by:</b>
 									</div>
 									<div class="flexitem1">
-										<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") +options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
+										<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
 									</div>
 									<div class="flexitem1">
 										<%= link_to "Self", "#", :class => "postedbyself" %>
@@ -723,7 +724,7 @@
 								<% if current_prover.administrator? %>
 									<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
 								<% else %>
-									<%= select_tag 'myfilters', options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
+									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
 							<% end %>
 							</div>
 							<div class="flexitem1" style="margin-top:6px; font-size: 10px">

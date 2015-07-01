@@ -30,7 +30,7 @@ class FiltersController < ApplicationController
   # POST /filters
   # POST /filters.json
   def create
-		puts "Creating new filter"
+		puts "Creating new or updating existing filter"
 		filter_params = {}
 		filter_params[:prover_id] = current_prover.id
 		filter_params[:sitedefault] = params[:sitedefault] == "true"

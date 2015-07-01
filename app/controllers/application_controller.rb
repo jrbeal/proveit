@@ -106,8 +106,8 @@ class ApplicationController < ActionController::Base
 		end
 
 		ids = []
-		@posts.each do |p|									# Of the remaining posts, eliminate posts that exclude current user
-			ids.push p.id unless (p.topic.private && !(p.team_member?(current_prover) || current_prover.administrator))
+		@posts.each do |p|									# Of the remaining posts, eliminate those that exclude current user
+			ids.push p.id unless (p.topic.private && (!p.topic.public_viewing && !(p.team_member?(current_prover) && !current_prover.administrator)))
 		end
 		@posts = @posts.where(id: ids).order(updated_at: :desc)
 

@@ -334,14 +334,18 @@
 
 			$('#filterdeletebutton').on("click", function () {
 				var filterId = $('#myfilters').val();
-				$.ajax({
-					url: '/filters/' + filterId + '.json?',
-					type: 'DELETE',
-					success: function(resp) {
-						console.log("Deleted filter.");
-						window.location.reload();
-					}
-				});
+				if (filterId == <%= current_prover.cur_filter.id %> ) {
+					alert("Error: You can not delete your current filter");
+				} else {
+					$.ajax({
+						url: '/filters/' + filterId + '.json?',
+						type: 'DELETE',
+						success: function (resp) {
+							console.log("Deleted filter.");
+							window.location.reload();
+						}
+					});
+				};
 
 				return false;
 			});

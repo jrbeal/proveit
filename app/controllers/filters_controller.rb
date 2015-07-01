@@ -10,7 +10,6 @@ class FiltersController < ApplicationController
   # GET /filters/1
   # GET /filters/1.json
   def show
-		puts "Getting #{params["id"]}"
 		@filter = Filter.find(params[:id])
 		respond_to do |format|
 			format.html { }
@@ -30,7 +29,6 @@ class FiltersController < ApplicationController
   # POST /filters
   # POST /filters.json
   def create
-		puts "Creating new or updating existing filter"
 		filter_params = {}
 		filter_params[:prover_id] = current_prover.id
 		filter_params[:sitedefault] = params[:sitedefault] == "true"
@@ -75,7 +73,6 @@ class FiltersController < ApplicationController
   # PATCH/PUT /filters/1
   # PATCH/PUT /filters/1.json
   def update
-		puts "Updating #{filter_params}"
 		respond_to do |format|
 
       if @filter.update(filter_params)
@@ -91,7 +88,6 @@ class FiltersController < ApplicationController
   # DELETE /filters/1
   # DELETE /filters/1.json
   def destroy
-		puts "Deleting #{params}"
 		@filter.destroy
 
 		render :nothing => true

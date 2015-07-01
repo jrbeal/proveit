@@ -52,7 +52,6 @@ class ApplicationController < ActionController::Base
 		@posts = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
 
 		# Now start filtering...
-
 																				# Of the remaining posts, eliminate those outside the specified time range
 		@posts = @posts.where(:created_at => 1.day.ago..Time.now) if @filter.today
 		@posts = @posts.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
@@ -119,7 +118,7 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(level: 0) if @filter.level_zero
 		@posts = @posts.where.not(level: 0) if @filter.level_nonzero
 
-		@posts.each do |p|									# Create team lists for the remaining private posts
+		@posts.each do |p|									# Of the remaining posts, create team lists (if they are private)
 			p.create_team_lists
 		end
 	end

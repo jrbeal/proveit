@@ -58,7 +58,7 @@ class FiltersController < ApplicationController
 		filter_params[:who_id] = params[:filter_users_dropdown] if params[:filter_users_dropdown] != "-1"
 
 		if params[:myfiltername].length > 0
-			filter = Filter.find_by name: params[:myfiltername]
+			filter = Filter.find_by id: current_prover.id, name: params[:myfiltername]
 			filter_params[:name] = params[:myfiltername]
 			if filter
 				filter.update(filter_params)

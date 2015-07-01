@@ -14,7 +14,7 @@ class ProversController < ApplicationController
 		@followed = Follow.where(follows: @prover)
 		@bookmarks = Bookmark.where(owner: @prover)
 		@provers = Prover.all.order(:provername)
-		@customfilters = Filter.where(prover_id: current_prover)
+		@customfilters = Filter.where(prover_id: current_prover, sitedefault: false)
 		@defaultfilters = Filter.where(sitedefault: true)
 		@filter = Filter.new
 		@teammembership = Team.where(prover_id: @prover)
@@ -38,7 +38,7 @@ class ProversController < ApplicationController
 
 	def reset_highest_rating
 		current_prover.reset_highest_rating if current_prover
-		redirect_to root_url
+		render :nothing => true
 	end
 
 	def update

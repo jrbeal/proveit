@@ -157,7 +157,7 @@
 				$.ajax({
 					url: '/resetscore',
 					type: 'GET',
-					success: function(resp) {
+					success: function() {
 						console.log("Resetting highest rating.");
 						window.location.reload();
 					}
@@ -191,7 +191,7 @@
 				$.ajax({
 					url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": followsId}),
 					type: 'DELETE',
-					success: function(resp) {
+					success: function() {
 						console.log("Unfollowing this prover.");
 						window.location.reload();
 					}
@@ -213,7 +213,7 @@
 				$.ajax({
 					url: '/follows?' + $.param({"owner": followsId, "follows": <%= current_prover.id %>}),
 					type: 'DELETE',
-					success: function(resp) {
+					success: function() {
 						console.log("Removing this follower.");
 						window.location.reload();
 					}
@@ -228,7 +228,7 @@
 				$.ajax({
 					url: '/bookmarks?' + $.param({"id": bookmarkId}),
 					type: 'DELETE',
-					success: function(resp) {
+					success: function() {
 						console.log("Removing this bookmark.");
 						window.location.reload();
 					}
@@ -243,7 +243,7 @@
 				$.ajax({
 					url: '/filter?' + $.param({"owner": <%= current_prover.id %>, "name": teamId}),
 					type: 'GET',
-					success: function(resp) {
+					success: function() {
 						console.log("Removed team member.");
 						window.location.reload();
 					}
@@ -262,6 +262,8 @@
 						$('input[name="initiators"][value="true"]').prop('checked', filter.initiators);
 						$('input[name="comments"][value="true"]').prop('checked', filter.comments);
 						$('input[name="bookmarks"][value="true"]').prop('checked', filter.bookmarks);
+						$('input[name="sitedefault"][value="true"]').prop('checked', filter.sitedefault);
+						$('input[name="sitedefault"][value="false"]').prop('checked', !filter.sitedefault);
 						$('input[name="lone_wolf"][value="true"]').prop('checked', filter.lone_wolf);
 						if (filter.private) {
 							$('input[name="privateposts"][value="true"]').prop('checked', true);
@@ -309,6 +311,8 @@
 				$('input[name="initiators"][value="true"]').prop('checked', false);
 				$('input[name="comments"][value="true"]').prop('checked', false);
 				$('input[name="bookmarks"][value="true"]').prop('checked', false);
+				$('input[name="sitedefault"][value="true"]').prop('checked', true);
+				$('input[name="sitedefault"][value="false"]').prop('checked', false);
 				$('input[name="lone_wolf"][value="true"]').prop('checked', false);
 				$('input[name="privateposts"][value="true"]').prop('checked', false);
 				$('input[name="pubic_viewing"][value="true"]').prop('checked', false);
@@ -323,9 +327,9 @@
 				$('input[name="timerange"][value="today"]').prop('checked', false);
 				$('input[name="timerange"][value="last_week"]').prop('checked', false);
 				$('input[name="timerange"][value="last_month"]').prop('checked', false);
-				$('input[name="timerange"][value="last_year"]').prop('checked', false);
+				$('input[name="timerange"][value="last_year"]').prop('checked', true);
 				$('input[name="sort"][value="sort_by_created_at"]').prop('checked', false);
-				$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', false);
+				$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', true);
 				$('input[name="sort"][value="sort_by_views"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_votes"]').prop('checked', false);
 				$('.provers_dropdown').val(-1);
@@ -335,12 +339,12 @@
 			$('#filterdeletebutton').on("click", function () {
 				var filterId = $('#myfilters').val();
 				if (filterId == <%= current_prover.cur_filter.id %> ) {
-					alert("Error: You can not delete your current filter");
+					alert("Error: You can not delete your active filter");
 				} else {
 					$.ajax({
 						url: '/filters/' + filterId + '.json?',
 						type: 'DELETE',
-						success: function (resp) {
+						success: function () {
 							console.log("Deleted filter.");
 							window.location.reload();
 						}
@@ -653,6 +657,17 @@
 							</div>
 							<div class="profilepagediv2">
 								<b>Constraints:</b> &nbsp
+								<% if current_prover.administrator? %>
+									<div class="profilepagediv2">
+										<b>Administrator:</b> &nbsp
+										<%= radio_button_tag :sitedefault, 'true', true %>
+										<%= label_tag 'Site default' %> &nbsp
+										<%= radio_button_tag :sitedefault, 'false' %>
+										<%= label_tag 'Custom' %> &nbsp
+									</div>
+								<% else %>
+									<%= hidden_field_tag :sitedefault, "false" %>
+							<% end %>
 								<div class="profilepagediv2">
 									<b>Types:</b> &nbsp
 									<%= check_box_tag 'lone_wolf', 'true', false %>
@@ -695,24 +710,24 @@
 							<b>When:</b>
 							<div class="profilepagediv2">
 								<b>Updated:</b> &nbsp
-								<%= radio_button_tag(:timerange, "today") %>
-								<%= label_tag(:timerange, "Today") %> &nbsp
-								<%= radio_button_tag(:timerange, "last_week") %>
-								<%= label_tag(:timerange, "Last Week") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_year", true) %>
+								<%= label_tag(:timerange, "Last Year") %> &nbsp
 								<%= radio_button_tag(:timerange, "last_month") %>
 								<%= label_tag(:timerange, "Last Month") %> &nbsp
-								<%= radio_button_tag(:timerange, "last_year") %>
-								<%= label_tag(:timerange, "Last Year") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_week") %>
+								<%= label_tag(:timerange, "Last Week") %> &nbsp
+								<%= radio_button_tag(:timerange, "today") %>
+								<%= label_tag(:timerange, "Today") %> &nbsp
 							</div>
 						</div>
 						<div class="profilepagediv2" style="border-width: 2px; margin-bottom: 20px">
 							<b>Sort:</b>
 							<div class="profilepagediv2">
 								<b>By:</b> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_updated_at", true) %>
+								<%= label_tag(:sort, "Updated date") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_created_at") %>
 								<%= label_tag(:sort, "Created date") %> &nbsp
-								<%= radio_button_tag(:sort, "sort_by_updated_at") %>
-								<%= label_tag(:sort, "Updated date") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_views") %>
 								<%= label_tag(:sort, "Views") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_votes") %>
@@ -726,7 +741,7 @@
 							</div>
 							<div class="flexitem1">
 								<% if current_prover.administrator? %>
-									<%= select_tag 'myfilters', options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
 								<% else %>
 									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
 							<% end %>
@@ -797,7 +812,7 @@
 					</div>
 
 					<div style="margin-top: 10px">
-						<b>*</b>(Initial opinions and objections only. Comments and initiators are not scored.)
+						<b>*</b>(Opinions and objections only. Comments and initiators are not scored.)
 					</div>
 				</div>
 			</div>

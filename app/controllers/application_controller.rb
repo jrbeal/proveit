@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 	def homepage
 
 		@defaultfilters = Filter.where(sitedefault: true)
-		@customfilters = Filter.where(prover_id: current_prover)
+		@customfilters = Filter.where(sitedefault: false, prover_id: current_prover)
 
 		length = 0
 		@defaultfilters.each do |f|
@@ -53,10 +53,10 @@ class ApplicationController < ActionController::Base
 
 		# Now start filtering...
 																				# Of the remaining posts, eliminate those outside the specified time range
-		@posts = @posts.where(:created_at => 1.day.ago..Time.now) if @filter.today
-		@posts = @posts.where(:created_at => 1.week.ago..Time.now) if @filter.last_week
-		@posts = @posts.where(:created_at => 1.month.ago..Time.now) if @filter.last_month
-		@posts = @posts.where(:created_at => 1.year.ago..Time.now) if @filter.last_year
+		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today
+		@posts = @posts.where(:updated_at => 1.week.ago..Time.now) if @filter.last_week
+		@posts = @posts.where(:updated_at => 1.month.ago..Time.now) if @filter.last_month
+		@posts = @posts.where(:updated_at => 1.year.ago..Time.now) if @filter.last_year
 
 		if @filter.following								# Of the remaining posts, eliminate those that are NOT by someone being followed
 			ids = []

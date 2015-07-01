@@ -298,6 +298,12 @@
 				return false;
 			});
 
+			$('.allposttypes').on("click", function () {
+				$('input[name="opinions"][value="true"]').prop('checked', true);
+				$('input[name="initiators"][value="true"]').prop('checked', true);
+				$('input[name="comments"][value="true"]').prop('checked', true);
+			});
+
 			$('#filterresetbutton').on("click", function () {
 				$('.myfiltername').val("");
 				$('input[name="opinions"][value="true"]').prop('checked', false);
@@ -636,7 +642,9 @@
 								<%= label_tag 'Initiators' %> &nbsp
 								<%= check_box_tag 'comments', 'true', false %>
 								<%= label_tag 'Comments' %> &nbsp &nbsp &nbsp
-								(Select at least one)
+								(Select at least one, or
+								<%= link_to "all", '#', :class => "allposttypes" %>
+								)
 							</div>
 							<div class="profilepagediv2">
 								<b>Constraints:</b> &nbsp

@@ -11,9 +11,17 @@ class FiltersController < ApplicationController
   # GET /filters/1.json
   def show
 		@filter = Filter.find(params[:id])
+
+		ids = []
+		Filter_categories.where(filter_id: @filter.id).each do |f|
+			ids.push f.category_id
+		end
+		@categories = []
+		@categories = Category.where(id: ids) if ids.length > 0
+
 		respond_to do |format|
 			format.html { }
-			format.json { render :json => @filter.to_json }
+			format.json { render :json => {:filter => @filter, :categories => @categories}.to_json }
 		end
   end
 
@@ -58,12 +66,18 @@ class FiltersController < ApplicationController
 		filter_params[:who_id] = params[:filter_users_dropdown] if params[:filter_users_dropdown] != "-1"
 
 		if params[:myfiltername].length > 0
-			filter = Filter.find_by id: current_prover.id, name: params[:myfiltername]
 			filter_params[:name] = params[:myfiltername]
-			if filter
-				filter.update(filter_params)
-			else
-				Filter.new(filter_params).save!
+			filter = Filter.find_by prover_id: current_prover.id, name: params[:myfiltername]
+			if filter																										# filter already exists so...
+				filter.update(filter_params)															# ...update it...
+				Filter_categories.where(filter_id: filter.id).delete_all	# ...and clear out its category records.
+			else																												# filter doesn't exist so...
+				filter = Filter.new(filter_params)												# ...create one.
+				filter.save!
+			end
+
+			Category.all.each do |c|																		# Create category records
+				Filter_categories.new(filter_id: filter.id, category_id: c.id).save! if params[c.name] == "category"
 			end
 		end
 

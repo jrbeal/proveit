@@ -47,6 +47,10 @@ class TopicsController < ApplicationController
 		@topic.prover = current_prover
 		@post.prover = current_prover
 
+		Category.all.each do |c|
+			Topic_categories.new(topic_id: @topic.id, category_id: c.id).save! if params[c.name]
+		end
+
 		if @topic.private?
 			case params[:type]
 			when Post::OPINION

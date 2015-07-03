@@ -99,6 +99,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
 		@provers = Prover.all.order(:provername)
+		@categories = Category.all.order(name: :asc)
 	end
 
     # GET /posts/1/edit

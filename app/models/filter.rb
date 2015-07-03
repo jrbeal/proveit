@@ -1,7 +1,9 @@
 class Filter < ActiveRecord::Base
-  belongs_to :prover
+  belongs_to :prover, class_name: "Prover", :foreign_key => "prover_id"
+	belongs_to :prover, class_name: "Prover", :foreign_key => "who_id"
 
 	has_many :provers, :foreign_key => "cur_filter"
+	has_many :categories, through: :Filter_categories
 
 	# Default Filter definitions
 	TOPICS = "Topics"

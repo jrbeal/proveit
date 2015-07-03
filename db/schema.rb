@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630160522) do
+ActiveRecord::Schema.define(version: 20150702212527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,24 +22,12 @@ ActiveRecord::Schema.define(version: 20150630160522) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.boolean "religion"
-    t.boolean "politics"
-    t.boolean "software"
-    t.boolean "culture"
-    t.boolean "cars"
-    t.boolean "family"
-    t.boolean "women"
-    t.boolean "sports"
-    t.boolean "hardware"
-    t.boolean "civil_rights"
-    t.boolean "men"
-    t.boolean "technology"
-    t.boolean "children"
-    t.boolean "science"
-    t.boolean "computers"
-    t.boolean "racism"
-    t.boolean "animals"
-    t.boolean "school"
+    t.string "name"
+  end
+
+  create_table "filter_categories", force: :cascade do |t|
+    t.integer "filter_id"
+    t.integer "category_id"
   end
 
   create_table "filters", force: :cascade do |t|
@@ -162,6 +150,11 @@ ActiveRecord::Schema.define(version: 20150630160522) do
     t.string  "team_type"
   end
 
+  create_table "topic_categories", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "category_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.boolean  "private"
     t.boolean  "lone_wolf"
@@ -170,7 +163,6 @@ ActiveRecord::Schema.define(version: 20150630160522) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "root_id"
-    t.integer  "categories_id"
     t.boolean  "use_teams"
     t.integer  "prover_id"
   end
@@ -182,6 +174,8 @@ ActiveRecord::Schema.define(version: 20150630160522) do
 
   add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
   add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
+  add_foreign_key "filter_categories", "categories", on_delete: :cascade
+  add_foreign_key "filter_categories", "filters", on_delete: :cascade
   add_foreign_key "filters", "provers", column: "who_id"
   add_foreign_key "filters", "provers", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
@@ -193,7 +187,8 @@ ActiveRecord::Schema.define(version: 20150630160522) do
   add_foreign_key "provers", "filters", column: "cur_filter"
   add_foreign_key "teams", "provers", on_delete: :cascade
   add_foreign_key "teams", "topics", on_delete: :cascade
-  add_foreign_key "topics", "categories", column: "categories_id"
+  add_foreign_key "topic_categories", "categories", on_delete: :cascade
+  add_foreign_key "topic_categories", "topics", on_delete: :cascade
   add_foreign_key "topics", "posts", column: "root_id"
   add_foreign_key "topics", "provers", on_delete: :cascade
   add_foreign_key "users_groups", "groups"

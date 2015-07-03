@@ -14,9 +14,9 @@ class ProversController < ApplicationController
 		@followed = Follow.where(follows: @prover)
 		@bookmarks = Bookmark.where(owner: @prover)
 		@provers = Prover.all.order(:provername)
-		@customfilters = Filter.where(prover_id: current_prover, sitedefault: false)
-		@defaultfilters = Filter.where(sitedefault: true)
-		@filter = Filter.new
+		@customfilters = Filter.where(prover_id: current_prover, sitedefault: false).order(name: :desc)
+		@defaultfilters = Filter.where(sitedefault: true).order(name: :desc)
+		@categories = Category.all.order(name: :asc)
 		@teammembership = Team.where(prover_id: @prover)
 		@teamownership = []
 		@teammembership.each do |team|

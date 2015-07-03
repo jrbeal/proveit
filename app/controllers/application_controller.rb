@@ -22,29 +22,29 @@ class ApplicationController < ActionController::Base
 			length = f.name.length if f.name.length > length
 		end
 
-		@divider = "-" * (length * 1.5)									# A hack to make the divider roughly as long
-																										# as the longest filter name.
+		@divider = "-" * (length * 1.5)									# This is a hack to make the divider roughly
+																										# as long as the longest filter name.
 
 		if current_prover.cur_filter.present?
-			@filter = current_prover.cur_filter 					# Get user's current filter (should exist)
+			@filter = current_prover.cur_filter 					# Get user's current filter (it should exist)
 		else
 			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
-		# First gather all posts of the specified type(s)...
+																				# First gather all posts of the specified type(s)...
 
 		ids = []
-		if @filter.opinions									# Gather all OPINION posts
+		if @filter.opinions									# ...all OPINION posts
 			Post.where(kind: Post::OPINION).each do |p|
 				ids.push p.id
 			end
 		end
-		if @filter.initiators								# Gather all INITIATOR posts
+		if @filter.initiators								# ...all INITIATOR posts
 			Post.where(kind: Post::INITIATOR).each do |p|
 				ids.push p.id
 			end
 		end
-		if @filter.comments									# Gather all COMMENT posts
+		if @filter.comments									# ...all COMMENT posts
 			Post.where(kind: Post::COMMENT).each do |p|
 				ids.push p.id
 			end
@@ -52,12 +52,13 @@ class ApplicationController < ActionController::Base
 		@posts = []
 		@posts = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
 
-		# Now start filtering...
-																				# First eliminate those outside the specified time range
-		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today
-		@posts = @posts.where(:updated_at => 1.week.ago..Time.now) if @filter.last_week
-		@posts = @posts.where(:updated_at => 1.month.ago..Time.now) if @filter.last_month
-		@posts = @posts.where(:updated_at => 1.year.ago..Time.now) if @filter.last_year
+																				# Now start filtering...
+
+																				# First eliminate all posts outside the specified time range
+		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today && !@posts.empty?
+		@posts = @posts.where(:updated_at => 1.week.ago..Time.now) if @filter.last_week && !@posts.empty?
+		@posts = @posts.where(:updated_at => 1.month.ago..Time.now) if @filter.last_month && !@posts.empty?
+		@posts = @posts.where(:updated_at => 1.year.ago..Time.now) if @filter.last_year && !@posts.empty?
 
 		if @filter.following								# now eliminate those that are NOT by someone being followed
 			ids = []
@@ -66,7 +67,7 @@ class ApplicationController < ActionController::Base
 					ids.push p.id
 				end
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 		end
 
 		if @filter.bookmarks								# now eliminate those that are NOT bookmarks
@@ -74,7 +75,7 @@ class ApplicationController < ActionController::Base
 			Bookmark.where(owner: current_prover).each do |b|
 				ids.push b.post.id
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 		end
 
 		if @filter.lone_wolf								# now eliminate those that are NOT Lone wolf
@@ -82,7 +83,7 @@ class ApplicationController < ActionController::Base
 			@posts.each do |p|
 				ids.push p.id if p.topic.lone_wolf
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 		end
 
 		if @filter.private									# now eliminate those that are NOT private...
@@ -102,27 +103,28 @@ class ApplicationController < ActionController::Base
 					ids.push p.id if p.topic.private
 				end
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc)
+			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 		end
 
 		ids = []
 		@posts.each do |p|									# now eliminate private posts that exclude current user...
 			ids.push p.id unless p.topic.private && !(p.topic.public_viewing || p.team_member?(current_prover) || current_prover.administrator)
 		end
-		@posts = @posts.where(id: ids).order(updated_at: :desc)
+		@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 
-		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id
-		@posts = @posts.where.not(parent_id: nil) if @filter.has_parent
-		@posts = @posts.where(parent_id: nil) if @filter.has_no_parent
-		@posts = @posts.where(status: false) if @filter.contested
-		@posts = @posts.where(status: true) if @filter.uncontested
-		@posts = @posts.where(level: 0) if @filter.level_zero
-		@posts = @posts.where.not(level: 0) if @filter.level_nonzero
+																																													# Now eliminate all posts....
+		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id && !@posts.empty?	# ...not created by specified user...
+		@posts = @posts.where.not(parent_id: nil) if @filter.has_parent	&& !@posts.empty?			# ...that are parentless...
+		@posts = @posts.where(parent_id: nil) if @filter.has_no_parent	&& !@posts.empty?			# ...that have parents...
+		@posts = @posts.where(status: false) if @filter.contested	&& !@posts.empty?						# ...that are false...
+		@posts = @posts.where(status: true) if @filter.uncontested && !	@posts.empty?					# ...that are true...
+		@posts = @posts.where(level: 0) if @filter.level_zero	&& !@posts.empty?								# ...that are non-zero level...
+		@posts = @posts.where.not(level: 0) if @filter.level_nonzero && !@posts.empty?				# ...that are zero level
 
 		@posts.each do |p|									# One final pass to build the team lists (for private posts)
 			p.create_team_lists
 		end
-	end
+	end																		# Whatever is left gets displayed to the home page.
 
 	protected
 

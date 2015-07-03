@@ -38,11 +38,6 @@
 	<div class="vlevel1 sidepadding">
 		<div class="flexcontainerpostrow">
 
-			<% if current_prover.administrator %>
-				<div class="flexitempostrow">
-					<%= link_to image_tag('redx.png', :size => '11x11'), '#' %>
-				</div>
-			<% end %>
 
 			<% if post.topic.lone_wolf %>
 				<div class="flexitempostrow">
@@ -71,6 +66,12 @@
 			<em><div class="message flexitempostrow">
 				<%= link_to post.message, post, {:style=>'color:blue;'} %>
 			</div></em>
+		</div>
+
+		<div class="right" style="margin-top: 4px">
+			<% if current_prover.administrator %>
+				<%= link_to image_tag('redx.png', :size => '11x11'), '#' %>
+			<% end %>
 		</div>
 
 		<!--<div class="right spacing">-->

@@ -17,8 +17,10 @@ Rails.application.routes.draw do
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
 	delete 'teams' 			=> 'teams#destroy'
 	delete 'filters'		=> 'filters#destroy'
+	delete 'categories'	=> 'categories#destroy'
 
 	resources :filters
+	resources :categories
   resources :groups
   resources :topics
   resources :posts

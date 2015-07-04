@@ -10,6 +10,11 @@
 				}
 
 				switch (verbosity) {
+					case 4:
+						$('.vlevelindicator4').show();
+						$('.vlevelindicator5').hide();
+						$('.vlevel5').fadeOut();
+						break;
 					case 3:
 						$('.vlevelindicator3').show();
 						$('.vlevelindicator4').hide();
@@ -34,11 +39,16 @@
 
 			$('#moremaster').on("click", function () {
 
-				if (verbosity < 4) {
+				if (verbosity < 5) {
 					verbosity += 1;
 				}
 
 				switch (verbosity) {
+					case 5:
+						$('.vlevelindicator4').hide();
+						$('.vlevelindicator5').show();
+						$('.vlevel5').fadeIn();
+						break;
 					case 4:
 						$('.vlevelindicator3').hide();
 						$('.vlevelindicator4').show();
@@ -71,16 +81,32 @@
 
 			$(function () {
 				switch (verbosity) {
+					case 5:
+						console.log("Showing verbosity level 5.");
+						$('.vlevelindicator1').hide();
+						$('.vlevelindicator2').hide();
+						$('.vlevelindicator3').hide();
+						$('.vlevelindicator4').hide();
+						$('.vlevelindicator5').show();
+						$('.vlevel1').show();
+						$('.vlevel2').show();
+						$('.vlevel3').show();
+						$('.vlevel4').show();
+						$('.vlevel5').show();
+						$('.postimage').show();
+						break;
 					case 4:
 						console.log("Showing verbosity level 4.");
 						$('.vlevelindicator1').hide();
 						$('.vlevelindicator2').hide();
 						$('.vlevelindicator3').hide();
 						$('.vlevelindicator4').show();
+						$('.vlevelindicator5').hide();
 						$('.vlevel1').show();
 						$('.vlevel2').show();
 						$('.vlevel3').show();
 						$('.vlevel4').show();
+						$('.vlevel5').hide();
 						$('.postimage').show();
 						break;
 					case 3:
@@ -89,10 +115,12 @@
 						$('.vlevelindicator2').hide();
 						$('.vlevelindicator3').show();
 						$('.vlevelindicator4').hide();
+						$('.vlevelindicator5').hide();
 						$('.vlevel1').show();
 						$('.vlevel2').show();
 						$('.vlevel3').show();
 						$('.vlevel4').hide();
+						$('.vlevel5').hide();
 						$('.postimage').show();
 						break;
 					case 2:
@@ -101,10 +129,12 @@
 						$('.vlevelindicator2').show();
 						$('.vlevelindicator3').hide();
 						$('.vlevelindicator4').hide();
+						$('.vlevelindicator5').hide();
 						$('.vlevel1').show();
 						$('.vlevel2').show();
 						$('.vlevel3').hide();
 						$('.vlevel4').hide();
+						$('.vlevel5').hide();
 						$('.postimage').hide();
 						break;
 					case 1:
@@ -114,10 +144,12 @@
 						$('.vlevelindicator2').hide();
 						$('.vlevelindicator3').hide();
 						$('.vlevelindicator4').hide();
+						$('.vlevelindicator5').hide();
 						$('.vlevel1').show();
 						$('.vlevel2').hide();
 						$('.vlevel3').hide();
 						$('.vlevel4').hide();
+						$('.vlevel5').hide();
 						$('.postimage').hide();
 				}
 			});

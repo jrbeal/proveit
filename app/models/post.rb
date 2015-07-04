@@ -101,6 +101,23 @@ class Post < ActiveRecord::Base
 		return count
 	end
 
+	def categories
+		instance_variable_get('@categories')
+	end
+
+	def categories=(val)
+		instance_variable_set('@categories', val)
+	end
+
+	def create_category_lists
+		self.categories = []
+		Topic_categories.where(topic_id: self.topic_id).each do |t|
+			Category.where(id: t.category_id).each do |c|
+				self.categories.push c.name
+			end
+		end
+	end
+
 	def create_team_lists
 		if self.topic.private?
 			case self.kind

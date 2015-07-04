@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
-																				# First gather all posts of the specified type(s)...
+		# First gather all posts of the specified type(s)...
 
 		ids = []
 		if @filter.opinions									# ...all OPINION posts
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(:updated_at => 1.month.ago..Time.now) if @filter.last_month && !@posts.empty?
 		@posts = @posts.where(:updated_at => 1.year.ago..Time.now) if @filter.last_year && !@posts.empty?
 
-		if @filter.following								# now eliminate those that are NOT by someone being followed
+		if @filter.following								# now eliminate those NOT created by someone user is following
 			ids = []
 			Follow.where(owner: current_prover).each do |f|
 				Post.where(prover_id: f.follows.id).each do |p|
@@ -112,6 +112,21 @@ class ApplicationController < ActionController::Base
 		end
 		@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
 
+																				# Now eliminate all posts not within a category selected...
+		fcids = []
+		Filter_categories.where(filter_id: @filter.id).each do |f|
+			fcids.push f.category_id					# Create an array of category ids in current filter
+		end
+
+		unless fcids.empty?
+			ids = []
+			@posts.each do |p|
+				Topic_categories.where(topic_id: p.topic_id).each do |t|
+					ids.push p.id if fcids.include?(t.category_id)
+				end
+			end
+			@posts = @posts.where(id: ids).order(updated_at: :desc) unless ids.empty?
+		end
 																																													# Now eliminate all posts....
 		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id && !@posts.empty?	# ...not created by specified user...
 		@posts = @posts.where.not(parent_id: nil) if @filter.has_parent	&& !@posts.empty?			# ...that are parentless...
@@ -121,8 +136,9 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(level: 0) if @filter.level_zero	&& !@posts.empty?								# ...that are non-zero level...
 		@posts = @posts.where.not(level: 0) if @filter.level_nonzero && !@posts.empty?				# ...that are zero level
 
-		@posts.each do |p|									# One final pass to build the team lists (for private posts)
-			p.create_team_lists
+		@posts.each do |p|									# One final pass to build the...
+			p.create_team_lists								# ...team lists (for private posts)
+			p.create_category_lists						# ...and category lists
 		end
 	end																		# Whatever is left gets displayed to the home page.
 

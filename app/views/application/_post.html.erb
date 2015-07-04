@@ -140,4 +140,17 @@
 		</div>
 	<% end %>
 
+	<div class="vlevel5 sidepadding">
+		Categories: &nbsp
+		<% if post.categories.empty? %>
+			None
+		<% else %>
+			<% post.categories.each_with_index do |c, i| %>
+				<% unless i == 0 %>
+					, &nbsp
+				<% end %>
+				<%= c %>
+			<% end %>
+		<% end %>
+	</div>
 </div>

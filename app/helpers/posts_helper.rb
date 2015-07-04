@@ -42,16 +42,20 @@ module PostsHelper
         raw ("
         #{radio_button_tag('kidtype', 'initiator', true)}
         #{label_tag('kidtype', 'Opinions')}
-        #{radio_button_tag('kidtype', 'comment')}
+     		(#{post.children_opinions}/#{post.offspring_opinions})
+ 			  #{radio_button_tag('kidtype', 'comment')}
         #{label_tag('kidtype', 'Comments')}
-        ")
+        (#{post.children_comments}/#{post.offspring_comments})
+ 			  ")
       when Post::OPINION
         raw ("
 				#{radio_button_tag 'kidtype', 'opinion', true}
         #{label_tag 'kidtype', 'Objections'}
+				(#{post.children_opinions}/#{post.offspring_opinions})
         #{radio_button_tag 'kidtype', 'comment'}
         #{label_tag 'kidtype', 'Comments'}
-        ")
+       	(#{post.children_comments}/#{post.offspring_comments})
+				")
     end
   end
 end

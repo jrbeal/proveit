@@ -11,11 +11,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
 
-		# Update the view count...
-		@post.update_column(:views, @post.views+1)
-
-		# Create the team lists for the featured post...
-		@post.create_team_lists
+		@post.update_column(:views, @post.views+1)											# Update the view count...
+		@post.create_team_lists																					# Create the team lists for the featured post...
 
 		if (params[:kidtype])
 			@kidtype = params[:kidtype]
@@ -23,11 +20,9 @@ class PostsController < ApplicationController
 		  @kidtype = @post.kind
 		end
 
-		# get the featured post's kids and sort them...
-		@kids = Post.where(:parent => @post).order(:updated_at).reverse_order
+		@kids = Post.where(parent: @post).order(:updated_at).reverse_order	# get the featured post's kids and sort them...
 
-		# Create team lists for each kid
-		@kids.each do |p|
+		@kids.each do |p|																								# Create team lists for each kid
 			p.create_team_lists
 		end
 

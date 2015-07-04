@@ -76,7 +76,26 @@ h1 {
   align-items: flex-start;
 }
 
-#postformat {
+.createflexcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createflexitem1 {
+  width: 14%;
+}
+
+.createflexitem2 {
+  width: 86%;
+}
+
+.createcategories {
+  padding: 3px;
+  border-width: thin;
+  border-style: solid;
+  border-color: gray;
 }
 
 #postteam1 {

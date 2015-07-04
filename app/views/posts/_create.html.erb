@@ -19,17 +19,21 @@
 	<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 </div>
 
-<div class="toppadding5">
-	<div class="submit_text support_url">
-		Categories (Optional):
+<% unless @categories.empty? %>
+	<div class="createflexcontainer" style="margin-top: 5px">
+		<div class="createflexitem1">
+			Categories (Optional):
+		</div>
+		<div class="createflexitem2">
+			<div class="createcategories">
+				<% @categories.each do |c| %>
+					<%= check_box_tag c.name, 'true' %>
+					<%= label_tag c.name %> &nbsp
+				<% end %>
+			</div>
+		</div>
 	</div>
-	<div class="support_placeholder">
-		<% @categories.each do |c| %>
-			<%= check_box_tag c.name, 'true' %>
-			<%= label_tag c.name %> &nbsp
-		<% end %>
-	</div>
-</div>
+<% end %>
 
 <div id="postformatflexcontainer">
 	<div id="postformat">

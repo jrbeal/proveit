@@ -707,10 +707,14 @@
 											<b>Categories:</b>
 										</div>
 										<div class="flexitem1">
-											<div class="profilepagediv2">
-												<% @categories.each do |c| %>
-													<%= check_box_tag c.name, 'category', false %>
-													<%= label_tag c.name %> &nbsp
+											<div class="profilepagediv3">
+												<% if @categories.empty? %>
+													No categories defined
+												<% else %>
+													<% @categories.each do |c| %>
+														<%= check_box_tag c.name, 'category', false %>
+														<%= label_tag c.name %> &nbsp
+													<% end %>
 												<% end %>
 											</div>
 										</div>
@@ -789,7 +793,7 @@
 							</div>
 							<div class="flexitem1">
 								<% if current_prover.administrator? %>
-									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name", current_prover.cur_filter.id), :class => 'myfilters' %>
+									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name") + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
 								<% else %>
 									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
 							<% end %>
@@ -881,7 +885,7 @@
 							<div class="flexitem1">
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 								<%= hidden_field_tag :default_tab, "administrative" %>
-								<%= submit_tag("Save") %> &nbsp
+								<%= submit_tag("Add") %> &nbsp
 							</div>
 							<div class="flexitem1">
 								<button id="categorydeletebutton" type="button">Delete</button> &nbsp
@@ -895,5 +899,4 @@
 			</div>
 		</div>
 	</div>
-
 </body>

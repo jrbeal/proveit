@@ -103,7 +103,6 @@ class FiltersController < ApplicationController
   # DELETE /filters/1.json
   def destroy
 		@filter.destroy
-
 		render :nothing => true
 	end
 

@@ -75,7 +75,7 @@
 				<% else %>
 					<%= link_to image_tag('redx.png', :size => '11x11'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
 				<% end %>
-		<% end %>
+			<% end %>
 		</div>
 
 		<!--<div class="right spacing">-->
@@ -109,28 +109,31 @@
 			<% end %>
 
 			<div class="flexitempostrow">
-				<%= offspring(post) %>
+				<%= offspring(post) %> &nbsp
 			</div>
 
 			<div class="flexitempostrow">
-				<%= post.views %> views,
+				<%= post.views %> views, &nbsp
 			</div>
 
 			<% unless post.kind == Post::INITIATOR %>
 				<div class="flexitempostrow">
-					<%= level(post) %>
+					<%= level(post) %> &nbsp
 				</div>
 			<% end %>
 
 			<% if already_bookmarked(post) %>
 				<div class="flexitempostrow">
-					<%= link_to "Unbookmark", "#", :class => "unbookmark1", :data => {:post => "#{post.id}"} %>
+					<%= link_to "Unbookmark", "#", :class => "unbookmark1", :data => {:post => "#{post.id}"} %>,
 				</div>
 			<% else %>
 				<div class="flexitempostrow">
-					<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{post.id}"} %>
+					<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{post.id}"} %>,
 				</div>
 			<% end %>
+			&nbsp &nbsp
+			<%= link_to image_tag('Thumb-Up.png', :size => '15x15'), '#', :class => "thumbsup", :data => {:post => "#{post.id}"} %>
+			&nbsp <%= post.points %>
 		</div>
 
 		<div class="right">

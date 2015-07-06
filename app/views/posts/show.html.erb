@@ -337,6 +337,22 @@
 				return false;
 			});
 
+			$('.deletepost').on("click", function (e) {
+				var $tgt = $(e.target);
+				console.log ("Deleting post");
+				var $parent = $($tgt.parent());
+				$.ajax({
+					url: '/posts/' + $parent.attr("data-post"),
+					type: 'DELETE',
+					success: function(resp) {
+						console.log("Deleted this post.");
+						window.location.reload();
+					}
+				})
+
+				return false;
+			});
+
 			$('input[name="kidtype"][value="<%= @kidtype %>"]').click();
 
 			$('#kidtype').show();
@@ -369,6 +385,7 @@
 			<span class="vlevelindicator2"><2></span>
 			<span class="vlevelindicator3"><3></span>
 			<span class="vlevelindicator4"><4></span>
+			<span class="vlevelindicator5"><5></span>
 			<%= link_to "More", "#", :id => "moremaster"%>
     </div>
 	</div>

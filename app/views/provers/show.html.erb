@@ -548,6 +548,8 @@
 							<%= label_tag(:verbosity, "3") %>
 							<%= radio_button_tag(:verbosity, 4) %>
 							<%= label_tag(:verbosity, "4") %>
+							<%= radio_button_tag(:verbosity, 5) %>
+							<%= label_tag(:verbosity, "5") %>
 						</div>
 
 						<div class="profilepagediv2">
@@ -701,23 +703,21 @@
 								<% else %>
 									<%= hidden_field_tag :sitedefault, "false" %>
 								<% end %>
-								<div class="profilepagediv2">
-									<div class="flexcontainer1">
-										<div class="flexitem1">
-											<b>Categories:</b>
-										</div>
-										<div class="flexitem1">
-											<div class="profilepagediv3">
-												<% if @categories.empty? %>
-													No categories defined
-												<% else %>
-													<% @categories.each do |c| %>
-														<%= check_box_tag c.name, 'category', false %>
-														<%= label_tag c.name %> &nbsp
-													<% end %>
-												<% end %>
-											</div>
-										</div>
+								<div class="profilepagediv2" style="display:flex; flex-direction: row; justify-content: space-between">
+									<div>
+										<b>Categories:</b>
+									</div>
+									<div class="profilepagediv3">
+										<% if @categories.empty? %>
+											No categories defined
+										<% else %>
+											<% @categories.each do |c| %>
+												<div>
+													<%= check_box_tag c.name, 'category', false %>
+													<%= label_tag c.name %> &nbsp
+												</div>
+											<% end %>
+										<% end %>
 									</div>
 								</div>
 								<div class="profilepagediv2">
@@ -799,7 +799,7 @@
 							<% end %>
 							</div>
 							<div class="flexitem1" style="margin-top:6px; font-size: 10px">
-								<textarea class="myfiltername" name="myfiltername" rows="1" cols="50" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
+								<textarea class="myfiltername" name="myfiltername" rows="1" cols="45" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
 							</div>
 							<div class="flexitem1">
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>

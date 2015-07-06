@@ -70,8 +70,12 @@
 
 		<div class="right" style="margin-top: 4px">
 			<% if current_prover.administrator %>
-				<%= link_to image_tag('redx.png', :size => '11x11'), '#' %>
-			<% end %>
+				<% if post.parent == nil %>
+					<%= link_to image_tag('redx.png', :size => '11x11'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
+				<% else %>
+					<%= link_to image_tag('redx.png', :size => '11x11'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
+				<% end %>
+		<% end %>
 		</div>
 
 		<!--<div class="right spacing">-->
@@ -136,7 +140,7 @@
 
 	<% unless post.support.empty? %>
 		<div class="vlevel4 sidepadding">
-			<em><%= post.support %></em>
+			<span style="color:blue"><em><%= post.support %></em></span>
 		</div>
 	<% end %>
 

@@ -215,7 +215,23 @@
 						url: '/changefilter?' + $.param({"filter_id": filterId}),
 						type: 'POST',
 						success: function(resp) {
-							console.log("Selecting this filter.");
+							console.log("Selected this filter.");
+							window.location.reload();
+						}
+					})
+
+					return false;
+				});
+
+				$('.deletetopic').on("click", function (e) {
+					var $tgt = $(e.target);
+					console.log ("Deleting topic");
+					var $parent = $($tgt.parent());
+					$.ajax({
+						url: '/topics/' + $parent.attr("data-topic"),
+						type: 'DELETE',
+						success: function(resp) {
+							console.log("Deleted this topic.");
 							window.location.reload();
 						}
 					})

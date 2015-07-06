@@ -25,12 +25,12 @@
 			Categories (Optional):
 		</div>
 		<div class="createflexitem2">
-			<div class="createcategories">
 				<% @categories.each do |c| %>
-					<%= check_box_tag c.name, 'true' %>
-					<%= label_tag c.name %> &nbsp
+					<div>
+						<%= check_box_tag c.name, 'true' %>
+						<%= label_tag c.name %> &nbsp
+					</div>
 				<% end %>
-			</div>
 		</div>
 	</div>
 <% end %>

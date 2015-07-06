@@ -1,5 +1,5 @@
 class Prover < ActiveRecord::Base
-	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter",  dependent: :destroy
+	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter"
 
 	has_many :follows, dependent: :destroy
 	has_many :topics, dependent: :destroy
@@ -14,28 +14,13 @@ class Prover < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	ADMIN = "admin"
-	TOPICS = "topics"
-	OPINIONS = "opinions"
-	OBJECTIONS = "objections"
-	INITIATORS = "initiators"
-	COMMENTS = "comments"
-	FOLLOWING = "following"
-	BOOKMARKS = "bookmarks"
-
 	EXPANDED = "expanded"
 	COLLAPSED = "collapsed"
 
 	before_create do # Initialize the new user
-		self.verbosity = 4
+		self.verbosity = 3
 		self.offspring_style = COLLAPSED
-
-		cf = Filter.find_by sitedefault: true, name: Filter::TOPICS
-
-		puts cf.inspect
-		self.cur_filter = cf
-
-		puts self.cur_filter.inspect
+		self.cur_filter = Filter.where(sitedefault: true, name: Filter::DEFAULT).first
 		self.rating = 0.0
 		self.highest_rating = 0.0
 		self.highest_rating_date = Time.now

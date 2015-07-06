@@ -1,9 +1,9 @@
 class Post < ActiveRecord::Base
-	belongs_to :parent, :foreign_key => "parent_id", :class_name => "Post", dependent: :destroy
+	belongs_to :parent, :foreign_key => "parent_id", :class_name => "Post"
 	belongs_to :prover, :foreign_key => "prover_id", :class_name => "Prover"
 	belongs_to :topic, :foreign_key => "topic_id", :class_name => "Topic"
 
-	has_many :bookmarks, dependent: :destroy
+	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
 
 
 	OPINION = "opinion"

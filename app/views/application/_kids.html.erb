@@ -5,6 +5,7 @@
 		<% kids = Post.where(:parent => kid).where(:kind => kid.kind).order(:updated_at).reverse_order %>
 		<% kids.each do |p| %>
 			<% p.create_team_lists %>
+			<% p.create_category_lists %>
 		<% end %>
 		<%= render partial: "application/kids", object: kids, locals: {indent: indent + 1} %>
 	<% end %>

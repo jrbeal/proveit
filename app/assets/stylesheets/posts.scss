@@ -89,13 +89,14 @@ h1 {
 
 .createflexitem2 {
   width: 86%;
-}
-
-.createcategories {
   padding: 3px;
   border-width: thin;
   border-style: solid;
   border-color: gray;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 #postteam1 {

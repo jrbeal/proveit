@@ -1,18 +1,10 @@
 class Filter < ActiveRecord::Base
-  belongs_to :prover, class_name: "Prover", :foreign_key => "prover_id"
-	belongs_to :prover, class_name: "Prover", :foreign_key => "who_id"
+  belongs_to :owner, class_name: "Prover", :foreign_key => "prover_id"
+	belongs_to :who, class_name: "Prover", :foreign_key => "who_id"
 
 	has_many :provers, :foreign_key => "cur_filter"
-	has_many :categories, through: :Filter_categories
 
-	# Default Filter definitions
-	TOPICS = "Topics"
-	OPINIONS = "Opinions"
-	OBJECTIONS = "Objections"
-	INITIATORS = "Initiators"
-	COMMENTS = "Comments"
-	FOLLOWING = "Following"
-	BOOKMARKS = "Bookmarks"
+	DEFAULT = "Topics"
 
 	def filter_name
 		self.name

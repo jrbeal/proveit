@@ -302,6 +302,8 @@
 						$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', filter.sort_by_updated_at);
 						$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
 						$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
+						$('input[name="descending"][value="true"]').prop('checked', filter.descending);
+						$('input[name="descending"][value="false"]').prop('checked', !filter.descending);
 						$('.myfiltername').val(filter.name);
 						$('.provers_dropdown').val(filter.who_id);
 					}
@@ -319,7 +321,7 @@
 			$('#filterresetbutton').on("click", function () {
 				$('.myfiltername').val("");
 				$('input[value="category"]').prop('checked', false);
-				$('input[name="opinions"][value="true"]').prop('checked', false);
+				$('input[name="opinions"][value="true"]').prop('checked', true);
 				$('input[name="initiators"][value="true"]').prop('checked', false);
 				$('input[name="comments"][value="true"]').prop('checked', false);
 				$('input[name="bookmarks"][value="true"]').prop('checked', false);
@@ -336,14 +338,9 @@
 				$('input[name="parents"][value="has_no_parent"]').prop('checked', false);
 				$('input[name="level"][value="zero"]').prop('checked', false);
 				$('input[name="level"][value="nonzero"]').prop('checked', false);
-				$('input[name="timerange"][value="today"]').prop('checked', false);
-				$('input[name="timerange"][value="last_week"]').prop('checked', false);
-				$('input[name="timerange"][value="last_month"]').prop('checked', false);
 				$('input[name="timerange"][value="last_year"]').prop('checked', true);
-				$('input[name="sort"][value="sort_by_created_at"]').prop('checked', false);
 				$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', true);
-				$('input[name="sort"][value="sort_by_views"]').prop('checked', false);
-				$('input[name="sort"][value="sort_by_votes"]').prop('checked', false);
+				$('input[name="descending"][value="true"]').prop('checked', true);
 				$('.provers_dropdown').val(-1);
 				$('.myfilters').val(-1);
 			});
@@ -680,7 +677,7 @@
 							<b>What:</b>
 							<div class="profilepagediv2">
 								<b>Post types:</b> &nbsp
-								<%= check_box_tag 'opinions', 'true', false %>
+								<%= check_box_tag 'opinions', 'true', true %>
 								<%= label_tag 'Opinions' %> &nbsp
 								<%= check_box_tag 'initiators', 'true', false %>
 								<%= label_tag 'Initiators' %> &nbsp
@@ -784,6 +781,13 @@
 								<%= label_tag(:sort, "Views") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_votes") %>
 								<%= label_tag(:sort, "Popularity") %> &nbsp
+							</div>
+							<div class="profilepagediv2">
+								<b>Order:</b> &nbsp
+								<%= radio_button_tag(:descending, "false") %>
+								<%= label_tag 'Ascending' %> &nbsp
+								<%= radio_button_tag(:descending, "true", true) %>
+								<%= label_tag 'Descending' %> &nbsp
 							</div>
 						</div>
 

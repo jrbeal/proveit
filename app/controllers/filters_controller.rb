@@ -64,6 +64,7 @@ class FiltersController < ApplicationController
 		filter_params[:sort_by_views] = params[:sort] == "sort_by_views"
 		filter_params[:sort_by_votes] = params[:sort] == "sort_by_votes"
 		filter_params[:who_id] = params[:filter_users_dropdown] if params[:filter_users_dropdown] != "-1"
+		filter_params[:descending] = params[:descending] == "true"
 
 		if params[:myfiltername].length > 0
 			filter_params[:name] = params[:myfiltername]

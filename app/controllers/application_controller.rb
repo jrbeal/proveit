@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 			end
 		end
 		@posts = []
-		@posts = Post.where(id: ids).order(updated_at: :desc) if ids.length > 0
+		@posts = Post.where(id: ids) if ids.length > 0
 
 																				# Now start filtering...
 
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 					ids.push p.id
 				end
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
+			@posts = @posts.where(id: ids) unless @posts.empty?
 		end
 
 		if @filter.bookmarks								# now eliminate those that are NOT bookmarks
@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
 			Bookmark.where(owner: current_prover).each do |b|
 				ids.push b.post.id
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
+			@posts = @posts.where(id: ids) unless @posts.empty?
 		end
 
 		if @filter.lone_wolf								# now eliminate those that are NOT Lone wolf
@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
 			@posts.each do |p|
 				ids.push p.id if p.topic.lone_wolf
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
+			@posts = @posts.where(id: ids) unless @posts.empty?
 		end
 
 		if @filter.private									# now eliminate those that are NOT private...
@@ -103,29 +103,28 @@ class ApplicationController < ActionController::Base
 					ids.push p.id if p.topic.private
 				end
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
+			@posts = @posts.where(id: ids) unless @posts.empty?
 		end
 
 		ids = []
 		@posts.each do |p|									# now eliminate private posts that exclude current user...
 			ids.push p.id unless p.topic.private && !(p.topic.public_viewing || p.team_member?(current_prover) || current_prover.administrator)
 		end
-		@posts = @posts.where(id: ids).order(updated_at: :desc) unless @posts.empty?
+		@posts = @posts.where(id: ids) unless @posts.empty?
 
-																				# Now eliminate all posts not within a category selected...
 		fcids = []
 		Filter_categories.where(filter_id: @filter.id).each do |f|
-			fcids.push f.category_id					# Create an array of category ids in current filter
+			fcids.push f.category_id					# Create an array of category ids set in current filter...
 		end
 
-		unless fcids.empty?
+		unless fcids.empty?									# now check each post and eliminate any that are NOT within a category selected.
 			ids = []
 			@posts.each do |p|
 				Topic_categories.where(topic_id: p.topic_id).each do |t|
 					ids.push p.id if fcids.include?(t.category_id)
 				end
 			end
-			@posts = @posts.where(id: ids).order(updated_at: :desc) unless ids.empty?
+			@posts = @posts.where(id: ids) unless ids.empty?
 		end
 																																													# Now eliminate all posts....
 		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id && !@posts.empty?	# ...not created by specified user...
@@ -136,11 +135,19 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(level: 0) if @filter.level_zero	&& !@posts.empty?								# ...that are non-zero level...
 		@posts = @posts.where.not(level: 0) if @filter.level_nonzero && !@posts.empty?				# ...that are zero level
 
-		@posts.each do |p|									# One final pass to build the...
-			p.create_team_lists								# ...team lists (for private posts)
-			p.create_category_lists						# ...and category lists
+																																													# Now sort the results...
+		order = "desc" if @filter.descending
+		order = "asc" unless @filter.descending
+		@posts = @posts.order(updated_at: order) if @filter.sort_by_updated_at && !@posts.empty?
+		@posts = @posts.order(created_at: order) if @filter.sort_by_created_at && !@posts.empty?
+		@posts = @posts.order(views: order) if @filter.sort_by_views && !@posts.empty?
+		@posts = @posts.order(points: order) if @filter.sort_by_votes && !@posts.empty?
+
+		@posts.each do |p|									# One final pass to build...
+			p.create_team_lists								# ...the team lists (for private posts)
+			p.create_category_lists						# ...and the category lists
 		end
-	end																		# Whatever is left gets displayed to the home page.
+	end																		# Whatever remains gets displayed to the home page.
 
 	protected
 

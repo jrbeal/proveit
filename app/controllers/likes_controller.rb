@@ -32,9 +32,8 @@ class LikesController < ApplicationController
 			:post => @post
 		}
 
-		@post.update_column(:points, @post.points+1)
-
 		@like = Like.new(like_params)
+		@post.update_column(:points, @post.points+1)
 
 		respond_to do |format|
 			if @like.save
@@ -64,19 +63,17 @@ class LikesController < ApplicationController
 	# DELETE /like/1
 	# DELETE /like/1.json
 	def destroy
-		@post = Post.find(params[:post])
-
 		if params[:prover].present? && params[:post].present?
 			@like = Like.where(:prover => params[:prover], :post => params[:post])
 		elsif params[:id].present?
 			@like = Like.where(:id => params[:id])
 		end
 
-		@like.each do |b|
-			b.destroy
+		@like.each do |l|
+			l.destroy
+			@post = Post.find(l.post_id)
+			@post.update_column(:points, @post.points-1)
 		end
-
-		@post.update_column(:points, @post.points-1)
 
 		render :text => "Nothing"
 	end

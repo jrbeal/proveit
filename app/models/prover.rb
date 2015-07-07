@@ -8,6 +8,7 @@ class Prover < ActiveRecord::Base
 	has_many :bookmarks, dependent: :destroy
 	has_many :teams, dependent: :destroy
 	has_many :filters, dependent: :destroy
+	has_many :likes
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

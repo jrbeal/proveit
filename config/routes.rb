@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'posts/new'   	=> 'posts#new'
 	get 'follow'				=> 'follow'
 	get 'bookmark'			=> 'bookmark'
+	get 'like'					=> 'like'
 	get 'team'					=> 'team'
 	get 'scoreboard' 		=> 'provers#scoreboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
+	delete 'likes' 			=> 'likes#destroy'
 	delete 'teams' 			=> 'teams#destroy'
 	delete 'filters'		=> 'filters#destroy'
 	delete 'categories'	=> 'categories#destroy'
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
 	resources :follows, :except => :destroy
 	resources :bookmarks, :except => :destroy
 	resources :teams, :except => :destroy
+	resources :likes
 
   root 'application#homepage'
 

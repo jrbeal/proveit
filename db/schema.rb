@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706123247) do
+ActiveRecord::Schema.define(version: 20150706210952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,11 @@ ActiveRecord::Schema.define(version: 20150706123247) do
   create_table "hot_topics", force: :cascade do |t|
     t.string  "key_phrase"
     t.integer "count"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "prover_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -182,6 +187,8 @@ ActiveRecord::Schema.define(version: 20150706123247) do
   add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
   add_foreign_key "follows", "provers", column: "owner", on_delete: :cascade
   add_foreign_key "groups", "provers", column: "owner"
+  add_foreign_key "likes", "posts", on_delete: :cascade
+  add_foreign_key "likes", "provers", on_delete: :cascade
   add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
   add_foreign_key "posts", "provers", on_delete: :cascade
   add_foreign_key "posts", "topics", on_delete: :cascade

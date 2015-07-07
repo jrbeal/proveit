@@ -132,7 +132,11 @@
 				</div>
 			<% end %>
 			&nbsp &nbsp
-			<%= link_to image_tag('Thumb-Up.png', :size => '15x15'), '#', :class => "thumbsup", :data => {:post => "#{post.id}"} %>
+			<% if already_liked(post) %>
+				<%= link_to image_tag('thumbs-down.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
+			<% else %>
+				<%= link_to image_tag('thumbs-up.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}"} %>
+			<% end %>
 			&nbsp <%= post.points %>
 		</div>
 

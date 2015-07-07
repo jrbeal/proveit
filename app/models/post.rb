@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 	belongs_to :topic, :foreign_key => "topic_id", :class_name => "Topic"
 
 	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
+	has_many :likes
 
 
 	OPINION = "opinion"

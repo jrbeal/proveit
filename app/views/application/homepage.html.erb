@@ -181,6 +181,36 @@
 					return false;
 				});
 
+				$('.like').on("click", function (e) {
+					var $tgt = $(e.target);
+					var $parent = $($tgt.parent());
+					$.ajax({
+						url: '/likes?' + $.param({"prover": <%= current_prover.id %>, "post": $parent.attr("data-post")}),
+						type: 'POST',
+						success: function(resp) {
+							console.log("Liked this post.");
+							window.location.reload();
+						}
+					})
+
+					return false;
+				});
+
+				$('.unlike').on("click", function (e) {
+					var $tgt = $(e.target);
+					var $parent = $($tgt.parent());
+					$.ajax({
+						url: '/likes?' + $.param({"prover": <%= current_prover.id %>, "post": $parent.attr("data-post")}),
+						type: 'DELETE',
+						success: function(resp) {
+							console.log("Unliked this post.");
+							window.location.reload();
+						}
+					})
+
+					return false;
+				});
+
 				$('.bookmark').on("click", function (e) {
 					var $tgt = $(e.target);
 					$.post('/bookmarks', {owner: <%= current_prover.id %>, post: $tgt.attr("data-post") }, function(resp) {
@@ -200,7 +230,7 @@
 						url: '/bookmarks?' + $.param({"owner": <%= current_prover.id %>, "post": $tgt.attr("data-post")}),
 						type: 'DELETE',
 						success: function(resp) {
-							console.log("Removing thi bookmark.");
+							console.log("Removing this bookmark.");
 							window.location.reload();
 						}
 					})

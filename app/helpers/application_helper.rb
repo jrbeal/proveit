@@ -6,4 +6,8 @@ module ApplicationHelper
 	def already_bookmarked(post)
 		(Bookmark.where(:owner => current_prover.id, :post => post)).size > 0
 	end
+
+	def already_liked(post)
+		(Like.where(:prover => current_prover.id, :post => post)).size > 0
+	end
 end

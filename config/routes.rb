@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 	get 'contact'	    	=> 'static_pages#contact'
   get 'posts/new'   	=> 'posts#new'
 	get 'follow'				=> 'follow'
+	get 'adminfallacy'	=> 'provers#show'
 	get 'bookmark'			=> 'bookmark'
 	get 'like'					=> 'like'
 	get 'team'					=> 'team'
@@ -20,10 +21,16 @@ Rails.application.routes.draw do
 	delete 'teams' 			=> 'teams#destroy'
 	delete 'filters'		=> 'filters#destroy'
 	delete 'categories'	=> 'categories#destroy'
+	delete 'fallacies'	=> 'fallacies#destroy'
+	delete 'fallacyfolders'	=> 'fallacyfolders#destroy'
+
+	put 'fallacies'	=> 'fallacies#update'
 
 	resources :filters
 	resources :categories
-  resources :groups
+	resources :fallacies
+	resources :fallacyfolders
+	resources :groups
   resources :topics
   resources :posts
 	resources :provers

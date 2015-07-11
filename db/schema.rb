@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706210952) do
+ActiveRecord::Schema.define(version: 20150707182102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20150706210952) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "fallacies", force: :cascade do |t|
+    t.string  "name"
+    t.integer "folder"
+    t.string  "opinion"
+    t.string  "support"
+    t.string  "url"
+  end
+
+  create_table "fallacyfolders", force: :cascade do |t|
+    t.string  "name"
+    t.integer "parent"
   end
 
   create_table "filter_categories", force: :cascade do |t|
@@ -180,6 +193,8 @@ ActiveRecord::Schema.define(version: 20150706210952) do
 
   add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
   add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
+  add_foreign_key "fallacies", "fallacyfolders", column: "folder", on_delete: :cascade
+  add_foreign_key "fallacyfolders", "fallacyfolders", column: "parent", on_delete: :cascade
   add_foreign_key "filter_categories", "categories", on_delete: :cascade
   add_foreign_key "filter_categories", "filters", on_delete: :cascade
   add_foreign_key "filters", "provers", column: "who_id"

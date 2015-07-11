@@ -157,61 +157,6 @@
 
 		$(function() {
 
-			$('#type_opinion').on("click", function () {
-				console.log("Opinion mode.");
-				$(".submit_text.message_text").text("In my opinion:");
-				$(".submit_text.support_text").text("Support (Optional):");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional rationale, clarification and supporting information here.';
-			});
-
-			$('#type_initiator').on("click", function () {
-				console.log("Initiator mode.");
-				$(".submit_text.message_text").text("Initiator:");
-				$(".submit_text.support_text").text("Support (Optional):");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional clarification and supporting information here.';
-			});
-
-			$('#type_comment').on("click", function () {
-				console.log("Comment mode.");
-				$(".submit_text.message_text").text("Comment:");
-				$(".submit_text.support_text").text("Support (Optional): ");
-				document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter comment here.';
-				document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information here.';
-			});
-
-			$('#format_public').on("click", function () {
-				console.log("Selecting public.");
-				$('#private').hide();
-				$('#public').show();
-			});
-
-			$('#format_private').on("click", function () {
-				console.log("Selecting private.");
-				$('#private').show();
-				$('#public').hide();
-			});
-
-			$('#publicviewing').on("click", function (e) {
-				console.log("Selecting public viewing.");
-				var $tgt = $(e.target);
-				if ($tgt.prop("checked")) {
-					$('#pubcomments').show();
-				} else {
-					$('#pubcomments').hide();
-				}
-			});
-
-			$('input[name="format"][value="public"]').click();
-
-			$('#pubcomments').hide();
-
-			$('#createcancelbutton').on("click", function () {
-				console.log("Selecting quit button.");
-				history.back();
-			});
-
 			$('#cancelopinionreply').on("click", function () {
 				$('#kids').show();
 				$('#opinionreply').hide();
@@ -444,24 +389,25 @@
 	<div id="replies" class="sidepadding toppadding20">
 		<div id="opinionreply">
 			<form action="<%= posts_path %>" method="post">
-				<b>Objection Type:</b>
-				<div class="right sidepadding">
-					<%= radio_button_tag(:type, "manual", checked=TrueClass)%>
-					<%= label_tag(:type, "Manual") %>
-					<%= radio_button_tag(:type, "fallacy") %>
-					<%= label_tag(:type, "Fallacy") %>
-					<%= radio_button_tag(:type, "inconclusive") %>
-					<%= label_tag(:type, "Inconclusive") %>
-					<%= radio_button_tag(:type, "ambiguous") %>
-					<%= label_tag(:type, "Ambiguous") %>
-					<%= radio_button_tag(:type, "irrelevant") %>
-					<%= label_tag(:type, "Irrelevant") %>
-					<%= radio_button_tag(:type, "duplicate") %>
-					<%= label_tag(:type, "Duplicate") %>
-					<%= radio_button_tag(:type, "mediationrequest") %>
-					<%= label_tag(:type, "Mediation Request") %>
+				<div style="display: flex; flex-direction: row; justify-content: space-between">
+					<b>Objection Type:</b>
+					<div>
+						<%= radio_button_tag(:type, "manual", true)%>
+						<%= label_tag(:type, "Manual") %>
+						<%= radio_button_tag(:type, "fallacy") %>
+						<%= label_tag(:type, "Fallacy") %>
+						<%= radio_button_tag(:type, "inconclusive") %>
+						<%= label_tag(:type, "Inconclusive") %>
+						<%= radio_button_tag(:type, "ambiguous") %>
+						<%= label_tag(:type, "Ambiguous") %>
+						<%= radio_button_tag(:type, "irrelevant") %>
+						<%= label_tag(:type, "Irrelevant") %>
+						<%= radio_button_tag(:type, "duplicate") %>
+						<%= label_tag(:type, "Duplicate") %>
+						<%= radio_button_tag(:type, "mediationrequest") %>
+						<%= label_tag(:type, "Mediation Request") %>
+					</div>
 				</div>
-
 				<div class="toppadding10">
 					<div class="submit_text message_text">
 						In my opinion:
@@ -485,9 +431,6 @@
 					<hr size="2" noshade>
 				</div>
 
-				<% puts "post = #{@post}" %>
-				<% puts "post.id = #{@post.id}" %>
-				<% puts "post inspect = #{@post.inspect}" %>
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>

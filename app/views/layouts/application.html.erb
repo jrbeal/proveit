@@ -30,9 +30,7 @@
 	</div>
 
 	<div id="content">
-
 		<div id="leftcolumn">
-
 			<% if prover_signed_in? %>
 				<ul id="userinfo">
 					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover, :default_tab => "profile")%>

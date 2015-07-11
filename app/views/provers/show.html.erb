@@ -239,10 +239,10 @@
 				var teamId = $('#teammembership_dropdown').val();
 				console.log(teamId);
 				$.ajax({
-					url: '/filter?' + $.param({"owner": <%= current_prover.id %>, "name": teamId}),
-					type: 'GET',
+					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": teamId}),
+					type: 'DELETE',
 					success: function() {
-						console.log("Removed team member.");
+						console.log("Resigned from team.");
 						window.location.reload();
 					}
 				});
@@ -263,6 +263,7 @@
 						console.log(filter);
 						console.log(cats);
 
+						$('input[value="category"]').prop('checked', false);
 						if (cats) {
 							for (var i=0; i < cats.length; i++) {
 								$('input[name="' + cats[i].name + '"][value="category"]').prop('checked', true);
@@ -377,9 +378,68 @@
 				return false;
 			});
 
-			$('#categoryresetbutton').on("click", function () {
-				$('.sitecategoryname').val("");
-				$('.mycategories').val(-1);
+			$('#fallacyopen').on("click", function(e) {
+				var selectedFallacy = $('#fallacy').val();
+				var name = $("#fallacy option[value=" + selectedFallacy + "]").text();
+				if (name.search("--->") > 0) {
+					console.log("Opened selected filter folder.");
+					window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + selectedFallacy
+				} else {
+					console.log("Selected fallacy.");
+					$("#fallacy_details_id").val(selectedFallacy);
+					$('.fallacydetails').show();
+					$.ajax({
+						url: '/fallacies/' + selectedFallacy + '.json?' + $.param({"id": selectedFallacy}),
+						type: 'GET',
+						success: function(resp) {
+
+							var fallacy = resp.fallacy;
+
+							console.log(fallacy);
+
+							$('#fallacydeclaration').val(fallacy.opinion);
+							$('#fallacysupport').val(fallacy.support);
+							$('#fallacyurl').val(fallacy.url);
+						}
+					});
+				}
+
+				return false;
+			});
+
+			$('#fallacydelete').on("click", function () {
+				var Id = $('#fallacy').val();
+				var name = $("#fallacy option[value=" + Id + "]").text();
+				console.log (name);
+				if (name.search("--->") > 0) {
+					$.ajax({
+						url: '/fallacyfolders/' + Id + '.json?',
+						type: 'DELETE',
+						success: function () {
+							console.log("Deleted fallacy folder.");
+							window.location.reload();
+						}
+					});
+				} else {
+					$.ajax({
+						url: '/fallacies/' + Id + '.json?',
+						type: 'DELETE',
+						success: function () {
+							console.log("Deleted fallacy.");
+							window.location.reload();
+						}
+					});
+				}
+
+				return false;
+			});
+
+			$('#cancelfallacydetails').on("click", function () {
+				$('#fallacydeclaration').val("");
+				$('#fallacysupport').val("");
+				$('#fallacyurl').val("");
+				$('.fallacydetails').hide();
+				return false;
 			});
 
 			$('input[name="profile"][value="<%= @default_tab %>"]').click();
@@ -422,6 +482,7 @@
 			$('.publicviewinglabel').hide();
 			$('#public_comments').hide();
 			$('.publiccommentslabel').hide();
+			$('.fallacydetails').hide();
 		});
 
 	</script>
@@ -700,8 +761,8 @@
 								<% else %>
 									<%= hidden_field_tag :sitedefault, "false" %>
 								<% end %>
-								<div class="profilepagediv2" style="display:flex; flex-direction: row; justify-content: space-between; align-items: center">
-									<div>
+								<div class="profilepagediv2" style="display:flex; flex-direction: row; justify-content: flex-start; align-items: center">
+									<div style = "width:150px">
 										<b>Categories:</b>
 									</div>
 									<div class="profilepagediv3">
@@ -875,30 +936,89 @@
 
 			<div id="profileadministrative">
 				<div class="profilepagediv1">
-					<form action="<%= categories_path %>" method="post">
-						<div class="flexcontainer1">
-							<div class="flexitem1">
-								<b>Categories:</b> &nbsp
-							</div>
-							<div class="flexitem1">
-								<%= select_tag 'mycategories', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@categories, "id", "name"), :class => 'mycategories' %>
-							</div>
-							<div class="flexitem1" style="margin-top:6px; font-size: 10px">
-								<textarea class="sitecategoryname" name="sitecategoryname" rows="1" cols="50" placeholder="Select existing category or enter new name here."></textarea> &nbsp
-							</div>
-							<div class="flexitem1">
+					<b>Administrative:</b>
+					<div class="profilepagediv2">
+						<form action="<%= categories_path %>" method="post">
+							<div class="flexcontainer1">
+								<b>Topic categories:</b> &nbsp
+								<%= select_tag 'mycategories', options_from_collection_for_select(@categories, "id", "name"), :class => 'mycategories' %> &nbsp &nbsp
+								<%= link_to "Delete", "#", :id => "categorydeletebutton" %> &nbsp &nbsp &nbsp &nbsp
+								<textarea class="sitecategoryname" name="sitecategoryname" rows="1" cols="30" placeholder="Enter new category here."></textarea> &nbsp
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 								<%= hidden_field_tag :default_tab, "administrative" %>
-								<%= submit_tag("Add") %> &nbsp
+								<%= submit_tag("Create") %> &nbsp
 							</div>
-							<div class="flexitem1">
-								<button id="categorydeletebutton" type="button">Delete</button> &nbsp
-							</div>
-							<div class="flexitem1">
-								<button id="categoryresetbutton" type="button">Clear</button> &nbsp
+						</form>
+					</div>
+					<div class="profilepagediv2">
+						<b>Fallacies:</b> &nbsp
+						<div class="profilepagediv2">
+							<div class="fallacydiv">
+								<b>Folder:</b> &nbsp
+								<% f = @folder %>
+								/&nbsp<%= f.name.sub(" --->", "") %>
+								<% while f.parent %>
+									/&nbsp<%= f.parent.name.sub(" --->", "") %>
+									<% f = f.parent %>
+								<% end %>
+								<form action="<%= fallacies_path %>" method="post">
+									<div class="flexcontainer1">
+										<% fallacies = Fallacy.where(folder: @folder.id).order(:name) %>
+										<% subfolders = Fallacyfolder.where(parent: @folder.id).order(:name) %>
+										<%= select_tag 'fallacy', options_from_collection_for_select(fallacies, "id", "name") + options_from_collection_for_select(subfolders, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp
+										<% if @folder.parent %>
+											<%= link_to "Back", "/provers/#{current_prover.id}?default_tab=administrative&folderid=#{@folder.parent.id}" %> &nbsp &nbsp
+										<% end %>
+										<%= hidden_field_tag :parent, @folder.id %>
+										<%= link_to "Open", "#", :id => "fallacyopen" %> &nbsp &nbsp
+										<%= link_to "Delete", "#", :id => "fallacydelete" %> &nbsp &nbsp &nbsp &nbsp
+										<textarea class="name" name="name" rows="1" cols="40" placeholder="Enter new fallacy or folder name here."></textarea>
+										<%= radio_button_tag(:type, "fallacy", true) %>
+										<%= label_tag("Fallacy") %> &nbsp
+										<%= radio_button_tag(:type, "folder") %>
+										<%= label_tag("Folder") %> &nbsp &nbsp
+										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+										<%= hidden_field_tag :default_tab, "administrative" %>
+										<%= submit_tag("Create") %> &nbsp
+									</div>
+								</form>
 							</div>
 						</div>
-					</form>
+						<div class="fallacydetails">
+							<%= form_tag fallacies_path, :method => "put" %>
+								<div class="toppadding10">
+									<div class="submit_text message_text">
+										Declaration of fallacy:
+									</div>
+									<textarea id="fallacydeclaration" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter declaration here. Be as concise as possible."></textarea>
+								</div>
+								<div class="toppadding5">
+									<div class="submit_text support_text">
+										Explanation:
+									</div>
+									<textarea id="fallacysupport" class="message support_placeholder" name="support" rows="5" cols="100" placeholder="Enter explanation here."></textarea>
+								</div>
+								<div class="toppadding5">
+									<div class="submit_text support_url">
+										URL (Optional):
+									</div>
+									<textarea id="fallacyurl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
+								</div>
+								<div>
+									<hr size="2" noshade>
+								</div>
+								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+								<%= hidden_field_tag :fallacy_details_id %>
+								<%= hidden_field_tag :folder, @folder.id %>
+								<div class="toppadding10">
+									<%= submit_tag("Save")%>
+									<button class="right sidepadding" name="Cancel" type="button" id="cancelfallacydetails">
+										Cancel
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

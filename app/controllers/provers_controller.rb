@@ -24,6 +24,16 @@ class ProversController < ApplicationController
 				@teamownership.push(team)
 			end
 		end
+																											# We must have a fallacy folder.
+		if params[:folderid]															# First see if one was passed as a parameter
+			@folder = Fallacyfolder.find(params[:folderid])
+		else																							# else...
+			@folder = Fallacyfolder.find_by(parent: nil)		# ...find the "root" folder.
+			if @folder == nil																# If there isn't one, create one...
+				Fallacyfolder.create! :name => "root", :parent => nil
+				@folder = Fallacyfolder.find_by(parent: nil)	# ...and there you go.
+			end
+		end
 
 		length = 0
 		@defaultfilters.each do |f|

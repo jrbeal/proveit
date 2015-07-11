@@ -129,10 +129,10 @@ function postReady() {
 		$(".submit_text.support_text").text("Support (Optional): ");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder='Enter casual comment here.';
 		document.getElementsByClassName('message support_placeholder')[0].placeholder='Enter additional information here.';
-		$('#public').show();
 		$('#private').hide();
 		$('#postteam2').hide();
 		if ($('#format_public').is(':checked')) {
+			$('#public').show();
 			$('#postteam1').hide();
 		} else {
 			$('#postteam1').show();

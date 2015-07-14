@@ -381,6 +381,7 @@
 			$('#fallacyopen').on("click", function(e) {
 				var Id = $('#fallacy').val();
 				var name = $("#fallacy option[value=" + Id + "]").text();
+				console.log(name)
 				if (name.search("--->") > 0) {
 					console.log("Opened selected filter folder.");
 					window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + Id

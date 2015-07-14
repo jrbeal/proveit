@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 	get 'contact'	    	=> 'static_pages#contact'
   get 'posts/new'   	=> 'posts#new'
 	get 'follow'				=> 'follow'
-	get 'adminfallacy'	=> 'provers#show'
 	get 'bookmark'			=> 'bookmark'
 	get 'like'					=> 'like'
 	get 'team'					=> 'team'
 	get 'scoreboard' 		=> 'provers#scoreboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
+	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 	post 'changefilter'	=> 'provers#change_filter'

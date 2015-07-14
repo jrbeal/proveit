@@ -13,7 +13,24 @@ class FallacyfoldersController < ApplicationController
 		@fallacyfolder = Fallacyfolder.find(params[:id])
 		respond_to do |format|
 			format.html { }
-			format.json { render :json => @fallacyfolder.to_json }
+			format.json { render :json => {:fallacyfolder => @fallacyfolder}.to_json }
+		end
+	end
+
+	def contents
+		@folder = Fallacyfolder.find(params[:id])
+
+		@fallacies = Fallacy.where(folder: @folder.id)
+		@subfolders = Fallacyfolder.where(parent: @folder.id)
+		if (@folder.parent)
+			@parentid = @folder.parent.id
+		else
+			@parentid = nil
+		end
+
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:fallacies => @fallacies, :subfolders => @subfolders, :parentid => @parentid}.to_json }
 		end
 	end
 
@@ -50,9 +67,13 @@ class FallacyfoldersController < ApplicationController
 	# DELETE /fallacyfolders/1
 	# DELETE /fallacyfolders/1.json
 	def destroy
+		parent = @fallacyfolder.parent
 		@fallacyfolder.destroy
 
-		render :nothing => true
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:parent => parent.id}.to_json }
+		end
 	end
 
 	private

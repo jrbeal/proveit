@@ -91,6 +91,14 @@ class PostsController < ApplicationController
 		end
 
 		@provers = Prover.all.order(:provername)
+
+		@folder = Fallacyfolder.find_by(parent: nil)		# We need the "root" fallacy folder.
+		if @folder == nil																# There should already be one but if there isn't...
+			Fallacyfolder.create! :name => "root", :parent => nil # ...create one!
+			@folder = Fallacyfolder.find_by(parent: nil)	# ...and there you go.
+		end
+		@fallacies = Fallacy.where(folder: @folder.id).order(:name)
+		@subfolders = Fallacyfolder.where(parent: @folder.id).order(:name)
 	end
 
   # GET /posts/new

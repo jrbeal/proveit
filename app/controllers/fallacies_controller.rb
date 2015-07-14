@@ -11,6 +11,7 @@ class FallaciesController < ApplicationController
 	# GET /fallacies/1.json
 	def show
 		@fallacy = Fallacy.find(params[:id])
+
 		respond_to do |format|
 			format.html { }
 			format.json { render :json => {:fallacy => @fallacy}.to_json }
@@ -78,9 +79,13 @@ class FallaciesController < ApplicationController
 	# DELETE /fallacies/1
 	# DELETE /fallacies/1.json
 	def destroy
+		parent = @fallacy.folder
 		@fallacy.destroy
 
-		render :nothing => true
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:parent => parent.id}.to_json }
+		end
 	end
 
 	private

@@ -328,6 +328,84 @@
 				return false;
 			});
 
+			$('input[name="type"]').on('click', function(e) {
+				console.log("Selecting objection type...");
+				var $tgt = $(e.target);
+				if ($tgt.val() == "manual") {
+					console.log("Objection type = Manual");
+					$('#objectionfallacy').hide();
+				} else if ($tgt.val() == "fallacy") {
+					console.log("Objection type = Fallacy");
+					$('#objectionfallacy').show();
+				} else if ($tgt.val() == "inconclusive") {
+					console.log("Objection type = Inconclusive");
+					$('#objectionfallacy').hide();
+				} else if ($tgt.val() == "ambiguous") {
+					console.log("Objection type = Ambiguous");
+					$('#objectionfallacy').hide();
+				} else if ($tgt.val() == "irrelevant") {
+					console.log("Objection type = Irrelevant");
+					$('#objectionfallacy').hide();
+				} else if ($tgt.val() == "duplicate") {
+					console.log("Objection type = Duplicate");
+					$('#objectionfallacy').hide();
+				} else if ($tgt.val() == "mediationrequest") {
+					console.log("Objection type = Mediation Request");
+					$('#objectionfallacy').hide();
+				}
+			});
+
+			$('#fallacy').on("click", function(e) {
+				var Id = $('#fallacy').val();
+				var name = $("#fallacy option[value=" + Id + "]").text();
+				console.log(name, Id);
+				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
+					console.log("Selected filter folder.");
+					$.ajax({
+						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
+						type: 'GET',
+						success: function(resp) {
+							var fallacies = resp.fallacies;
+							var subfolders = resp.subfolders;
+							var parentid = resp.parentid;
+							console.log(fallacies);
+							console.log(subfolders);
+							console.log(parentid);
+							$('#fallacy option').remove();
+							if (parentid) {
+								$('#fallacy').append($("<option />").val(parentid).text("<--- Back"));
+							};
+							$.each(fallacies, function() {
+								$('#fallacy').append($("<option />").val(this.id).text(this.name));
+							});
+							$.each(subfolders, function() {
+								$('#fallacy').append($("<option />").val(this.id).text(this.name));
+							});
+							$('#objectionopinion').val("");
+							$('#objectionsupport').val("");
+							$('#objectionurl').val("");
+						}
+					});
+				} else if (name.length > 0) {
+					console.log("Selected fallacy.");
+					$("#fallacy_details_id").val(Id);
+					$('.fallacydetails').show();
+					$.ajax({
+						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
+						type: 'GET',
+						success: function(resp) {
+							var fallacy = resp.fallacy;
+							console.log(fallacy);
+							$('#objectionopinion').val(fallacy.opinion);
+							$('#objectionsupport').val(fallacy.support);
+							$('#objectionurl').val(fallacy.url);
+						}
+					});
+				}
+
+				return false;
+			});
+
 			$('input[name="kidtype"][value="<%= @kidtype %>"]').click();
 
 			$('#kidtype').show();
@@ -335,6 +413,7 @@
 			$('#commentreply').hide();
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
+			$('#objectionfallacy').hide();
 
 			<% if current_prover.offspring_style == Prover::COLLAPSED %>
 				$('#expand').show();
@@ -389,8 +468,10 @@
 	<div id="replies" class="sidepadding toppadding20">
 		<div id="opinionreply">
 			<form action="<%= posts_path %>" method="post">
-				<div style="display: flex; flex-direction: row; justify-content: space-between">
-					<b>Objection Type:</b>
+				<div style="display: flex; flex-direction: row; justify-content: flex-start">
+					<div style="width:14%"
+						<b>Objection Type:</b>
+					</div>
 					<div>
 						<%= radio_button_tag(:type, "manual", true)%>
 						<%= label_tag(:type, "Manual") %>
@@ -408,23 +489,28 @@
 						<%= label_tag(:type, "Mediation Request") %>
 					</div>
 				</div>
-				<div class="toppadding10">
+
+				<div id="objectionfallacy" class="toppadding10" style="margin-left:14%">
+					<%= select_tag 'fallacy', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 250px' %> &nbsp &nbsp
+				</div>
+
+				<div class="toppadding10" >
 					<div class="submit_text message_text">
 						In my opinion:
 					</div>
-					<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
+					<textarea id="objectionopinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
 				</div>
 				<div class="toppadding5">
 					<div class="submit_text support_text">
 						Support (Optional):
 					</div>
-					<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification and supporting information here."></textarea>
+					<textarea id="objectionsupport" class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional rationale, clarification and supporting information here."></textarea>
 				</div>
 				<div class="toppadding5">
 					<div class="submit_text support_url">
 						URL (Optional):
 					</div>
-					<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
+					<textarea id="objectionurl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 				</div>
 
 				<div>

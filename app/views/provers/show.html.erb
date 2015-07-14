@@ -180,15 +180,15 @@
 			$('.unfollow').on("click", function (e) {
 				var $tgt = $(e.target);
 
-				var followsId;
+				var Id;
 				if($tgt.attr("data-prover-id") !== undefined) {
-					followsId = $tgt.attr("data-prover-id");
+					Id = $tgt.attr("data-prover-id");
 				} else {
-					followsId = $('#following_dropdown').val();
+					Id = $('#following_dropdown').val();
 				}
 
 				$.ajax({
-					url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": followsId}),
+					url: '/follows?' + $.param({"owner": <%= current_prover.id %>, "follows": Id}),
 					type: 'DELETE',
 					success: function() {
 						console.log("Unfollowing this prover.");
@@ -202,15 +202,15 @@
 			$('.unfollowedby').on("click", function (e) {
 				var $tgt = $(e.target);
 
-				var followsId;
+				var Id;
 				if($tgt.attr("data-prover-id") !== undefined) {
-					followsId = $tgt.attr("data-prover-id");
+					Id = $tgt.attr("data-prover-id");
 				} else {
-					followsId = $('#followers_dropdown').val();
+					Id = $('#followers_dropdown').val();
 				}
 
 				$.ajax({
-					url: '/follows?' + $.param({"owner": followsId, "follows": <%= current_prover.id %>}),
+					url: '/follows?' + $.param({"owner": Id, "follows": <%= current_prover.id %>}),
 					type: 'DELETE',
 					success: function() {
 						console.log("Removing this follower.");
@@ -222,10 +222,10 @@
 			});
 
 			$('.unbookmark2').on("click", function () {
-				var bookmarkId = $('#bookmark_dropdown').val();
-				console.log(bookmarkId);
+				var Id = $('#bookmark_dropdown').val();
+				console.log(Id);
 				$.ajax({
-					url: '/bookmarks?' + $.param({"id": bookmarkId}),
+					url: '/bookmarks?' + $.param({"id": Id}),
 					type: 'DELETE',
 					success: function() {
 						console.log("Removing this bookmark.");
@@ -236,10 +236,10 @@
 			});
 
 			$('.resignteam').on("click", function () {
-				var teamId = $('#teammembership_dropdown').val();
-				console.log(teamId);
+				var Id = $('#teammembership_dropdown').val();
+				console.log(Id);
 				$.ajax({
-					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": teamId}),
+					url: '/teams?' + $.param({"owner": <%= current_prover.id %>, "id": Id}),
 					type: 'DELETE',
 					success: function() {
 						console.log("Resigned from team.");
@@ -347,12 +347,12 @@
 			});
 
 			$('#filterdeletebutton').on("click", function () {
-				var filterId = $('#myfilters').val();
-				if (filterId == <%= current_prover.cur_filter.id %> ) {
+				var Id = $('#myfilters').val();
+				if (Id == <%= current_prover.cur_filter.id %> ) {
 					alert("Error: You can not delete your active filter");
 				} else {
 					$.ajax({
-						url: '/filters/' + filterId + '.json?',
+						url: '/filters/' + Id + '.json?',
 						type: 'DELETE',
 						success: function () {
 							console.log("Deleted filter.");
@@ -365,9 +365,9 @@
 			});
 
 			$('#categorydeletebutton').on("click", function () {
-				var categoryId = $('#mycategories').val();
+				var Id = $('#mycategories').val();
 				$.ajax({
-					url: '/categories/' + categoryId + '.json?',
+					url: '/categories/' + Id + '.json?',
 					type: 'DELETE',
 					success: function () {
 						console.log("Deleted category.");
@@ -379,17 +379,17 @@
 			});
 
 			$('#fallacyopen').on("click", function(e) {
-				var selectedFallacy = $('#fallacy').val();
-				var name = $("#fallacy option[value=" + selectedFallacy + "]").text();
+				var Id = $('#fallacy').val();
+				var name = $("#fallacy option[value=" + Id + "]").text();
 				if (name.search("--->") > 0) {
 					console.log("Opened selected filter folder.");
-					window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + selectedFallacy
+					window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + Id
 				} else {
 					console.log("Selected fallacy.");
-					$("#fallacy_details_id").val(selectedFallacy);
+					$("#fallacy_details_id").val(Id);
 					$('.fallacydetails').show();
 					$.ajax({
-						url: '/fallacies/' + selectedFallacy + '.json?' + $.param({"id": selectedFallacy}),
+						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
 						type: 'GET',
 						success: function(resp) {
 
@@ -410,23 +410,26 @@
 			$('#fallacydelete').on("click", function () {
 				var Id = $('#fallacy').val();
 				var name = $("#fallacy option[value=" + Id + "]").text();
+				console.log (Id);
 				console.log (name);
 				if (name.search("--->") > 0) {
 					$.ajax({
 						url: '/fallacyfolders/' + Id + '.json?',
 						type: 'DELETE',
-						success: function () {
+						success: function (resp) {
 							console.log("Deleted fallacy folder.");
-							window.location.reload();
+							var parent = resp.parent;
+							window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + parent
 						}
 					});
 				} else {
 					$.ajax({
 						url: '/fallacies/' + Id + '.json?',
 						type: 'DELETE',
-						success: function () {
+						success: function (resp) {
 							console.log("Deleted fallacy.");
-							window.location.reload();
+							var parent = resp.parent;
+							window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + parent
 						}
 					});
 				}
@@ -954,13 +957,17 @@
 						<b>Fallacies:</b> &nbsp
 						<div class="profilepagediv2">
 							<div class="fallacydiv">
-								<b>Folder:</b> &nbsp
+								&nbsp
+								<% folders = [] %>
 								<% f = @folder %>
-								/&nbsp<%= f.name.sub(" --->", "") %>
 								<% while f.parent %>
-									/&nbsp<%= f.parent.name.sub(" --->", "") %>
+									<% folders.unshift(f.name.sub(" --->", "")) %>
 									<% f = f.parent %>
 								<% end %>
+								<% folders.each do |f| %>
+									/&nbsp<%= f %>
+								<% end %>
+
 								<form action="<%= fallacies_path %>" method="post">
 									<div class="flexcontainer1">
 										<% fallacies = Fallacy.where(folder: @folder.id).order(:name) %>

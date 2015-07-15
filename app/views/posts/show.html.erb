@@ -328,57 +328,47 @@
 				return false;
 			});
 
-			$('input[name="type"]').on('click', function(e) {
+			$('input[name="objectiontype"]').on('click', function(e) {
 				console.log("Selecting objection type...");
 				var $tgt = $(e.target);
 				if ($tgt.val() == "manual") {
-					console.log("Objection type = Manual");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "fallacy") {
-					console.log("Objection type = Fallacy");
 					$('#objectionfallacy').show();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "inconclusive") {
-					console.log("Objection type = Inconclusive");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "ambiguous") {
-					console.log("Objection type = Ambiguous");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "irrelevant") {
-					console.log("Objection type = Irrelevant");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "duplicate") {
-					console.log("Objection type = Duplicate");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				} else if ($tgt.val() == "mediationrequest") {
-					console.log("Objection type = Mediation Request");
 					$('#objectionfallacy').hide();
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
 				}
+				$('#objectionopinion').val("");
+				$('#objectionsupport').val("");
+				$('#objectionurl').val("");
 			});
 
-			$('#fallacy').on("click", function(e) {
-				var Id = $('#fallacy').val();
-				var name = $("#fallacy option:selected").text();
+			$('input[name="initiatortype"]').on('click', function(e) {
+				console.log("Selecting opinion type...");
+				var $tgt = $(e.target);
+				if ($tgt.val() == "manual") {
+					console.log("Opinion type = Manual");
+					$('#initiatorfallacy').hide();
+				} else if ($tgt.val() == "fallacy") {
+					console.log("Opinion type = Fallacy");
+					$('#initiatorfallacy').show();
+				}
+				$('#initiatoropinion').val("");
+				$('#initiatorsupport').val("");
+				$('#initiatorurl').val("");
+			});
+
+			$('#initiatorfallacylist').on("click", function() {
+				var Id = $('#initiatorfallacylist option:selected').val();
+				var name = $('#initiatorfallacylist option:selected').text();
 				console.log(name, Id);
 				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
 					console.log("Selected filter folder.");
@@ -392,15 +382,65 @@
 							console.log(fallacies);
 							console.log(subfolders);
 							console.log(parentid);
-							$('#fallacy option').remove();
+							$('#initiatorfallacylist option').remove();
 							if (parentid) {
-								$('#fallacy').append($("<option />").val(parentid).text("<--- Back"));
+								$('#initiatorfallacylist').append($("<option />").val(parentid).text("<--- Back"));
 							};
 							$.each(fallacies, function() {
-								$('#fallacy').append($("<option />").val(this.id).text(this.name));
+								$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
 							});
 							$.each(subfolders, function() {
-								$('#fallacy').append($("<option />").val(this.id).text(this.name));
+								$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
+							});
+							$('#initiatoropinion').val("");
+							$('#initiatorsupport').val("");
+							$('#initiatorurl').val("");
+						}
+					});
+				} else if (name.length > 0) {
+					console.log("Selected fallacy.");
+					$("#fallacy_details_id").val(Id);
+					$.ajax({
+						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
+						type: 'GET',
+						success: function(resp) {
+							var fallacy = resp.fallacy;
+							console.log(fallacy);
+							$('#initiatoropinion').val(fallacy.opinion);
+							$('#initiatorsupport').val(fallacy.support);
+							$('#initiatorurl').val(fallacy.url);
+						}
+					});
+				}
+
+				return false;
+			});
+
+			$('#objectionfallacylist').on("click", function() {
+				var Id = $('#objectionfallacylist option:selected').val();
+				var name = $('#objectionfallacylist option:selected').text();
+				console.log(name, Id);
+				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
+					console.log("Selected filter folder.");
+					$.ajax({
+						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
+						type: 'GET',
+						success: function(resp) {
+							var fallacies = resp.fallacies;
+							var subfolders = resp.subfolders;
+							var parentid = resp.parentid;
+							console.log(fallacies);
+							console.log(subfolders);
+							console.log(parentid);
+							$('#objectionfallacylist option').remove();
+							if (parentid) {
+								$('#objectionfallacylist').append($("<option />").val(parentid).text("<--- Back"));
+							};
+							$.each(fallacies, function() {
+								$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
+							});
+							$.each(subfolders, function() {
+								$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 							});
 							$('#objectionopinion').val("");
 							$('#objectionsupport').val("");
@@ -410,7 +450,6 @@
 				} else if (name.length > 0) {
 					console.log("Selected fallacy.");
 					$("#fallacy_details_id").val(Id);
-					$('.fallacydetails').show();
 					$.ajax({
 						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
 						type: 'GET',
@@ -435,6 +474,7 @@
 			$('#opinionreply').hide();
 			$('#initiatorreply').hide();
 			$('#objectionfallacy').hide();
+			$('#initiatorfallacy').hide();
 
 			<% if current_prover.offspring_style == Prover::COLLAPSED %>
 				$('#expand').show();
@@ -490,29 +530,29 @@
 		<div id="opinionreply">
 			<form action="<%= posts_path %>" method="post">
 				<div style="display: flex; flex-direction: row; justify-content: flex-start">
-					<div style="width:14%"
+					<div style="width:14%">
 						<b>Objection Type:</b>
 					</div>
 					<div>
-						<%= radio_button_tag(:type, "manual", true)%>
-						<%= label_tag(:type, "Manual") %>
-						<%= radio_button_tag(:type, "fallacy") %>
-						<%= label_tag(:type, "Fallacy") %>
-						<%= radio_button_tag(:type, "inconclusive") %>
-						<%= label_tag(:type, "Inconclusive") %>
-						<%= radio_button_tag(:type, "ambiguous") %>
-						<%= label_tag(:type, "Ambiguous") %>
-						<%= radio_button_tag(:type, "irrelevant") %>
-						<%= label_tag(:type, "Irrelevant") %>
-						<%= radio_button_tag(:type, "duplicate") %>
-						<%= label_tag(:type, "Duplicate") %>
-						<%= radio_button_tag(:type, "mediationrequest") %>
-						<%= label_tag(:type, "Mediation Request") %>
+						<%= radio_button_tag(:objectiontype, "manual", true)%>
+						<%= label_tag(:objectiontype, "Manual") %>
+						<%= radio_button_tag(:objectiontype, "fallacy") %>
+						<%= label_tag(:objectiontype, "Fallacy") %>
+						<%= radio_button_tag(:objectiontype, "inconclusive") %>
+						<%= label_tag(:objectiontype, "Inconclusive") %>
+						<%= radio_button_tag(:objectiontype, "ambiguous") %>
+						<%= label_tag(:objectiontype, "Ambiguous") %>
+						<%= radio_button_tag(:objectiontype, "irrelevant") %>
+						<%= label_tag(:objectiontype, "Irrelevant") %>
+						<%= radio_button_tag(:objectiontype, "duplicate") %>
+						<%= label_tag(:objectiontype, "Duplicate") %>
+						<%= radio_button_tag(:objectiontype, "mediationrequest") %>
+						<%= label_tag(:objectiontype, "Mediation Request") %>
 					</div>
 				</div>
 
 				<div id="objectionfallacy" class="toppadding10" style="margin-left:14%">
-					<%= select_tag 'fallacy', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
 				</div>
 
 				<div class="toppadding10" >
@@ -557,34 +597,50 @@
 			<div id="create">
 				<form action="<%= posts_path %>" method="post">
 
-					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-					<%= hidden_field_tag :parentpost, @post.id %>
-					<%= hidden_field_tag :topic, @post.topic.id %>
-					<%= hidden_field_tag :kind, Post::OPINION %>
-					<%= hidden_field_tag :kidtype, Post::INITIATOR %>
+					<div style="display: flex; flex-direction: row; justify-content: flex-start">
+						<div style="width:14%">
+							Opinion Type:
+						</div>
+						<div>
+							<%= radio_button_tag(:initiatortype, "manual", true)%>
+							<%= label_tag("Manual") %>
+							<%= radio_button_tag(:initiatortype, "fallacy") %>
+							<%= label_tag("Fallacy") %>
+						</div>
+					</div>
+
+					<div id="initiatorfallacy" class="toppadding10" style="margin-left:14%">
+						<%= select_tag 'initiatorfallacylist', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+					</div>
 
 					<div class="toppadding10">
 						<div class="submit_text message_text">
 							Opinion:
 						</div>
-						<textarea class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here."></textarea>
+						<textarea id="initiatoropinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here."></textarea>
 					</div>
 					<div class="toppadding5">
 						<div class="submit_text support_text">
 							Support (Optional):
 						</div>
-						<textarea class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional supporting information here."></textarea>
+						<textarea id="initiatorsupport" class="message message_placeholder" name="support" rows="5" cols="100" placeholder="Enter additional supporting information here."></textarea>
 					</div>
 					<div class="toppadding5">
 						<div class="submit_text support_url">
 							URL (Optional):
 						</div>
-						<textarea class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
+						<textarea id="initiatorurl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
 					</div>
 
 					<div>
 						<hr size="2" noshade>
 					</div>
+
+					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+					<%= hidden_field_tag :parentpost, @post.id %>
+					<%= hidden_field_tag :topic, @post.topic.id %>
+					<%= hidden_field_tag :kind, Post::OPINION %>
+					<%= hidden_field_tag :kidtype, Post::INITIATOR %>
 
 					<div class="toppadding10">
 						<%= submit_tag("Submit")%>

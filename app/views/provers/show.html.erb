@@ -380,7 +380,8 @@
 
 			$('#fallacyopen').on("click", function(e) {
 				var Id = $('#fallacy').val();
-				var name = $("#fallacy option[value=" + Id + "]").text();
+				var name = $("#fallacy option:selected").text();
+//				var name = $("#fallacy option[value=" + Id + "]").text();
 				console.log(name)
 				if (name.search("--->") > 0) {
 					console.log("Opened selected filter folder.");
@@ -410,7 +411,7 @@
 
 			$('#fallacydelete').on("click", function () {
 				var Id = $('#fallacy').val();
-				var name = $("#fallacy option:focus").text();
+				var name = $("#fallacy option:selected").text();
 //				var name = $("#fallacy option[value=" + Id + "]").text();
 				console.log (Id);
 				console.log (name);

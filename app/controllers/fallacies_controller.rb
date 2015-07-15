@@ -32,18 +32,20 @@ class FallaciesController < ApplicationController
 	def create
 		fallacy_params = {}
 
-		if params[:name].length > 0										# First make sure this name isn't already being used (in this folder)
-			unless Fallacy.find_by(name: params[:name], folder: params[:parent]) || Fallacyfolder.find_by(name: params[:name], parent: params[:parent])
-				case params[:type]												# If it's not...
-				when "fallacy"														# determine whether this is a new folder, or fallacy
-					fallacy_params[:name] = params[:name]
-					fallacy_params[:folder] = Fallacyfolder.find(params[:parent])
-					Fallacy.new(fallacy_params).save!				# create accordingly
-				when "folder"
-					fallacy_params[:name] = "#{params[:name]} --->"
-					fallacy_params[:parent] = Fallacyfolder.find(params[:parent])
-					Fallacyfolder.new(fallacy_params).save!	# create accordingly
-				end
+		if params[:name].length > 0
+			case params[:type]																												# Is this a folder, or a fallacy?
+				when "fallacy"
+					unless Fallacy.find_by(name: params[:name], folder: params[:parent])	# Unless it already exists...
+						fallacy_params[:name] = params[:name]
+						fallacy_params[:folder] = Fallacyfolder.find(params[:parent])
+						Fallacy.new(fallacy_params).save!																		# create accordingly
+					end
+				when "folder"																														# Unless it already exists...
+					unless Fallacyfolder.find_by(name: params[:name], parent: params[:parent])
+						fallacy_params[:name] = "#{params[:name]} --->"
+						fallacy_params[:parent] = Fallacyfolder.find(params[:parent])
+						Fallacyfolder.new(fallacy_params).save!															# create accordingly
+					end
 			end
 		end
 

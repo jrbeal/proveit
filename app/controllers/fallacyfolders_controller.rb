@@ -22,6 +22,9 @@ class FallacyfoldersController < ApplicationController
 
 		@fallacies = Fallacy.where(folder: @folder.id)
 		@subfolders = Fallacyfolder.where(parent: @folder.id)
+		@joined = @fallacies + @subfolders
+		@joined = @joined.sort { |a, b| a.name <=> b.name }
+
 		if (@folder.parent)
 			@parentid = @folder.parent.id
 		else
@@ -30,7 +33,7 @@ class FallacyfoldersController < ApplicationController
 
 		respond_to do |format|
 			format.html { }
-			format.json { render :json => {:fallacies => @fallacies, :subfolders => @subfolders, :parentid => @parentid}.to_json }
+			format.json { render :json => {:joined => @joined, :parentid => @parentid}.to_json }
 		end
 	end
 

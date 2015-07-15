@@ -379,7 +379,7 @@
 			});
 
 			$('#fallacyopen').on("click", function(e) {
-				var Id = $('#fallacy').val();
+				var Id = $('#fallacy option:selected').val();
 				var name = $("#fallacy option:selected").text();
 				if (name.search("--->") > 0) {
 					console.log("Opened selected filter folder.");
@@ -404,7 +404,7 @@
 			});
 
 			$('#fallacydelete').on("click", function () {
-				var Id = $('#fallacy').val();
+				var Id = $('#fallacy option:selected').val();
 				var name = $("#fallacy option:selected").text();
 				console.log (Id);
 				console.log (name);
@@ -968,7 +968,9 @@
 									<div class="flexcontainer1">
 										<% fallacies = Fallacy.where(folder: @folder.id).order(:name) %>
 										<% subfolders = Fallacyfolder.where(parent: @folder.id).order(:name) %>
-										<%= select_tag 'fallacy', options_from_collection_for_select(fallacies, "id", "name") + options_from_collection_for_select(subfolders, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp
+										<% joined = fallacies + subfolders %>
+										<% joined = joined.sort { |a, b| a.name <=> b.name } %>
+										<%= select_tag 'fallacy', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp
 										<% if @folder.parent %>
 											<%= link_to "Back", "/provers/#{current_prover.id}?default_tab=administrative&folderid=#{@folder.parent.id}" %> &nbsp &nbsp
 										<% end %>

@@ -376,20 +376,15 @@
 						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 						type: 'GET',
 						success: function(resp) {
-							var fallacies = resp.fallacies;
-							var subfolders = resp.subfolders;
+							var joined = resp.joined;
 							var parentid = resp.parentid;
-							console.log(fallacies);
-							console.log(subfolders);
+							console.log(joined);
 							console.log(parentid);
 							$('#initiatorfallacylist option').remove();
 							if (parentid) {
 								$('#initiatorfallacylist').append($("<option />").val(parentid).text("<--- Back"));
 							};
-							$.each(fallacies, function() {
-								$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
-							});
-							$.each(subfolders, function() {
+							$.each(joined, function() {
 								$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
 							});
 							$('#initiatoropinion').val("");
@@ -426,20 +421,15 @@
 						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 						type: 'GET',
 						success: function(resp) {
-							var fallacies = resp.fallacies;
-							var subfolders = resp.subfolders;
+							var joined = resp.joined;
 							var parentid = resp.parentid;
-							console.log(fallacies);
-							console.log(subfolders);
+							console.log(joined);
 							console.log(parentid);
 							$('#objectionfallacylist option').remove();
 							if (parentid) {
 								$('#objectionfallacylist').append($("<option />").val(parentid).text("<--- Back"));
 							};
-							$.each(fallacies, function() {
-								$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
-							});
-							$.each(subfolders, function() {
+							$.each(joined, function() {
 								$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 							});
 							$('#objectionopinion').val("");
@@ -552,7 +542,9 @@
 				</div>
 
 				<div id="objectionfallacy" class="toppadding10" style="margin-left:14%">
-					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+					<% joined = @fallacies + @subfolders %>
+					<% joined = joined.sort { |a, b| a.name <=> b.name } %>
+					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
 				</div>
 
 				<div class="toppadding10" >
@@ -610,7 +602,9 @@
 					</div>
 
 					<div id="initiatorfallacy" class="toppadding10" style="margin-left:14%">
-						<%= select_tag 'initiatorfallacylist', options_from_collection_for_select(@fallacies, "id", "name") + options_from_collection_for_select(@subfolders, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+						<% joined = @fallacies + @subfolders %>
+						<% joined = joined.sort { |a, b| a.name <=> b.name } %>
+						<%= select_tag 'initiatorfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
 					</div>
 
 					<div class="toppadding10">

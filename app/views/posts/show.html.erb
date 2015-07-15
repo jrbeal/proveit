@@ -378,7 +378,7 @@
 
 			$('#fallacy').on("click", function(e) {
 				var Id = $('#fallacy').val();
-				var name = $("#fallacy option[value=" + Id + "]").text();
+				var name = $("#fallacy option:selected").text();
 				console.log(name, Id);
 				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
 					console.log("Selected filter folder.");

@@ -381,24 +381,18 @@
 			$('#fallacyopen').on("click", function(e) {
 				var Id = $('#fallacy').val();
 				var name = $("#fallacy option:selected").text();
-//				var name = $("#fallacy option[value=" + Id + "]").text();
-				console.log(name)
 				if (name.search("--->") > 0) {
 					console.log("Opened selected filter folder.");
 					window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + Id
 				} else {
-					console.log("Selected fallacy.");
 					$("#fallacy_details_id").val(Id);
 					$('.fallacydetails').show();
 					$.ajax({
 						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
 						type: 'GET',
 						success: function(resp) {
-
+							console.log("Opened fallacy.");
 							var fallacy = resp.fallacy;
-
-							console.log(fallacy);
-
 							$('#fallacydeclaration').val(fallacy.opinion);
 							$('#fallacysupport').val(fallacy.support);
 							$('#fallacyurl').val(fallacy.url);
@@ -412,7 +406,6 @@
 			$('#fallacydelete').on("click", function () {
 				var Id = $('#fallacy').val();
 				var name = $("#fallacy option:selected").text();
-//				var name = $("#fallacy option[value=" + Id + "]").text();
 				console.log (Id);
 				console.log (name);
 				if (name.search("--->") > 0) {

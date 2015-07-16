@@ -405,14 +405,12 @@
 
 			$('#fallacydelete').on("click", function () {
 				var name = $("#fallacy option:selected").text();
+				var Id = $('#fallacy option:selected').val();
 				console.log (name);
+				console.log(Id);
 
-				if (confirm("Deleting \"" + name + "\" (and all its subfolders)")) {
-
-					console.log(Id);
-					var Id = $('#fallacy option:selected').val();
-
-					if (name.search("--->") > 0) {
+				if (name.search("--->") > 0) {
+					if (confirm("Deleting \"" + name + "\" (and all its subfolders)")) {
 						$.ajax({
 							url: '/fallacyfolders/' + Id + '.json?',
 							type: 'DELETE',
@@ -422,7 +420,9 @@
 								window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=administrative&folderid=" + parent
 							}
 						});
-					} else {
+					}
+				} else {
+					if (confirm("Deleting \"" + name + "\"")) {
 						$.ajax({
 							url: '/fallacies/' + Id + '.json?',
 							type: 'DELETE',

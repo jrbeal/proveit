@@ -147,7 +147,7 @@
 
 	<% unless post.support.empty? %>
 		<div class="vlevel4 sidepadding">
-			<span style="color:blue"><em><%= post.support %></em></span>
+			<span style="color:blue"><em><%= h(post.support).gsub(/\n/, '<br/>').html_safe %></em></span>
 		</div>
 	<% end %>
 

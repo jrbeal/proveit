@@ -45,14 +45,14 @@
 	</p>
 
 	<p class="paragraph">
-		At any point in time, Opinions (and Objections) reveal their current status with their color.
+		At any point in time, Opinions (and Objections) reveal their current status with their background color.
 		<span style="background-color:lightgreen; border-width: 1px; border-style: solid; padding-left:3px; padding-right:3px">
 		Light green</span> suggests "true" while
 		<span style="background-color:mistyrose; border-width: 1px; border-style: solid; padding-left:3px; padding-right:3px">
 		light red</span> suggests "false". At no time is this status intended to represent
 		a definitive conclusion but rather an indication that the post has either been successfully defended (true), contested
 		(false), or uncontested (true), This status could change at any time. It's up to users to passionately and aggressively
-		defend their posts to keep them green. Eventually, as a debate matures and all of its branches become fully resolved,
+		defend their posts to keep them green. Eventually, as a debate matures and all its branches are fully resolved,
 		the IO will converge on true or false (green or red).
 	</p>
 
@@ -65,8 +65,7 @@
 		<span style="background-color:lightyellow; border-width: 1px; border-style: solid; padding-left:3px; padding-right:3px">
 		light yellow</span> background. Perhaps a user wants to discuss a controversial topic but isn't sure where he stands yet.
 		Or perhaps he wants to post a link to a recent article containing debatable statements and would like to solicit
-		opinions. There are many reasons a user might want to create an Initiator. <b><em>Possible replies include
-		Opinions or Comments.</em></b>
+		opinions. <b><em>Possible replies include Opinions or Comments.</em></b>
 	</p>
 
 	<p class="title">
@@ -100,14 +99,20 @@
 	</p>
 
 	<p class="paragraph">
-		A Public format means that all users can participate. Opinion posts declared Public offer the OP an option to go
-		"Lone Wolf". This means only he will be permitted to respond to odd-level posts. Since debate trees consist of
-		objections only, all even-level posts (in any branch) will be in support of the IO while all odd-level posts will
-		be in opposition. In other words, only he would be permitted to respond to the opposition. A Lone Wolf has
+		A Public format means that all users can participate. Opinion posts declared Public offer the OP an option
+		to go "Lone Wolf". This means only he will be permitted to respond to odd-level posts. Since Opinions spawn debates
+		consisting of objections only, all even-level posts (in any branch) will be in support of the IO while all odd-level
+		posts will be in opposition. In other words, only he would be permitted to respond to the opposition. A Lone Wolf has
 		decided he wants no help supporting his opinion. It's him against the world! Lone Wolf posts are tagged with
 		the
-		&nbsp <span><%= image_tag('wolf3.png', :size => '14x18') %></span> &nbsp
-		icon.
+		&nbsp <span><%= image_tag('wolf3.png', :size => '14x18') %></span> &nbsp icon.
+	</p>
+
+	<p class="paragraph">
+		Casual posts also have the option to go "Lone Wolf". This creates an atmosphere similar to an AMA ("Ask Me Anything")
+		in Reddit -- only better. An AMA is really just an open forum in which a featured guest promises to participate
+		for a designated length of time. A "Lone Wolf" Casual post does the same except it restricts the conversation such that
+		only the OP can respond to public comments, and vice versa.
 	</p>
 
 	<p class="title">
@@ -181,9 +186,7 @@
 <p class="paragraph">
 	The home page consists of left and right sidebar columns and a center "feed" queue. This queue is populated with
 	posts according to the current user's filter settings. By default, this will be set to "Topics" which basically means
-	all level-zero posts of any type (Opinion, Initiator, or Casual). This can be changed at the user's discretion to,
-	"Opinions", "Objections", "Initiators", "Comments", "Following", or "Bookmarks". Additional filtering capabilities
-	will be implemented soon.
+	all level-zero posts of any type (Opinion, Initiator, or Casual).
 </p>
 
 <div style="margin-left:2%">
@@ -192,21 +195,20 @@
 	</p>
 
 	<p class="paragraph">
-		Posts in the queue are displayed with a level of verbosity as set in the user's profile settings. The lowest
+		Posts in the queue are displayed using the level of verbosity set in the user's profile settings. The lowest
 		setting displays only the bare minimum verbiage while the highest setting displays everything. This setting can be
-		overridden (temporarily) by using the "Less" or "More" buttons found at the top (right) of the queue. Individual
-		posts have their own settings to further control the level of clutter.
+		overridden (temporarily) by using the "Less" or "More" buttons found at the top (right) of the queue.
 	</p>
 
 	<p class="paragraph">
 		Each post includes the OP's profile picture, his name, his rating, and a "Follow" option to add him to the
 		current user's "Follow" list. The second line displays a post's primary message possibly preceded by a Lone Wolf
-		icon (found with Opinions and Objections only) and/or an external link icon. The third line displays the number
-		of (direct objections / total offspring objections) and (direct comments / total offspring comments). It also
-		displays the number of views, the tree level, and a "Bookmark" option to add this post to the current user's
-		"Bookmark" list. The right side of each post displays two timestamps indicating when the post was first created
-		and when it was last updated. A post is considered to have been "updated" whenever any new offspring (or descendant
-		at any level) has been generated.
+		icon and/or an external link icon. The third line displays the number of (direct objections / total offspring objections)
+		and (direct comments / total offspring comments). It also displays the number of views, the tree level, a "Bookmark"
+		option to add this post to the current user's "Bookmark" list, and a "like" button in the form of a
+		&nbsp <span><%= image_tag('thumbs-up.png', :size => '16x20') %></span> &nbsp icon. The right side of each post displays
+		two timestamps indicating when the post was first created and when it was last updated. A post is considered to have
+		been "updated" whenever any new offspring (or descendant at any level) has been generated.
 	</p>
 </div>
 
@@ -216,16 +218,16 @@
 
 <p class="paragraph">
 	Selecting the primary text message of any post on the home page will redirect you to the Post Page with the selected
-	post featured at the top. Displayed beneath this Featured Post will be a complete list of its direct children
+	post featured at the top. Displayed beneath it will be a complete list of its direct responses
 	(Objections or Comments -- depending on which radio button is selected.) Selecting the "Expand" option will expand
-	this list to include all descendents of the Featured Post using proportionate indentation to depict generation levels.
-	Selecting "Collapse" will revert to a list of direct children only.
+	this list to include all responses using proportionate indentation to depict generation levels. Selecting "Collapse"
+	will revert to a list of direct responses only.
 </p>
 
 <p class="paragraph">
 	Selecting the primary text messages in children posts will allow users to traverse downward through any topic branch.
 	At any point, a user can traverse upward by selecting the "Parent" or "Root" options. The "Parent" option will move
-	up one level while the "Root" option will jump all the way to the IO.
+	up one level while "Root" will jump all the way to the IO.
 </p>
 
 <p class="paragraph">
@@ -233,6 +235,6 @@
 	created depends on the radio button currently selected ("Opinion", "Objection", or "Comment"). With Comments,
 	the only input required is a primary text message. Support text and a URL are optional. With Objections,
 	the user must select an Objection type using one of the radio buttons available ("Manual", "Fallacy", "Inconclusive",
-	"Ambiguous", "Irrelevant", "Duplicate", or "Mediation Request".) Currently, the only one of these options implemented
-	is "Manual". Future improvements will include implementation of all options.
+	"Ambiguous", "Irrelevant", "Duplicate", or "Mediation Request".) Currently, the only options implemented are
+	"Manual" and "Fallacy".
 </p>

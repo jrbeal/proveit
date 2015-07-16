@@ -158,7 +158,7 @@
 					type: 'GET',
 					success: function() {
 						console.log("Resetting highest rating.");
-						window.location.reload();
+						window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=rating"
 					}
 				});
 
@@ -356,7 +356,7 @@
 						type: 'DELETE',
 						success: function () {
 							console.log("Deleted filter.");
-							window.location.reload();
+							window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=filters"
 						}
 					});
 				};
@@ -371,7 +371,7 @@
 					type: 'DELETE',
 					success: function () {
 						console.log("Deleted category.");
-						window.location.reload();
+						window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=administrative"
 					}
 				});
 

@@ -404,30 +404,35 @@
 			});
 
 			$('#fallacydelete').on("click", function () {
-				var Id = $('#fallacy option:selected').val();
 				var name = $("#fallacy option:selected").text();
-				console.log (Id);
 				console.log (name);
-				if (name.search("--->") > 0) {
-					$.ajax({
-						url: '/fallacyfolders/' + Id + '.json?',
-						type: 'DELETE',
-						success: function (resp) {
-							console.log("Deleted fallacy folder.");
-							var parent = resp.parent;
-							window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + parent
-						}
-					});
-				} else {
-					$.ajax({
-						url: '/fallacies/' + Id + '.json?',
-						type: 'DELETE',
-						success: function (resp) {
-							console.log("Deleted fallacy.");
-							var parent = resp.parent;
-							window.location = '/provers/' + <%= current_prover.id %> + "?default_tab=administrative&folderid=" + parent
-						}
-					});
+
+				if (confirm("Are you sure you want to delete \"" + name + "\"?")) {
+
+					console.log(Id);
+					var Id = $('#fallacy option:selected').val();
+
+					if (name.search("--->") > 0) {
+						$.ajax({
+							url: '/fallacyfolders/' + Id + '.json?',
+							type: 'DELETE',
+							success: function (resp) {
+								console.log("Deleted fallacy folder.");
+								var parent = resp.parent;
+								window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=administrative&folderid=" + parent
+							}
+						});
+					} else {
+						$.ajax({
+							url: '/fallacies/' + Id + '.json?',
+							type: 'DELETE',
+							success: function (resp) {
+								console.log("Deleted fallacy.");
+								var parent = resp.parent;
+								window.location = '/provers/' + <%= current_prover.id %> +"?default_tab=administrative&folderid=" + parent
+							}
+						});
+					}
 				}
 
 				return false;

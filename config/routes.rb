@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 	post 'changefilter'	=> 'provers#change_filter'
+	post 'halflife'			=> 'posts#halflife'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

@@ -489,6 +489,44 @@
 			$('.fallacydetails').hide();
 		});
 
+		function getRangeGradient(color1,color2,value,maximum){
+			var gradient = "linear-gradient(to right, ";
+			var breakPoint = (value/maximum)*100;
+
+			var attrValue = gradient + color1 + " 0%, " + color1 + " " + breakPoint + "%, " + color2 + " " + breakPoint + "%, " + color2 + " 100%)";
+			return attrValue;
+		}
+
+		$(document).ready(function(){
+			updateRangeValue($('input[name=weeks]'));
+			$('input[name=weeks]').on('input change',function() {
+				var input = $(this);
+				updateRangeValue(input);
+			});
+		});
+
+		function updateRangeValue(input) {
+			var selectedColor = "black";
+			var nonSelectedColor = "white";
+
+			var value = input.val();
+			var maximum = input.attr('max');
+			var inputWidth = input.width();
+			var offset = input.offset().left;
+			var background = getRangeGradient(selectedColor, nonSelectedColor, value, maximum);
+
+			var offLeft = Math.floor(((value / maximum) * inputWidth) - ((value / maximum) * 56));
+			var offLeftAbs = offset + offLeft;
+			input.next('.text').css({'left': offLeft + 'px'});
+			if (value == 1) {
+				text = (value.toString().concat("Week"));
+			} else {
+				text = (value.toString().concat("Weeks"));
+			}
+			input.next('.text').html(text);
+			input.css('background', background);
+		}
+
 	</script>
 </head>
 
@@ -909,6 +947,7 @@
 							Reset
 						</button>
 					<% end %> </li>
+					<li>Current half-life setting = <%= @halflife %> weeks</li>
 				</div>
 
 				<div id="ratingexplanation">
@@ -1029,6 +1068,19 @@
 								</div>
 							</form>
 						</div>
+					</div>
+					<div class="profilepagediv2">
+						<form action="/halflife" method="post">
+							<div class="flexcontainer1">
+								<b>Post score half-life: </b> &nbsp &nbsp
+								<div class="range-wrapper">
+									<input name="weeks" type="range" min="1" max="52" id="myRange"/>
+									<div class="text"></div>
+								</div> &nbsp &nbsp
+								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+								<%= submit_tag("Save") %>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

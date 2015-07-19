@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707182102) do
+ActiveRecord::Schema.define(version: 20150719002344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20150707182102) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "configs_tables", force: :cascade do |t|
+    t.string  "name"
+    t.string  "stringvalue"
+    t.integer "integervalue"
+    t.float   "floatvalue"
   end
 
   create_table "fallacies", force: :cascade do |t|
@@ -156,6 +163,14 @@ ActiveRecord::Schema.define(version: 20150707182102) do
   add_index "provers", ["email"], name: "index_provers_on_email", unique: true, using: :btree
   add_index "provers", ["provername"], name: "index_provers_on_provername", unique: true, using: :btree
   add_index "provers", ["reset_password_token"], name: "index_provers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "siteconfigs", force: :cascade do |t|
+    t.integer "post_id"
+    t.string  "name"
+    t.string  "stringvalue"
+    t.integer "integervalue"
+    t.float   "floatvalue"
+  end
 
   create_table "stories", force: :cascade do |t|
     t.string  "url"

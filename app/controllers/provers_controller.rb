@@ -44,6 +44,9 @@ class ProversController < ApplicationController
 		end
 
 		@divider = "-" * (length * 1.5)
+
+		@decay_factor = Siteconfig.find_by(:name => "decay_factor")
+		@halflife = (Math.log(0.5) / Math.log(@decay_factor.floatvalue)).round
 	end
 
 	def reset_highest_rating

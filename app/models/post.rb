@@ -11,12 +11,6 @@ class Post < ActiveRecord::Base
 	INITIATOR = "initiator"
 	COMMENT = "comment"
 
-	# DECAY_FACTOR = 0.98675869426		# 52 week half life
-	DECAY_FACTOR = 0.97369272069		# 26 week half life
-	# DECAY_FACTOR = 0.94807751434		# 13 week half life
-	# DECAY_FACTOR = 0.84089641525		# 4 week half life
-	# DECAY_FACTOR = 0.50000000000		# 1 week half life
-
 	SECONDS_IN_WEEK = 60*60*24*7
 
 	validates :message, :length => { :maximum => 140, :minimum => 1 }
@@ -189,11 +183,11 @@ class Post < ActiveRecord::Base
 	end
 
 	def self::update_post_scores()
-		Rails.logger.info "Updating post scores"
+		decay_factor = Siteconfig.find_by(:name => "decay_factor")
 		Post.all.each do |p|
 			if (p.status)
 				weeks_since_last_update = (Time.now - p.updated_at) / SECONDS_IN_WEEK
-				p.update_column(:score, 100*(DECAY_FACTOR**weeks_since_last_update))
+				p.update_column(:score, 100*(decay_factor.floatvalue**weeks_since_last_update))
 			else
 				p.update_column(:score, 0.0)
 			end

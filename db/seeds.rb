@@ -6,20 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Filter.delete_all
-Filter.new(name: 'Topics', sitedefault: true, topics: true, level_zero: true).save
-Filter.new(name: 'Opinions', sitedefault: true, opinions: true, level_zero: true).save
-Filter.new(name: 'Objections', sitedefault: true, opinions: true, level_nonzero: true).save
-Filter.new(name: 'Initiators', sitedefault: true, initiators: true, level_zero: true).save
-Filter.new(name: 'Comments', sitedefault: true, comments: true, level_zero: true).save
-Filter.new(name: 'Following', sitedefault: true, following: true).save
-Filter.new(name: 'Bookmarks', sitedefault: true, bookmarks: true).save
-Filter.new(name: 'MyTopics', sitedefault: false, topics: true, level_zero: true).save
-Filter.new(name: 'MyOpinions', sitedefault: false, opinions: true, level_zero: true).save
-Filter.new(name: 'MyObjections', sitedefault: false, opinions: true, level_nonzero: true).save
-Filter.new(name: 'MyContestedOpinions', sitedefault: false, opinions: true, level_zero: true, contested: true).save
-Filter.new(name: 'MyContestedObjections', sitedefault: false, opinions: true, level_nonzero: true, contested: true).save
-Filter.new(name: 'MyInitiators', sitedefault: false, initiators: true, level_zero: true).save
-Filter.new(name: 'MyComments', sitedefault: false, comments: true, level_zero: true).save
-prover = Prover.find_by(email: 'jrbeal@cox.net')
-prover.update(administrator: true)
+HALF_LIFE_52 = 0.98675869426		# 52 week half life
+HALF_LIFE_26 = 0.97369272069		# 26 week half life
+HALF_LIFE_13 = 0.94807751434		# 13 week half life
+HALF_LIFE_4 = 0.84089641525		# 4 week half life
+HALF_LIFE_1 = 0.50000000000		# 1 week half life
+
+DECAY_FACTOR = 'decay_factor'
+
+Siteconfig.create(:name => DECAY_FACTOR, :floatvalue => HALF_LIFE_26) unless Siteconfig.find_by :name => DECAY_FACTOR

@@ -111,6 +111,15 @@ class PostsController < ApplicationController
   def edit
   end
 
+	def halflife																											# Method to set the decay factor
+		weeks = (params[:weeks] ? params[:weeks] : 26).to_i()						# Use params[:weeks] else 26 if not set
+
+		@decay_factor = Siteconfig.find_by(:name => "decay_factor")			# Calculating nth root of "weeks" by raising
+		@decay_factor.update(:floatvalue => 0.5 ** (1.0 / weeks))				# 0.5 to the reciprocal of "weeks" power.
+
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative"
+	end
+
   # POST /posts
   # POST /posts.json
   def create

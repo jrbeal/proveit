@@ -38,6 +38,15 @@
 	<div class="vlevel1 sidepadding">
 		<div class="flexcontainerpostrow">
 
+			<% if current_prover.administrator %>
+				<div class="flexitempostrow">
+					<% if post.parent == nil %>
+						<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
+					<% else %>
+						<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
+					<% end %>
+				</div>
+			<% end %>
 
 			<% if post.topic.lone_wolf %>
 				<div class="flexitempostrow">
@@ -69,13 +78,6 @@
 		</div>
 
 		<div class="right spacing">
-			<% if current_prover.administrator %>
-				<% if post.parent == nil %>
-					<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
-				<% else %>
-					<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
-				<% end %>
-			<% end %>
 			<%= link_to "Less", "#", :id => "lesspost"%>
 			<span class="vlevelindicator1"><1></span>
 			<span class="vlevelindicator2"><2></span>

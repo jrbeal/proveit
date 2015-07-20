@@ -955,7 +955,11 @@
 							Reset
 						</button>
 					<% end %> </li>
-					<li>Current half-life setting = <%= @halflife %> weeks</li>
+					<% if @halflife == 1 %>
+						<li>Current half-life setting = <%= @halflife %> week</li>
+					<% else %>
+						<li>Current half-life setting = <%= @halflife %> weeks</li>
+				<% end %>
 				</div>
 
 				<div id="ratingexplanation">

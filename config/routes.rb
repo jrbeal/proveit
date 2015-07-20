@@ -11,10 +11,11 @@ Rails.application.routes.draw do
 	get 'scoreboard' 		=> 'provers#scoreboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
 	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
+	get 'halflife'			=> 'posts#gethalflife'
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 	post 'changefilter'	=> 'provers#change_filter'
-	post 'halflife'			=> 'posts#halflife'
+	post 'halflife'			=> 'posts#setdecayfactor'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

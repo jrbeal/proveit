@@ -498,7 +498,17 @@
 		}
 
 		$(document).ready(function(){
-			updateRangeValue($('input[name=weeks]'));
+			$.ajax({
+				url: '/halflife.json?',
+				type: 'GET',
+				success: function(resp) {
+					console.log("Got a half life.");
+					var halflife = resp.halflife;
+					$('input[name=weeks]').val(halflife);
+					updateRangeValue($('input[name=weeks]'));
+				}
+			});
+
 			$('input[name=weeks]').on('input change',function() {
 				var input = $(this);
 				updateRangeValue(input);
@@ -510,13 +520,11 @@
 			var nonSelectedColor = "white";
 
 			var value = input.val();
-			var maximum = input.attr('max');
+			var max = input.attr('max');
 			var inputWidth = input.width();
-			var offset = input.offset().left;
-			var background = getRangeGradient(selectedColor, nonSelectedColor, value, maximum);
+			var background = getRangeGradient(selectedColor, nonSelectedColor, value, max);
 
-			var offLeft = Math.floor(((value / maximum) * inputWidth) - ((value / maximum) * 56));
-			var offLeftAbs = offset + offLeft;
+			var offLeft = Math.floor(((value - 1 + (value/max)) / max) * inputWidth) - (((value - 1 + (value/max)) / max) * 60) + 30;
 			input.next('.text').css({'left': offLeft + 'px'});
 			if (value == 1) {
 				text = (value.toString().concat("Week"));
@@ -1075,7 +1083,7 @@
 								<b>Post score half-life: </b> &nbsp &nbsp
 								<div class="range-wrapper">
 									<input name="weeks" type="range" min="1" max="52" id="myRange"/>
-									<div class="text"></div>
+									<div class="text" style="display: flex; flex-direction: column; align-items: center"></div>
 								</div> &nbsp &nbsp
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 								<%= submit_tag("Save") %>

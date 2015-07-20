@@ -68,24 +68,21 @@
 			</div></em>
 		</div>
 
-		<div class="right" style="margin-top: 4px">
+		<div class="right spacing">
 			<% if current_prover.administrator %>
 				<% if post.parent == nil %>
-					<%= link_to image_tag('redx.png', :size => '11x11'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
+					<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
 				<% else %>
-					<%= link_to image_tag('redx.png', :size => '11x11'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
+					<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
 				<% end %>
 			<% end %>
+			<%= link_to "Less", "#", :id => "lesspost"%>
+			<span class="vlevelindicator1"><1></span>
+			<span class="vlevelindicator2"><2></span>
+			<span class="vlevelindicator3"><3></span>
+			<span class="vlevelindicator4"><4></span>
+			<%= link_to "More", "#", :id => "morepost"%>
 		</div>
-
-		<!--<div class="right spacing">-->
-			<!--<%= link_to "Less", "#", :id => "lesspost"%>-->
-			<!--<span class="vlevelindicator1"><1></span>-->
-			<!--<span class="vlevelindicator2"><2></span>-->
-			<!--<span class="vlevelindicator3"><3></span>-->
-			<!--<span class="vlevelindicator4"><4></span>-->
-			<!--<%= link_to "More", "#", :id => "morepost"%>-->
-		<!--</div>-->
 	</div>
 
 	<div class="vlevel3 sidepadding">

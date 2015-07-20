@@ -643,8 +643,8 @@
 			</div>
 
 			<div id="profilesettings">
-				<div class="profilepagediv1">
-					<%= form_for @prover do |prover_form| %>
+				<%= form_for @prover do |prover_form| %>
+					<div class="profilepagediv1">
 						<b>Defaults:</b>
 						<div class="profilepagediv2">
 							<b>Verbosity:</b>
@@ -673,8 +673,8 @@
 						<div class="toppadding10 sidepadding">
 							<%= submit_tag("Save") %>
 						</div>
-					<% end %>
-				</div>
+					</div>
+				<% end %>
 
 				<div class="profilepagediv1">
 					<b>Lists:</b>

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 	before_action :top_semi_private_debates
 
 	def homepage
+		@verbosity = current_prover.verbosity
 
 		@defaultfilters = Filter.where(sitedefault: true)
 		@customfilters = Filter.where(sitedefault: false, prover_id: current_prover)

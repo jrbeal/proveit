@@ -1,0 +1,20 @@
+<% cache(@top_provers) do %>
+	<div id="leaderboardtitle">
+		Leaderboard
+	</div>
+	<hr size="1" noshade>
+	<table>
+		<tr>
+			<th class="leaderboardhead">Rank</th>
+			<th class="leaderboardhead">Name</th>
+			<th class="leaderboardhead">Rating</th>
+		</tr>
+		<% @top_provers.each_with_index do |p, i| %>
+			<tr>
+				<td class="leaderboardline"><%= i + 1 %></td>
+				<td class="leaderboardline"><%= link_to p.provername, p %></td>
+				<td class="leaderboardline"><%= link_to p.rating.round(2), prover_path(p, :default_tab => "rating") %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>

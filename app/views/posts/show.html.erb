@@ -1,187 +1,11 @@
 <head>
 	<script type="text/javascript">
 
-		var verbosity = <%= current_prover.verbosity %>
-
-		$(function () {
-			$('#lessmaster').on("click", function () {
-				if (verbosity > 1) {
-					verbosity -= 1;
-				}
-
-				switch (verbosity) {
-					case 4:
-						$('.vlevelindicator4').show();
-						$('.vlevelindicator5').hide();
-						$('.vlevel5').fadeOut();
-						break;
-					case 3:
-						$('.vlevelindicator3').show();
-						$('.vlevelindicator4').hide();
-						$('.vlevel4').fadeOut();
-						break;
-					case 2:
-						$('.vlevelindicator2').show();
-						$('.vlevelindicator3').hide();
-						$('.postimage').fadeOut();
-						$('.vlevel3').fadeOut();
-						break;
-					case 1:
-					default:
-						$('.vlevelindicator1').show();
-						$('.vlevelindicator2').hide();
-						$('.vlevel2').fadeOut();
-						break;
-				}
-
-				console.log("verbosity level is now " + verbosity)
-			});
-
-			$('#moremaster').on("click", function () {
-
-				if (verbosity < 5) {
-					verbosity += 1;
-				}
-
-				switch (verbosity) {
-					case 5:
-						$('.vlevelindicator4').hide();
-						$('.vlevelindicator5').show();
-						$('.vlevel5').fadeIn();
-						break;
-					case 4:
-						$('.vlevelindicator3').hide();
-						$('.vlevelindicator4').show();
-						$('.vlevel4').fadeIn();
-						break;
-					case 3:
-						$('.vlevelindicator2').hide();
-						$('.vlevelindicator3').show();
-						$('.postimage').fadeIn();
-						$('.vlevel3').fadeIn();
-						break;
-					case 2:
-					default:
-						$('.vlevelindicator1').hide();
-						$('.vlevelindicator2').show();
-						$('.vlevel2').fadeIn();
-						break;
-				}
-
-				console.log("verbosity level is now " + verbosity)
-			});
-
-			$('#lesspost').on("click", function () {
-				console.log("Decreasing post verbosity.");
-			});
-
-			$('#morepost').on("click", function () {
-				console.log("Increasing post verbosity.");
-			});
-
-			$(function () {
-				switch (verbosity) {
-					case 5:
-						console.log("Showing verbosity level 5.");
-						$('.vlevelindicator1').hide();
-						$('.vlevelindicator2').hide();
-						$('.vlevelindicator3').hide();
-						$('.vlevelindicator4').hide();
-						$('.vlevelindicator5').show();
-						$('.vlevel1').show();
-						$('.vlevel2').show();
-						$('.vlevel3').show();
-						$('.vlevel4').show();
-						$('.vlevel5').show();
-						$('.postimage').show();
-						break;
-					case 4:
-						console.log("Showing verbosity level 4.");
-						$('.vlevelindicator1').hide();
-						$('.vlevelindicator2').hide();
-						$('.vlevelindicator3').hide();
-						$('.vlevelindicator4').show();
-						$('.vlevelindicator5').hide();
-						$('.vlevel1').show();
-						$('.vlevel2').show();
-						$('.vlevel3').show();
-						$('.vlevel4').show();
-						$('.vlevel5').hide();
-						$('.postimage').show();
-						break;
-					case 3:
-						console.log("Showing verbosity level 3.");
-						$('.vlevelindicator1').hide();
-						$('.vlevelindicator2').hide();
-						$('.vlevelindicator3').show();
-						$('.vlevelindicator4').hide();
-						$('.vlevelindicator5').hide();
-						$('.vlevel1').show();
-						$('.vlevel2').show();
-						$('.vlevel3').show();
-						$('.vlevel4').hide();
-						$('.vlevel5').hide();
-						$('.postimage').show();
-						break;
-					case 2:
-						console.log("Showing verbosity level 2.");
-						$('.vlevelindicator1').hide();
-						$('.vlevelindicator2').show();
-						$('.vlevelindicator3').hide();
-						$('.vlevelindicator4').hide();
-						$('.vlevelindicator5').hide();
-						$('.vlevel1').show();
-						$('.vlevel2').show();
-						$('.vlevel3').hide();
-						$('.vlevel4').hide();
-						$('.vlevel5').hide();
-						$('.postimage').hide();
-						break;
-					case 1:
-					default:
-						console.log("Showing verbosity level 1.");
-						$('.vlevelindicator1').show();
-						$('.vlevelindicator2').hide();
-						$('.vlevelindicator3').hide();
-						$('.vlevelindicator4').hide();
-						$('.vlevelindicator5').hide();
-						$('.vlevel1').show();
-						$('.vlevel2').hide();
-						$('.vlevel3').hide();
-						$('.vlevel4').hide();
-						$('.vlevel5').hide();
-						$('.postimage').hide();
-				}
-			});
-		});
-
 		$(function() {
-
-			$('#cancelopinionreply').on("click", function () {
-				$('#kids').show();
-				$('#opinionreply').hide();
-				$('#commentreply').hide();
-				$('#initiatorreply').hide();
-			});
-
-			$('#cancelinitiatorreply').on("click", function () {
-				$('#kids').show();
-				$('#opinionreply').hide();
-				$('#commentreply').hide();
-				$('#initiatorreply').hide();
-			});
-
-			$('#cancelcommentreply').on("click", function () {
-				$('#kids').show();
-				$('#opinionreply').hide();
-				$('#commentreply').hide();
-				$('#initiatorreply').hide();
-			});
-
 
 			$('input[name="kidtype"]').on('click', function (e) {
 				var $tgt = $(e.target);
-				if ($tgt.val() == "<%= Post::COMMENT %>") {
+				if ($tgt.val() == "comment") {
 					console.log("kidtype = comment");
 					history.pushState('', '', window.location.toString().replace("opinion", "comment"));
 					$('.opinion').hide();
@@ -192,7 +16,7 @@
 					<% else %>
 						$('#createkid').hide();
 					<% end %>
-				} else if ($tgt.val() == "<%= Post::OPINION %>") {
+				} else if ($tgt.val() == "opinion") {
 					console.log("kidtype = opinion");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
 					$('.opinion').show();
@@ -203,16 +27,16 @@
 					<% else %>
 						$('#createkid').hide();
 					<% end %>
-				} else if ($tgt.val() == "<%= Post::INITIATOR %>") {
+				} else if ($tgt.val() == "initiator") {
 					console.log("kidtype = initiator");
 					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
 					$('.opinion').show();
 					$('.comment').hide();
 
 					<% if @post.opinion_repliable %>
-					$('#createkid').show();
+						$('#createkid').show();
 					<% else %>
-					$('#createkid').hide();
+						$('#createkid').hide();
 					<% end %>
 				} else {
 					console.log("Clicking unknown kidtype: " + $tgt.val());
@@ -224,7 +48,7 @@
 
 				var $type = '<%= @post.kind %>';
 				switch ($type) {
-					case '<%= Post::OPINION %>':
+					case 'opinion':
 						console.log("opinion!");
 						if ($('#kidtype_comment').is(':checked')) {
 							$('#commentreply').show();
@@ -232,7 +56,7 @@
 							$('#opinionreply').show();
 						}
 						break;
-					case '<%= Post::INITIATOR %>':
+					case 'initiator':
 						console.log("initiator!");
 						if ($('#kidtype_comment').is(':checked')) {
 							$('#commentreply').show();
@@ -240,7 +64,7 @@
 							$('#initiatorreply').show();
 						}
 						break;
-					case '<%= Post::COMMENT %>':
+					case 'comment':
 						console.log("comment!");
 						$('#commentreply').show();
 						break;
@@ -250,221 +74,7 @@
 				}
 			});
 
-
-
-			$('#expand').on("click", function () {
-				$.ajax({
-					url: '/toggleoffspringsetting',
-					type: 'POST',
-					success: function(resp) {
-						console.log("Expanding offspring.");
-						window.location.reload();
-					}
-				})
-				$('#expand').hide();
-				$('#collapse').show();
-
-				return false;
-			});
-
-			$('#collapse').on("click", function () {
-				$.ajax({
-					url: '/toggleoffspringsetting',
-					type: 'POST',
-					success: function(resp) {
-						console.log("Collapsing offspring.");
-						window.location.reload();
-					}
-				})
-				$('#expand').show();
-				$('#collapse').hide();
-
-				return false;
-			});
-
-			$('.deletepost').on("click", function (e) {
-				var $tgt = $(e.target);
-				console.log ("Deleting post");
-				var $parent = $($tgt.parent());
-				$.ajax({
-					url: '/posts/' + $parent.attr("data-post"),
-					type: 'DELETE',
-					success: function(resp) {
-						console.log("Deleted this post.");
-						window.location.reload();
-					}
-				})
-
-				return false;
-			});
-
-			$('.like').on("click", function (e) {
-				var $tgt = $(e.target);
-				var $parent = $($tgt.parent());
-				$.ajax({
-					url: '/likes?' + $.param({"prover": <%= current_prover.id %>, "post": $parent.attr("data-post")}),
-					type: 'POST',
-					success: function(resp) {
-						console.log("Liked this post.");
-						window.location.reload();
-					}
-				})
-
-				return false;
-			});
-
-			$('.unlike').on("click", function (e) {
-				var $tgt = $(e.target);
-				var $parent = $($tgt.parent());
-				$.ajax({
-					url: '/likes?' + $.param({"prover": <%= current_prover.id %>, "post": $parent.attr("data-post")}),
-					type: 'DELETE',
-					success: function(resp) {
-						console.log("Unliked this post.");
-						window.location.reload();
-					}
-				})
-
-				return false;
-			});
-
-			$('input[name="objectiontype"]').on('click', function(e) {
-				console.log("Selecting objection type...");
-				var $tgt = $(e.target);
-				if ($tgt.val() == "manual") {
-					$('#objectionfallacy').hide();
-				} else if ($tgt.val() == "fallacy") {
-					$('#objectionfallacy').show();
-				} else if ($tgt.val() == "inconclusive") {
-					$('#objectionfallacy').hide();
-				} else if ($tgt.val() == "ambiguous") {
-					$('#objectionfallacy').hide();
-				} else if ($tgt.val() == "irrelevant") {
-					$('#objectionfallacy').hide();
-				} else if ($tgt.val() == "duplicate") {
-					$('#objectionfallacy').hide();
-				} else if ($tgt.val() == "mediationrequest") {
-					$('#objectionfallacy').hide();
-				}
-				$('#objectionopinion').val("");
-				$('#objectionsupport').val("");
-				$('#objectionurl').val("");
-			});
-
-			$('input[name="initiatortype"]').on('click', function(e) {
-				console.log("Selecting opinion type...");
-				var $tgt = $(e.target);
-				if ($tgt.val() == "manual") {
-					console.log("Opinion type = Manual");
-					$('#initiatorfallacy').hide();
-				} else if ($tgt.val() == "fallacy") {
-					console.log("Opinion type = Fallacy");
-					$('#initiatorfallacy').show();
-				}
-				$('#initiatoropinion').val("");
-				$('#initiatorsupport').val("");
-				$('#initiatorurl').val("");
-			});
-
-			$('#initiatorfallacylist').on("click", function() {
-				var Id = $('#initiatorfallacylist option:selected').val();
-				var name = $('#initiatorfallacylist option:selected').text();
-				console.log(name, Id);
-				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
-					console.log("Selected filter folder.");
-					$.ajax({
-						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
-						type: 'GET',
-						success: function(resp) {
-							var joined = resp.joined;
-							var parentid = resp.parentid;
-							console.log(joined);
-							console.log(parentid);
-							$('#initiatorfallacylist option').remove();
-							if (parentid) {
-								$('#initiatorfallacylist').append($("<option />").val(parentid).text("<--- Back"));
-							};
-							$.each(joined, function() {
-								$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
-							});
-							$('#initiatoropinion').val("");
-							$('#initiatorsupport').val("");
-							$('#initiatorurl').val("");
-						}
-					});
-				} else if (name.length > 0) {
-					console.log("Selected fallacy.");
-					$("#fallacy_details_id").val(Id);
-					$.ajax({
-						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
-						type: 'GET',
-						success: function(resp) {
-							var fallacy = resp.fallacy;
-							console.log(fallacy);
-							$('#initiatoropinion').val(fallacy.opinion);
-							$('#initiatorsupport').val(fallacy.support);
-							$('#initiatorurl').val(fallacy.url);
-						}
-					});
-				}
-
-				return false;
-			});
-
-			$('#objectionfallacylist').on("click", function() {
-				var Id = $('#objectionfallacylist option:selected').val();
-				var name = $('#objectionfallacylist option:selected').text();
-				console.log(name, Id);
-				if (name.search("--->") >= 0 || name.search("<---") >= 0) {
-					console.log("Selected filter folder.");
-					$.ajax({
-						url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
-						type: 'GET',
-						success: function(resp) {
-							var joined = resp.joined;
-							var parentid = resp.parentid;
-							console.log(joined);
-							console.log(parentid);
-							$('#objectionfallacylist option').remove();
-							if (parentid) {
-								$('#objectionfallacylist').append($("<option />").val(parentid).text("<--- Back"));
-							};
-							$.each(joined, function() {
-								$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
-							});
-							$('#objectionopinion').val("");
-							$('#objectionsupport').val("");
-							$('#objectionurl').val("");
-						}
-					});
-				} else if (name.length > 0) {
-					console.log("Selected fallacy.");
-					$("#fallacy_details_id").val(Id);
-					$.ajax({
-						url: '/fallacies/' + Id + '.json?' + $.param({"id": Id}),
-						type: 'GET',
-						success: function(resp) {
-							var fallacy = resp.fallacy;
-							console.log(fallacy);
-							$('#objectionopinion').val(fallacy.opinion);
-							$('#objectionsupport').val(fallacy.support);
-							$('#objectionurl').val(fallacy.url);
-						}
-					});
-				}
-
-				return false;
-			});
-
 			$('input[name="kidtype"][value="<%= @kidtype %>"]').click();
-
-			$('#kidtype').show();
-			$('#kids').show();
-			$('#commentreply').hide();
-			$('#opinionreply').hide();
-			$('#initiatorreply').hide();
-			$('#objectionfallacy').hide();
-			$('#initiatorfallacy').hide();
 
 			<% if current_prover.offspring_style == Prover::COLLAPSED %>
 				$('#expand').show();

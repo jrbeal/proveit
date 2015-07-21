@@ -8,14 +8,17 @@ Rails.application.routes.draw do
 	get 'bookmark'			=> 'bookmark'
 	get 'like'					=> 'like'
 	get 'team'					=> 'team'
-	get 'scoreboard' 		=> 'provers#scoreboard'
+	get 'leaderboard' 		=> 'provers#leaderboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
 	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
 	get 'halflife'			=> 'posts#gethalflife'
+	get 'verbosity'			=> 'provers#getverbosity'
+	get 'currentprover'	=> 'provers#getcurrentprover'
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
 	post 'changefilter'	=> 'provers#change_filter'
 	post 'halflife'			=> 'posts#setdecayfactor'
+	post 'verbosity'			=> 'provers#setverbosity'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

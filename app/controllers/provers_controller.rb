@@ -1,6 +1,4 @@
 class ProversController < ApplicationController
-	# def new
-	# end
 
 	def show
 		@default_tab = params[:default_tab] || "profile"
@@ -49,8 +47,30 @@ class ProversController < ApplicationController
 		@halflife = (Math.log(0.5) / Math.log(@decay_factor.floatvalue)).round
 	end
 
+	def getcurrentprover
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:currentprover => current_prover}.to_json }
+		end
+	end
+
+	def getverbosity
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:verbosity => current_prover.verbosity}.to_json }
+		end
+	end
+
+	def setverbosity
+		verbosity = (params[:verbosity] ? params[:verbosity] : 3).to_i()
+		current_prover.update(:verbosity => verbosity) if current_prover
+
+		render :nothing => true
+	end
+
 	def reset_highest_rating
 		current_prover.reset_highest_rating if current_prover
+
 		render :nothing => true
 	end
 
@@ -66,10 +86,10 @@ class ProversController < ApplicationController
 		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => params[:default_tab]
 	end
 
-	def scoreboard
+	def leaderboard
 		limit = params[:limit] || 20
 		@top_provers = Prover.order(:rating => :desc).take(limit)
-		render :scoreboard, :layout => false
+		render :leaderboard, :layout => false
 	end
 
 	def change_filter

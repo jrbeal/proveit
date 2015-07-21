@@ -19,11 +19,11 @@ module PostsHelper
   def offspring(post)
     case post.kind
       when Post::COMMENT
-        "Replies (#{post.children_comments} / #{post.offspring_comments}), "
+        "Replies (#{post.children_comments}/#{post.offspring_comments}), "
       when Post::INITIATOR
-        "Opinions (#{post.children_opinions} / #{post.offspring_opinions}), &nbsp Comments (#{post.children_comments} / #{post.offspring_comments}), ".html_safe
+        "Opinions (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Comments (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
       when Post::OPINION
-        "Objections (#{post.children_opinions} / #{post.offspring_opinions}), &nbsp Comments (#{post.children_comments} / #{post.offspring_comments}), ".html_safe
+        "Objections (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Comments (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
     end
   end
 

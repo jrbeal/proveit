@@ -118,7 +118,7 @@ class PostsController < ApplicationController
 		@decay_factor.update(:floatvalue => 0.5 ** (1.0 / weeks))				# 0.5 to the reciprocal of "weeks" power.
 
 		Post::update_post_scores																				# Changing the decay factor necessitates
-		Prover::update_ratings																					# a change to all post scores, user ratings
+		Prover::update_ratings																					# a update of all post scores, user ratings
 		Prover::update_rankings																					# and user rankings.
 
 		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative"

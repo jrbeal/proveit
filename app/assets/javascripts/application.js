@@ -14,3 +14,17 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= bookmark
+//= changefilter
+//= deletetopic
+//= follow
+//= leaderboard
+//= lessmaster
+//= like
+//= moremaster
+//= unbookmark
+//= unfollow
+//= unlike
+//= verbosity
+//
+//= posts/posts

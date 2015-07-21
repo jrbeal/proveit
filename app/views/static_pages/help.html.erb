@@ -3,10 +3,10 @@
 </p>
 
 <p class="paragraph">
-	ProveIt! is a debate and discussion forum allowing users to address any topic of their choosing. While users
+	ProveIt! is a debate and discussion forum that allows users to address any topic of their choosing. Although users
 	are free to keep things light and lively with casual posts about anything they find interesting or amusing, ProveIt!
-	possesses an unparalleled ability to host serious topics and provide a mechanism for separating fact from fiction
-	and ultimately revealing the truth or falsehood of these opinions.
+	also possesses an unparalleled ability to host serious topics and provides a format designed to facilitate the
+	separation of truth from fiction.
 </p>
 
 <p class="paragraph">
@@ -88,10 +88,8 @@
 	desired type (Opinion, Initiator, and Casual). All three require an entry in the primary text field. This is meant to
 	be short and to the point. The following "Support" text field is optional. This can be used to add unlimited
 	rationale, clarification, or simple commentary. The third field (a URL) is also optional. This allows the OP to
-	reference an external link if desired. A
-	&nbsp <span><%= image_tag('links.png', :size => '16x14') %></span> &nbsp
-	icon/link will be displayed in the post allowing users to navigate to the external site if desired. Finally, the topic
-	format must be declared "Public" or "Private".</p>
+	reference an external link if desired. Finally, the topic format must
+	be declared "Public" or "Private".</p>
 
 <div style="margin-left:2%">
 	<p class="title">
@@ -196,19 +194,20 @@
 
 	<p class="paragraph">
 		Posts in the queue are displayed using the level of verbosity set in the user's profile settings. The lowest
-		setting displays only the bare minimum verbiage while the highest setting displays everything. This setting can be
-		overridden (temporarily) by using the "Less" or "More" buttons found at the top (right) of the queue.
+		setting displays only the bare minimum content while the highest setting displays everything. This setting can be
+		modified using the "Less" or "More" buttons found at the top (right) of the queue, or in the user's profile settings.
 	</p>
 
 	<p class="paragraph">
 		Each post includes the OP's profile picture, his name, his rating, and a "Follow" option to add him to the
-		current user's "Follow" list. The second line displays a post's primary message possibly preceded by a Lone Wolf
-		icon and/or an external link icon. The third line displays the number of (direct objections / total offspring objections)
-		and (direct comments / total offspring comments). It also displays the number of views, the tree level, a "Bookmark"
-		option to add this post to the current user's "Bookmark" list, and a "like" button in the form of a
-		&nbsp <span><%= image_tag('thumbs-up.png', :size => '16x20') %></span> &nbsp icon. The right side of each post displays
-		two timestamps indicating when the post was first created and when it was last updated. A post is considered to have
-		been "updated" whenever any new offspring (or descendant at any level) has been generated.
+		current user's "Follow" list. The second line displays the post's primary message possibly preceded by a Lone Wolf
+		icon and/or an external link &nbsp <span><%= image_tag('links.png', :size => '16x14') %></span> &nbsp icon. The third
+		line displays the number of (direct objections / total offspring objections) and (direct comments / total offspring
+		comments). It also displays the number of views, the tree level, a "Bookmark" option to add this post to a user's
+		"Bookmark" list, and a "like" button in the form of a &nbsp <span><%= image_tag('thumbs-up.png', :size => '16x20') %></span> &nbsp icon.
+		The right side of each post displays two timestamps indicating when the post was first created and when it was last
+		updated. A post is considered to have been "updated" whenever any new offspring (or descendant at any level) has been
+		generated.
 	</p>
 </div>
 
@@ -231,10 +230,44 @@
 </p>
 
 <p class="paragraph">
-	The "Reply" option is used to generate a new post in response to the featured post at the top. The type of post
-	created depends on the radio button currently selected ("Opinion", "Objection", or "Comment"). With Comments,
-	the only input required is a primary text message. Support text and a URL are optional. With Objections,
-	the user must select an Objection type using one of the radio buttons available ("Manual", "Fallacy", "Inconclusive",
-	"Ambiguous", "Irrelevant", "Duplicate", or "Mediation Request".) Currently, the only options implemented are
-	"Manual" and "Fallacy".
+	The "Reply" option is used to generate a new post in response to the featured post. The type of post created depends on
+	the radio button selected ("Opinion", "Objection", or "Comment"). With Comments, the only input required is a primary
+	text message. Support text and a URL are optional. With Objections, the user must select an Objection type using one of
+	the radio buttons available ("Manual", "Fallacy", "Inconclusive", "Ambiguous", "Irrelevant", "Duplicate", or "Mediation
+	Request".)
 </p>
+
+<p class="title">
+	Profile Page:
+</p>
+
+<p class="paragraph">
+	Selecting any profile picture or username will redirect to that user's profile page. This offers the ability to view the
+	user's public profile information, his posting activity, and his rating breakdown. If the profile picture or username
+	selected is the current user, he will have access to additional tabs including, "Account", "Password", "Settings", "Filters",
+	"Mobile", "Email", and "Apps". With appropriate privileges he will have access to the "Administrative" and "Mediation"
+	tabs.
+</p>
+
+<div style="margin-left:2%">
+	<p class="title">
+		Filters:
+	</p>
+
+	<p class="paragraph">
+		As mentioned above, the content of a user's feed will be determined by his current filter. All users have access
+		to a set of default filters probably including, "Topics", "Opinions", "Objections", "Initiators", "Following", "Bookmarks",
+		and "Lone Wolf". These filters are maintained by the site administrator who can modify (or add to) them at any time.
+		All users also have the ability to create their own custom filters using the "Filters" tab on his profile page.
+	</p>
+
+	<p class="title">
+		Rating:
+	</p>
+
+	<p class="paragraph">
+		The ratings page displays a user's current rating, rank and percentile. It also maintains a record of his highest
+		rating ever -- much like a high-water mark. This mark can be reset at any time using the button provided. The page also
+		includes a convenient explanation of how posts are scored and ratings are calculated.
+	</p>
+</div>

@@ -20,6 +20,7 @@ class Prover < ActiveRecord::Base
 
 	before_create do # Initialize the new user
 		self.verbosity = 3
+		self.profiletab = 'profile'
 		self.offspring_style = COLLAPSED
 		self.cur_filter = Filter.where(sitedefault: true, name: Filter::DEFAULT).first
 		self.rating = 0.0

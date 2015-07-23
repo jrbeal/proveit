@@ -11,8 +11,9 @@ $(function() {
 					var follow = JSON.parse(resp);
 					window.location.reload();
 				});
-				return false;
 			}
 		});
+
+		return false;
 	});
 });

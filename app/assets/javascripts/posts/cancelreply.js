@@ -19,8 +19,4 @@ $(function() {
 		$('#commentreply').hide();
 		$('#initiatorreply').hide();
 	});
-
-	$('#createcancelbutton').on("click", function () {
-		history.back();
-	});
 });

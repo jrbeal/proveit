@@ -1,5 +1,5 @@
 $(function() {
-	$('.unfollow').on("click", function (e) {
+	$('.unfollowedby').on("click", function (e) {
 		var $tgt = $(e.target);
 		$.ajax({
 			url: '/currentprover.json?',
@@ -8,23 +8,24 @@ $(function() {
 				console.log("Got current prover.");
 				owner = resp.currentprover.id;
 
-				if($tgt.attr("data-prover-id") !== undefined) {
+				if ($tgt.attr("data-prover-id") !== undefined) {
 					Id = $tgt.attr("data-prover-id");
 				} else {
-					Id = $('#following_dropdown').val();
+					Id = $('#followers_dropdown').val();
 				}
 
 				$.ajax({
-					url: '/follows?' + $.param({"owner": owner, "follows": Id}),
+					url: '/follows?' + $.param({"owner": Id, "follows": owner}),
 					type: 'DELETE',
-					success: function (resp) {
-						console.log("Unfollowing this prover.");
+					success: function () {
+						console.log("Removing this follower.");
 						window.location.reload();
 					}
-				})
+				});
 			}
 		});
 
 		return false;
 	});
 });
+

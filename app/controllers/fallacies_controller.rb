@@ -49,7 +49,7 @@ class FallaciesController < ApplicationController
 			end
 		end
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative", :folderid => params[:parent]
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :folderid => params[:parent]
 	end
 
 	# PATCH/PUT /fallacies/1
@@ -64,7 +64,7 @@ class FallaciesController < ApplicationController
 		@fallacy = Fallacy.find(params[:fallacy_details_id])
 		@fallacy.update(fallacy_params)
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative", :folderid => params[:folder]
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :folderid => params[:folder]
 
 		# respond_to do |format|
 		#

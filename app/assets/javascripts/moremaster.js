@@ -1,6 +1,5 @@
 $(function() {
 	$('#moremaster').on("click", function () {
-		console.log("Here");
 		$.ajax({
 			url: '/verbosity.json?',
 			type: 'GET',
@@ -46,5 +45,7 @@ $(function() {
 				}
 			}
 		});
+
+		return false;
 	});
 });

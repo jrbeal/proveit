@@ -121,7 +121,7 @@ class PostsController < ApplicationController
 		Prover::update_ratings																					# a update of all post scores, user ratings
 		Prover::update_rankings																					# and user rankings.
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative"
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id
 	end
 
 	def gethalflife																										# Method to get the half life (in weeks)

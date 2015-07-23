@@ -1,4 +1,4 @@
-$(function(){
+function verbosity() {
 	$.ajax({
 		url: '/verbosity.json?',
 		type: 'GET',
@@ -79,4 +79,6 @@ $(function(){
 			}
 		}
 	})
-})
+
+	return false;
+}

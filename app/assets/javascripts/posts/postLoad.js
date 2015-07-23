@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function postLoad() {
 	$('#kidtype').show();
 	$('#kids').show();
 	$('#commentreply').hide();
@@ -6,4 +6,4 @@ $(document).ready(function() {
 	$('#initiatorreply').hide();
 	$('#objectionfallacy').hide();
 	$('#initiatorfallacy').hide();
-});
+};

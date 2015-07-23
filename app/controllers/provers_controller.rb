@@ -1,10 +1,9 @@
 class ProversController < ApplicationController
 
 	def show
-		@default_tab = params[:default_tab] || "profile"
 		@prover = Prover.find(params[:id])
 		@owner = @prover == current_prover
-		@opinions = Post.where(prover_id: @prover, kind: Post::OPINION, level: 0)
+		@opinions = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
 		@objections = Post.where(prover_id: @prover, kind: Post::OPINION, level: 0)
 		@initiators = Post.where(prover_id: @prover, kind: Post::INITIATOR)
 		@comments = Post.where(prover_id: @prover, kind: Post::COMMENT)
@@ -45,6 +44,8 @@ class ProversController < ApplicationController
 
 		@decay_factor = Siteconfig.find_by(:name => "decay_factor")
 		@halflife = (Math.log(0.5) / Math.log(@decay_factor.floatvalue)).round
+
+		@default_tab = params[:default_tab]
 	end
 
 	def getcurrentprover
@@ -68,6 +69,13 @@ class ProversController < ApplicationController
 		render :nothing => true
 	end
 
+	def setprofiletab
+		tab = (params[:profiletab] ? params[:profiletab] : 'profile')
+		current_prover.update(:profiletab => tab) if current_prover
+
+		render :nothing => true
+	end
+
 	def reset_highest_rating
 		current_prover.reset_highest_rating if current_prover
 
@@ -83,7 +91,7 @@ class ProversController < ApplicationController
 
 		current_prover.update clean_params
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => params[:default_tab]
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id
 	end
 
 	def leaderboard

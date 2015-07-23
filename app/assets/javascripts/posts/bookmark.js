@@ -11,8 +11,8 @@ $(function() {
 					console.log("Bookmarking this post.");
 					window.location.reload();
 				});
-				return false;
 			}
 		});
+		return false;
 	});
 });

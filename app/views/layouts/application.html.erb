@@ -2,7 +2,6 @@
 	<title>Prove.it!</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
 	<%= csrf_meta_tags %>
 </head>
 
@@ -33,7 +32,7 @@
 		<div id="leftcolumn">
 			<% if prover_signed_in? %>
 				<ul id="userinfo">
-					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover, :default_tab => "profile")%>
+					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover)%>
 					<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
 						<% tmp = current_prover.provername.downcase %>
 						<%= link_to tmp, current_prover %>

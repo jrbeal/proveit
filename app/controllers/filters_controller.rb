@@ -82,7 +82,7 @@ class FiltersController < ApplicationController
 			end
 		end
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "filters"
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id
 	end
 
   # PATCH/PUT /filters/1

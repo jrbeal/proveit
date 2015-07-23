@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719002344) do
+ActiveRecord::Schema.define(version: 20150723000004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20150719002344) do
     t.datetime "highest_rating_date"
     t.boolean  "administrator"
     t.integer  "cur_filter"
+    t.string   "profiletab"
   end
 
   add_index "provers", ["email"], name: "index_provers_on_email", unique: true, using: :btree

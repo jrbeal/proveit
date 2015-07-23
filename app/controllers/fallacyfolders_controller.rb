@@ -49,7 +49,7 @@ class FallacyfoldersController < ApplicationController
 	# POST /fallacyfolders
 	# POST /fallacyfolders.json
 	def create
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative"
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id
 	end
 
 	# PATCH/PUT /fallacyfolders/1

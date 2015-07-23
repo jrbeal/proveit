@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
 			end
 		end
 
-		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :default_tab => "administrative"
+		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id
 	end
 
   # PATCH/PUT /categories/1

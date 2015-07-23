@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
 	get 'halflife'			=> 'posts#gethalflife'
 	get 'verbosity'			=> 'provers#getverbosity'
+	get 'kidtype'				=> 'provers#getkidtype'
 	get 'currentprover'	=> 'provers#getcurrentprover'
 
 	post 'toggleoffspringsetting'	=> 'provers#toggle_offspring_setting'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
 	post 'halflife'			=> 'posts#setdecayfactor'
 	post 'verbosity'		=> 'provers#setverbosity'
 	post 'profiletab'		=> 'provers#setprofiletab'
+	post 'kidtype'			=> 'provers#setkidtype'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'

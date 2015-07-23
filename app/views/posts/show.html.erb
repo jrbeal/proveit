@@ -1,55 +1,65 @@
 <head>
 	<script type="text/javascript">
-		$(verbosity);
 		$(postLoad);
 
 		$(function() {
-
 			$('input[name="kidtype"]').on('click', function (e) {
 				var $tgt = $(e.target);
-				if ($tgt.val() == "comment") {
-					console.log("kidtype = comment");
-					history.pushState('', '', window.location.toString().replace("opinion", "comment"));
-					$('.opinion').hide();
-					$('.comment').show();
+				switch ($tgt.val()) {
+					case 'comment':
+						console.log("kidtype = comment");
+						history.pushState('', '', window.location.toString().replace("opinion", "comment"));
+						$('.opinion').hide();
+						$('.comment').show();
 
-					<% if @post.comment_repliable %>
-						$('#createkid').show();
-					<% else %>
-						$('#createkid').hide();
-					<% end %>
-				} else if ($tgt.val() == "opinion") {
-					console.log("kidtype = opinion");
-					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-					$('.opinion').show();
-					$('.comment').hide();
+						<% if @post.comment_repliable %>
+							$('#createkid').show();
+						<% else %>
+							$('#createkid').hide();
+						<% end %>
+						break;
+					case 'opinion':
+						console.log("kidtype = opinion");
+						history.pushState('', '', window.location.toString().replace("comment", "opinion"));
+						$('.opinion').show();
+						$('.comment').hide();
 
-					<% if @post.opinion_repliable %>
-						$('#createkid').show();
-					<% else %>
-						$('#createkid').hide();
-					<% end %>
-				} else if ($tgt.val() == "initiator") {
-					console.log("kidtype = initiator");
-					history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-					$('.opinion').show();
-					$('.comment').hide();
+						<% if @post.opinion_repliable %>
+							$('#createkid').show();
+						<% else %>
+							$('#createkid').hide();
+						<% end %>
+						break;
+					case 'initiator':
+						console.log("kidtype = initiator");
+						history.pushState('', '', window.location.toString().replace("comment", "opinion"));
+						$('.opinion').show();
+						$('.comment').hide();
 
-					<% if @post.opinion_repliable %>
-						$('#createkid').show();
-					<% else %>
-						$('#createkid').hide();
-					<% end %>
-				} else {
-					console.log("Clicking unknown kidtype: " + $tgt.val());
+						<% if @post.opinion_repliable %>
+							$('#createkid').show();
+						<% else %>
+							$('#createkid').hide();
+						<% end %>
+						break;
+					default:
+						console.log("Clicking unknown kidtype: " + $tgt.val());
+						break;
 				}
+
+				$.ajax({
+					url: '/kidtype?' + $.param({"kidtype": $tgt.val()}),
+					type: 'POST',
+					success: function () {
+						console.log("Kidtype default is now set to " + $tgt.val())
+					}
+				})
 			});
 
-			$('#createkid').on("click", function () {
+			$('#createkid').on("click", function (e) {
 				$('#kids').hide();
-
-				var $type = '<%= @post.kind %>';
-				switch ($type) {
+				var $tgt = $(e.target);
+				switch ($tgt.attr("data-kind")) {
 					case 'opinion':
 						console.log("opinion!");
 						if ($('#kidtype_comment').is(':checked')) {
@@ -76,16 +86,25 @@
 				}
 			});
 
-			$('input[name="kidtype"][value="<%= @kidtype %>"]').click();
-
-			<% if current_prover.offspring_style == Prover::COLLAPSED %>
-				$('#expand').show();
-				$('#collapse').hide();
-			<% else %>
-				$('#expand').hide();
-				$('#collapse').show();
-			<% end %>
-
+			$.ajax({
+				url: '/currentprover.json?',
+				type: 'GET',
+				success: function (resp) {
+					console.log("Got prover for setting kidtype and offspring style.");
+					$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
+					switch (resp.currentprover.offspring_style) {
+						case 'collapsed':
+							$('#expand').show();
+							$('#collapse').hide();
+							break;
+						case 'expanded':
+						default:
+							$('#expand').hide();
+							$('#collapse').show();
+							break;
+					}
+				}
+			});
 		});
 	</script>
 </head>
@@ -115,7 +134,7 @@
 
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
-			<%= link_to "Reply", "#", :id => "createkid" %>
+			<%= link_to "Reply", "#", :id => "createkid", :data => {:kind => @post.kind} %>
 			<%= link_to "Collapse", "#", :id => "collapse" %>
 			<%= link_to "Expand", "#", :id => "expand" %>
 			<div class="right sidepadding">

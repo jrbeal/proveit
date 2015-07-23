@@ -21,13 +21,14 @@ class Prover < ActiveRecord::Base
 	before_create do # Initialize the new user
 		self.verbosity = 3
 		self.profiletab = 'profile'
+		self.kidtype = 'opinion'
 		self.offspring_style = COLLAPSED
 		self.cur_filter = Filter.where(sitedefault: true, name: Filter::DEFAULT).first
 		self.rating = 0.0
 		self.highest_rating = 0.0
 		self.highest_rating_date = Time.now
 		self.percentile = 0.0
-		self.image_url = "default_avatar.png"
+		self.image_url = 'default_avatar.png'
 	end
 
 	after_create do

@@ -1,4 +1,11 @@
 function postLoad() {
+	$(verbosity);
+	$(lessMaster);
+	$(moreMaster);
+
+	$(expand);
+	$(collapse);
+
 	$('#kidtype').show();
 	$('#kids').show();
 	$('#commentreply').hide();

@@ -76,6 +76,20 @@ class ProversController < ApplicationController
 		render :nothing => true
 	end
 
+	def getkidtype
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:kidtype => current_prover.kidtype}.to_json }
+		end
+	end
+
+	def setkidtype
+		kidtype = (params[:kidtype] ? params[:kidtype] : 'opinion')
+		current_prover.update(:kidtype => kidtype) if current_prover
+
+		render :nothing => true
+	end
+
 	def reset_highest_rating
 		current_prover.reset_highest_rating if current_prover
 

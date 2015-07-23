@@ -43,7 +43,7 @@ module PostsHelper
         #{radio_button_tag('kidtype', 'initiator', true)}
         #{label_tag('kidtype', 'Opinions')}
      		(#{post.children_opinions}/#{post.offspring_opinions})
- 			  #{radio_button_tag('kidtype', 'comment')}
+ 			  #{radio_button_tag('kidtype', 'comment', false)}
         #{label_tag('kidtype', 'Comments')}
         (#{post.children_comments}/#{post.offspring_comments})
  			  ")
@@ -52,7 +52,7 @@ module PostsHelper
 				#{radio_button_tag 'kidtype', 'opinion', true}
         #{label_tag 'kidtype', 'Objections'}
 				(#{post.children_opinions}/#{post.offspring_opinions})
-        #{radio_button_tag 'kidtype', 'comment'}
+        #{radio_button_tag 'kidtype', 'comment', false}
         #{label_tag 'kidtype', 'Comments'}
        	(#{post.children_comments}/#{post.offspring_comments})
 				")

@@ -40,19 +40,19 @@ module PostsHelper
     case post.kind
       when Post::INITIATOR
         raw ("
-        #{radio_button_tag('kidtype', 'initiator', true)}
+        #{radio_button_tag('kidtype', 'initiator', true, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
         #{label_tag('kidtype', 'Opinions')}
      		(#{post.children_opinions}/#{post.offspring_opinions})
- 			  #{radio_button_tag('kidtype', 'comment', false)}
+ 			  #{radio_button_tag('kidtype', 'comment', false, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
         #{label_tag('kidtype', 'Comments')}
         (#{post.children_comments}/#{post.offspring_comments})
  			  ")
       when Post::OPINION
         raw ("
-				#{radio_button_tag 'kidtype', 'opinion', true}
+				#{radio_button_tag('kidtype', 'opinion', true, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
         #{label_tag 'kidtype', 'Objections'}
 				(#{post.children_opinions}/#{post.offspring_opinions})
-        #{radio_button_tag 'kidtype', 'comment', false}
+        #{radio_button_tag('kidtype', 'comment', false, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
         #{label_tag 'kidtype', 'Comments'}
        	(#{post.children_comments}/#{post.offspring_comments})
 				")

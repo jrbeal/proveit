@@ -15,12 +15,6 @@ class PostsController < ApplicationController
 		@post.create_team_lists																					# Create the team lists for the featured post...
 		@post.create_category_lists																			# Create the category list for the featured post...
 
-		if (params[:kidtype])
-			@kidtype = params[:kidtype]
-		else
-		  @kidtype = @post.kind
-		end
-
 		@kids = Post.where(parent: @post).order(:updated_at).reverse_order	# get the featured post's kids and sort them...
 
 		@kids.each do |k|																								# For each kid...
@@ -162,7 +156,7 @@ class PostsController < ApplicationController
     #   end
     # end
 
-		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent, :kidtype => params[:kidtype]
+		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
   end
 
   # PATCH/PUT /posts/1

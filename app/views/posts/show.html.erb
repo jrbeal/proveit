@@ -1,113 +1,3 @@
-<head>
-	<script type="text/javascript">
-
-		$(function() {
-			$('input[name="kidtype"]').on('click', function (e) {
-				var $tgt = $(e.target);
-				switch ($tgt.val()) {
-					case 'comment':
-						console.log("kidtype = comment");
-						history.pushState('', '', window.location.toString().replace("opinion", "comment"));
-						$('.opinion').hide();
-						$('.comment').show();
-
-						<% if @post.comment_repliable %>
-							$('#createkid').show();
-						<% else %>
-							$('#createkid').hide();
-						<% end %>
-						break;
-					case 'opinion':
-						console.log("kidtype = opinion");
-						history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-						$('.opinion').show();
-						$('.comment').hide();
-
-						<% if @post.opinion_repliable %>
-							$('#createkid').show();
-						<% else %>
-							$('#createkid').hide();
-						<% end %>
-						break;
-					case 'initiator':
-						console.log("kidtype = initiator");
-						history.pushState('', '', window.location.toString().replace("comment", "opinion"));
-						$('.opinion').show();
-						$('.comment').hide();
-
-						<% if @post.opinion_repliable %>
-							$('#createkid').show();
-						<% else %>
-							$('#createkid').hide();
-						<% end %>
-						break;
-					default:
-						console.log("Clicking unknown kidtype: " + $tgt.val());
-						break;
-				}
-
-				$.ajax({
-					url: '/kidtype?' + $.param({"kidtype": $tgt.val()}),
-					type: 'POST',
-					success: function () {
-						console.log("Kidtype default is now set to " + $tgt.val())
-					}
-				})
-			});
-
-			$('#createkid').on("click", function (e) {
-				$('#kids').hide();
-				var $tgt = $(e.target);
-				switch ($tgt.attr("data-kind")) {
-					case 'opinion':
-						console.log("opinion!");
-						if ($('#kidtype_comment').is(':checked')) {
-							$('#commentreply').show();
-						} else {
-							$('#opinionreply').show();
-						}
-						break;
-					case 'initiator':
-						console.log("initiator!");
-						if ($('#kidtype_comment').is(':checked')) {
-							$('#commentreply').show();
-						} else {
-							$('#initiatorreply').show();
-						}
-						break;
-					case 'comment':
-						console.log("comment!");
-						$('#commentreply').show();
-						break;
-					default:
-						console.log("Unknown post type");
-						break;
-				}
-			});
-
-			$.ajax({
-				url: '/currentprover.json?',
-				type: 'GET',
-				success: function (resp) {
-					console.log("Got prover for setting kidtype and offspring style.");
-					$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
-					switch (resp.currentprover.offspring_style) {
-						case 'collapsed':
-							$('#expand').show();
-							$('#collapse').hide();
-							break;
-						case 'expanded':
-						default:
-							$('#expand').hide();
-							$('#collapse').show();
-							break;
-					}
-				}
-			});
-		});
-	</script>
-</head>
-
 <body>
   <div class="sidepadding spacing">
     <%= link_to 'Home', root_path %>
@@ -204,7 +94,6 @@
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>
 				<%= hidden_field_tag :kind, Post::OPINION %>
-				<%= hidden_field_tag :kidtype, Post::OPINION %>
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>
@@ -264,7 +153,6 @@
 					<%= hidden_field_tag :parentpost, @post.id %>
 					<%= hidden_field_tag :topic, @post.topic.id %>
 					<%= hidden_field_tag :kind, Post::OPINION %>
-					<%= hidden_field_tag :kidtype, Post::INITIATOR %>
 
 					<div class="toppadding10">
 						<%= submit_tag("Submit")%>
@@ -284,7 +172,6 @@
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>
 				<%= hidden_field_tag :kind, Post::COMMENT %>
-				<%= hidden_field_tag :kidtype, Post::COMMENT %>
 
 				<div class="toppadding10">
 					<div class="submit_text message_text">

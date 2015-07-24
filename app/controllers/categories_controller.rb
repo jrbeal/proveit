@@ -74,31 +74,6 @@ class CategoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
       params.permit(
-				:name,
-				:sitedefault,
-				:opinions,
-				:contested,
-				:uncontested,
-				:initiators,
-				:comments,
-				:following,
-				:bookmarks,
-				:lone_wolf,
-				:level_zero,
-				:level_nonzero,
-				:private,
-				:public_viewing,
-				:public_comments,
-				:has_parent,
-				:has_no_parent,
-				:today,
-				:last_week,
-				:last_month,
-				:last_year,
-				:sort_by_created_at,
-				:sort_by_updated_at,
-				:sort_by_views,
-				:sort_by_votes,
-				:who_id)
-    end
+				:name)
+		end
 end

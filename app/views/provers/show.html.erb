@@ -1,18 +1,15 @@
 <head>
 	<script type="text/javascript">
 		$(proverLoad);
-		$(halfLife);
-		$(filters);
-		$(fallacies);
 	</script>
 </head>
 
 <body>
-
 	<div id="userprofiletabs">
 		<div class="sidepadding">
 			<%= link_to 'Home', root_path %>
 			<div class="right sidepadding">
+
 				<%= radio_button_tag(:profile, "profile") %>
 				<%= label_tag(:profile, "Profile") %>
 				<%= radio_button_tag(:profile, "posts") %>

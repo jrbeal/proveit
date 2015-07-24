@@ -65,17 +65,6 @@ class FallaciesController < ApplicationController
 		@fallacy.update(fallacy_params)
 
 		redirect_to :controller => 'provers', :action => 'show', :id => current_prover.id, :folderid => params[:folder]
-
-		# respond_to do |format|
-		#
-		# 	if @fallacy.update(fallacy_params)
-		# 		format.html { redirect_to @fallacy, notice: 'Fallacy was successfully updated.' }
-		# 		format.json { render :show, status: :ok, location: @fallacy }
-		# 	else
-		# 		format.html { render :edit }
-		# 		format.json { render json: @fallacy.errors, status: :unprocessable_entity }
-		# 	end
-		# end
 	end
 
 	# DELETE /fallacies/1

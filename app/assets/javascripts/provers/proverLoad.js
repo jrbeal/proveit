@@ -1,5 +1,9 @@
 function proverLoad() {
 
+	$(halfLife);
+	$(filters);
+	$(fallacies);
+
 	$(function() {
 		$('#categorydeletebutton').on("click", function () {
 			var Id = $('#mycategories').val();
@@ -256,8 +260,14 @@ function proverLoad() {
 			success: function (resp) {
 				console.log("Got current prover. Loading defaults...");
 				$('input[name="verbosity"][value=' + resp.currentprover.verbosity + ']').click();
+
+				if ($('input[name="profile"][value="' + resp.currentprover.profiletab + '"]').is(":visible")) {
+					$('input[name="profile"][value="' + resp.currentprover.profiletab + '"]').click();
+				} else {
+					$('input[name="profile"][value="profile"]').click();
+				}
+
 				$('input[name="offspring_style"][value="' + resp.currentprover.offspring_style + '"]').click();
-				$('input[name="profile"][value="' + resp.currentprover.profiletab + '"]').click();
 			}
 		});
 

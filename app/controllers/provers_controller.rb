@@ -44,8 +44,6 @@ class ProversController < ApplicationController
 
 		@decay_factor = Siteconfig.find_by(:name => "decay_factor")
 		@halflife = (Math.log(0.5) / Math.log(@decay_factor.floatvalue)).round
-
-		@default_tab = params[:default_tab]
 	end
 
 	def getcurrentprover

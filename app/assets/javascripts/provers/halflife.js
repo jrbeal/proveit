@@ -12,7 +12,6 @@ function halfLife() {
 			url: '/halflife.json?',
 			type: 'GET',
 			success: function (resp) {
-				console.log("Got a half life.");
 				var halflife = resp.halflife;
 				$('input[name=weeks]').val(halflife);
 				updateRangeValue($('input[name=weeks]'));

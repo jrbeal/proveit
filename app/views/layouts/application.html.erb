@@ -34,15 +34,11 @@
 				<ul id="userinfo">
 					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover)%>
 					<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
-						<% tmp = current_prover.provername.downcase %>
+						<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")"%>
 						<%= link_to tmp, current_prover %>
 					</li>
 					<li style="display: block; margin-left: 5px; line-height: 135%">
-						<% tmp = " (" + current_prover.first_name + " " + current_prover.last_name + ")" %>
-						<%= link_to tmp, current_prover %>
-					</li>
-					<li style="display: block; margin-left: 5px; line-height: 135%">
-						Rating: <%= link_to current_prover.rating.round(2), prover_path(current_prover, :default_tab => "rating") %>
+						Rating: <%= current_prover.rating.round(2) %>
 					</li>
 					<li style="display: block; margin-left: 5px; line-height: 135%">
 						<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>

@@ -4,17 +4,17 @@ class ProversController < ApplicationController
 		@prover = Prover.find(params[:id])
 		@owner = @prover == current_prover
 		@opinions = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
-		@objections = Post.where(prover_id: @prover, kind: Post::OPINION, level: 0)
-		@initiators = Post.where(prover_id: @prover, kind: Post::INITIATOR)
-		@comments = Post.where(prover_id: @prover, kind: Post::COMMENT)
-		@follows = Follow.where(owner: @prover)
-		@followed = Follow.where(follows: @prover)
-		@bookmarks = Bookmark.where(owner: @prover)
+		@objections = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
+		@initiators = Post.where(:prover_id => @prover, :kind => Post::INITIATOR)
+		@comments = Post.where(:prover_id => @prover, :kind => Post::COMMENT)
+		@follows = Follow.where(:owner => @prover)
+		@followed = Follow.where(:follows => @prover)
+		@bookmarks = Bookmark.where(:owner => @prover)
 		@provers = Prover.all.order(:provername)
-		@customfilters = Filter.where(prover_id: current_prover, sitedefault: false).order(name: :desc)
-		@defaultfilters = Filter.where(sitedefault: true).order(name: :desc)
+		@customfilters = Filter.where(:prover_id => current_prover, :sitedefault => false).order(name: :desc)
+		@defaultfilters = Filter.where(:sitedefault => true).order(name: :desc)
 		@categories = Category.all.order(name: :asc)
-		@teammembership = Team.where(prover_id: @prover)
+		@teammembership = Team.where(:prover_id => @prover)
 		@teamownership = []
 		@teammembership.each do |team|
 			if team.topic.prover == current_prover
@@ -25,10 +25,10 @@ class ProversController < ApplicationController
 		if params[:folderid]															# First see if one was passed as a parameter
 			@folder = Fallacyfolder.find(params[:folderid])
 		else																							# else...
-			@folder = Fallacyfolder.find_by(parent: nil)		# ...find the "root" folder.
+			@folder = Fallacyfolder.find_by(:parent => nil)		# ...find the "root" folder.
 			if @folder == nil																# If there isn't one, create one...
 				Fallacyfolder.create! :name => "root", :parent => nil
-				@folder = Fallacyfolder.find_by(parent: nil)	# ...and there you go.
+				@folder = Fallacyfolder.find_by(:parent => nil)	# ...and there you go.
 			end
 		end
 

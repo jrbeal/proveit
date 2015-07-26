@@ -1,4 +1,4 @@
-<div class="post <%= status_color(post) %> <%= kind %> <%= indent.humanize %>">
+<div class="post <%= status_color(post) %> <%= kind %> <%= indent.humanize %>" id="post<%= post.id %>">
 
 	<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>
 
@@ -78,12 +78,9 @@
 		</div>
 
 		<div class="right spacing">
-			<%= link_to "Less", "#", :id => "lesspost"%>
-			<span class="vlevelindicator1"><1></span>
-			<span class="vlevelindicator2"><2></span>
-			<span class="vlevelindicator3"><3></span>
-			<span class="vlevelindicator4"><4></span>
-			<%= link_to "More", "#", :id => "morepost"%>
+			<%= link_to "Less", "#", :class => "lesspost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %>
+			<<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span>>
+			<%= link_to "More", "#", :class => "morepost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %>
 		</div>
 	</div>
 

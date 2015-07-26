@@ -489,8 +489,8 @@
 									</div>
 
 									<div class="flexcontainer1">
-										<% fallacies = Fallacy.where(folder: @folder.id).order(:name) %>
-										<% subfolders = Fallacyfolder.where(parent: @folder.id).order(:name) %>
+										<% fallacies = Fallacy.where(:folder => @folder.id).order(:name) %>
+										<% subfolders = Fallacyfolder.where(:parent => @folder.id).order(:name) %>
 										<% joined = fallacies + subfolders %>
 										<% joined = joined.sort { |a, b| a.name <=> b.name } %>
 										<%= select_tag 'fallacy', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp

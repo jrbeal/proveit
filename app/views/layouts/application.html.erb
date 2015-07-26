@@ -1,75 +1,79 @@
-<head>
-	<title>Prove.it!</title>
-	<%= stylesheet_link_tag    'application', media: 'all' %>
-	<%= javascript_include_tag 'application' %>
-	<%= csrf_meta_tags %>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+		<style type="text/css">
+			.hidden {display: none;}
+		</style>
 
-	<style type="text/css">
-		.hidden {display: none;}
-	</style>
-	<script type="text/javascript">
-		$('html').addClass('hidden');
-		$(document).ready(function() {
-			$('html').show();
-		});
-	</script>
-</head>
+		<script type="text/javascript">
+			$('html').addClass('hidden');
+			$(function() {
+				$('html').show();
+			});
+		</script>
 
-<body>
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
+		<title>ProveIt!</title>
+		<%= stylesheet_link_tag    'application', media: 'all' %>
+		<%= javascript_include_tag 'application' %>
+		<%= csrf_meta_tags %>
 
-	<div id="header">
-		<div id="scales">
-			<%= link_to image_tag('Scales.jpg', :size => '120x80'), root_path %>
-		</div>
-		<p id="proveit">
-			ProveIt!
-		</p>
-		<div id="breadcrumbs" class="sidepadding right spacing">
-			<%= link_to 'Home', root_path %>
-			<%= link_to 'About', about_path %>
-			<%= link_to 'Help', help_path %>
-			<%= link_to 'Contact', contact_path %>
-		</div>
-	</div>
+	</head>
 
-	<div class="divider">
-		<hr size="2" noshade>
-	</div>
+	<body>
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
 
-	<div id="content">
-		<div id="leftcolumn">
-			<% if prover_signed_in? %>
-				<ul id="userinfo">
-					<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover)%>
-					<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
-						<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")"%>
-						<%= link_to tmp, current_prover %>
-					</li>
-					<li style="display: block; margin-left: 5px; line-height: 135%">
-						Rating: <%= current_prover.rating.round(2) %>
-					</li>
-					<li style="display: block; margin-left: 5px; line-height: 135%">
-						<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
-					</li>
-				</ul>
-			<% end %>
+		<div id="header">
+			<div id="scales">
+				<%= link_to image_tag('Scales.jpg', :size => '120x80'), root_path %>
+			</div>
+			<p id="proveit">
+				ProveIt!
+			</p>
+			<div id="breadcrumbs" class="sidepadding right spacing">
+				<%= link_to 'Home', root_path %>
+				<%= link_to 'About', about_path %>
+				<%= link_to 'Help', help_path %>
+				<%= link_to 'Contact', contact_path %>
+			</div>
 		</div>
 
-		<div id="mainbody">
-			<%= yield %>
+		<div class="divider">
+			<hr size="2" noshade>
 		</div>
 
-		<div id="rightcolumn">
-			<% if prover_signed_in? %>
-				<div id="leaderboard">
-					<%= render 'provers/shared/leaderboard' %>
-				</div>
-				<div id="marquee">
-					<%= render 'provers/shared/marquee' %>
-				</div>
-			<% end %>
+		<div id="content">
+			<div id="leftcolumn">
+				<% if prover_signed_in? %>
+					<ul id="userinfo">
+						<%= link_to image_tag(current_prover.image_url, :id => "userimage"), prover_path(current_prover)%>
+						<li style="display: block; margin-top: 10px; margin-left: 5px; line-height: 135%">
+							<% tmp = current_prover.provername.downcase + " (" + current_prover.first_name + " " + current_prover.last_name + ")"%>
+							<%= link_to tmp, current_prover %>
+						</li>
+						<li style="display: block; margin-left: 5px; line-height: 135%">
+							Rating: <%= current_prover.rating.round(2) %>
+						</li>
+						<li style="display: block; margin-left: 5px; line-height: 135%">
+							<%= link_to 'Logout', destroy_prover_session_path, :method => :delete %>
+						</li>
+					</ul>
+				<% end %>
+			</div>
+
+			<div id="mainbody">
+				<%= yield %>
+			</div>
+
+			<div id="rightcolumn">
+				<% if prover_signed_in? %>
+					<div id="leaderboard">
+						<%= render 'provers/shared/leaderboard' %>
+					</div>
+					<div id="marquee">
+						<%= render 'provers/shared/marquee' %>
+					</div>
+				<% end %>
+			</div>
 		</div>
-	</div>
-</body>
+	</body>
+</html>

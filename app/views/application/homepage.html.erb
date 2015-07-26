@@ -1,25 +1,23 @@
-<html xmlns="http://www.w3.org/1999/html">
-	<body>
-		<div class="sidepadding spacing">
-			<%= link_to 'Create', posts_new_path %>
-			<div style="display:inline; margin-left: 40%">
-				<% if @customfilters.empty? %>
-					<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
-				<% else %>
-					<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
-				<% end %>
-				</div>
-			<div class="right" style="margin-right: 5px;">
-				<%= link_to "Less", "#", :id => "lessmaster"%>
-				<<span class="verbosity"></span>>
-				<%= link_to "More", "#", :id => "moremaster"%>
-			</div>
-		</div>
-
-		<div class="toppadding10">
-			<% @posts.each do |post| %>
-				<%= render partial: "application/post", object: post, locals: {indent: 0, kind: ""} %>
+<body>
+	<div class="sidepadding spacing">
+		<%= link_to 'Create', posts_new_path %>
+		<div style="display:inline; margin-left: 40%">
+			<% if @customfilters.empty? %>
+				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
+			<% else %>
+				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'filterlist' %>
 			<% end %>
+			</div>
+		<div class="right" style="margin-right: 5px;">
+			<%= link_to "Less", "#", :id => "lessmaster"%>
+			<<span class="verbosity"></span>>
+			<%= link_to "More", "#", :id => "moremaster"%>
 		</div>
-	</body>
-</html>
+	</div>
+
+	<div class="toppadding10">
+		<% @posts.each do |post| %>
+			<%= render partial: "application/post", object: post, locals: {indent: 0, kind: ""} %>
+		<% end %>
+	</div>
+</body>

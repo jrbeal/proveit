@@ -146,7 +146,7 @@ h1 {
 
 #userimage {
 	border-radius: 10px;
-	border-width: 1px;
+	border-width: 2px;
 	border-style: solid;
 	width: 80%;
 }
@@ -264,7 +264,7 @@ h1 {
 	width: max-content;
 	height: max-content;
 	border-radius: 10px;
-	border-width: 1px;
+	border-width: 2px;
 	border-style: solid;
 	overflow: auto;
 }
@@ -294,7 +294,7 @@ h1 {
 	width: max-content;
 	height: max-content;
 	border-radius: 10px;
-	border-width: 1px;
+	border-width: 2px;
 	border-style: solid;
 	overflow: auto;
 }

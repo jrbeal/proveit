@@ -21,12 +21,14 @@ body {
 }
 
 #header {
-	display: -ms-flexbox;
-	-ms-flex-direction: row;
 	display: flex;
+	display: -ms-flexbox;
 	flex-direction: row;
+	-ms-flex-direction: row;
 	justify-content: space-between;
+	-ms-justify-content: space-between;
 	align-items: flex-start;
+	-ms-align-items: flex-start;
 	height: 90px;
 }
 

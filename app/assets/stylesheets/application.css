@@ -22,9 +22,9 @@ body {
 
 #header {
 	display: flex;
-	display: -ms-flexbox;
 	flex-direction: row;
 	justify-content: space-between;
+	display: -ms-flexbox;
 	-ms-flex-direction: row;
 	-ms-flex-pack: justify;
 	-ms-flex-align: start;
@@ -32,25 +32,28 @@ body {
 }
 
 #scales {
+	margin-left:30px;
 	border: 0;
 	border-width: 0;
 	text-decoration: none;
 	flex: 2;
-	margin-left:30px;
+	-ms-flex: 2;
 }
 
 #proveit {
-	flex: 12;
 	color: black;
 	font-family: fantasy;
 	font-size: 48px;
 	font-weight: bold;
 	font-style: italic;
 	text-decoration: underline;
+	flex: 12;
+	-ms-flex: 12;
 }
 
 #breadcrumbs {
 	flex: 3;
+	-ms-flex: 3;
 }
 
 .sidepadding {

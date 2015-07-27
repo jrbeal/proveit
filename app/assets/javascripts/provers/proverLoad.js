@@ -18,7 +18,7 @@ function proverLoad() {
 						type: 'DELETE',
 						success: function () {
 							console.log("Deleted category.");
-							window.location = '/provers/' + owner + "?default_tab=administrative"
+							window.location = '/provers/' + owner
 						}
 					});
 				}
@@ -57,7 +57,7 @@ function proverLoad() {
 						type: 'GET',
 						success: function () {
 							console.log("Resetting highest rating.");
-							window.location = '/provers/' + id + "?default_tab=rating"
+							window.location = '/provers/' + id
 						}
 					});
 				}

@@ -16,7 +16,7 @@
 			<% end %>
 
 			<div class="flexitempostrow">
-				<%= link_to post.prover.rating.round(2), prover_path(post.prover, :default_tab => "rating") %>,
+				<%= post.prover.rating.round(2) %>,
 			</div>
 
 			<% if already_following(post.prover.id) %>

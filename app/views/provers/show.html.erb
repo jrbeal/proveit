@@ -134,7 +134,6 @@
 						</div>
 
 						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-						<%= hidden_field_tag :default_tab, "settings" %>
 						<div class="toppadding10 sidepadding">
 							<%= submit_tag("Save") %>
 						</div>
@@ -464,7 +463,6 @@
 								<%= link_to "Delete", "#", :id => "categorydeletebutton" %> &nbsp &nbsp &nbsp &nbsp
 								<textarea class="sitecategoryname" name="sitecategoryname" rows="1" cols="30" placeholder="Enter new category here."></textarea> &nbsp
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-								<%= hidden_field_tag :default_tab, "administrative" %>
 								<%= submit_tag("Create") %> &nbsp
 							</div>
 						</div>

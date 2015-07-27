@@ -122,10 +122,13 @@ h1 {
 
 #content {
 	width: 100%;
-	display: inline-flex;
+	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
 	justify-content: center;
+	display: -ms-flexbox;
+	-ms-flex-direction: row;
+	-ms-flex-pack: justify;
+	-ms-flex-align: start;
 }
 
 #leftcolumn {

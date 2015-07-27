@@ -133,18 +133,21 @@ h1 {
 
 #leftcolumn {
 	flex: 6;
+	-ms-flex: 6;
 	order: 1;
 	margin-top: 20px;
 }
 
 #mainbody {
 	flex: 36;
+	-ms-flex: 36;
 	order: 2;
 	margin-top: 20px;
 }
 
 #rightcolumn {
 	flex: 8;
+	-ms-flex: 8;
 	order: 3;
 	margin-top: 20px;
 }

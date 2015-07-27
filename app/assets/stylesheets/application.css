@@ -26,8 +26,7 @@ body {
 	flex-direction: row;
 	justify-content: space-between;
 	-ms-flex-direction: row;
-	-ms-justify-content: space-between;
-	-ms-flex-pack: start;
+	-ms-flex-pack: justify;
 	-ms-flex-align: start;
 	height: 90px;
 }

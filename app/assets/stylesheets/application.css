@@ -24,11 +24,11 @@ body {
 	display: flex;
 	display: -ms-flexbox;
 	flex-direction: row;
-	-ms-flex-direction: row;
 	justify-content: space-between;
+	-ms-flex-direction: row;
 	-ms-justify-content: space-between;
-	align-items: flex-start;
-	-ms-align-items: flex-start;
+	-ms-flex-pack: start;
+	-ms-flex-align: start;
 	height: 90px;
 }
 

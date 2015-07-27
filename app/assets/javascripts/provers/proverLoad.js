@@ -268,6 +268,7 @@ function proverLoad() {
 				}
 
 				$('input[name="offspring_style"][value="' + resp.currentprover.offspring_style + '"]').click();
+				$('.profilepage').css('visibility', 'visible');
 			}
 		});
 

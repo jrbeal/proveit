@@ -3,7 +3,6 @@ $(function () {
 		url: '/verbosity.json?',
 		type: 'GET',
 		success: function (resp) {
-			console.log("Got verbosity.");
 
 			$('.verbosity').text(resp.verbosity);
 
@@ -54,6 +53,8 @@ $(function () {
 					$('.vlevel5').hide();
 					$('.postimage').hide();
 			}
+
+			$('.post').css('visibility', 'visible');
 		}
 	})
 

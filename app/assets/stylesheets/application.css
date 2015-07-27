@@ -175,6 +175,7 @@ h1 {
 }
 
 .post {
+	visibility: hidden;
 	border-radius: 10px;
 	padding: 5px;
 	margin-top: 10px;

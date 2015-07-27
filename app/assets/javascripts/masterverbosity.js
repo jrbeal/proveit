@@ -4,16 +4,10 @@ $(function () {
 			url: '/verbosity.json?',
 			type: 'GET',
 			success: function (resp) {
-				console.log("Got verbosity.");
 				verbosity = resp.verbosity;
 
 				if (verbosity > 1) {
 					verbosity -= 1;
-
-//					$('.postverbosity').map(function(e, elem) {
-//						var newLevel = Math.max(parseInt($(elem).text()) - 1, 1);
-//						$(elem).text(newLevel);
-//					});
 
 					$('.verbosity').text(verbosity);
 
@@ -73,7 +67,6 @@ $(function () {
 			url: '/verbosity.json?',
 			type: 'GET',
 			success: function (resp) {
-				console.log("Got verbosity.");
 				verbosity = resp.verbosity;
 
 				if (verbosity < 5) {

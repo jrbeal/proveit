@@ -28,6 +28,7 @@ body {
 
 #scales {
 	border: 0;
+	border-width: 0;
 	flex: 2;
 	margin-left:30px;
 }

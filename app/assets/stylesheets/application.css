@@ -21,10 +21,12 @@ body {
 }
 
 #header {
+	display: -ms-flexbox;
+	-ms-flex-direction: row;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 	height: 90px;
 }
 
@@ -37,7 +39,7 @@ body {
 }
 
 #proveit {
-	flex: 16;
+	flex: 12;
 	color: black;
 	font-family: fantasy;
 	font-size: 48px;
@@ -48,8 +50,6 @@ body {
 
 #breadcrumbs {
 	flex: 3;
-	right: 30px;
-	padding-right: 10px;
 }
 
 .sidepadding {

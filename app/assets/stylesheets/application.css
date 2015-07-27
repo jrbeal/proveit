@@ -45,8 +45,7 @@ body {
 }
 
 #breadcrumbs {
-	flex: 2;
-	position: absolute;
+	flex: 3;
 	right: 30px;
 	padding-right: 10px;
 }

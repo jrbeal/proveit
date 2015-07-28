@@ -32,10 +32,10 @@
 
 						<% if current_prover.administrator %>
 							<% if post.parent == nil %>
-								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %>
+								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
 							<% else %>
-								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %>
-							<% end %> &nbsp
+								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
+							<% end %>
 						<% end %>
 
 						<% if post.topic.lone_wolf %>

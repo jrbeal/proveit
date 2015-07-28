@@ -191,7 +191,7 @@ h1 {
 }
 
 .post {
-	width: 99%;
+	width: auto;
 	visibility: hidden;
 	border-radius: 10px;
 	padding: 5px;

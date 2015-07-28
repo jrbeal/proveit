@@ -58,7 +58,7 @@
 				</div></em>
 			</div>
 
-			<div class="flexcontainerrowcenterend spacing">
+			<div class="flexcontainerrowcenterend">
 				<%= link_to "Less", "#", :class => "lesspost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %> &nbsp
 				<<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span>> &nbsp
 				<%= link_to "More", "#", :class => "morepost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %>

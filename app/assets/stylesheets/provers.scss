@@ -125,8 +125,12 @@
   border-width: 1px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  display: -ms-flexbox;
+  -ms-flex-direction: row;
+  -ms-flex-pack: start;
+  -ms-flex-wrap: wrap;
 }
 
 .profiletextfield1 {

@@ -203,6 +203,7 @@ h1 {
 }
 
 .post {
+	width: 100%;
 	visibility: hidden;
 	border-radius: 10px;
 	padding: 5px;
@@ -238,11 +239,10 @@ h1 {
 }
 
 .postcontent {
-	width: 100%;
+	width: 98%;
 }
 
 .postline {
-	width: 98%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

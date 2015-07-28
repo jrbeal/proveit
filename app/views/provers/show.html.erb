@@ -235,9 +235,9 @@
 						<div class="profilepagediv2" style="border-width: 2px">
 							<b>Who:</b> &nbsp
 							<div class="profilepagediv2">
-								<div class="flexcontainer1">
+								<div class="flexcontainerrowcenterstart">
 									<div class="flexitem1">
-										<b>Posted by:</b>
+										<b>Posted by:</b> &nbsp
 									</div>
 									<div class="flexitem1">
 										<%= select_tag 'filter_users_dropdown', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown" %> &nbsp
@@ -366,30 +366,20 @@
 							</div>
 						</div>
 
-						<div class="flexcontainer1">
-							<div class="flexitem1">
-								<b>My Filters:</b> &nbsp
-							</div>
-							<div class="flexitem1">
-								<% if current_prover.administrator? %>
-									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name") + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
-								<% else %>
-									<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %>
+						<div class="flexcontainerrowcenterstart">
+							<b>My Filters:</b> &nbsp
+							<% if current_prover.administrator? %>
+								<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name") + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %> &nbsp
+							<% else %>
+								<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %> &nbsp
 							<% end %>
-							</div>
-							<div class="flexitem1" style="margin-top:6px; font-size: 10px">
+							<span style="margin-top:6px; font-size: 10px">
 								<textarea class="myfiltername" name="myfiltername" rows="1" cols="45" placeholder="Select existing filter or enter new name here."></textarea> &nbsp
-							</div>
-							<div class="flexitem1">
-								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-								<%= submit_tag("Save") %> &nbsp
-							</div>
-							<div class="flexitem1">
-								<button id="filterdeletebutton" type="button">Delete</button> &nbsp
-							</div>
-							<div class="flexitem1">
-								<button id="filterresetbutton" type="button">Clear</button> &nbsp
-							</div>
+							</span>
+							<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+							<%= submit_tag("Save") %> &nbsp
+							<button id="filterdeletebutton" type="button">Delete</button> &nbsp
+							<button id="filterresetbutton" type="button">Clear</button> &nbsp
 						</div>
 					</form>
 				</div>
@@ -457,7 +447,7 @@
 					<b>Administrative:</b>
 					<form action="<%= categories_path %>" method="post">
 						<div class="profilepagediv2">
-							<div class="flexcontainer1">
+							<div class="flexcontainerrowcenterstart">
 								<b>Topic categories:</b> &nbsp
 								<%= select_tag 'mycategories', options_from_collection_for_select(@categories, "id", "name"), :class => 'mycategories' %> &nbsp &nbsp
 								<%= link_to "Delete", "#", :id => "categorydeletebutton" %> &nbsp &nbsp &nbsp &nbsp
@@ -486,7 +476,7 @@
 										<% end %>
 									</div>
 
-									<div class="flexcontainer1">
+									<div class="flexcontainerrowcenterstart">
 										<% fallacies = Fallacy.where(:folder => @folder.id).order(:name) %>
 										<% subfolders = Fallacyfolder.where(:parent => @folder.id).order(:name) %>
 										<% joined = fallacies + subfolders %>
@@ -546,7 +536,7 @@
 					</div>
 					<form action="/halflife" method="post">
 						<div class="profilepagediv2">
-							<div class="flexcontainer1">
+							<div class="flexcontainerrowcenterstart">
 								<b>Post score half-life: </b> &nbsp &nbsp
 								<div class="range-wrapper">
 									<input name="weeks" type="range" min="1" max="52" id="myRange"/>

@@ -203,7 +203,7 @@ h1 {
 }
 
 .post {
-	width: auto;
+	width: 100%;
 	visibility: hidden;
 	border-radius: 10px;
 	padding: 5px;
@@ -238,8 +238,12 @@ h1 {
 	-ms-flex-align: center;
 }
 
-.postcontent {
-	width: 98%;
+.postcontent1 {
+	width: 100%;
+}
+
+.postcontent2 {
+	width: 100%;
 }
 
 .postline {
@@ -262,14 +266,17 @@ h1 {
 }
 
 .vlevel4 {
-	width: 98%;
-	margin: 3px;
+	width: 96%;
+	padding-left: 1%;
+	padding-right: 1%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 5px;
 	font-size: 10px;
 	background-color: white;
-	line-height: 130%;
+	line-height: 150%;
 	max-height: 150px;
 	border-radius: 8px;
-	padding: 5px;
 	border-style: solid;
 	border-width: 1px;
 	overflow-x: hidden;
@@ -277,12 +284,16 @@ h1 {
 }
 
 .vlevel5 {
-	width: 98%;
-	margin: 3px;
+	width: 96%;
+	padding-left: 1%;
+	padding-right: 1%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 5px;
+	margin-bottom: 3px;
 	font-size: 10px;
-	line-height: 50%;
+	line-height: 150%;
 	max-height: 75px;
-	padding: 5px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }

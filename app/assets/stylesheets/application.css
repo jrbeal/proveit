@@ -26,7 +26,7 @@ body {
 	justify-content: space-between;
 	display: -ms-flexbox;
 	-ms-flex-direction: row;
-	-ms-flex-pack: justify;
+	-ms-flex-pack: space-between;
 	-ms-flex-align: start;
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
@@ -135,7 +135,7 @@ h1 {
 
 	display: -ms-flexbox;
 	-ms-flex-direction: row;
-	-ms-flex-pack: justify;
+	-ms-flex-pack: space-between;
 	-ms-flex-align: start;
 }
 
@@ -247,7 +247,7 @@ h1 {
 	align-items: center;
 	display: -ms-flexbox;
 	-ms-flex-direction: row;
-	-ms-flex-pack: justify;
+	-ms-flex-pack: space-between;
 	-ms-flex-align: center;
 }
 

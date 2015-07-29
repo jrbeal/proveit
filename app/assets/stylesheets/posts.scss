@@ -2,83 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#public {
+#public, #private {
   margin-top: 10px;
   margin-left: 53px;
 }
 
-#private {
-  margin-top: 10px;
-  margin-left: 53px;
-}
+.zero {margin-left: 0px}
+.one {margin-left: 40px}
+.two {margin-left: 80px}
+.three {margin-left: 120px}
+.four {margin-left: 160px}
+.five {margin-left: 200px}
+.six {margin-left: 240px}
+.seven {margin-left: 280px}
+.eight {margin-left: 320px}
+.nine {margin-left: 360px}
+.ten {margin-left: 400px}
+.eleven {margin-left: 440px}
+.twelve {margin-left: 480px}
 
-.zero {
-  margin-left: 0px;
-}
-
-.one {
-  margin-left: 40px;
-}
-
-.two {
-  margin-left: 80px;
-}
-
-.three {
-  margin-left: 120px;
-}
-
-.four {
-  margin-left: 160px;
-}
-
-.five {
-  margin-left: 200px;
-}
-
-.six {
-  margin-left: 240px;
-}
-
-.seven {
-  margin-left: 280px;
-}
-
-.eight {
-  margin-left: 320px;
-}
-
-.nine {
-  margin-left: 360px;
-}
-
-.ten {
-  margin-left: 400px;
-}
-
-.eleven {
-  margin-left: 440px;
-}
-
-.twelve {
-  margin-left: 480px;
-}
-
-#postformatflexcontainer {
+#postformat {
   margin-top: 15px;
   margin-bottom: 15px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.createflexcontainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .createflexitem1 {
@@ -91,35 +36,18 @@
   border-width: thin;
   border-style: solid;
   border-color: gray;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
 }
 
-#postteam1 {
+#postteam1, #postteam2 {
   margin-left: 40px;
   margin-top: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-#postteam2 {
-  margin-left: 40px;
-  margin-top: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 #postteam1heading1, #postteam1heading2, #postteam1heading3, #postteam2heading2, #postteam2heading3 {
   font-weight: bold;
 }
 
-#team1members {
+#team1members, #team2members{
   align-self: flex-start;
   border-width: 1px;
   border-style: solid;
@@ -127,30 +55,12 @@
   width: 100%;
 }
 
-#team2members {
-  align-self: flex-start;
-  border-width: 1px;
-  border-style: solid;
-  padding-left: 4px;
-  width: 100%;
-}
-
-#team1list {
+#team1list, #team2list {
   overflow-y: scroll;
   width: 100%;
 }
 
-#team2list {
-  overflow-y: scroll;
-  width: 100%
-}
-
-.provers_dropdown1 {
-  width: 100%;
-  margin-bottom: 4px;
-}
-
-.provers_dropdown2 {
+.provers_dropdown1, .provers_dropdown2 {
   width: 100%;
   margin-bottom: 4px;
 }

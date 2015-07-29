@@ -44,9 +44,9 @@
 				<%= @prover.last_name %>) &nbsp
 				<% if !@owner %>
 					<% if already_following(@prover.id) %>
-						<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{@prover.id}"} %>
+						<%= link_to "Unfollow", "#", :class => "unfollow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
 					<% else %>
-						<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{@prover.id}"} %>
+						<%= link_to "Follow", "#", :class => "follow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
 					<% end %>
 				<% end %>
 			</div>
@@ -147,7 +147,7 @@
 							<b>Following:</b> &nbsp
 							<% if @follows.count > 0 %>
 								<%= select_tag 'following_dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
-								<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:current_prover_id => "#{@prover.id}"} %>
+								<%= link_to "Unfollow", "#", :class => "unfollow fontsize10", :data => {:current_prover_id => "#{@prover.id}"} %>
 							<% else %>
 								You are not following anyone right now.
 							<% end %>
@@ -159,7 +159,7 @@
 							<b>Followed By:</b> &nbsp
 							<% if @followed.count > 0 %>
 								<%= select_tag 'followers_dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
-								<%= link_to "Remove", "#", :class => "unfollowedby", :data => {:current_prover_id => "#{@prover.id}"} %>
+								<%= link_to "Remove", "#", :class => "unfollowedby fontsize10", :data => {:current_prover_id => "#{@prover.id}"} %>
 							<% else %>
 								No one is following you right now.
 							<% end %>
@@ -186,7 +186,7 @@
 							<b>Membership:</b> &nbsp
 							<% if @teammembership.count > 0 %>
 								<%= select_tag 'teammembership_dropdown', options_from_collection_for_select(@teammembership, "id", "team_membership") %> &nbsp
-								<%= link_to "Resign", "#", :class => "resignteam" %>
+								<%= link_to "Resign", "#", :class => "resignteam fontsize10" %>
 							<% else %>
 								You are not a member of any teams right now.
 							<% end %>
@@ -197,7 +197,7 @@
 							<b>Ownership:</b> &nbsp
 							<% if @teamownership.count > 0 %>
 								<%= select_tag 'teamownership_dropdown', options_from_collection_for_select(@teamownership, "id", "team_ownership") %> &nbsp
-								<%= link_to "Manage", "#", :class => "resignteam" %>
+								<%= link_to "Manage", "#", :class => "resignteam fontsize10" %>
 							<% else %>
 								You do not own any teams right now.
 							<% end %>
@@ -212,15 +212,15 @@
 						<div id="groups">
 							<b>My Groups:</b> &nbsp
 							<%= search_field_tag 'group' %> &nbsp
-							<%= link_to "Resign", "#", :class => "resigngroup" %> &nbsp
-							<%= link_to "Disband", "#", :class => "disbandgroup" %>
+							<%= link_to "Resign", "#", :class => "resigngroup fontsize10" %> &nbsp
+							<%= link_to "Disband", "#", :class => "disbandgroup fontsize10" %>
 						</div>
 						<div class="profilepagediv2">
 							<div id="groupsmanage">
 								<b>Create:</b> &nbsp
 								<%= search_field_tag 'name' %> &nbsp Members: &nbsp
 								<%= search_field_tag 'groupmembers' %> &nbsp
-								<%= link_to "Add", "#", :class => "addgroup" %> &nbsp
+								<%= link_to "Add", "#", :class => "addgroup fontsize10" %> &nbsp
 								<button>Save</button>
 							</div>
 						</div>
@@ -235,7 +235,7 @@
 						<div class="profilepagediv2" style="border-width: 2px">
 							<b>Who:</b> &nbsp
 							<div class="profilepagediv2">
-								<div class="flexcontainerrowcenterstart">
+								<div class="flexContainer_row_center_start">
 									<div class="flexitem1">
 										<b>Posted by:</b> &nbsp
 									</div>
@@ -279,7 +279,7 @@
 									<div style = "width:150px">
 										<b>Categories:</b>
 									</div>
-									<div class="profilepagediv3">
+									<div class="profilepagediv3 flexContainer_row_wrap_start">
 										<% if @categories.empty? %>
 											No categories defined
 										<% else %>
@@ -366,7 +366,7 @@
 							</div>
 						</div>
 
-						<div class="flexcontainerrowcenterstart">
+						<div class="flexContainer_row_center_start">
 							<b>My Filters:</b> &nbsp
 							<% if current_prover.administrator? %>
 								<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name") + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %> &nbsp
@@ -447,7 +447,7 @@
 					<b>Administrative:</b>
 					<form action="<%= categories_path %>" method="post">
 						<div class="profilepagediv2">
-							<div class="flexcontainerrowcenterstart">
+							<div class="flexContainer_row_center_start">
 								<b>Topic categories:</b> &nbsp
 								<%= select_tag 'mycategories', options_from_collection_for_select(@categories, "id", "name"), :class => 'mycategories' %> &nbsp &nbsp
 								<%= link_to "Delete", "#", :id => "categorydeletebutton" %> &nbsp &nbsp &nbsp &nbsp
@@ -476,7 +476,7 @@
 										<% end %>
 									</div>
 
-									<div class="flexcontainerrowcenterstart">
+									<div class="flexContainer_row_center_start">
 										<% fallacies = Fallacy.where(:folder => @folder.id).order(:name) %>
 										<% subfolders = Fallacyfolder.where(:parent => @folder.id).order(:name) %>
 										<% joined = fallacies + subfolders %>

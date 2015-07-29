@@ -1,11 +1,11 @@
 <div class="post <%= status_color(post) %> <%= kind %> <%= indent.humanize %>" id="post<%= post.id %>">
-	<div class="postcontainer1">
-		<div class="postcontainer2">
+	<div class="growmax flexContainer_column_start_start">
+		<div class="growmax flexContainer_row_center_start">
 			<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>
 
-			<div class="postcontent1">
-				<div class="postline vlevel2 sidepadding">
-					<div class="flexcontainerrowcenterstart">
+			<div class="growmax">
+				<div class="flexContainer_row_center_space  fontsize10  sidepadding">
+					<div class="flexContainer_row_center_start">
 						<%  tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 						<%= link_to tmp, post.prover %>, &nbsp
 
@@ -22,13 +22,13 @@
 						<% end %> &nbsp
 					</div>
 
-					<div class="flexcontainerrowcenterend">
+					<div class="flexContainer_row_center_end">
 						Created on: <%= post.created_at.strftime("%c") %>
 					</div>
 				</div>
 
-				<div class="postline vlevel1 sidepadding">
-					<div class="flexcontainerrowcenterstart">
+				<div class="flexContainer_row_center_space fontsize12 sidepadding">
+					<div class="flexContainer_row_center_start">
 
 						<% if current_prover.administrator %>
 							<% if post.parent == nil %>
@@ -59,15 +59,15 @@
 						</div></em>
 					</div>
 
-					<div class="flexcontainerrowcenterend">
+					<div class="flexContainer_row_center_end  fontsize13">
 						<%= link_to "Less", "#", :class => "lesspost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %> &nbsp
 						<<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span>> &nbsp
 						<%= link_to "More", "#", :class => "morepost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %>
 					</div>
 				</div>
 
-				<div class="postline vlevel3 sidepadding">
-					<div class="flexcontainerrowcenterstart">
+				<div class="flexContainer_row_center_space  fontsize10  sidepadding">
+					<div class="flexContainer_row_center_start">
 						<% if post.topic.private? %>
 							<% if post.topic.use_teams? %>
 								<%= select_tag 'team1', content_tag(:option, post.team1type, :value => "-1") + options_from_collection_for_select(post.team1, "prover_id", "prover_name", :disabled => Proc.new { true }), :class => 'teamlist' %> &nbsp
@@ -100,20 +100,20 @@
 						<%= post.points %>
 					</div>
 
-					<div class="flexcontainerrowcenterend">
+					<div class="flexContainer_row_center_end">
 						Last activity on: <%= post.updated_at.strftime("%c") %>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="postcontent2">
+		<div class="growmax">
 			<% unless post.support.empty? %>
-				<div class="vlevel4">
+				<div class="support_styling vlevel4">
 					<span style="color:blue"><em><%= h(post.support).gsub(/\n/, '<br/>').html_safe %></em></span>
 				</div>
 			<% end %>
 
-			<div class="vlevel5">
+			<div class="catalog_styling  vlevel5">
 				Categories: &nbsp
 				<% if post.categories.empty? %>
 					None

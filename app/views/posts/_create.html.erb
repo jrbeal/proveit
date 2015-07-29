@@ -20,11 +20,11 @@
 </div>
 
 <% unless @categories.empty? %>
-	<div class="createflexcontainer" style="margin-top: 5px">
+	<div class="flexContainer_row_center_space" style="margin-top: 5px">
 		<div class="createflexitem1">
 			Categories (Optional):
 		</div>
-		<div class="createflexitem2">
+		<div class="createflexitem2 flexContainer_row_wrap_start">
 				<% @categories.each do |c| %>
 					<div>
 						<%= check_box_tag c.name, 'true' %>
@@ -35,7 +35,7 @@
 	</div>
 <% end %>
 
-<div id="postformatflexcontainer">
+<div id="postformat" class="flexContainer_row_start_start">
 	<div id="postformat">
 		<div id="formattype">
 			<b>Format:</b>
@@ -68,7 +68,7 @@
 		</div>
 	</div>
 
-	<div id="postteam1">
+	<div id="postteam1" class="flexContainer_column_center_start">
 		<div id="postteam1heading1">
 			Participants
 		</div>
@@ -84,7 +84,7 @@
 		</div>
 	</div>
 
-	<div id="postteam2">
+	<div id="postteam2" class="flexContainer_column_center_start">
 		<div id="postteam2heading2">
 			Disagrees
 		</div>
@@ -95,7 +95,6 @@
 		<div id="team2members">
 		</div>
 	</div>
-
 </div>
 
 <div class="divider">

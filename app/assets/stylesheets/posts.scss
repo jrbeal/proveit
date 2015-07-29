@@ -67,9 +67,9 @@
 #postformatflexcontainer {
   margin-top: 15px;
   margin-bottom: 15px;
-  display: inline-flex;
+
+  display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
 }

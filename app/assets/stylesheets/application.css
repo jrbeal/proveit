@@ -27,7 +27,6 @@ body {
 	display: -ms-flexbox;
 	-ms-flex-direction: row;
 	-ms-flex-pack: space-between;
-	-ms-flex-align: start;
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
 	-webkit-justify-content: space-between;

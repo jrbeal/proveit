@@ -54,13 +54,13 @@ body {
 	text-decoration: underline;
 	flex: 12;
 	-ms-flex: 12;
-	-webkit-flex: 12;
+	-webkit-flex: 10;
 }
 
 #breadcrumbs {
 	flex: 3;
 	-ms-flex: 3;
-	-webkit-flex: 3;
+	-webkit-flex: 4;
 }
 
 .sidepadding {

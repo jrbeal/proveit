@@ -28,6 +28,10 @@ body {
 	-ms-flex-direction: row;
 	-ms-flex-pack: justify;
 	-ms-flex-align: start;
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-justify-content: flex-start;
+	-webkit-align-items: flex-start;
 	height: 90px;
 }
 

@@ -30,8 +30,7 @@ body {
 	-ms-flex-align: start;
 	display: -webkit-flex;
 	-webkit-flex-direction: row;
-	-webkit-justify-content: flex-start;
-	-webkit-align-items: flex-start;
+	-webkit-justify-content: space-between;
 	height: 90px;
 }
 
@@ -54,13 +53,13 @@ body {
 	text-decoration: underline;
 	flex: 12;
 	-ms-flex: 12;
-	-webkit-flex: 10;
+	-webkit-flex: 12;
 }
 
 #breadcrumbs {
 	flex: 3;
 	-ms-flex: 3;
-	-webkit-flex: 4;
+	-webkit-flex: 3;
 }
 
 .sidepadding {

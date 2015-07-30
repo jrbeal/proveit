@@ -1,50 +1,50 @@
 .flexContainer_row_center_start {	/* row, aligned on centers, left justified */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: center;								/* flex-start | flex-end | center | stretch | baseline */
-  align-content: flex-start;					/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: flex-start;				/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: center;					/* flex-start | flex-end | center | stretch | baseline */
+  align-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: center;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: start;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: start;								/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: center;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: start;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: start;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
-  -webkit-align-items: center;				/* flex-start | flex-end | center | stretch | baseline */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
+  -webkit-align-items: center;			/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around */
 }
 
 .flexContainer_row_start_start 	{	/* row, left-justified, aligned along top of elements */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: flex-start;						/* flex-start | flex-end | center | stretch | baseline */
-  align-content: flex-start;					/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: flex-start;				/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: flex-start;		    	/* flex-start | flex-end | center | stretch | baseline */
+  align-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: start;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: start;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: start;								/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: start;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: start;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: start;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
   -webkit-align-items: flex-start;		/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around */
@@ -52,51 +52,51 @@
 
 .flexContainer_row_center_end {	/* row, aligned on centers, right-justified */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: center;								/* flex-start | flex-end | center | stretch | baseline */
-  align-content: flex-start;					/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: flex-end;				/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: center;					/* flex-start | flex-end | center | stretch | baseline */
+  align-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: flex-end;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: center;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: start;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: end;								/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: center;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: start;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: end;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
-  -webkit-align-items: center;				/* flex-start | flex-end | center | stretch | baseline */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
+  -webkit-align-items: center;			/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-end;	/* flex-start | flex-end | center | space-between | space-around */
 }
 
 .flexContainer_column_start_start 	{	/* row, left-justified, aligned along top of elements */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: column;							/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: flex-start;						/* flex-start | flex-end | center | stretch | baseline */
-  align-content: flex-start;					/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: flex-start;				/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: column;				/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: flex-start;				/* flex-start | flex-end | center | stretch | baseline */
+  align-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: column;					/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: start;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: start;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: start;								/* center | end | justify | start */
+  display: -ms-flexbox;			    	/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: column;			/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: start;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: start;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: start;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: column;			/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: column;		/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
   -webkit-align-items: flex-start;		/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around */
@@ -104,77 +104,77 @@
 
 .flexContainer_column_center_start 	{	/* row, left-justified, aligned along top of elements */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: column;							/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: center;						/* flex-start | flex-end | center | stretch | baseline */
-  align-content: center;					/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: flex-start;				/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: column;				/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: center;					/* flex-start | flex-end | center | stretch | baseline */
+  align-content: center;				/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: column;					/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: center;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: center;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: start;								/* center | end | justify | start */
+  display: -ms-flexbox;				    /* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: column;			/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: center;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: center;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: start;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: column;			/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
-  -webkit-align-items: center;		/* flex-start | flex-end | center | stretch | baseline */
-  -webkit-align-content: center;	/* flex-start | flex-end | center | space-between | space-around | stretch */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: column;		/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
+  -webkit-align-items: center;		    /* flex-start | flex-end | center | stretch | baseline */
+  -webkit-align-content: center;	    /* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around */
 }
 
 .flexContainer_row_center_space {	/* row, aligned on centers, spaces between */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: center;								/* flex-start | flex-end | center | stretch | baseline */
-  align-content: space-between;				/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: space-between;			/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: center;					/* flex-start | flex-end | center | stretch | baseline */
+  align-content: space-between;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: space-between;		/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: center;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: justify;				/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: justify;							/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: center;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: justify;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: justify;				/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
-  -webkit-align-items: center;				/* flex-start | flex-end | center | stretch | baseline */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
+  -webkit-align-items: center;			/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: space-between;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: space-between;	/* flex-start | flex-end | center | space-between | space-around */
 }
 
 .flexContainer_row_top_space {	/* row, aligned on centers, spaces between */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: nowrap;									/* nowrap | wrap | wrap-reverse */
-  align-items: flex-start;						/* flex-start | flex-end | center | stretch | baseline */
-  align-content: space-between;				/* flex-start | flex-end | center | space-between | space-around | stretch */
-  justify-content: space-between;			/* flex-start | flex-end | center | space-between | space-around */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  align-items: flex-start;				/* flex-start | flex-end | center | stretch | baseline */
+  align-content: space-between;			/* flex-start | flex-end | center | space-between | space-around | stretch */
+  justify-content: space-between;		/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: none;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: start;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: justify;				/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: justify;							/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: none;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: start;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: justify;			/* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: justify;				/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: nowrap;					/* nowrap | wrap | wrap-reverse */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: nowrap;			/* nowrap | wrap | wrap-reverse */
   -webkit-align-items: flex-start;		/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: space-between;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: space-between;	/* flex-start | flex-end | center | space-between | space-around */
@@ -182,25 +182,25 @@
 
 .flexContainer_row_wrap_start {	/* row, aligned on centers, spaces between */
   /* "Standard" Flexbox syntax */
-  display: flex;											/* flex | inline-flex */
-  flex-direction: row;								/* row | row-reverse | column | column-reverse */
-  flex-wrap: wrap;										/* nowrap | wrap | wrap-reverse */
-  align-items: flex-start;						/* flex-start | flex-end | center | stretch | baseline */
-  align-content: flex-start;					/* flex-start | flex-end | center | space-between | space-around | stretch */
+  display: flex;						/* flex | inline-flex */
+  flex-direction: row;					/* row | row-reverse | column | column-reverse */
+  flex-wrap: wrap;						/* nowrap | wrap | wrap-reverse */
+  align-items: flex-start;				/* flex-start | flex-end | center | stretch | baseline */
+  align-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around | stretch */
   justify-content: flex-start;			/* flex-start | flex-end | center | space-between | space-around */
 
   /* IE10 syntax */
-  display: -ms-flexbox;								/* -ms-flexbox | -ms-inline-flexbox */
-  -ms-flex-direction: row;						/* row |  row-reverse | column | column-reverse | inherit */
-  -ms-flex-wrap: wrap;								/* none | wrap | wrap-reverse */
-  -ms-flex-align: start;							/* start | end | center | stretch | baseline */
-  -ms-flex-line-pack: start;					/* center | distribute | end | justify | start | stretch */
-  -ms-flex-pack: start;							/* center | end | justify | start */
+  display: -ms-flexbox;					/* -ms-flexbox | -ms-inline-flexbox */
+  -ms-flex-direction: row;				/* row |  row-reverse | column | column-reverse | inherit */
+  -ms-flex-wrap: wrap;					/* none | wrap | wrap-reverse */
+  -ms-flex-align: start;				/* start | end | center | stretch | baseline */
+  -ms-flex-line-pack: start;		    /* center | distribute | end | justify | start | stretch */
+  -ms-flex-pack: start;					/* center | end | justify | start */
 
   /* Chrome and Safari 3.0+ */
-  display: -webkit-flex;							/* Chrome?, Safari? */
-  -webkit-flex-direction: row;				/* row | row-reverse | column | column-reverse */
-  -webkit-flex-wrap: wrap;						/* nowrap | wrap | wrap-reverse */
+  display: -webkit-flex;				/* Chrome?, Safari? */
+  -webkit-flex-direction: row;			/* row | row-reverse | column | column-reverse */
+  -webkit-flex-wrap: wrap;				/* nowrap | wrap | wrap-reverse */
   -webkit-align-items: flex-start;		/* flex-start | flex-end | center | stretch | baseline */
   -webkit-align-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around | stretch */
   -webkit-justify-content: flex-start;	/* flex-start | flex-end | center | space-between | space-around */

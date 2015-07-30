@@ -4,7 +4,7 @@
 			<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>
 
 			<div class="growmax">
-				<div class="flexContainer_row_center_space  fontsize10  sidepadding">
+				<div class="vlevel2 flexContainer_row_center_space  fontsize10  sidepadding">
 					<div class="flexContainer_row_center_start">
 						<%  tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 						<%= link_to tmp, post.prover %>, &nbsp
@@ -27,7 +27,7 @@
 					</div>
 				</div>
 
-				<div class="flexContainer_row_center_space fontsize12 sidepadding">
+				<div class="vlevel1 flexContainer_row_center_space fontsize12 sidepadding">
 					<div class="flexContainer_row_center_start">
 
 						<% if current_prover.administrator %>
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 
-				<div class="flexContainer_row_center_space  fontsize10  sidepadding">
+				<div class="vlevel3 flexContainer_row_center_space  fontsize10  sidepadding">
 					<div class="flexContainer_row_center_start">
 						<% if post.topic.private? %>
 							<% if post.topic.use_teams? %>

@@ -69,13 +69,13 @@
 	</div>
 
 	<div id="postteam1" class="flexContainer_column_center_start">
-		<div id="postteam1heading1">
+		<div id="postteam1heading1" class="bold">
 			Participants
 		</div>
-		<div id="postteam1heading2">
+		<div id="postteam1heading2" class="bold">
 			Agrees
 		</div>
-		<div id="postteam1heading3">
+		<div id="postteam1heading3" class="bold">
 			Team 1
 		</div>
 		<%= select_tag 'provers_dropdown1', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown1" %>
@@ -85,10 +85,10 @@
 	</div>
 
 	<div id="postteam2" class="flexContainer_column_center_start">
-		<div id="postteam2heading2">
+		<div id="postteam2heading2" class="bold">
 			Disagrees
 		</div>
-		<div id="postteam2heading3">
+		<div id="postteam2heading3" class="bold">
 			Team 2
 		</div>
 		<%= select_tag 'provers_dropdown2', options_from_collection_for_select(@provers, "id", "provername"), :class => "provers_dropdown2" %>

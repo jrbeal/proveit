@@ -1,4 +1,5 @@
-<div class="post <%= status_color(post) %> <%= kind %> <%= indent.humanize %>" id="post<%= post.id %>">
+<div class="post <%= status_color(post) %> <%= kind %>
+<%= indent.humanize %>" id="post<%= post.id %>">
 	<div class="growmax flexContainer_column_start_start">
 		<div class="growmax flexContainer_row_center_start">
 			<%= link_to image_tag(post.prover.image_url, :class => "postimage"), post.prover %>

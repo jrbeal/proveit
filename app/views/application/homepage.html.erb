@@ -1,18 +1,19 @@
 <body>
-	<div class="sidepadding spacing">
-		<%= link_to 'Create', posts_new_path %>
-		<div style="display:inline; margin-left: 40%">
-			<% if @customfilters.empty? %>
-				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'fontsize11' %>
-			<% else %>
-				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'fontsize11' %>
-			<% end %>
+	<div class="flexContainer_row_center_space">
+			<%= link_to 'Create', posts_new_path %>
+			<div class="flexContainer_row_start_start">
+				<% if @customfilters.empty? %>
+					<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'fontsize11' %>
+				<% else %>
+					<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id) + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'fontsize11' %>
+				<% end %>
+				&nbsp <%= link_to image_tag('edit.svg', :size => '18x18'), '#', :id => "editfilters" %>
 			</div>
-		<div class="right" style="margin-right: 5px;">
-			<%= link_to "Less", "#", :id => "lessmaster"%>
-			<<span class="verbosity"></span>>
-			<%= link_to "More", "#", :id => "moremaster"%>
-		</div>
+			<div class="right" style="margin-right: 5px;">
+				<%= link_to "Less", "#", :id => "lessmaster"%>
+				<<span class="verbosity"></span>>
+				<%= link_to "More", "#", :id => "moremaster"%>
+			</div>
 	</div>
 
 	<div class="toppadding10">

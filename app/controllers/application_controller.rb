@@ -5,11 +5,23 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
-	before_action :authenticate_prover!, :except => [:help, :about, :contact]
+	before_action :authenticate_prover!, :except => [:homepage, :help, :about, :contact]
 	before_action :set_top_provers
 	before_action :top_semi_private_debates
 
 	def homepage
+		if current_prover
+			logged_in_homepage
+		else
+			logged_out_homepage
+		end
+	end
+
+	def logged_out_homepage
+		render "application/login"
+	end
+
+	def logged_in_homepage
 		@verbosity = current_prover.verbosity
 
 		@defaultfilters = Filter.where(sitedefault: true)
@@ -53,8 +65,7 @@ class ApplicationController < ActionController::Base
 		@posts = []
 		@posts = Post.where(id: ids) if ids.length > 0
 
-																				# Now start filtering...
-
+		# Now start filtering...
 																				# First eliminate all posts outside the specified time range
 		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today && !@posts.empty?
 		@posts = @posts.where(:updated_at => 1.week.ago..Time.now) if @filter.last_week && !@posts.empty?
@@ -136,7 +147,8 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(level: 0) if @filter.level_zero	&& !@posts.empty?								# ...that are non-zero level...
 		@posts = @posts.where.not(level: 0) if @filter.level_nonzero && !@posts.empty?				# ...that are zero level
 
-																																													# Now sort the results...
+		# Now sort the results...
+
 		order = "desc" if @filter.descending
 		order = "asc" unless @filter.descending
 		@posts = @posts.order(updated_at: order) if @filter.sort_by_updated_at && !@posts.empty?

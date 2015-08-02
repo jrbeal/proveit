@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
-	before_action :authenticate_prover!, :except => [:homepage, :help, :about, :contact]
+#	before_action :authenticate_prover!, :except => [:homepage, :help, :about, :contact]
+	before_action :authenticate_prover!, :except => [:help, :about, :contact]
 	before_action :set_top_provers
 	before_action :top_semi_private_debates
 
@@ -13,7 +14,7 @@ class ApplicationController < ActionController::Base
 		if current_prover
 			logged_in_homepage
 		else
-			logged_out_homepage
+			logged_in_homepage
 		end
 	end
 

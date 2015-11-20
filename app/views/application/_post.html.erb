@@ -43,14 +43,6 @@
 							<%= image_tag('wolf3.png', :size => '11x15') %> &nbsp
 						<% end %>
 
-						<% if post.topic.public_viewing %>
-							<%= image_tag('eye.png', :size => '13x15') %> &nbsp
-						<% end %>
-
-						<% if post.topic.public_comments %>
-							<%= image_tag('comment.png', :size => '11x15') %> &nbsp
-						<% end %>
-
 						<% unless post.url.empty? %>
 							<%= link_to image_tag('links.png', :size => '13x13'), post.url %> &nbsp
 						<% end %>
@@ -78,6 +70,10 @@
 							<% else %>
 								<%= select_tag 'team1', content_tag(:option, post.team1type, :value => "-1") + options_from_collection_for_select(post.team1, "prover_id", "prover_name", :disabled => Proc.new { true }), :class => 'teamlist' %> &nbsp
 							<% end %>
+						<% end %>
+
+						<% if post.topic.public_comments %>
+							&nbsp <%= image_tag('comment.png', :size => '11x15') %> &nbsp
 						<% end %>
 
 						<%= offspring(post) %> &nbsp

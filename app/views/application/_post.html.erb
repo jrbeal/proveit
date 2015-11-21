@@ -90,9 +90,9 @@
 							<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{post.id}"} %>,
 						<% end %> &nbsp &nbsp
 						<% if already_liked(post) %>
-							<%= link_to image_tag('thumbs-down.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
+							<%= link_to image_tag('thumbs-up-blue.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
 						<% else %>
-							<%= link_to image_tag('thumbs-up.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}"} %>
+							<%= link_to image_tag('thumbs-up-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}"} %>
 						<% end %> &nbsp
 						<%= post.points %>
 					</div>

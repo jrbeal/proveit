@@ -17,6 +17,14 @@ $(function() {
 					$('#collapse').show();
 				break;
 			}
+
+			$.ajax({
+				url: '/kidtype?' + $.param({"kidtype": resp.currentprover.kidtype}),
+				type: 'POST',
+				success: function () {
+					console.log("Kidtype default is reset to " + resp.currentprover.kidtype)
+				}
+			})
 		}
 	});
 

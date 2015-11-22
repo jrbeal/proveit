@@ -1,5 +1,5 @@
 $(function() {
-	$('#kidtype').show();
+//	$('#kidtype').show();
 	$('#kids').show();
 	$('#commentreply').hide();
 	$('#opinionreply').hide();

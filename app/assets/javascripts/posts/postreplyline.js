@@ -4,7 +4,7 @@ $(function() {
 		type: 'GET',
 		success: function (resp) {
 			console.log("Got prover for setting kidtype (" + resp.currentprover.kidtype + ") and offspring style (" + resp.currentprover.offspring_style + ").");
-			//$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
+			$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
 			switch (resp.currentprover.offspring_style) {
 				case 'collapsed':
 					$('#expand').show();

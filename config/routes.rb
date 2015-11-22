@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 	get 'bookmark'			=> 'bookmark'
 	get 'like'					=> 'like'
 	get 'team'					=> 'team'
-	get 'leaderboard' 		=> 'provers#leaderboard'
+	get 'leaderboard' 	=> 'provers#leaderboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
 	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
 	get 'halflife'			=> 'posts#gethalflife'

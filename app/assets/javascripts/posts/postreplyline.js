@@ -33,8 +33,10 @@ $(function() {
 				$('.comment').show();
 
 				if ($commentrepliable == "true") {
+					console.log("commentreliable is true, showing createkid on a comment");
 					$('#createkid').show();
 				} else {
+					console.log("commentreliable is false, hiding createkid on a comment");
 					$('#createkid').hide();
 				}
 			break;
@@ -44,8 +46,10 @@ $(function() {
 				$('.comment').hide();
 
 				if ($opinionrepliable == "true") {
+					console.log("opinionreliable is true, showing createkid on an initiator");
 					$('#createkid').show();
 				} else {
+					console.log("opinionreliable is false, hiding createkid on an initiator");
 					$('#createkid').hide();
 				}
 			break;

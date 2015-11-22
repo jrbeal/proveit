@@ -3,14 +3,13 @@ $(function() {
 		url: '/currentprover.json?',
 		type: 'GET',
 		success: function (resp) {
-			console.log("Got prover for setting kidtype (" + resp.currentprover.kidtype + ") and offspring style (" + resp.currentprover.offspring_style + ").");
-
 			var kidtype = resp.currentprover.kidtype;
 			if(kidtype == 'initiator') {
 				kidtype = 'opinion';
 			}
-			
-			$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
+			console.log("Got prover for setting kidtype (" + resp.currentprover.kidtype + "), goes to (" + kidtype + ") and offspring style (" + resp.currentprover.offspring_style + ").");
+
+			$('input[name="kidtype"][value="' + kidtype + '"]').click();
 
 			switch (resp.currentprover.offspring_style) {
 				case 'collapsed':

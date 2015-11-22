@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 			k.create_category_lists																				# ...and category lists
 		end
 
-		Rails.logger.info "Here in posts #show"
+		Rails.logger.info "Here in posts #show, #{@post.kind}"
 
 		# Determine if the featured post is "repliable" based on settings in the topic and post...
 		if @post.kind == Post::OPINION																	# If this post is an OPINION...

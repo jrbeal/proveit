@@ -5,8 +5,6 @@ $(function() {
 		success: function (resp) {
 			console.log("Got prover for setting kidtype (" + resp.currentprover.kidtype + "), goes to (" + kidtype + ") and offspring style (" + resp.currentprover.offspring_style + ").");
 
-			$('input[name="kidtype"][value="opinion"]').click();
-			$('input[name="kidtype"][value="initiator"]').click();
 			$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
 
 			switch (resp.currentprover.offspring_style) {

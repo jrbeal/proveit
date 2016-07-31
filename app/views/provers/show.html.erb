@@ -333,8 +333,10 @@
 						<div class="profilepagediv2" style="border-width: 2px">
 							<b>When:</b>
 							<div class="profilepagediv2">
-								<b>Updated:</b> &nbsp
-								<%= radio_button_tag(:timerange, "last_year", true) %>
+								<b>Active:</b> &nbsp
+								<%= radio_button_tag(:timerange, "all", true) %>
+								<%= label_tag(:timerange, "All") %> &nbsp
+								<%= radio_button_tag(:timerange, "last_year") %>
 								<%= label_tag(:timerange, "Last Year") %> &nbsp
 								<%= radio_button_tag(:timerange, "last_month") %>
 								<%= label_tag(:timerange, "Last Month") %> &nbsp

@@ -49,11 +49,11 @@ class PostsController < ApplicationController
 						@post.comment_repliable = @post.topic.public_comments?	# but he can comment if the topic allows is.
 					end
 				end
-			else																													# If this post is public....
+			else																													# If this post is not private (public)....
 				if @post.topic.lone_wolf																		# and it's a lone wolf...
 					if @post.topic.prover_id == current_prover.id							# and the user is the lone wolf...
 						@post.opinion_repliable = @post.level.odd?							# he can only reply to odd level posts.
-					else																											# If he is not the lone wolf...
+					else																											# If he's not the lone wolf...
 						@post.opinion_repliable = @post.level.even?							# he can only reply to even level posts.
 					end
 					@post.comment_repliable = true														# Anyone can comment to a lone wolf post.
@@ -174,7 +174,6 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-		puts @post.inspect
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }

@@ -84,15 +84,19 @@ class Post < ActiveRecord::Base
 	end
 	
 	def count_children(id, kind) 		# Count the number of children (of a given kind) under the given post
+		puts "counting children for #{id}"
 		kids = Post.where(parent_id: id, kind: kind)
 		return kids.count
 	end
-	
+
 	def count_offspring(id, kind, count)	# Recursively increment count the number of offspring under the given post
+		puts "Counting offspring for #{id}"
 		kids = Post.where(parent_id: id, kind: kind)
 		kids.each do |k|
 			count = count_offspring(k.id, k.kind, count) + 1
 		end
+
+		puts "#{id} has #{count} offspring."
 		return count
 	end
 
@@ -208,7 +212,58 @@ class Post < ActiveRecord::Base
     self.offspring_comments=0
 		self.points = 0
 	end
-	
+
+	def after_save_callback
+		Rails.logger.info "After save for #{self.id}"
+
+		if self.parent.present?					# ... if there are any...
+			parent = self.parent
+			case parent.kind
+				when OPINION
+					case self.kind
+						when COMMENT
+							parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
+							parent.children_comments = count_children(parent.id, COMMENT)
+						when OPINION
+							new_status = determine_status(parent.id)
+							if parent.status != new_status		# If the status is changing, reset the score...
+								if new_status
+									parent.score = 100.0					# ...to 100 if new status is true...
+								else
+									parent.score = 0.0						# ...or 0 if new status is false.
+								end
+								parent.status = new_status
+							end
+
+							puts "Trying to count offspring/child opinions for #{parent.id} - parent of #{self.id}"
+
+							parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
+							parent.children_opinions = count_children(parent.id, OPINION)
+					end
+				when COMMENT
+					case self.kind
+						when COMMENT
+							parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
+							parent.children_comments = count_children(parent.id, COMMENT)
+					end
+				when INITIATOR
+					case self.kind
+						when COMMENT
+							parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
+							parent.children_comments = count_children(parent.id, COMMENT)
+						when OPINION
+							parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
+							parent.children_opinions = count_children(parent.id, OPINION)
+						else
+					end
+				else
+			end
+			parent.save!                      # Commit the updated post
+		else
+			# ...until the root node is reached
+		end
+	end
+
 	after_create do									# Then update the new post's parent...
 		if self.parent.present?	    	# ...if there is one...
 			parent = self.parent
@@ -216,62 +271,20 @@ class Post < ActiveRecord::Base
         parent.status = FALSE
         parent.score = 0.0
       end
-      parent.children_comments = count_children(parent.id, COMMENT)
-      parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
-      if parent.kind != COMMENT
-        parent.children_opinions = count_children(parent.id, OPINION)
-        parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
-      end
+      # parent.children_comments = count_children(parent.id, COMMENT)
+      # parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
+      # if parent.kind != COMMENT
+      #   parent.children_opinions = count_children(parent.id, OPINION)
+      #   parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
+      # end
       parent.save!							  # Commit the new post's parent
 		end
 
 		Prover.update_ratings
 		Prover.update_rankings
 	end
-	
-	after_update do 									# Update the ancestors one at a time...
-		if self.parent.present?					# ... if there are any...
-			parent = self.parent
-			case parent.kind
-        when OPINION
-          case self.kind
-            when COMMENT
-              parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
-              parent.children_comments = count_children(parent.id, COMMENT)
-            when OPINION
-              new_status = determine_status(parent.id)
-              if parent.status != new_status	# If the status is changing, reset the score...
-                if new_status
-                  parent.score = 100.0					# ...to 100 if new status is true...
-                else
-                  parent.score = 0.0						# ...or 0 if new status is false.
-                end
-                parent.status = new_status
-              end
-              parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
-              parent.children_opinions = count_children(parent.id, OPINION)
-          end
-        when COMMENT
-          case self.kind
-            when COMMENT
-              parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
-              parent.children_comments = count_children(parent.id, COMMENT)
-          end
-        when INITIATOR
-          case self.kind
-            when COMMENT
-              parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
-              parent.children_comments = count_children(parent.id, COMMENT)
-            when OPINION
-              parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
-              parent.children_opinions = count_children(parent.id, OPINION)
-            else
-          end
-        else
-      end
-      parent.save!                      # Commit the updated post
-		else
-																				# ...until the root node is reached
-		end
-	end
+
+	after_destroy :after_save_callback
+
+	after_save :after_save_callback
 end

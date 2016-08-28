@@ -4,7 +4,8 @@ class Post < ActiveRecord::Base
 	belongs_to :topic, :foreign_key => "topic_id", :class_name => "Topic"
 
 	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
-	has_many :likes
+	has_many :likes, :dependent => :destroy
+	has_many :posts, :foreign_key => "parent_id", :dependent => :destroy
 
 
 	OPINION = "opinion"
@@ -110,7 +111,7 @@ class Post < ActiveRecord::Base
 
 	def create_category_lists
 		self.categories = []
-		Topic_categories.where(topic_id: self.topic_id).each do |t|
+		TopicCategory.where(topic_id: self.topic_id).each do |t|
 			Category.where(id: t.category_id).each do |c|
 				self.categories.push c.name
 			end
@@ -234,9 +235,6 @@ class Post < ActiveRecord::Base
 								end
 								parent.status = new_status
 							end
-
-							puts "Trying to count offspring/child opinions for #{parent.id} - parent of #{self.id}"
-
 							parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
 							parent.children_opinions = count_children(parent.id, OPINION)
 					end

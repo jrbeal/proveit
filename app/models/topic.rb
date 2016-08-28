@@ -4,8 +4,7 @@ class Topic < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
 	has_many :teams, dependent: :destroy
-	has_many :provers, through: :teams
-	has_many :categories, through: :Topic_categories, dependent: :destroy
+	has_many :topic_categories, dependent: :destroy
 
 	def root=(post)
 		post.topic = self

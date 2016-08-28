@@ -3,7 +3,6 @@ class Prover < ActiveRecord::Base
 
 	has_many :follows, dependent: :destroy
 	has_many :topics, dependent: :destroy
-	has_many :topics, through: :teams
 	has_many :posts, dependent: :destroy
 	has_many :bookmarks, dependent: :destroy
 	has_many :teams, dependent: :destroy

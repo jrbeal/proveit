@@ -48,7 +48,7 @@ class TopicsController < ApplicationController
 		@post.prover = current_prover
 
 		Category.all.each do |c|
-			Topic_categories.new(topic_id: @topic.id, category_id: c.id).save! if params[c.name]
+			TopicCategory.new(topic_id: @topic.id, category_id: c.id).save! if params[c.name]
 		end
 
 		if @topic.private?
@@ -110,7 +110,8 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     @topic.destroy
-    respond_to do |format|
+		puts "Inside destroy"
+		respond_to do |format|
       format.html { redirect_to topics_url, notice: 'Topic was successfully destroyed.' }
       format.json { head :no_content }
     end

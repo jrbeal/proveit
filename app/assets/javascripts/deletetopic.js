@@ -2,6 +2,7 @@ $(function() {
 	$('.deletetopic').on("click", function (e) {
 		var $tgt = $(e.target);
 		var $parent = $($tgt.parent());
+		console.log("Deleting this topic.");
 
 		$.ajax({
 			url: '/topics/' + $parent.attr("data-topic") + ".json",

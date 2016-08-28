@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
 		@defaultfilters.each do |f|
 			length = f.name.length if f.name.length > length
 		end
+
 		@customfilters.each do |f|
 			length = f.name.length if f.name.length > length
 		end
@@ -125,14 +126,14 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where(id: ids) unless @posts.empty?
 
 		fcids = []
-		Filter_categories.where(filter_id: @filter.id).each do |f|
+		FilterCategory.where(filter_id: @filter.id).each do |f|
 			fcids.push f.category_id					# Create an array of category ids set in current filter...
 		end
 
 		unless fcids.empty?									# now check each post and eliminate any that are NOT within a category selected.
 			ids = []
 			@posts.each do |p|
-				Topic_categories.where(topic_id: p.topic_id).each do |t|
+				TopicCategory.where(topic_id: p.topic_id).each do |t|
 					ids.push p.id if fcids.include?(t.category_id)
 				end
 			end

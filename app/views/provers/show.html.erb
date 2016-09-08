@@ -447,18 +447,25 @@
 			<div id="profileadministrative">
 				<div class="profilepagediv1">
 					<b>Administrative:</b>
-					<form action="<%= categories_path %>" method="post">
-						<div class="profilepagediv2">
+					<div class="profilepagediv2">
+						<div class="flexContainer_row_center_start">
+							<b>Users:</b> &nbsp
+							<%= select_tag 'myprovers', options_from_collection_for_select(@provers, "id", "provername"), :class => 'myprovers' %> &nbsp &nbsp
+							<%= link_to "Delete", "#", :id => "proverdeletebutton" %> &nbsp &nbsp &nbsp &nbsp
+						</div>
+					</div>
+					<div class="profilepagediv2">
+						<form action="<%= categories_path %>" method="post">
 							<div class="flexContainer_row_center_start">
-								<b>Topic categories:</b> &nbsp
+								<b>Categories:</b> &nbsp
 								<%= select_tag 'mycategories', options_from_collection_for_select(@categories, "id", "name"), :class => 'mycategories' %> &nbsp &nbsp
 								<%= link_to "Delete", "#", :id => "categorydeletebutton" %> &nbsp &nbsp &nbsp &nbsp
 								<textarea class="sitecategoryname" name="sitecategoryname" rows="1" cols="30" placeholder="Enter new category here."></textarea> &nbsp
 								<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-								<%= submit_tag("Create") %> &nbsp
+								<%= submit_tag("Create") %>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 					<div class="profilepagediv2">
 						<b>Fallacies:</b> &nbsp
 						<form action="<%= fallacies_path %>" method="post">
@@ -539,7 +546,7 @@
 					<form action="/halflife" method="post">
 						<div class="profilepagediv2">
 							<div class="flexcontainerrowcenterstart">
-								<b>Post score half-life: </b> &nbsp &nbsp
+								<b>Post score half-life:</b>
 								<div class="range-wrapper">
 									<input name="weeks" type="range" min="1" max="52" id="myRange"/>
 									<div class="text" style="display: flex; flex-direction: column; align-items: center"></div>

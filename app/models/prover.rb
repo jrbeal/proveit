@@ -1,13 +1,15 @@
 class Prover < ActiveRecord::Base
 	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter"
 
-	has_many :follows, dependent: :destroy
-	has_many :topics, dependent: :destroy
-	has_many :posts, dependent: :destroy
-	has_many :bookmarks, dependent: :destroy
-	has_many :teams, dependent: :destroy
-	has_many :filters, dependent: :destroy
-	has_many :likes
+	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
+
+	has_many :follows, :foreign_key => "follows", :dependent => :destroy
+	has_many :topics, :dependent => :destroy
+	has_many :posts, :dependent => :destroy
+	has_many :bookmarks, :foreign_key => "owner", :dependent => :destroy
+	has_many :teams, :dependent => :destroy
+	has_many :filters, :dependent => :destroy
+	has_many :likes, :dependent => :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

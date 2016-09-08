@@ -124,6 +124,19 @@ class ProversController < ApplicationController
 		render :nothing => true
 	end
 
+	# DELETE /provers/1
+	# DELETE /provers/1.json
+	def destroy
+		@prover = Prover.find(params[:id])
+
+		@prover.destroy
+		puts "Inside prover destroy"
+		respond_to do |format|
+			format.html { redirect_to provers_url, notice: 'Prover was successfully destroyed.' }
+			format.json { head :no_content }
+		end
+	end
+
 	private
 
 	def prover_params

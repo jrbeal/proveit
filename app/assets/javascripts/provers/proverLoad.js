@@ -29,6 +29,30 @@ function proverLoad() {
 	});
 
 	$(function() {
+		$('#proverdeletebutton').on("click", function () {
+			var Id = $('#myprovers').val();
+			$.ajax({
+				url: '/currentprover.json?',
+				type: 'GET',
+				success: function (resp) {
+					var owner = resp.currentprover.id;
+					console.log("Got current Prover. Now deleting selected prover." + Id);
+					$.ajax({
+						url: '/provers/' + Id + '.json?',
+						type: 'DELETE',
+						success: function () {
+							console.log("Deleted prover.");
+							window.location = '/provers/' + owner
+						}
+					});
+				}
+			});
+
+			return false;
+		});
+	});
+
+	$(function() {
 		$('.postedbyself').on("click", function () {
 			$.ajax({
 				url: '/currentprover.json?',

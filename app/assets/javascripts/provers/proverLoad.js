@@ -36,7 +36,7 @@ function proverLoad() {
 				type: 'GET',
 				success: function (resp) {
 					var owner = resp.currentprover.id;
-					console.log("Got current Prover. Now deleting selected prover." + Id);
+					console.log("Got current Prover. Now deleting selected prover " + Id);
 					$.ajax({
 						url: '/provers/' + Id + '.json?',
 						type: 'DELETE',

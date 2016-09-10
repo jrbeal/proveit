@@ -2,7 +2,6 @@ class Prover < ActiveRecord::Base
 	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter"
 
 	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
-
 	has_many :follows, :foreign_key => "follows", :dependent => :destroy
 	has_many :topics, :dependent => :destroy
 	has_many :posts, :dependent => :destroy

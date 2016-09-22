@@ -2,7 +2,7 @@
   <div class="sidepadding spacing">
     <%= link_to 'Home', root_path %>
     <%= link_to_unless @post.parent == nil, 'Parent', @post.parent %>
-    <%= link_to_unless @post.parent == nil, 'Root', @post.topic.root %>
+    <%#= link_to_unless @post.parent == nil, 'Root', @post.topic.root %>
 
  	  <div class="right" style="margin-right: 5px;">
 			<%= link_to "Less", "#", :id => "lessmaster"%>

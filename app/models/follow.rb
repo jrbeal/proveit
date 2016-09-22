@@ -1,6 +1,6 @@
 class Follow < ActiveRecord::Base
-	belongs_to :follows, class_name: "Prover", :foreign_key => "follows"
-	belongs_to :owner, class_name: "Prover", :foreign_key => "owner"
+	belongs_to :follows, :class_name => "Prover", :foreign_key => "follows"
+	belongs_to :owner, :class_name => "Prover", :foreign_key => "owner"
 
 	def follows_id
 		follows.id

@@ -2,13 +2,13 @@ $(function() {
 	$('.deletetopic').on("click", function (e) {
 		var $tgt = $(e.target);
 		var $parent = $($tgt.parent());
-		console.log("Deleting this topic.");
+		console.log("Deleting topic.");
 
 		$.ajax({
 			url: '/topics/' + $parent.attr("data-topic") + ".json",
 			type: 'DELETE',
-			success: function(resp) {
-				console.log("Deleted this topic.");
+			success: function (resp) {
+				console.log("Deleted topic.");
 				window.location.reload();
 			}
 		})

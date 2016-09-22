@@ -15,3 +15,5 @@ HALF_LIFE_1 = 0.50000000000		# 1 week half life
 DECAY_FACTOR = 'decay_factor'
 
 Siteconfig.create(:name => DECAY_FACTOR, :floatvalue => HALF_LIFE_26) unless Siteconfig.find_by :name => DECAY_FACTOR
+
+Filter.create(:name => "Topics", :sitedefault => true, :opinions => true, :has_no_parent => true, :level_zero => true)

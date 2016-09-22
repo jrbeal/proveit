@@ -1,11 +1,13 @@
 class Post < ActiveRecord::Base
-	belongs_to :parent, :foreign_key => "parent_id", :class_name => "Post"
-	belongs_to :prover, :foreign_key => "prover_id", :class_name => "Prover"
-	belongs_to :topic, :foreign_key => "topic_id", :class_name => "Topic"
+	belongs_to :parent, :class_name => "Post", :foreign_key => "parent_id"
+	belongs_to :prover, :class_name => "Prover", :foreign_key => "prover_id"
+	belongs_to :topic, :class_name => "Topic", :foreign_key	=> "topic_id"
 
 	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
 	has_many :likes, :dependent => :destroy
 	has_many :posts, :foreign_key => "parent_id", :dependent => :destroy
+
+#	has_one :topic, :foreign_key => "root_id"
 
 
 	OPINION = "opinion"
@@ -87,7 +89,7 @@ class Post < ActiveRecord::Base
 	def count_children(id, kind) 		# Count the number of children (of a given kind) under the given post
 		puts "counting children for #{id}"
 		kids = Post.where(parent_id: id, kind: kind)
-		return kids.count
+		kids.count
 	end
 
 	def count_offspring(id, kind, count)	# Recursively increment count the number of offspring under the given post
@@ -98,24 +100,19 @@ class Post < ActiveRecord::Base
 		end
 
 		puts "#{id} has #{count} offspring."
-		return count
+		count
 	end
 
 	def categories
-		instance_variable_get('@categories')
+		topic.categories
 	end
 
 	def categories=(val)
-		instance_variable_set('@categories', val)
+		topic.categories = val
 	end
 
 	def create_category_lists
-		self.categories = []
-		TopicCategory.where(topic_id: self.topic_id).each do |t|
-			Category.where(id: t.category_id).each do |c|
-				self.categories.push c.name
-			end
-		end
+		topic.categories
 	end
 
 	def create_team_lists

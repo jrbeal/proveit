@@ -89,7 +89,7 @@ function filters() {
 			$('input[name="parents"][value="has_no_parent"]').prop('checked', false);
 			$('input[name="level"][value="zero"]').prop('checked', false);
 			$('input[name="level"][value="nonzero"]').prop('checked', false);
-			$('input[name="timerange"][value="last_year"]').prop('checked', true);
+			$('input[name="timerange"][value="all"]').prop('checked', true);
 			$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', true);
 			$('input[name="descending"][value="true"]').prop('checked', true);
 			$('.provers_dropdown').val(-1);
@@ -115,8 +115,7 @@ function filters() {
 								window.location = '/provers/' + owner
 							}
 						});
-					}
-					;
+					};
 				}
 			});
 

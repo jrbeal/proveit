@@ -1,3 +1,3 @@
 class Fallacy < ActiveRecord::Base
-	belongs_to :folder, :class_name => "Fallacyfolder", :foreign_key => "folder"
+	belongs_to :fallacyfolder, :foreign_key => "folder"
 end

@@ -67,7 +67,7 @@
 					<div id="profileprofilefields2">
 						<div>First Name: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="first_name" rows="1"><%= @prover.first_name %></textarea></div>
 						<div>Last Name: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="last_name"  rows="1"><%= @prover.last_name %></textarea></div>
-						<div>Username: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="username"  rows="1"><%= @prover.provername %></textarea></div>
+						<div>Username: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="username"  rows="1"><%= @prover.provername %><%= "(Administrator)" if @prover.administrator %></textarea></div>
 						<div>Email: <textarea disabled class="message profiletextfield1" name="emailaddress"  rows="1"><%= @prover.email %></textarea></div>
 						<div>Location: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="location" rows="1"><%= @prover.location %></textarea></div>
 						<div>Occupation: <textarea <%= "disabled" if !@owner %> class="message profiletextfield1" name="occupation" rows="1"><%= @prover.occupation %></textarea></div>
@@ -276,7 +276,7 @@
 									<%= hidden_field_tag :sitedefault, "false" %>
 								<% end %>
 								<div class="profilepagediv2" style="display:flex; flex-direction: row; justify-content: flex-start; align-items: center">
-									<div style = "width:150px">
+									<div style = "width:100px">
 										<b>Categories:</b>
 									</div>
 									<div class="profilepagediv3 flexContainer_row_wrap_start">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824020049) do
+ActiveRecord::Schema.define(version: 20160917005418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 20160824020049) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
   end
+
+  create_table "categories_filters", id: false, force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "filter_id",   null: false
+  end
+
+  add_index "categories_filters", ["category_id", "filter_id"], name: "index_categories_filters_on_category_id_and_filter_id", unique: true, using: :btree
+
+  create_table "categories_topics", id: false, force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "topic_id",    null: false
+  end
+
+  add_index "categories_topics", ["category_id", "topic_id"], name: "index_categories_topics_on_category_id_and_topic_id", unique: true, using: :btree
 
   create_table "configs_tables", force: :cascade do |t|
     t.string  "name"
@@ -43,11 +57,6 @@ ActiveRecord::Schema.define(version: 20160824020049) do
   create_table "fallacyfolders", force: :cascade do |t|
     t.string  "name"
     t.integer "parent"
-  end
-
-  create_table "filter_categories", force: :cascade do |t|
-    t.integer "filter_id"
-    t.integer "category_id"
   end
 
   create_table "filters", force: :cascade do |t|
@@ -186,11 +195,6 @@ ActiveRecord::Schema.define(version: 20160824020049) do
     t.string  "team_type"
   end
 
-  create_table "topic_categories", force: :cascade do |t|
-    t.integer "topic_id"
-    t.integer "category_id"
-  end
-
   create_table "topics", force: :cascade do |t|
     t.boolean  "private"
     t.boolean  "lone_wolf"
@@ -198,7 +202,6 @@ ActiveRecord::Schema.define(version: 20160824020049) do
     t.boolean  "public_comments"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "root_id"
     t.boolean  "use_teams"
     t.integer  "prover_id"
   end
@@ -208,29 +211,24 @@ ActiveRecord::Schema.define(version: 20160824020049) do
     t.integer "prover_id"
   end
 
-  add_foreign_key "bookmarks", "posts", column: "post", on_delete: :cascade
-  add_foreign_key "bookmarks", "provers", column: "owner", on_delete: :cascade
-  add_foreign_key "fallacies", "fallacyfolders", column: "folder", on_delete: :cascade
-  add_foreign_key "fallacyfolders", "fallacyfolders", column: "parent", on_delete: :cascade
-  add_foreign_key "filter_categories", "categories", on_delete: :cascade
-  add_foreign_key "filter_categories", "filters", on_delete: :cascade
+  add_foreign_key "bookmarks", "posts", column: "post"
+  add_foreign_key "bookmarks", "provers", column: "owner"
+  add_foreign_key "fallacies", "fallacyfolders", column: "folder"
+  add_foreign_key "fallacyfolders", "fallacyfolders", column: "parent"
+  add_foreign_key "filters", "provers"
   add_foreign_key "filters", "provers", column: "who_id"
-  add_foreign_key "filters", "provers", on_delete: :cascade
-  add_foreign_key "follows", "provers", column: "follows", on_delete: :cascade
-  add_foreign_key "follows", "provers", column: "owner", on_delete: :cascade
+  add_foreign_key "follows", "provers", column: "follows"
+  add_foreign_key "follows", "provers", column: "owner"
   add_foreign_key "groups", "provers", column: "owner"
-  add_foreign_key "likes", "posts", on_delete: :cascade
-  add_foreign_key "likes", "provers", on_delete: :cascade
-  add_foreign_key "posts", "posts", column: "parent_id", on_delete: :cascade
-  add_foreign_key "posts", "provers", on_delete: :cascade
-  add_foreign_key "posts", "topics", on_delete: :cascade
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "provers"
+  add_foreign_key "posts", "posts", column: "parent_id"
+  add_foreign_key "posts", "provers"
+  add_foreign_key "posts", "topics"
   add_foreign_key "provers", "filters", column: "cur_filter"
-  add_foreign_key "teams", "provers", on_delete: :cascade
-  add_foreign_key "teams", "topics", on_delete: :cascade
-  add_foreign_key "topic_categories", "categories", on_delete: :cascade
-  add_foreign_key "topic_categories", "topics", on_delete: :cascade
-  add_foreign_key "topics", "posts", column: "root_id", on_delete: :cascade
-  add_foreign_key "topics", "provers", on_delete: :cascade
+  add_foreign_key "teams", "provers"
+  add_foreign_key "teams", "topics"
+  add_foreign_key "topics", "provers"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "provers"
 end

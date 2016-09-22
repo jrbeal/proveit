@@ -125,19 +125,10 @@ class ApplicationController < ActionController::Base
 		end
 		@posts = @posts.where(id: ids) unless @posts.empty?
 
-		fcids = []
-		FilterCategory.where(filter_id: @filter.id).each do |f|
-			fcids.push f.category_id					# Create an array of category ids set in current filter...
-		end
-
-		unless fcids.empty?									# now check each post and eliminate any that are NOT within a category selected.
-			ids = []
-			@posts.each do |p|
-				TopicCategory.where(topic_id: p.topic_id).each do |t|
-					ids.push p.id if fcids.include?(t.category_id)
-				end
+		if @filter.categories.any? do
+			@posts = @posts.select |p|
+				(@filter.categories & p.topic.categories).any?
 			end
-			@posts = @posts.where(id: ids) unless ids.empty?
 		end
 																																													# Now eliminate all posts....
 		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id && !@posts.empty?	# ...not created by specified user...

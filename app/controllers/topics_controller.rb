@@ -43,13 +43,14 @@ class TopicsController < ApplicationController
 		@post = Post.new(post_params)
 		@topic = Topic.new(topic_params)
 		@post.topic = @topic
-		@topic.root = @post
 		@topic.prover = current_prover
 		@post.prover = current_prover
 
+		topic_categories = []
 		Category.all.each do |c|
-			TopicCategory.new(topic_id: @topic.id, category_id: c.id).save! if params[c.name]
+			topic_categories.push(c) if params[c.name]
 		end
+		@topic.categories = topic_categories
 
 		if @topic.private?
 			case params[:type]

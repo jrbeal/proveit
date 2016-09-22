@@ -11,13 +11,7 @@ class FiltersController < ApplicationController
   # GET /filters/1.json
   def show
 		@filter = Filter.find(params[:id])
-
-		ids = []
-		Filter_categories.where(filter_id: @filter.id).each do |f|
-			ids.push f.category_id
-		end
-		@categories = []
-		@categories = Category.where(id: ids) if ids.length > 0
+		@categories = @filter.categories
 
 		respond_to do |format|
 			format.html { }
@@ -71,14 +65,14 @@ class FiltersController < ApplicationController
 			filter = Filter.find_by prover_id: current_prover.id, name: params[:myfiltername]
 			if filter																										# filter already exists so...
 				filter.update(filter_params)															# ...update it...
-				Filter_categories.where(filter_id: filter.id).delete_all	# ...and clear out its category records.
+				filter.categories.delete_all															# ...and clear out its category records.
 			else																												# filter doesn't exist so...
 				filter = Filter.new(filter_params)												# ...create one.
 				filter.save!
 			end
 
-			Category.all.each do |c|																		# Create category records
-				Filter_categories.new(filter_id: filter.id, category_id: c.id).save! if params[c.name] == "category"
+			Category.all.each do |c|																		# Create new category records
+				filter.categories << c if params[c.name] == "category"
 			end
 		end
 

@@ -27,6 +27,13 @@ module PostsHelper
     end
   end
 
+	def top(post)
+		until post.parent == nil
+			post = post.parent
+		end
+		return post
+	end
+
   def level(post)
     case post.kind
       when Post::OPINION

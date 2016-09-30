@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	get 'help'		   	  => 'static_pages#help'
 	get 'about'		   	  => 'static_pages#about'
 	get 'contact'	    	=> 'static_pages#contact'
+	get 'more'	  	  	=> 'static_pages#more'
   get 'posts/new'   	=> 'posts#new'
 	get 'follow'				=> 'follow'
 	get 'bookmark'			=> 'bookmark'

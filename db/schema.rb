@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160917005418) do
+ActiveRecord::Schema.define(version: 20160925174716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,12 +92,10 @@ ActiveRecord::Schema.define(version: 20160917005418) do
     t.boolean  "descending"
   end
 
-  create_table "follows", force: :cascade do |t|
-    t.integer "owner",   null: false
-    t.integer "follows", null: false
+  create_table "followings", id: false, force: :cascade do |t|
+    t.integer "prover_id"
+    t.integer "following_id"
   end
-
-  add_index "follows", ["owner", "follows"], name: "index_follows_on_owner_and_follows", unique: true, using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -217,8 +215,6 @@ ActiveRecord::Schema.define(version: 20160917005418) do
   add_foreign_key "fallacyfolders", "fallacyfolders", column: "parent"
   add_foreign_key "filters", "provers"
   add_foreign_key "filters", "provers", column: "who_id"
-  add_foreign_key "follows", "provers", column: "follows"
-  add_foreign_key "follows", "provers", column: "owner"
   add_foreign_key "groups", "provers", column: "owner"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "provers"

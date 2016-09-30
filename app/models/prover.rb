@@ -1,18 +1,20 @@
 class Prover < ActiveRecord::Base
 	belongs_to :cur_filter, :class_name => "Filter", :foreign_key => "cur_filter"
-
 	has_many :teams, :dependent => :destroy
 	has_many :bookmarks, :foreign_key => "owner", :dependent => :destroy
-	has_many :follows, :foreign_key => "follows", :dependent => :destroy
-	has_many :follows, :foreign_key => "owner", :dependent => :destroy
 	has_many :posts, :dependent => :destroy
 	has_many :filters, :foreign_key => "who_id", :dependent => :destroy
 	has_many :filters, :dependent => :destroy
 	has_many :topics, :dependent => :destroy
 	has_many :likes, :dependent => :destroy
 	has_many :groups, :foreign_key => "owner", :dependent => :destroy
-	#has_many :users_groups, :dependent => :destroy
 
+	has_and_belongs_to_many :followers,
+		:class_name => "Prover",
+		:join_table => "followings",
+		:foreign_key => "prover_id",
+		:association_foreign_key => "following_id",
+		:dependent => :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -37,6 +39,11 @@ class Prover < ActiveRecord::Base
 
 	after_create do
 		Prover.update_rankings
+	end
+
+	def followees
+		Prover.where("id in
+ (select prover_id from followings where following_id = ?)", id)
 	end
 
 	def calculate_rating   							# Calculate current rating for prover
@@ -79,5 +86,18 @@ class Prover < ActiveRecord::Base
 			p.percentile = ((provers.count - (i + 1)) * 100) / provers.count
 			p.save!
 		end
+	end
+
+	def follow(prover)
+		prover.followers << self unless follows?(prover) || prover.id == id
+		prover.save
+	end
+
+	def follows?(prover)
+		prover.followers.include? self
+	end
+
+	def unfollow(prover)
+		prover.followers.delete self
 	end
 end

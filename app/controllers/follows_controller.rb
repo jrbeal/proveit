@@ -24,20 +24,14 @@ class FollowsController < ApplicationController
 	# POST /follows
 	# POST /follows.json
 	def create
-		follow_params = {
-			:owner => Prover.find(params[:owner]),
-			:follows => Prover.find(params[:follows])
-		}
-
-		@follow = Follow.new(follow_params)
+		@owner = Prover.find(params[:owner])
+		@owner.follow(Prover.find(params[:follows]))
 
 		respond_to do |format|
-			if @follow.save
-				format.html { render :json => @follow }
-				format.json { render :show, status: :created, location: @follow }
+			if @owner.follow(Prover.find(params[:follows]))
+				format.html { render :json => {prover_id: @owner.id, following_id: params[:follows]}.to_json }
 			else
-				format.html { render :new }
-				format.json { render json: @follow.errors, status: :unprocessable_entity }
+				format.html { render :json => {it: "BROKE"}.to_json, :status => :unprocessable_entity }
 			end
 		end
 	end
@@ -57,11 +51,8 @@ class FollowsController < ApplicationController
 	end
 
 	def destroy
-		@follow = Follow.where(:owner => params[:owner], :follows => params[:follows])
-
-		@follow.each do |f|
-			f.destroy
-		end
+		@owner = Prover.find params[:owner]
+		@owner.unfollow Prover.find params[:follows]
 
 		render :text => "Nothing"
 	end

@@ -2,15 +2,14 @@ class ProversController < ApplicationController
 
 	def show
 		@prover = Prover.find(params[:id])
+		@provers = Prover.all.order(:provername)
 		@owner = @prover == current_prover
 		@opinions = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
 		@objections = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
 		@initiators = Post.where(:prover_id => @prover, :kind => Post::INITIATOR)
 		@comments = Post.where(:prover_id => @prover, :kind => Post::COMMENT)
-		@follows = Follow.where(:owner => @prover)
-		@followed = Follow.where(:follows => @prover)
+		@followers = @prover.followers.all
 		@bookmarks = Bookmark.where(:owner => @prover)
-		@provers = Prover.all.order(:provername)
 		@customfilters = Filter.where(:prover_id => current_prover, :sitedefault => false).order(name: :desc)
 		@defaultfilters = Filter.where(:sitedefault => true).order(name: :desc)
 		@categories = Category.all.order(name: :asc)

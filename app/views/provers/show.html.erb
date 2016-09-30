@@ -145,8 +145,8 @@
 					<div class="profilepagediv2">
 						<div id="following">
 							<b>Following:</b> &nbsp
-							<% if @follows.count > 0 %>
-								<%= select_tag 'following_dropdown', options_from_collection_for_select(@follows, "follows_id", "follows_name") %> &nbsp
+							<% if @prover.followees.count > 0 %>
+								<%= select_tag 'following_dropdown', options_from_collection_for_select(@prover.followees, "id", "provername") %> &nbsp
 								<%= link_to "Unfollow", "#", :class => "unfollow fontsize10", :data => {:current_prover_id => "#{@prover.id}"} %>
 							<% else %>
 								You are not following anyone right now.
@@ -157,8 +157,8 @@
 					<div class="profilepagediv2">
 						<div id="followers">
 							<b>Followed By:</b> &nbsp
-							<% if @followed.count > 0 %>
-								<%= select_tag 'followers_dropdown', options_from_collection_for_select(@followed, "owner_id", "owner_name") %> &nbsp
+							<% if @prover.followers.count > 0 %>
+								<%= select_tag 'followers_dropdown', options_from_collection_for_select(@prover.followers, "id", "provername") %> &nbsp
 								<%= link_to "Remove", "#", :class => "unfollowedby fontsize10", :data => {:current_prover_id => "#{@prover.id}"} %>
 							<% else %>
 								No one is following you right now.

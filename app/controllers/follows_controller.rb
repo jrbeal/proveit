@@ -4,7 +4,6 @@ class FollowsController < ApplicationController
 	# GET /follows
 	# GET /follows.json
 	def index
-		@follows = Follow.all
 	end
 
 	# GET /follows/1
@@ -14,7 +13,6 @@ class FollowsController < ApplicationController
 
 	# GET /follows/new
 	def new
-		@follow = Follow.new
 	end
 
 	# GET /follow/1/edit

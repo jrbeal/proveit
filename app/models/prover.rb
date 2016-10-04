@@ -13,8 +13,7 @@ class Prover < ActiveRecord::Base
 		:class_name => "Prover",
 		:join_table => "followings",
 		:foreign_key => "prover_id",
-		:association_foreign_key => "following_id",
-		:dependent => :destroy
+		:association_foreign_key => "following_id"
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -41,9 +40,18 @@ class Prover < ActiveRecord::Base
 		Prover.update_rankings
 	end
 
+	before_destroy do
+		clear_follows_relationships
+	end
+
 	def followees
-		Prover.where("id in
- (select prover_id from followings where following_id = ?)", id)
+		Prover.where "id in (select prover_id from followings where following_id = ?)", id
+	end
+
+	def clear_follows_relationships
+		# Prover.connection.execute "DELETE from followers WHERE follows_id = ? || prover_id = ?", self.id, self.id
+		Prover.connection.execute "DELETE from followings WHERE following_id = #{self.id}"
+		Prover.connection.execute "DELETE from followings WHERE prover_id = #{self.id}"
 	end
 
 	def calculate_rating   							# Calculate current rating for prover
@@ -70,14 +78,12 @@ class Prover < ActiveRecord::Base
 		self.highest_rating_date = Time.now
 		self.save!
 	end
-
 																			# Update ratings for all provers (to be called periodically with cron
 	def self::update_ratings() 					# immediately after "update_post_scores")
 		Prover.all.each do |p|
 			p.calculate_rating
 		end
 	end
-
 																			# Update rankings for all provers (to be called periodically with cron
 	def self::update_rankings					  # immediately after "update_prover_ratings")
 		provers = Prover.all.order(:rating).reverse_order
@@ -89,15 +95,16 @@ class Prover < ActiveRecord::Base
 	end
 
 	def follow(prover)
-		prover.followers << self unless follows?(prover) || prover.id == id
+		self.followers << prover unless follows?(prover) || prover.id == id
+		# prover.followers << self unless follows?(prover) || prover.id == id
 		prover.save
 	end
 
 	def follows?(prover)
-		prover.followers.include? self
+		self.followers.include? prover
 	end
 
 	def unfollow(prover)
-		prover.followers.delete self
+		self.followers.delete prover
 	end
 end

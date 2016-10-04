@@ -128,6 +128,9 @@ class ProversController < ApplicationController
 	def destroy
 		@prover = Prover.find(params[:id])
 
+		# @follows = Prover.find params[:follows]
+		# @follows.unfollow Prover.find params[:owner]
+
 		@prover.destroy
 		puts "Inside prover destroy"
 		respond_to do |format|

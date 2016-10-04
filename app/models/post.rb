@@ -7,7 +7,6 @@ class Post < ActiveRecord::Base
 	has_many :likes, :dependent => :destroy
 	has_many :posts, :foreign_key => "parent_id", :dependent => :destroy
 
-
 	OPINION = "opinion"
 	INITIATOR = "initiator"
 	COMMENT = "comment"

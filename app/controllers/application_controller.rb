@@ -65,7 +65,6 @@ class ApplicationController < ActionController::Base
 		end
 		@posts = []
 		@posts = Post.where(id: ids) if ids.length > 0
-
 		# Now start filtering...
 																				# First eliminate all posts outside the specified time range
 		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today && !@posts.empty?
@@ -124,16 +123,10 @@ class ApplicationController < ActionController::Base
 			ids.push p.id unless p.topic.private && !(p.topic.public_viewing || p.team_member?(current_prover) || current_prover.administrator)
 		end
 		@posts = @posts.where(id: ids) unless @posts.empty?
-
-		if @filter.categories.any? do
-			@posts = @posts.select |p|
-				(@filter.categories & p.topic.categories).any?
-			end
-		end
 																																													# Now eliminate all posts....
 		@posts = @posts.where(prover_id: @filter.who_id) if @filter.who_id && !@posts.empty?	# ...not created by specified user...
 		@posts = @posts.where.not(parent_id: nil) if @filter.has_parent	&& !@posts.empty?			# ...that are parentless...
-		@posts = @posts.where(parent_id: nil) if @filter.has_no_parent	&& !@posts.empty?			# ...that have parents...
+		@posts = @posts.where(parent_id: nil) if @filter.has_no_parent && !@posts.empty?			# ...that have parents...
 		@posts = @posts.where(status: false) if @filter.contested	&& !@posts.empty?						# ...that are false...
 		@posts = @posts.where(status: true) if @filter.uncontested && !	@posts.empty?					# ...that are true...
 		@posts = @posts.where(level: 0) if @filter.level_zero	&& !@posts.empty?								# ...that are non-zero level...
@@ -147,6 +140,10 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.order(created_at: order) if @filter.sort_by_created_at && !@posts.empty?
 		@posts = @posts.order(views: order) if @filter.sort_by_views && !@posts.empty?
 		@posts = @posts.order(points: order) if @filter.sort_by_votes && !@posts.empty?
+
+		# Now eliminate all posts not within any of the categories selected. (Had to do this last because "select" is NOT
+		# an ActiveRecord method and it returns a standard Ruby array instead of an ActiveRecord Relation.)
+		@posts = @posts.select { |p| (p.topic.categories & @filter.categories).any? } if @filter.categories.any?
 
 		@posts.each do |p|									# One final pass to build...
 			p.create_team_lists								# ...the team lists (for private posts)

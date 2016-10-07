@@ -127,11 +127,8 @@ class ProversController < ApplicationController
 	# DELETE /provers/1.json
 	def destroy
 		@prover = Prover.find(params[:id])
-
-		# @follows = Prover.find params[:follows]
-		# @follows.unfollow Prover.find params[:owner]
-
 		@prover.destroy
+
 		puts "Inside prover destroy"
 		respond_to do |format|
 			format.html { redirect_to provers_url, notice: 'Prover was successfully destroyed.' }

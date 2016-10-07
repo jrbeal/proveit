@@ -41,17 +41,12 @@ class Prover < ActiveRecord::Base
 	end
 
 	before_destroy do
-		clear_follows_relationships
+		Prover.connection.execute "DELETE from followings WHERE following_id = #{self.id}"
+		Prover.connection.execute "DELETE from followings WHERE prover_id = #{self.id}"
 	end
 
 	def followees
 		Prover.where "id in (select prover_id from followings where following_id = ?)", id
-	end
-
-	def clear_follows_relationships
-		# Prover.connection.execute "DELETE from followers WHERE follows_id = ? || prover_id = ?", self.id, self.id
-		Prover.connection.execute "DELETE from followings WHERE following_id = #{self.id}"
-		Prover.connection.execute "DELETE from followings WHERE prover_id = #{self.id}"
 	end
 
 	def calculate_rating   							# Calculate current rating for prover

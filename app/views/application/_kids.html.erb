@@ -1,5 +1,5 @@
 <% kids.each do |kid| %>
-	<%= render partial: "application/post", object: kid, locals: {indent: indent, kind: kid.kind} %>
+	<%= render partial: "application/post", object: kid, locals: {indent: indent, kind: kid.kind, featured: "false"} %>
 
 	<% if (current_prover.offspring_style == Prover::EXPANDED) %>
 		<% kids = Post.where(:parent => kid).where(:kind => kid.kind).order(:updated_at).reverse_order %>

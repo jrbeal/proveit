@@ -21,7 +21,7 @@
 
 	<div class="toppadding10">
 		<% @posts.each do |post| %>
-			<%= render partial: "application/post", object: post, locals: {indent: 0, kind: ""} %>
+			<%= render partial: "application/post", object: post, locals: {indent: 0, kind: "", featured: "false"} %>
 		<% end %>
 	</div>
 </body>

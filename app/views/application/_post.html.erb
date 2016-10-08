@@ -31,19 +31,21 @@
 				<div class="vlevel1 flexContainer_row_center_space fontsize12 sidepadding">
 					<div class="flexContainer_row_center_start">
 
-						<% if current_prover.administrator %>
-							<% if post.parent == nil %>
-								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
+						<% unless featured == "true"%>
+							<% if current_prover.administrator %>
+								<% if post.parent == nil %>
+									<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
+								<% else %>
+									<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
+								<% end %>
 							<% else %>
-								<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
-							<% end %>
-						<% else %>
-							<% if current_prover == post.prover %>
-								<% if post.offspring_opinions == 0 %>
-									<% if post.parent == nil %>
-										<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
-									<% else %>
-										<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
+								<% if current_prover == post.prover %>
+									<% if post.offspring_opinions == 0 %>
+										<% if post.parent == nil %>
+											<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
+										<% else %>
+											<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
+										<% end %>
 									<% end %>
 								<% end %>
 							<% end %>

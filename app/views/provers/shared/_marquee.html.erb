@@ -5,7 +5,7 @@
 <% @top_topics.each do |t| %>
 	<hr size="1" noshade>
 	<div class="marqueeline">
-		<%= link_to t.root.message, t.root, {:style=>'color:blue;'} %>
+		<% post = Post.where(topic_id: t.id, level: 0).first %>
+		<%= link_to post.message, post, {:style=>'color:blue;'} %>
 	</div>
-
 <% end %>

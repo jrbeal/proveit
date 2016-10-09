@@ -23,6 +23,7 @@ class ProversController < ApplicationController
 																											# We must have a fallacy folder.
 		if params[:folderid]															# First see if one was passed as a parameter
 			@folder = Fallacyfolder.find(params[:folderid])
+			puts "Folder = #{@folder.id}"
 		else																							# else...
 			@folder = Fallacyfolder.find_by(:parent => nil)		# ...find the "root" folder.
 			if @folder == nil																# If there isn't one, create one...

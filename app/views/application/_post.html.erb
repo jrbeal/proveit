@@ -74,6 +74,7 @@
 				<div class="vlevel3 flexContainer_row_center_space  fontsize10  sidepadding">
 					<div class="flexContainer_row_center_start">
 						<% if post.topic.private? %>
+							Private: &nbsp
 							<% if post.topic.use_teams? %>
 								<%= select_tag 'team1', content_tag(:option, post.team1type, :value => "-1") + options_from_collection_for_select(post.team1, "prover_id", "prover_name", :disabled => Proc.new { true }), :class => 'teamlist' %> &nbsp
 								<% unless post.kind == Post::COMMENT %>

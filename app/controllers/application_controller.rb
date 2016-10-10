@@ -74,12 +74,10 @@ class ApplicationController < ActionController::Base
 
 		if @filter.following								# now eliminate those NOT created by someone user is following
 			ids = []
-			Follow.where(owner: current_prover).each do |f|
-				Post.where(prover_id: f.follows.id).each do |p|
-					ids.push p.id
-				end
+			current_prover.followers.each do |p|
+				ids.push p.id
 			end
-			@posts = @posts.where(id: ids) unless @posts.empty?
+			@posts = @posts.where(prover_id: ids) unless @posts.empty?
 		end
 
 		if @filter.bookmarks								# now eliminate those that are NOT bookmarks

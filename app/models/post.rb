@@ -95,8 +95,6 @@ class Post < ActiveRecord::Base
 		kids.each do |k|
 			count = count_offspring(k.id, k.kind, count) + 1
 		end
-
-		puts "#{id} has #{count} offspring."
 		count
 	end
 

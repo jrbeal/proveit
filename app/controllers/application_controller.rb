@@ -132,15 +132,15 @@ class ApplicationController < ActionController::Base
 
 		# Now sort the results...
 		if @filter.descending
-			order = "desc"
+			order = "DESC"
 		else
-			order = "asc"
+			order = "ASC"
 		end
 
-		@posts = @posts.order(updated_at: order) if @filter.sort_by_updated_at && !@posts.empty?
-		@posts = @posts.order(created_at: order) if @filter.sort_by_created_at && !@posts.empty?
-		@posts = @posts.order(views: order) if @filter.sort_by_views && !@posts.empty?
-		@posts = @posts.order(points: order) if @filter.sort_by_votes && !@posts.empty?
+		@posts = @posts.order("updated_at " + order) if @filter.sort_by_updated_at && !@posts.empty?
+		@posts = @posts.order("created_at " + order) if @filter.sort_by_created_at && !@posts.empty?
+		@posts = @posts.order("views " + order) if @filter.sort_by_views && !@posts.empty?
+		@posts = @posts.order("points " + order) if @filter.sort_by_votes && !@posts.empty?
 
 		# Now eliminate all posts not within any of the categories selected. (Had to do this last because "select" is NOT
 		# an ActiveRecord method and it returns a standard Ruby array instead of an ActiveRecord Relation.)

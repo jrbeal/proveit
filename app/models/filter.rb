@@ -4,7 +4,7 @@ class Filter < ActiveRecord::Base
 	has_many :provers, :foreign_key => "cur_filter"
 	has_and_belongs_to_many :categories
 
-	DEFAULT = "Topics"
+	DEFAULT = "All"
 
 	def filter_name
 		self.name

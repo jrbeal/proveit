@@ -104,18 +104,14 @@ function filters() {
 				success: function (resp) {
 					console.log("Got current prover.");
 					owner = resp.currentprover.id;
-					if (Id == owner) {
-						alert("Error: You can not delete your active filter");
-					} else {
-						$.ajax({
-							url: '/filters/' + Id + '.json?',
-							type: 'DELETE',
-							success: function () {
-								console.log("Deleted filter.");
-								window.location = '/provers/' + owner
-							}
-						});
-					};
+					$.ajax({
+						url: '/filters/' + Id + '.json?',
+						type: 'DELETE',
+						success: function () {
+							console.log("Deleted filter.");
+							window.location = '/provers/' + owner
+						}
+					});
 				}
 			});
 

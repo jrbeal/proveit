@@ -59,9 +59,15 @@
 							<%= link_to image_tag('links.png', :size => '13x13'), post.url %> &nbsp
 						<% end %>
 
-						<em><div class="message">
-							<%= link_to post.message, post, {:style=>'color:blue;'} %>
-						</div></em>
+						<% if featured == "true"%>
+							<em><div class="message">
+								<%= post.message %>
+							</div></em>
+						<% else %>
+							<em><div class="message">
+								<%= link_to post.message, post, {:style=>'color:blue;'} %>
+							</div></em>
+						<% end %>
 					</div>
 
 					<div class="flexContainer_row_center_end  fontsize13">

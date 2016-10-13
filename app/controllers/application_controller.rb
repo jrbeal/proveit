@@ -131,9 +131,12 @@ class ApplicationController < ActionController::Base
 		@posts = @posts.where.not(level: 0) if @filter.level_nonzero && !@posts.empty?				# ...that are zero level
 
 		# Now sort the results...
+		if @filter.descending
+			order = "desc"
+		else
+			order = "asc"
+		end
 
-		order = "desc" if @filter.descending
-		order = "asc" unless @filter.descending
 		@posts = @posts.order(updated_at: order) if @filter.sort_by_updated_at && !@posts.empty?
 		@posts = @posts.order(created_at: order) if @filter.sort_by_created_at && !@posts.empty?
 		@posts = @posts.order(views: order) if @filter.sort_by_views && !@posts.empty?

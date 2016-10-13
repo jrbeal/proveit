@@ -59,23 +59,21 @@
 							<%= link_to image_tag('links.png', :size => '13x13'), post.url %> &nbsp
 						<% end %>
 
-						<% if post.kind == Post::OPINION %>
-							<% if post.level == 0 %>
-								In my opinion: &nbsp
-							<% else %>
-								I object! &nbsp
+						<em><div class="message">
+							<% if post.kind == Post::OPINION %>
+								<% if post.level == 0 %>
+									In my opinion: &nbsp
+								<% else %>
+									I object! &nbsp
+								<% end %>
 							<% end %>
-						<% end %>
-						
-						<% if featured == "true"%>
-							<em><div class="message">
-								<%= post.message %>
-							</div></em>
-						<% else %>
-							<em><div class="message">
-								<%= link_to post.message, post, {:style=>'color:blue;'} %>
-							</div></em>
-						<% end %>
+
+							<% if featured == "true"%>
+									<%= post.message %>
+							<% else %>
+									<%= link_to post.message, post, {:style=>'color:blue;'} %>
+							<% end %>
+						</div></em>
 					</div>
 
 					<div class="flexContainer_row_center_end  fontsize13">

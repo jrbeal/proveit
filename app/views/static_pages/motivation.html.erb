@@ -2,10 +2,6 @@
 	Motivation
 </p>
 
-<p class="title">
-	Background:
-</p>
-
 <p class="paragraph">
 	Modern humans have achieved great intellectual and technological advances due to our ability to communicate ideas and
 	share knowledge. The relatively recent “Information Age” (sometimes referred to as the Computer Age, or Digital Age)
@@ -205,54 +201,4 @@
 
 <p class="paragraph">
 	<span><%= image_tag('Dilbert.jpg', :class => "growmax") %></span>
-</p>
-
-<p class="title">
-How will it work?
-</p>
-
-<p class="paragraph">
-	First let’s talk about trees. Not the kind that grow from the ground but the graphical form often used in computer
-	science data structures. Technically speaking, a tree is an undirected graph in which any two vertices (or nodes)
-	are connected by exactly one (and only one) path.  The type of tree we’ll be using is known as a “rooted” tree much
-	like most organization charts at large businesses. For example, at the top of one of these charts might be an
-	Executive Director representing the root of the tree. Directly beneath him might be a CTO, a CCO, a CHRO, and maybe
-	a CFO. The next level would be numerous high-level managers… and so on. At the bottom of each branch would be a
-	worker with no subordinates. ProveIt! also uses rooted tree structures to manage its debates but at the root of these
-	trees will be an initial opinion followed by any number of direct objections and cascading offspring.
-</p>
-
-<p class="paragraph">
-	It’s important to understand the components of a rooted tree structure as they are frequently referred to in the
-	ProveIt! documentation and website. We often refer to relationships such as parents, children and siblings. A parent
-	is the node from which a child originates. A family might be referring to a parent and all of its children.
-	Sibling have the same parent. The offspring of a node refers to its children and all descendents cascading
-	beneath it. Leaf nodes have no offspring (children) and terminate a branch. For example, an initial opinion will
-	probably inspire numerous objections. Each of these objections are “children” of the initial opinion. They might
-	also be referred to as “offspring” and/or “descendant” nodes. Each objection represents a new “level” of the branch
-	or tree. Each node in a tree resides in a level defined by its distance from the root node (level 0). Level 1 is
-	the set of all nodes directly below the root node. Level 2 is the set of all nodes directly attached below level 1,
-	and so on. Each level (other than 0) may consist of any number of nodes.  Level 0 will always have only one node.
-</p>
-
-<p class="paragraph">
-	Although other forums use trees to represent discussions, the presentation is usually vertically linear using only
-	slight indentations to represent the various levels within the tree while displaying the entire “polylogue” in a
-	scrollable form. This makes it very difficult to manage mentally – especially as the tree grows large. What usually
-	results is a long list of comments resulting in nothing but a confusing pile of unsubstantiated opinions and verbal
-	attacks. It becomes virtually impossible to keep track of which comments are addressing who or what. The ProveIt!
-	format focuses on each individual node and its children allowing users to easily navigate throughout the tree and
-	attack all fallacious or factually incorrect objections.
-</p>
-
-<p class="paragraph">
-	The most important feature of ProveIt! is how each objection node (and initial opinion node) always resolves to
-	either true or false. On the website this translates to either green or red, respectively. When created they start
-	out green and will stay that way until someone contests them by posting an objection.
-</p>
-
-<p class="paragraph">
-	The ultimate goal for those agreeing with the root node’s initial opinion is to keep it green. Those who disagree
-	will strive to turn it red. But this can only be accomplished by attacking and proving wrong all objections
-	throughout the tree opposing your opinion.
 </p>

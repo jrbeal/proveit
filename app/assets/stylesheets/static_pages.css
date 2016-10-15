@@ -16,3 +16,14 @@
 	margin-right: 10%;
 	text-align: justify;
 }
+
+.maintitle {
+	font: arial, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-decoration: underline;
+	font-style: italic;
+	margin-left: 10%;
+	margin-right: 10%;
+	text-align: center;
+}

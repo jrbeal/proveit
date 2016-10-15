@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
-	before_action :authenticate_prover!, :except => [:help, :about, :contact]
+	before_action :authenticate_prover!, :except => [:help, :about, :contact, :motivation]
 	before_action :set_top_provers
 	before_action :top_semi_private_debates
 
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
-		@posts = Post.all
+		@posts = Post.all 									#
 																				# Start filtering...
 		@posts = @posts.where.not(kind: Post::OPINION) unless @filter.opinions || @posts.empty?
 		@posts = @posts.where.not(kind: Post::INITIATOR) unless @filter.initiators || @posts.empty?

@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
 	def logged_in_homepage
 		@verbosity = current_prover.verbosity
 
-		@defaultfilters = Filter.where(sitedefault: true)
-		@customfilters = Filter.where(sitedefault: false, prover_id: current_prover)
+		@defaultfilters = Filter.where(sitedefault: true).order('name')
+		@customfilters = Filter.where(sitedefault: false, prover_id: current_prover).order('name')
 
 		length = 0
 		@defaultfilters.each do |f|

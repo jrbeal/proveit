@@ -45,28 +45,13 @@ class ApplicationController < ActionController::Base
 			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
-		# First gather all posts of the specified type(s)...
+		@posts = Post.all
+																				# Start filtering...
+		@posts = @posts.where.not(kind: Post::OPINION) unless @filter.opinions || @posts.empty?
+		@posts = @posts.where.not(kind: Post::INITIATOR) unless @filter.initiators || @posts.empty?
+		@posts = @posts.where.not(kind: Post::COMMENT) unless @filter.comments || @posts.empty?
 
-		ids = []
-		if @filter.opinions									# ...all OPINION posts
-			Post.where(kind: Post::OPINION).each do |p|
-				ids.push p.id
-			end
-		end
-		if @filter.initiators								# ...all INITIATOR posts
-			Post.where(kind: Post::INITIATOR).each do |p|
-				ids.push p.id
-			end
-		end
-		if @filter.comments									# ...all COMMENT posts
-			Post.where(kind: Post::COMMENT).each do |p|
-				ids.push p.id
-			end
-		end
-		@posts = []
-		@posts = Post.where(id: ids) if ids.length > 0
-		# Now start filtering...
-																				# First eliminate all posts outside the specified time range
+																				# Now eliminate all posts outside the specified time range
 		@posts = @posts.where(:updated_at => 1.day.ago..Time.now) if @filter.today && !@posts.empty?
 		@posts = @posts.where(:updated_at => 1.week.ago..Time.now) if @filter.last_week && !@posts.empty?
 		@posts = @posts.where(:updated_at => 1.month.ago..Time.now) if @filter.last_month && !@posts.empty?

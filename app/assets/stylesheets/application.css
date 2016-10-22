@@ -27,13 +27,14 @@
 .post.lightblue {background-color: lightblue}
 
 body {
-	/* background-image: url("SupremeCourt.JPG"); */
-	/* 	background-size: 100% 100%; */
+	/*background-image: url("leather-background.gif");*/
 	overflow-y: scroll;
 }
 
 #header {
-	background-color: white;
+	/*background-image: url("SupremeCourt.JPG");*/
+	background-size: 100% 100%;
+	/*background-color: white;*/
 	height: 90px;
 }
 

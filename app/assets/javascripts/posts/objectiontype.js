@@ -12,31 +12,6 @@ $(function() {
 			$('#objectionopinion').val("");
 			$('#objectionsupport').val("");
 			$('#objectionurl').val("");
-		} else if ($tgt.val() == "inconclusive") {
-			$('#objectionfallacy').hide();
-			$('#objectionopinion').val("This objection fails to draw a conclusion.");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
-		} else if ($tgt.val() == "ambiguous") {
-			$('#objectionfallacy').hide();
-			$('#objectionopinion').val("This objection is unclear.");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
-		} else if ($tgt.val() == "irrelevant") {
-			$('#objectionfallacy').hide();
-			$('#objectionopinion').val("This objection misses the point.");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
-		} else if ($tgt.val() == "duplicate") {
-			$('#objectionfallacy').hide();
-			$('#objectionopinion').val("This objection already exists");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
-		} else if ($tgt.val() == "unsubstantiated") {
-			$('#objectionfallacy').hide();
-			$('#objectionopinion').val("This objection lacks rationale or evidence.");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
 		} else if ($tgt.val() == "mediationrequest") {
 			$('#objectionfallacy').hide();
 			$('#objectionopinion').val("Requesting mediation.");

@@ -467,7 +467,7 @@
 						</form>
 					</div>
 					<div class="profilepagediv2">
-						<b>Fallacies:</b> &nbsp
+						<b>Canned Replies:</b> &nbsp
 						<form action="<%= fallacies_path %>" method="post">
 							<div class="profilepagediv2">
 								<div class="fallacydiv">
@@ -479,7 +479,7 @@
 											<% folders.unshift(f.name.sub(" --->", "")) %>
 											<% f = f.parent %>
 										<% end %>
-										Logical Fallacies
+										Canned Replies
 										<% folders.each do |f| %>
 											/&nbsp<%= f %>
 										<% end %>
@@ -497,9 +497,9 @@
 										<%= hidden_field_tag :parent, @folder.id %>
 										<%= link_to "Open", "#", :id => "fallacyopen" %> &nbsp &nbsp
 										<%= link_to "Delete", "#", :id => "fallacydelete" %> &nbsp &nbsp &nbsp &nbsp
-										<textarea class="name" name="name" rows="1" cols="40" placeholder="Enter new fallacy or folder name here."></textarea>
+										<textarea class="name" name="name" rows="1" cols="40" placeholder="Enter new template or folder name here."></textarea>
 										<%= radio_button_tag(:type, "fallacy", true) %>
-										<%= label_tag("Fallacy") %> &nbsp
+										<%= label_tag("Template") %> &nbsp
 										<%= radio_button_tag(:type, "folder") %>
 										<%= label_tag("Folder") %> &nbsp &nbsp
 										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -512,7 +512,7 @@
 							<%= form_tag fallacies_path, :method => "put" %>
 								<div class="toppadding10">
 									<div class="submit_text message_text">
-										Declaration of fallacy:
+										Declaration:
 									</div>
 									<textarea id="fallacydeclaration" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter declaration here. Be as concise as possible."></textarea>
 								</div>

@@ -5,5 +5,6 @@ $(function() {
 	$('#opinionreply').hide();
 	$('#initiatorreply').hide();
 	$('#objectionfallacy').hide();
+	$('#commentfallacy').hide();
 	$('#initiatorfallacy').hide();
 })

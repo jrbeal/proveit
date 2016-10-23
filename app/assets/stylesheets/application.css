@@ -45,23 +45,10 @@ body {
 	-webkit-flex: 2;
 }
 
-#proveit {
-	color: black;
-	font-family: fantasy;
-	font-size: 48px;
-	font-style: italic;
-	text-decoration: underline;
-	flex: 12;
-	-ms-flex: 12;
-	-webkit-flex: 12;
-}
-
 #breadcrumbs {
 	font-size: 12px;
 	margin-top: 5px;
-	flex: 3;
-	-ms-flex: 3;
-	-webkit-flex: 3;
+	margin-right: 30px;
 }
 
 .sidepadding {

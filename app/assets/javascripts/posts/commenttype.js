@@ -15,7 +15,7 @@ $(function() {
 		} else if ($tgt.val() == "mediationrequest") {
 			$('#commentfallacy').hide();
 			$('#commentopinion').val("Requesting mediation.");
-			$('#commentsupport').val("Describe impass here.");
+			$('#commentsupport').val("Describe impasse here.");
 			$('#commenturl').val("");
 		}
 	});

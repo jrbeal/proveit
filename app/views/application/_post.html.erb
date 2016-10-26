@@ -73,6 +73,11 @@
 							<% else %>
 									<%= link_to post.message, post, {:style=>'color:blue;'} %>
 							<% end %>
+
+							<% unless post.support.empty? %>
+								&nbsp
+								<%= image_tag('curved-down-arrow1.png', :size => '12x12') %>
+							<% end %>
 						</div></em>
 					</div>
 

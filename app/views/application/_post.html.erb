@@ -59,26 +59,28 @@
 							<%= link_to image_tag('links.png', :size => '13x13'), post.url %> &nbsp
 						<% end %>
 
-						<em><div class="message">
-							<% if post.kind == Post::OPINION %>
-								<% if post.level == 0 %>
-									In my opinion,
-								<% else %>
-									I object!
+						<div class="message">
+							<em>
+								<% if post.kind == Post::OPINION %>
+									<% if post.level == 0 %>
+										In my opinion,
+									<% else %>
+										I object!
+									<% end %>
 								<% end %>
-							<% end %>
 
-							<% if featured == "true"%>
-									<%= post.message %>
-							<% else %>
-									<%= link_to post.message, post, {:style=>'color:blue;'} %>
-							<% end %>
+								<% if featured == "true"%>
+										<%= post.message %>
+								<% else %>
+										<%= link_to post.message, post, {:style=>'color:blue;'} %>
+								<% end %>
+							</em>
 
 							<% unless post.support.empty? %>
 								&nbsp
-								<%= image_tag('curved-down-arrow1.png', :size => '12x12') %>
-							<% end %>
-						</div></em>
+								[+]
+						<% end %>
+						</div>
 					</div>
 
 					<div class="flexContainer_row_center_end  fontsize13">

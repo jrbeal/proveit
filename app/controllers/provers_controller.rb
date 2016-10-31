@@ -25,9 +25,9 @@ class ProversController < ApplicationController
 			@folder = Fallacyfolder.find(params[:folderid])
 			puts "Folder = #{@folder.id}"
 		else																							# else...
-			@folder = Fallacyfolder.find_by(:parent => nil)		# ...find the "root" folder.
+			@folder = Fallacyfolder.find_by(:parent => nil) # ...find the "root" folder.
 			if @folder == nil																# If there isn't one, create one...
-				Fallacyfolder.create! :name => "root", :parent => nil
+				Fallacyfolder.create! :name => "Templates:", :parent => nil
 				@folder = Fallacyfolder.find_by(:parent => nil)	# ...and there you go.
 			end
 		end

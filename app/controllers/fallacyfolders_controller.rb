@@ -27,13 +27,15 @@ class FallacyfoldersController < ApplicationController
 
 		if (@folder.parent)
 			@parentid = @folder.parent.id
+			@parentname = @folder.parent.name
 		else
 			@parentid = nil
+			@parentname = ""
 		end
 
 		respond_to do |format|
 			format.html { }
-			format.json { render :json => {:joined => @joined, :parentid => @parentid}.to_json }
+			format.json { render :json => {:joined => @joined, :parentid => @parentid, :parentname => @folder.name}.to_json}
 		end
 	end
 

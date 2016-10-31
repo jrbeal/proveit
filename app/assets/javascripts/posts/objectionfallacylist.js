@@ -1,22 +1,26 @@
 $(function() {
 	$('#objectionfallacylist').on("click", function () {
+		var Back = "<--- Back";
 		var Id = $('#objectionfallacylist option:selected').val();
 		var name = $('#objectionfallacylist option:selected').text();
-		if (name.search("--->") >= 0 || name.search("<---") >= 0) {
+		if (name.search("--->") >= 0 || name.search(Back) >= 0) {
 			$.ajax({
 				url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 				type: 'GET',
 				success: function (resp) {
 					var joined = resp.joined;
 					var parentid = resp.parentid;
+					var parentname = resp.parentname;
 					$('#objectionfallacylist option').remove();
 					if (parentid) {
-						$('#objectionfallacylist').append($("<option />").val(parentid).text("<--- Back"));
+						$('#objectionfallacylist').append($("<option />").val(parentid).text(Back));
 					}
 					;
 					$.each(joined, function () {
 						$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 					});
+					$('#templatepath').text(name.replace(" --->", ":"));
+					$('#templatepath').text(parentname.replace(" --->", ":"));
 					$('#objectionopinion').val("");
 					$('#objectionsupport').val("");
 					$('#objectionurl').val("");

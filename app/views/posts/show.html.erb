@@ -50,9 +50,11 @@
 				</div>
 
 				<div id="objectionfallacy" class="toppadding10" style="margin-left:14%">
+					<div id="templatepath">Templates:</div>
+
 					<% joined = @fallacies + @subfolders %>
 					<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
 				</div>
 
 				<div class="toppadding10" >

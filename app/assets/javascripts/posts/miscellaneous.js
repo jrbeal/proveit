@@ -4,7 +4,7 @@ $(function() {
 	$('#commentreply').hide();
 	$('#opinionreply').hide();
 	$('#initiatorreply').hide();
-	$('#objectionfallacy').hide();
+	$('#templates').hide();
 	$('#commentfallacy').hide();
 	$('#initiatorfallacy').hide();
 })

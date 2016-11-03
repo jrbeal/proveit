@@ -3,17 +3,17 @@ $(function() {
 		console.log("Selecting objection type...");
 		var $tgt = $(e.target);
 		if ($tgt.val() == "manual") {
-			$('#objectionfallacy').hide();
+			$('#templates').hide();
 			$('#objectionopinion').val("");
 			$('#objectionsupport').val("");
 			$('#objectionurl').val("");
 		} else if ($tgt.val() == "fallacy") {
-			$('#objectionfallacy').show();
+			$('#templates').show();
 			$('#objectionopinion').val("");
 			$('#objectionsupport').val("");
 			$('#objectionurl').val("");
 		} else if ($tgt.val() == "mediationrequest") {
-			$('#objectionfallacy').hide();
+			$('#templates').hide();
 			$('#objectionopinion').val("Requesting mediation.");
 			$('#objectionsupport').val("Describe impasse here.");
 			$('#objectionurl').val("");

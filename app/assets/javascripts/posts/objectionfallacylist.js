@@ -14,13 +14,12 @@ $(function() {
 					$('#objectionfallacylist option').remove();
 					if (parentid) {
 						$('#objectionfallacylist').append($("<option />").val(parentid).text(Back));
-					}
-					;
+					};
 					$.each(joined, function () {
 						$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 					});
-					$('#templatepath').text(name.replace(" --->", ":"));
-					$('#templatepath').text(parentname.replace(" --->", ":"));
+					$('#objectiontemplatefolder').text(parentname.replace(" --->", ":"));
+					$('#objectiontemplatefolder').val(Id);
 					$('#objectionopinion').val("");
 					$('#objectionsupport').val("");
 					$('#objectionurl').val("");
@@ -41,5 +40,25 @@ $(function() {
 		}
 
 		return false;
+	});
+
+	$('#filtertemplates').on("click", function () {
+		var Id = $('#objectiontemplatefolder').val();
+		var keywords = $('#templatekeywords').val().split(" ");
+		console.log("ID = " + Id);
+		console.log("Keywords = " + keywords.length)
+		$.ajax({
+			url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
+			type: 'GET',
+			success: function (resp) {
+				var contents = resp.joined;
+
+				$.each(contents, function () {
+//					if this.id is a folder call function again
+//					else
+//					$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
+				});
+			}
+		});
 	});
 });

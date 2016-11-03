@@ -49,25 +49,35 @@
 					</div>
 				</div>
 
-				<div id="objectionfallacy" class="toppadding10" style="margin-left:14%">
-					<div id="templatepath">Templates:</div>
+				<div id="templates">
+					<div class="toppadding10">
+						<div class="submit_text" id="objectiontemplatefolder">
+							Templates:
+						</div>
+						<textarea id="templatekeywords" class="message" name="keywords" rows="1" cols="75" placeholder="Enter keywords here."></textarea>
+						<button class="right sidepadding" name="Filter" type="button" id="filtertemplates">
+							Filter
+						</button>
+					</div>
 
-					<% joined = @fallacies + @subfolders %>
-					<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-					<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					<div id="objectionfallacy" class="" style="margin-left:14%">
+						<% joined = @fallacies + @subfolders %>
+						<% joined = joined.sort { |a, b| a.name <=> b.name } %>
+						<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					</div>
 				</div>
 
-				<div class="toppadding10" >
+				<div class="toppadding10">
 					<div class="submit_text message_text">
 						In my opinion:
 					</div>
-					<textarea id="objectionopinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
+					<textarea id="objectionopinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter proposition here. Be as concise as possible."></textarea>
 				</div>
 				<div class="toppadding5">
 					<div class="submit_text support_text">
 						Support (Optional):
 					</div>
-					<textarea id="objectionsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="Enter additional rationale, clarification and supporting information here."></textarea>
+					<textarea id="objectionsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="Enter justification, rationale, clarification, and supporting information here."></textarea>
 				</div>
 				<div class="toppadding5">
 					<div class="submit_text support_url">
@@ -102,13 +112,13 @@
 						<div class="submit_text message_text">
 							Opinion:
 						</div>
-						<textarea id="initiatoropinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here."></textarea>
+						<textarea id="initiatoropinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter proposition here. Be as concise as possible."></textarea>
 					</div>
 					<div class="toppadding5">
 						<div class="submit_text support_text">
 							Support (Optional):
 						</div>
-						<textarea id="initiatorsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="Enter additional supporting information here."></textarea>
+						<textarea id="initiatorsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="Enter justification, rationale, clarification, and supporting information here."></textarea>
 					</div>
 					<div class="toppadding5">
 						<div class="submit_text support_url">
@@ -154,9 +164,11 @@
 				</div>
 
 				<div id="commentfallacy" class="toppadding10" style="margin-left:14%">
+					<div id="commenttemplatepath">Templates:</div>
+
 					<% joined = @fallacies + @subfolders %>
 					<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-					<%= select_tag 'commentfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 325px' %> &nbsp &nbsp
+					<%= select_tag 'commentfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
 				</div>
 
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>

@@ -154,7 +154,7 @@
   -webkit-justify-content: space-between;	/* flex-start | flex-end | center | space-between | space-around */
 }
 
-.flexContainer_row_top_space {	/* row, aligned on centers, spaces between */
+.flexContainer_row_top_space {	/* row, aligned along top, spaces between */
   /* "Standard" Flexbox syntax */
   display: flex;						/* flex | inline-flex */
   flex-direction: row;					/* row | row-reverse | column | column-reverse */

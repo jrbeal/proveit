@@ -66,8 +66,8 @@ function postReady() {
 	$('#type_opinion').on("click", function () {
 		$(".submit_text.message_text").text("In my opinion:");
 		$(".submit_text.support_text").text("Support (Optional):");
-		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional rationale, clarification and supporting information here.';
+		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter proposition here. Be as concise as possible.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter justification, rationale, clarification, and supporting information here.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').show();
 			$('#private').hide();
@@ -96,7 +96,7 @@ function postReady() {
 		$(".submit_text.message_text").text("Initiator:");
 		$(".submit_text.support_text").text("Support (Optional):");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional clarification and supporting information here.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional justification and supporting information here.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').hide();
 			$('#private').hide();

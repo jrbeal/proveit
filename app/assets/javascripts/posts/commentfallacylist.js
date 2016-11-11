@@ -8,14 +8,14 @@ $(function() {
 				url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 				type: 'GET',
 				success: function (resp) {
-					var joined = resp.joined;
+					var results = resp.results;
 					var parentid = resp.parentid;
 					var parentname = resp.parentname;
 					$('#commentfallacylist option').remove();
 					if (parentid) {
 						$('#commentfallacylist').append($("<option />").val(parentid).text(Back));
 					};
-					$.each(joined, function () {
+					$.each(results, function () {
 						$('#commentfallacylist').append($("<option />").val(this.id).text(this.name));
 					});
 					$('#commenttemplatepath').text(parentname.replace(" --->", ":"));

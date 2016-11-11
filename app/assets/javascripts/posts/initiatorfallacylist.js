@@ -9,16 +9,16 @@ $(function() {
 				url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 				type: 'GET',
 				success: function (resp) {
-					var joined = resp.joined;
+					var results = resp.results;
 					var parentid = resp.parentid;
-					console.log(joined);
+					console.log(results);
 					console.log(parentid);
 					$('#initiatorfallacylist option').remove();
 					if (parentid) {
 						$('#initiatorfallacylist').append($("<option />").val(parentid).text("<--- Back"));
 					}
 					;
-					$.each(joined, function () {
+					$.each(results, function () {
 						$('#initiatorfallacylist').append($("<option />").val(this.id).text(this.name));
 					});
 					$('#initiatoropinion').val("");

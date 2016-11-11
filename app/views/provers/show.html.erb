@@ -488,9 +488,9 @@
 									<div class="flexContainer_row_center_start">
 										<% fallacies = Fallacy.where(:folder => @folder.id).order(:name) %>
 										<% subfolders = Fallacyfolder.where(:parent => @folder.id).order(:name) %>
-										<% joined = fallacies + subfolders %>
-										<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-										<%= select_tag 'fallacy', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp
+										<% results = fallacies + subfolders %>
+										<% results = results.sort { |a, b| a.name <=> b.name } %>
+										<%= select_tag 'fallacy', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies' %> &nbsp &nbsp
 										<% if @folder.parent %>
 											<%= link_to "Back", "/provers/#{current_prover.id}?folderid=#{@folder.parent.id}" %> &nbsp &nbsp
 										<% end %>

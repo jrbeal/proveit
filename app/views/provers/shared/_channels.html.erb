@@ -1,0 +1,11 @@
+<div id="channelstitle" class="bold">
+	Channels
+</div>
+
+<% @top_channels.each do |p| %>
+	<hr size="1" noshade>
+	<div class="channelsline">
+		<% prover = Prover.where(id: p.topic.prover).first %>
+		<%= link_to_unless prover == nil, prover.first_name + " " + prover.last_name + " (" + prover.provername + ")", p, {:style=>'color:blue;'} %>
+	</div>
+<% end %>

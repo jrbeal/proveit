@@ -1,5 +1,5 @@
 class FallacyfoldersController < ApplicationController
-	before_action :set_fallacyfolder, only: [:show, :edit, :update, :destroy]
+	before_action :set_fallacyfolder, only: [:show, :edit, :update, :destroy, :contents, :search]
 
 	# GET /fallacyfolders
 	# GET /fallacyfolders.json
@@ -10,7 +10,6 @@ class FallacyfoldersController < ApplicationController
 	# GET /fallacyfolders/1
 	# GET /fallacyfolders/1.json
 	def show
-		@fallacyfolder = Fallacyfolder.find(params[:id])
 		respond_to do |format|
 			format.html { }
 			format.json { render :json => {:fallacyfolder => @fallacyfolder}.to_json }
@@ -18,16 +17,14 @@ class FallacyfoldersController < ApplicationController
 	end
 
 	def contents
-		@folder = Fallacyfolder.find(params[:id])
+		@fallacies = Fallacy.where(folder: @fallacyfolder.id)
+		@subfolders = Fallacyfolder.where(parent: @fallacyfolder.id)
+		@results = @fallacies + @subfolders
+		@results = @results.sort { |a, b| a.name <=> b.name }
 
-		@fallacies = Fallacy.where(folder: @folder.id)
-		@subfolders = Fallacyfolder.where(parent: @folder.id)
-		@joined = @fallacies + @subfolders
-		@joined = @joined.sort { |a, b| a.name <=> b.name }
-
-		if (@folder.parent)
-			@parentid = @folder.parent.id
-			@parentname = @folder.parent.name
+		if (@fallacyfolder.parent)
+			@parentid = @fallacyfolder.parent.id
+			@parentname = @fallacyfolder.parent.name
 		else
 			@parentid = nil
 			@parentname = ""
@@ -35,7 +32,33 @@ class FallacyfoldersController < ApplicationController
 
 		respond_to do |format|
 			format.html { }
-			format.json { render :json => {:joined => @joined, :parentid => @parentid, :parentname => @folder.name}.to_json}
+			format.json { render :json => {:results => @results, :parentid => @parentid, :parentname => @fallacyfolder.name}.to_json}
+		end
+	end
+
+	def search
+		@keyword = params[:keyword]
+		@results = ""
+
+		@fallacies = Fallacy.where(folder: @fallacyfolder.id)
+		@fallacies.each do |fallacy|
+			if (fallacy.name.include?(@keyword) || fallacy.opinion.include?(@keyword) || fallacy.support.include?(@keyword))
+				@results = @results + fallacy
+			end
+		end
+
+		# @subfolders = Fallacyfolder.where(parent: @folder.id)
+		# @subfolders.each do |folder|
+		# 	folder.search
+		# end
+
+		@results = @results.sort { |a, b| a.name <=> b.name }
+
+		@folder.parent ? @parentid = @folder.parent.id : @parentid = nil
+
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:results => @results, :parentid => @parentid}.to_json}
 		end
 	end
 

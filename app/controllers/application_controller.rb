@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_prover!, :except => [:help, :about, :contact, :motivation]
 	before_action :set_top_provers
 	before_action :top_semi_private_debates
+	before_action :top_channels
 
 	def homepage
 		if current_prover
@@ -155,6 +156,15 @@ class ApplicationController < ActionController::Base
 
 	def top_semi_private_debates
 		@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
+	end
+
+	def top_channels
+		@posts = Post.where(kind: Post::COMMENT, level: 0).limit(10)
+		ids = []
+		@posts.each do |p|
+			ids.push p.id if (p.topic.lone_wolf && !p.topic.private)
+		end
+		@top_channels = @posts.where(id: ids).order(:updated_at).reverse unless @posts.empty?
 	end
 
 end

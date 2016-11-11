@@ -8,14 +8,14 @@ $(function() {
 				url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
 				type: 'GET',
 				success: function (resp) {
-					var joined = resp.joined;
+					var results = resp.results;
 					var parentid = resp.parentid;
 					var parentname = resp.parentname;
 					$('#objectionfallacylist option').remove();
 					if (parentid) {
 						$('#objectionfallacylist').append($("<option />").val(parentid).text(Back));
 					};
-					$.each(joined, function () {
+					$.each(results, function () {
 						$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 					});
 					$('#objectiontemplatefolder').text(parentname.replace(" --->", ":"));
@@ -43,21 +43,28 @@ $(function() {
 	});
 
 	$('#filtertemplates').on("click", function () {
+		var Back = "<--- Back";
 		var Id = $('#objectiontemplatefolder').val();
-		var keywords = $('#templatekeywords').val().split(" ");
+		var keyword = $('#templatekeyword').val();
 		console.log("ID = " + Id);
-		console.log("Keywords = " + keywords.length)
+		console.log("Keyword = " + keyword);
 		$.ajax({
-			url: '/fallacyfolders/contents/' + Id + '.json?' + $.param({"id": Id}),
+			url: '/fallacyfolders/search/' + Id + '.json?' + $.param({"id": Id}) + $.param({"; keyword": keyword}),
 			type: 'GET',
 			success: function (resp) {
-				var contents = resp.joined;
-
-				$.each(contents, function () {
-//					if this.id is a folder call function again
-//					else
-//					$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
+				var results = resp.results;
+				var parentid = resp.parentid;
+				console.log("Results = " + results.count);
+				$('#objectionfallacylist option').remove();
+				if (parentid) {
+					$('#objectionfallacylist').append($("<option />").val(parentid).text(Back));
+				};
+				$.each(results, function () {
+					$('#objectionfallacylist').append($("<option />").val(this.id).text(this.name));
 				});
+				$('#objectionopinion').val("");
+				$('#objectionsupport').val("");
+				$('#objectionurl').val("");
 			}
 		});
 	});

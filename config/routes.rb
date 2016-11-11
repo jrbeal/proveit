@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 	get 'leaderboard' 	=> 'provers#leaderboard'
 	get 'resetscore' 		=> 'provers#reset_highest_rating'
 	get 'fallacyfolders/contents/:id'	=> 'fallacyfolders#contents'
+	get 'fallacyfolders/search/:id'	=> 'fallacyfolders#search'
 	get 'halflife'			=> 'posts#gethalflife'
 	get 'verbosity'			=> 'provers#getverbosity'
 	get 'kidtype'				=> 'provers#getkidtype'

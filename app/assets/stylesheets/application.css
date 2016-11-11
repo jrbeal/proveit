@@ -235,6 +235,35 @@ h1 {
 	box-shadow: 5px 5px 10px #888888;
 }
 
+#channels {
+	margin-top: 28px;
+	margin-left: 10%;
+	margin-right:10%;
+	padding-bottom: 5px;
+	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
+	overflow: auto;
+	box-shadow: 5px 5px 10px #888888;
+}
+
+#channelstitle {
+	text-decoration: underline;
+	margin-top: 5px;
+	font-style: italic;
+	font-size: 14px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.channelsline {
+	color: blue;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 10px;
+	line-height: 12px;
+}
+
 #marqueetitle {
 	text-decoration: underline;
 	margin-top: 5px;

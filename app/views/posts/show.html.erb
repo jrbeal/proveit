@@ -54,16 +54,18 @@
 						<div class="submit_text" id="objectiontemplatefolder">
 							Templates:
 						</div>
-						<textarea id="templatekeywords" class="message" name="keywords" rows="1" cols="75" placeholder="Enter keywords here."></textarea>
-						<button class="right sidepadding" name="Filter" type="button" id="filtertemplates">
-							Filter
-						</button>
+						<div class="flexContainer_row_center_start">
+							<textarea id="templatekeyword" class="message" name="keywords" rows="1" cols="30" placeholder="Enter keyword here."></textarea>
+							&nbsp <button name="Filter" type="button" id="filtertemplates">
+								Search
+							</button>
+						</div>
 					</div>
 
-					<div id="objectionfallacy" class="" style="margin-left:14%">
-						<% joined = @fallacies + @subfolders %>
-						<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-						<%= select_tag 'objectionfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					<div id="objectionfallacy" class="toppadding5" style="margin-left:14%">
+						<% results = @fallacies + @subfolders %>
+						<% results = results.sort { |a, b| a.name <=> b.name } %>
+						<%= select_tag 'objectionfallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
 					</div>
 				</div>
 
@@ -166,9 +168,9 @@
 				<div id="commentfallacy" class="toppadding10" style="margin-left:14%">
 					<div id="commenttemplatepath">Templates:</div>
 
-					<% joined = @fallacies + @subfolders %>
-					<% joined = joined.sort { |a, b| a.name <=> b.name } %>
-					<%= select_tag 'commentfallacylist', options_from_collection_for_select(joined, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					<% results = @fallacies + @subfolders %>
+					<% results = results.sort { |a, b| a.name <=> b.name } %>
+					<%= select_tag 'commentfallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
 				</div>
 
 				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>

@@ -1,10 +1,12 @@
 $(function() {
+
 	$.ajax({
 		url: '/currentprover.json?',
 		type: 'GET',
 		success: function (resp) {
 			$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
 
+			console.log("kidtype = " + resp.currentprover.kidtype);
 			switch (resp.currentprover.offspring_style) {
 				case 'collapsed':
 					$('#expand').show();
@@ -20,7 +22,7 @@ $(function() {
 		}
 	});
 
-	$('input[name="kidtype"]').click(function (e) {
+	$('input[name="kidtype"]').click( function (e) {
 		var $tgt = $(e.target);
 		var $commentrepliable = $tgt.attr("data-commentrepliable");
 		var $opinionrepliable = $tgt.attr("data-opinionrepliable");
@@ -28,7 +30,7 @@ $(function() {
 		console.log("Opinion repliable = " + $opinionrepliable);
 		switch ($tgt.val()) {
 			case 'comment':
-				console.log("kidtype = comment");
+				console.log("kidtype = comment here");
 				$('.opinion').hide();
 				$('.comment').show();
 
@@ -41,7 +43,7 @@ $(function() {
 				}
 			break;
 			case 'initiator':
-				console.log("kidtype = initiator");
+				console.log("kidtype = initiator here");
 				$('.opinion').show();
 				$('.comment').hide();
 
@@ -56,13 +58,15 @@ $(function() {
 			default:
 				console.log("Clicking unknown kidtype: " + $tgt.val());
 			case 'opinion':
-				console.log("kidtype = opinion");
+				console.log("kidtype = opinion here");
 				$('.opinion').show();
 				$('.comment').hide();
 
 				if ($opinionrepliable == "true") {
+					console.log("opinionreliable is true, showing createkid on an opinion");
 					$('#createkid').show();
 				} else {
+					console.log("opinionreliable is true, hiding createkid on an opinion");
 					$('#createkid').hide();
 				}
 			break;

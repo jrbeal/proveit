@@ -63,6 +63,12 @@ module PostsHelper
         #{label_tag 'kidtype', 'Comments'}
        	(#{post.children_comments}/#{post.offspring_comments})
 				")
-    end
+			when Post::COMMENT
+				raw ("
+				#{radio_button_tag('kidtype', 'comment', true, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
+				#{label_tag 'kidtype', 'Comments'}
+				(#{post.children_opinions}/#{post.offspring_opinions})
+				")
+		end
   end
 end

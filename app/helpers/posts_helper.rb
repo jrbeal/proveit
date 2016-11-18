@@ -43,7 +43,7 @@ module PostsHelper
 		end
   end
 
-	
+
   def genpostbuttons(post)
     case post.kind
       when Post::INITIATOR

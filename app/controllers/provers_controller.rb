@@ -144,7 +144,10 @@ class ProversController < ApplicationController
 	end
 
 	def upload_image
-		s3 = Aws::S3::Client.new(:region => 'us-east-1')
+		s3 = Aws::S3::Client.new(:region => 'us-east-1',
+			 :credentials => Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+		)
+
 		id = SecureRandom::uuid
 
 		s3.put_object(:body => params[:prover][:profile_image].open,

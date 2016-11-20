@@ -2,7 +2,7 @@
 	Channels
 </div>
 
-<% @top_channels.each do |p| %>
+<% Array(@top_channels).each do |p| %>
 	<hr size="1" noshade>
 	<div class="channelsline">
 		<% prover = Prover.where(id: p.topic.prover).first %>

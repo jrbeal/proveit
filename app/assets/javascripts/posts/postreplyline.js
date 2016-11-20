@@ -1,4 +1,5 @@
 $(function() {
+	// Need to know what the featured node is...
 	var postKind = $('.post').attr('data_post_kind');
 	var defaultkidtype;
 
@@ -18,7 +19,7 @@ $(function() {
 					break;
 				case 'opinion':
 				case 'initiator':
-					$('input[name="kidtype"][value="' + resp.currentprover.kidtype + '"]').click();
+					$('input[name="kidtype"][value="' + defaultkidtype + '"]').click();
 					break;
 				default:
 					console.log("Invalid post kind.");
@@ -92,6 +93,7 @@ $(function() {
 				break;
 		}
 
+		// If the featured post is NOT a comment, go ahead and set the default kidtype. Otherwise, leave it alone.
 		if (postKind != "comment") {
 			$.ajax({
 				url: '/kidtype?' + $.param({"kidtype": $tgt.val()}),

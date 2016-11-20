@@ -182,21 +182,24 @@ class Post < ActiveRecord::Base
 	def self::update_post_scores()
 		decay_factor = Siteconfig.find_by(:name => "decay_factor")
 		Post.all.each do |p|
-			if (p.status)
-				weeks_since_last_update = (Time.now - p.updated_at) / SECONDS_IN_WEEK
-				p.update_column(:score, 100*(decay_factor.floatvalue**weeks_since_last_update))
-			else
-				p.update_column(:score, 0.0)
+			case p.kind
+				when OPINION
+					if (p.status)
+						weeks_since_last_update = (Time.now - p.updated_at) / SECONDS_IN_WEEK
+						p.update_column(:score, 100*(decay_factor.floatvalue**weeks_since_last_update))
+					else
+						p.update_column(:score, 0.0)
+					end
+				when COMMENT		# This is only meaningful for channels
+					weeks_since_created = (Time.now - p.created_at) / SECONDS_IN_WEEK
+					p.update_column(:score, 100*(decay_factor.floatvalue**weeks_since_created))
 			end
 		end
 	end
 	
 	before_create do 								# First create and initialize the new post
-		if self.kind == OPINION				# status and score are only meaningful with opinions
-			self.status = TRUE
-			self.score = 100.0
-		end
-
+		self.status = TRUE if self.kind == OPINION				# status is only meaningful with opinions
+		self.score = 100.0 unless self.kind == INITIATOR	# score is not meaningful with initiators
 		self.level = count_levels(self, 0)
 		self.views = 0
 		self.children_opinions=0

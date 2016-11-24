@@ -32,7 +32,7 @@ class FiltersController < ApplicationController
   # POST /filters.json
   def create
 		filter_params = {}
-		filter_params[:prover_id] = current_prover.id
+		filter_params[:prover_id] = current_prover.id unless params[:sitedefault] == "true"
 		filter_params[:sitedefault] = params[:sitedefault] == "true"
 		filter_params[:opinions] = params[:opinions] == "true"
 		filter_params[:initiators] = params[:initiators] == "true"

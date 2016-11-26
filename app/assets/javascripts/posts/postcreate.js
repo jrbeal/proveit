@@ -66,6 +66,7 @@ function postReady() {
 	$('#type_opinion').on("click", function () {
 		$(".submit_text.message_text").text("In my opinion:");
 		$(".submit_text.support_text").text("Support (Optional):");
+		$("#public label").text("Lone Wolf?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter justification, rationale, clarification, and supporting information here.';
 		if ($('#format_public').is(':checked')) {
@@ -124,6 +125,8 @@ function postReady() {
 	$('#type_comment').on("click", function () {
 		$(".submit_text.message_text").text("Comment:");
 		$(".submit_text.support_text").text("Support (Optional): ");
+
+		$("#public label").text("Channel?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter casual comment here.';
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information here.';
 		$('#private').hide();

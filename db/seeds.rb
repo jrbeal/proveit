@@ -15,4 +15,6 @@ HALF_LIFE_1 = 0.50000000000		# 1 week half life
 
 Siteconfig.create(:name => CONFIG_NAME, :floatvalue => HALF_LIFE_26) unless Siteconfig.find_by :name => CONFIG_NAME
 
-Filter.create(:name => "All", :sitedefault => true, :opinions => true, :has_no_parent => true, :level_zero => true)
+Filter.create(:name => "All", :sitedefault => true, :opinions => true, :level_zero => true)
+
+Category.create(:name => "Animals")

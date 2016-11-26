@@ -19,11 +19,11 @@ module PostsHelper
   def offspring(post)
     case post.kind
       when Post::COMMENT
-        "Replies (#{post.children_comments}/#{post.offspring_comments}), "
+        "Comments (#{post.children_comments}/#{post.offspring_comments}), "
       when Post::INITIATOR
-        "Opinions (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Comments (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
+        "Opinions (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Sidebars (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
       when Post::OPINION
-        "Objections (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Comments (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
+        "Objections (#{post.children_opinions}/#{post.offspring_opinions}), &nbsp Sidebars (#{post.children_comments}/#{post.offspring_comments}), ".html_safe
     end
   end
 
@@ -52,7 +52,7 @@ module PostsHelper
         #{label_tag('kidtype', 'Opinions')}
      		(#{post.children_opinions}/#{post.offspring_opinions})
  			  #{radio_button_tag('kidtype', 'comment', false, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
-        #{label_tag('kidtype', 'Comments')}
+        #{label_tag('kidtype', 'Sidebars')}
         (#{post.children_comments}/#{post.offspring_comments})
  			  ")
       when Post::OPINION
@@ -61,7 +61,7 @@ module PostsHelper
         #{label_tag 'kidtype', 'Objections'}
 				(#{post.children_opinions}/#{post.offspring_opinions})
         #{radio_button_tag('kidtype', 'comment', false, :data => {:commentrepliable => post.comment_repliable, :opinionrepliable => post.opinion_repliable})}
-        #{label_tag 'kidtype', 'Comments'}
+        #{label_tag 'kidtype', 'Sidebars'}
        	(#{post.children_comments}/#{post.offspring_comments})
 				")
 			when Post::COMMENT

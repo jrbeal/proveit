@@ -126,7 +126,7 @@ function postReady() {
 		$(".submit_text.message_text").text("Comment:");
 		$(".submit_text.support_text").text("Support (Optional): ");
 
-		$("#public label").text("Channel?");
+		$("#public label").text("FAQ?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter casual comment here.';
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional information here.';
 		$('#private').hide();
@@ -235,7 +235,7 @@ function postReady() {
 		}
 	});
 
-	$('#publicviewing').on("click", function (e) {
+	$('proveit_#publicviewing').on("click", function (e) {
 		var $tgt = $(e.target);
 		if ($tgt.prop("checked")) {
 			$('#pubcomments').show();

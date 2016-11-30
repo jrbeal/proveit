@@ -4,14 +4,14 @@ class ProversController < ApplicationController
 		@prover = Prover.find(params[:id])
 		@provers = Prover.all.order(:provername)
 		@owner = @prover == current_prover
-		@opinions = Post.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
-		@objections = Post.where(:prover_id => @prover, :kind => Post::OPINION).where("level > ?", 0)
-		@initiators = Post.where(:prover_id => @prover, :kind => Post::INITIATOR)
-		@comments = Post.where(:prover_id => @prover, :kind => Post::COMMENT)
+		@allposts = Post.where(:prover_id => @prover)
+		@opinions = @allposts.where(:prover_id => @prover, :kind => Post::OPINION, :level => 0)
+		@objections = @allposts.where(:prover_id => @prover, :kind => Post::OPINION).where("level > ?", 0)
+		@initiators = @allposts.where(:prover_id => @prover, :kind => Post::INITIATOR)
+		@comments = @allposts.where(:prover_id => @prover, :kind => Post::COMMENT)
 
 		@words = 0
-		@myposts = Post.where(:prover_id => current_prover)
-		@myposts.each { |post| @words = @words + post.message.split.count + post.support.split.count}
+		@allposts.each { |post| @words = @words + post.message.split.count + post.support.split.count}
 
 		@followers = @prover.followers.all
 		@bookmarks = Bookmark.where(:owner => @prover)

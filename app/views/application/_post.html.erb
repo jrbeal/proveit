@@ -63,16 +63,19 @@
 							<em>
 								<% if post.kind == Post::OPINION %>
 									<% if post.level == 0 %>
-										In my opinion,
+										<% premessage = "In my opinion, " %>
 									<% else %>
-										I object!
+										<% premessage = "I object! " %>
 									<% end %>
+								<% else %>
+									<% premessage = "" %>
 								<% end %>
 
 								<% if featured == "true"%>
-										<%= post.message %>
+									<%= premessage + post.message %>
 								<% else %>
-										<%= link_to post.message, post, {:style=>'color:blue;'} %>
+									<% message = premessage + post.message %>
+									<%= link_to message, post, {:style=>'color:blue;'} %>
 								<% end %>
 							</em>
 

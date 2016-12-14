@@ -235,7 +235,7 @@ function postReady() {
 		}
 	});
 
-	$('proveit_#publicviewing').on("click", function (e) {
+	$('#publicviewing').on("click", function (e) {
 		var $tgt = $(e.target);
 		if ($tgt.prop("checked")) {
 			$('#pubcomments').show();

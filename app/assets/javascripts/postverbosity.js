@@ -1,7 +1,6 @@
 $(function () {
 	$('.lesspost').on("click", function (e) {
 		var $tgt = $(e.target);
-		var $masterVerbosity = parseInt($tgt.attr("data-verbosity"));
 		var $postVerbosityTextSelector = '#post' + $tgt.attr("data-postid").toString() + 'verbosity';
 		var $postSelector = '#post' + $tgt.attr("data-postid").toString();
 		var $postVerbosity = parseInt($($postVerbosityTextSelector).text());
@@ -51,7 +50,6 @@ $(function () {
 $(function () {
 	$('.morepost').on("click", function (e) {
 		var $tgt = $(e.target);
-		var $masterVerbosity = parseInt($tgt.attr("data-verbosity"));
 		var $postVerbosityTextSelector = '#post' + $tgt.attr("data-postid").toString() + 'verbosity';
 		var $postSelector = '#post' + $tgt.attr("data-postid").toString();
 		var $postVerbosity = parseInt($($postVerbosityTextSelector).text());

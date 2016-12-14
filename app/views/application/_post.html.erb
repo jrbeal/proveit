@@ -87,9 +87,9 @@
 					</div>
 
 					<div class="flexContainer_row_center_end  fontsize13">
-						<%= link_to "Less", "#", :class => "lesspost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %> &nbsp
+						<%= link_to "Less", "#", :class => "lesspost", :data => {:postid => post.id} %> &nbsp
 						<<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span>> &nbsp
-						<%= link_to "More", "#", :class => "morepost", :data => {:verbosity => post.prover.verbosity, :postid => post.id} %>
+						<%= link_to "More", "#", :class => "morepost", :data => {:postid => post.id} %>
 					</div>
 				</div>
 

@@ -10,10 +10,6 @@
 						<%  tmp = post.prover.provername.downcase + " (" + post.prover.first_name + " " + post.prover.last_name + ")" %>
 						<%= link_to tmp, post.prover %>, &nbsp
 
-						<% if post.topic.lone_wolf && (post.prover == post.topic.prover) %>
-							<%= image_tag('wolf3.png', :size => '9x12') %> &nbsp
-						<% end %>
-
 						<%= post.prover.rating.round(2) %>, &nbsp
 
 						<% if already_following(post.prover.id) %>
@@ -52,7 +48,11 @@
 						<% end %>
 
 						<% if post.topic.lone_wolf %>
-							<%= image_tag('wolf3.png', :size => '11x15') %> &nbsp
+							<% if post.kind == Post::OPINION %>
+								<%= image_tag('wolf3.png', :size => '11x15') %> &nbsp
+							<% elsif post.kind == Post::COMMENT %>
+								<%= image_tag('Faq.png', :size => '20x20') %> &nbsp
+							<% end %>
 						<% end %>
 
 						<% unless post.url.empty? %>

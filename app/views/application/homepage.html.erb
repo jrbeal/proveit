@@ -4,7 +4,7 @@
 			<%= link_to 'Compose', posts_new_path %>
 		</div>
 		<div class="flexContainer_row_start_start">
-			Channel: &nbsp
+			Filter: &nbsp
 			<% if @customfilters.empty? %>
 				<%= select_tag 'filteroptions', options_from_collection_for_select(@defaultfilters, "filter_id", "filter_name", current_prover.cur_filter.id), :class => 'fontsize11' %>
 			<% else %>

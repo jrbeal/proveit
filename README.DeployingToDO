@@ -1,0 +1,45 @@
+https://www.digitalocean.com/community/tutorials/how-to-use-the-ruby-on-rails-one-click-application-on-digitalocean
+
+Open terminal
+> doctl compute ssh ProveIt
+
+> cd ~rails
+> git clone https://github.com/jrbeal/proveit.git
+
+> cp ~rails/rails_project/config/database.yml ~rails/proveit/config
+> vi ~rails/ProveIt/config/database.yml
+	(Find every occurrence of "railsproject" (there are three) and replace it with "proveit".)
+
+> vi ~rails/proveit/Gemfile
+	(Add "gem 'unicorn'")
+
+> cd ~rails/proveit && bundle install
+
+> . /etc/default/unicorn (must do this before running any rake commands)
+
+> RAILS_ENV=production bundle exec rake db:create (to create the database)
+> RAILS_ENV=production rake db:schema:load (to initialize the database with the established schema)
+> RAILS_ENV=production rake db:migrate (to update the database with the latest migrations)
+> RAILS_ENV=production rake assets:precompile (to bring in all assets)
+> RAILS_ENV=production bundle exec rake db:seed (to seed the database -- including default filter and siteconfig)
+
+> chown -R rails: /home/rails/proveit
+
+> vi /etc/unicorn.conf
+	(Set "working_directory" to "/home/rails/proveit")
+				
+> vi /etc/default/unicorn
+	(Set "APP_ROOT" to "/home/rails/proveit")
+
+> service unicorn restart
+
+> vi /etc/nginx/sites-enabled/rails
+	( Set "root" to "/home/rails/ProveIt/public;")
+							
+> service nginx reload
+
+After creating first prover, be sure to change his "administrator" setting to "true". Also need to set the one default filter's cur_prover to 1 (presumably).
+
+Add AWS credentials to /etc/default/unicorn. (The .aws/credentials file doesn't seem to work with unicorn)
+
+Set up cron jobs to update post scores. Note that the update_scores rakefile won't run without first sourcing /etc/default/unicorn. It contains the password needed to access the database.

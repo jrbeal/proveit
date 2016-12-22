@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 	get 'about'		   	  => 'static_pages#about'
 	get 'contact'	    	=> 'static_pages#contact'
 	get 'motivation'	 	=> 'static_pages#motivation'
+	get 'news'				 	=> 'static_pages#news'
   get 'posts/new'   	=> 'posts#new'
 	get 'follow'				=> 'follow'
 	get 'bookmark'			=> 'bookmark'

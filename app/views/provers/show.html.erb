@@ -232,7 +232,7 @@
 			<div id="profilefilters">
 				<div class="profilepagediv1">
 					<form action="<%= filters_path %>" method="post">
-						<b>Channels:</b>
+						<b>Filters:</b>
 						<div class="profilepagediv2" style="border-width: 2px">
 							<b>Who:</b> &nbsp
 							<div class="profilepagediv2">
@@ -370,7 +370,7 @@
 						</div>
 
 						<div class="flexContainer_row_center_start">
-							<b>My Channels:</b> &nbsp
+							<b>My Filters:</b> &nbsp
 							<% if current_prover.administrator? %>
 								<%= select_tag 'myfilters', content_tag(:option, "", :value => "-1") + options_from_collection_for_select(@defaultfilters, "id", "name") + content_tag(:option, @divider, :disabled => true, :value => "-1") + options_from_collection_for_select(@customfilters, "id", "name"), :class => 'myfilters' %> &nbsp
 							<% else %>

@@ -255,6 +255,8 @@ class Post < ActiveRecord::Base
 		else
 			# ...until the root node is reached
 		end
+		Prover.update_ratings
+		Prover.update_rankings
 	end
 
 	after_create do									# Then update the new post's parent...

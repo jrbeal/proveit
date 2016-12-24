@@ -468,7 +468,7 @@
 						</form>
 					</div>
 					<div class="profilepagediv2">
-						<b>Canned Replies:</b> &nbsp
+						<b>Templates:</b> &nbsp
 						<form action="<%= fallacies_path %>" method="post">
 							<div class="profilepagediv2">
 								<div class="fallacydiv">
@@ -480,7 +480,7 @@
 											<% folders.unshift(f.name.sub(" --->", "")) %>
 											<% f = f.parent %>
 										<% end %>
-										Canned Replies
+										Templates
 										<% folders.each do |f| %>
 											/&nbsp<%= f %>
 										<% end %>

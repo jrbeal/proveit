@@ -51,7 +51,7 @@
 							<% if post.kind == Post::OPINION %>
 								<%= image_tag('wolf3.png', :size => '11x15') %> &nbsp
 							<% elsif post.kind == Post::COMMENT %>
-								<%= image_tag('Faq.png', :size => '20x20') %> &nbsp
+								<%= image_tag('wolf3.png', :size => '11x15') %> &nbsp
 							<% end %>
 						<% end %>
 
@@ -88,7 +88,7 @@
 
 					<div class="flexContainer_row_center_end  fontsize13">
 						<%= link_to "Less", "#", :class => "lesspost", :data => {:postid => post.id} %> &nbsp
-						<<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span>> &nbsp
+						<span class="verbosity" id=<%= "post" + post.id.to_s + "verbosity"%>><%= post.prover.verbosity %></span> &nbsp
 						<%= link_to "More", "#", :class => "morepost", :data => {:postid => post.id} %>
 					</div>
 				</div>

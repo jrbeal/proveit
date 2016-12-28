@@ -77,6 +77,10 @@ body {
 	width: 250px;
 }
 
+.verbosity {
+	font-weight: bold;
+}
+
 h1 {
 	color: black;
 	font-family: "Helvetica Neue", "Arial", sans-serif;

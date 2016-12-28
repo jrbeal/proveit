@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
-	before_action :authenticate_prover!, :except => [:help, :about, :contact, :motivation]
+	before_action :authenticate_prover!, :except => [:help, :about, :contact, :news, :motivation]
 	before_action :set_top_provers
 	before_action :top_semi_private_debates
 	before_action :top_channels

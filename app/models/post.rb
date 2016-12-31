@@ -266,12 +266,6 @@ class Post < ActiveRecord::Base
         parent.status = FALSE
         parent.score = 0.0
       end
-      # parent.children_comments = count_children(parent.id, COMMENT)
-      # parent.offspring_comments = count_offspring(parent.id, COMMENT, 0)
-      # if parent.kind != COMMENT
-      #   parent.children_opinions = count_children(parent.id, OPINION)
-      #   parent.offspring_opinions = count_offspring(parent.id, OPINION, 0)
-      # end
       parent.save!							  # Commit the new post's parent
 		end
 

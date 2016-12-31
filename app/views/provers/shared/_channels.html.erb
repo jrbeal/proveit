@@ -1,11 +1,12 @@
 <div id="channelstitle" class="bold">
-	Channels
+	Top Channels
 </div>
 
-<% Array(@top_channels).each do |p| %>
+<% Array(@top_channels).each do |t| %>
 	<hr size="1" noshade>
 	<div class="channelsline">
-		<% prover = Prover.where(id: p.topic.prover).first %>
-		<%= link_to_unless prover == nil, prover.first_name + " " + prover.last_name + " (" + prover.provername + ")", p, {:style=>'color:blue;'} %>
+		<% op = Post.where(topic_id: t, level: 0).first %>
+		<% prover = Prover.where(id: t.prover).first %>
+		<%= link_to_unless prover == nil, prover.first_name + " " + prover.last_name + " (" + prover.provername + ")", op, {:style=>'color:blue;'} %>
 	</div>
 <% end %>

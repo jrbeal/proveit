@@ -38,6 +38,8 @@ class TopicsController < ApplicationController
 			:use_teams => (params[:use_teams] == "use_teams"),
 			:public_viewing => (params[:publicviewing] == "publicviewing"),
 			:public_comments => (params[:publiccomments] == "publiccomments"),
+			:kind => params[:type],
+			:channel_score => 0
 		}
 
 		@post = Post.new(post_params)

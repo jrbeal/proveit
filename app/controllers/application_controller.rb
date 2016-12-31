@@ -159,12 +159,16 @@ class ApplicationController < ActionController::Base
 	end
 
 	def top_channels
-		@posts = Post.where(kind: Post::COMMENT, level: 0).limit(10)
-		ids = []
-		@posts.each do |p|
-			ids.push p.id if (p.topic.lone_wolf && !p.topic.private)
+		@channels = Topic.where(kind: Post::COMMENT, private: false, lone_wolf: true)		# Get all channels
+		@channels.each do |c|																														# For each channel...
+			@posts = Post.where(topic_id: c, prover_id: c.prover_id)  										# ...get all posts submitted by OP
+			c.channel_score = 0.0;																												# ...Initialize channel score.
+			@posts.each do |p|																														# For each post...
+				c.channel_score = c.channel_score + p.score																	# ...add up the scores.
+			end
+			c.save
 		end
-		@top_channels = @posts.where(id: ids).order(:updated_at).reverse unless @posts.empty?
+		@top_channels = @channels.order(:channel_score).limit(10).reverse unless @channels.empty?
 	end
 
 end

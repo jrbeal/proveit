@@ -150,6 +150,8 @@ class PostsController < ApplicationController
 
 		@post.save!
 
+
+
 		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
   end
 

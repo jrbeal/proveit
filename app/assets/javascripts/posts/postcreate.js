@@ -68,7 +68,7 @@ function postReady() {
 		$(".submit_text.support_text").text("Justification:");
 		$("#public label").text("Lone Wolf?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter justification here.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter supporting justification here.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').show();
 			$('#private').hide();
@@ -95,9 +95,9 @@ function postReady() {
 
 	$('#type_initiator').on("click", function () {
 		$(".submit_text.message_text").text("Initiator:");
-		$(".submit_text.support_text").text("Support (Optional):");
+		$(".submit_text.support_text").text("Supplemental (Optional):");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional supporting information here.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional comments here.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').hide();
 			$('#private').hide();
@@ -124,7 +124,7 @@ function postReady() {
 
 	$('#type_comment').on("click", function () {
 		$(".submit_text.message_text").text("Comment:");
-		$(".submit_text.support_text").text("More... (Optional): ");
+		$(".submit_text.support_text").text("Supplemental (Optional): ");
 
 		$("#public label").text("Channel?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter casual comment here.';

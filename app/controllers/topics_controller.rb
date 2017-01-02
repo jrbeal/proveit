@@ -38,7 +38,7 @@ class TopicsController < ApplicationController
 				end
 			when Post::INITIATOR
 				if params[:message].length < 1
-					flash[:alert] = "Please enter an initiator, question, comment, quote or directive"
+					flash[:alert] = "Please enter an initiator question, comment, quote or directive"
 					redirect_to :back
 					return
 				end

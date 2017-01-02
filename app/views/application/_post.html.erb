@@ -81,7 +81,7 @@
 
 							<% unless post.support.empty? %>
 								&nbsp
-								[+]
+								<%= link_to "[+]", "#", :class => "jumptovlevel4", :data => {:postid => post.id} %>
 						<% end %>
 						</div>
 					</div>

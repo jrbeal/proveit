@@ -95,3 +95,19 @@ $(function () {
 		}
 	});
 })
+
+$(function () {
+	$('.jumptovlevel4').on("click", function (e) {
+		var $tgt = $(e.target);
+		var $postVerbosityTextSelector = '#post' + $tgt.attr("data-postid").toString() + 'verbosity';
+		var $postSelector = '#post' + $tgt.attr("data-postid").toString();
+		$($postVerbosityTextSelector).text("4");
+
+		console.log("Switching to post verbosity level 4.");
+		$($postSelector).find(".vlevel5").hide();
+		$($postSelector).find(".vlevel4").fadeIn();
+		$($postSelector).find(".vlevel3").fadeIn();
+		$($postSelector).find(".postimage").fadeIn();
+		$($postSelector).find(".vlevel2").fadeIn();
+	});
+})

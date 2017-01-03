@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
 	before_action :authenticate_prover!, :except => [:help, :about, :contact, :news, :motivation]
-	before_action :set_top_provers
-	before_action :top_semi_private_debates
+	before_action :top_provers
+	before_action :top_marquee
 	before_action :top_channels
 
 	def homepage
@@ -150,11 +150,11 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def set_top_provers
+	def top_provers
 		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
 	end
 
-	def top_semi_private_debates
+	def top_marquee
 		@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
 	end
 
@@ -162,13 +162,13 @@ class ApplicationController < ActionController::Base
 		@channels = Topic.where(kind: Post::COMMENT, private: false, lone_wolf: true)		# Get all channels
 		@channels.each do |c|																														# For each channel...
 			@posts = Post.where(topic_id: c, prover_id: c.prover_id)  										# ...get all posts submitted by OP
-			c.channel_score = 0.0;																												# ...Initialize channel score.
+			c.score = 0.0;																																# ...Initialize channel score.
 			@posts.each do |p|																														# For each post...
-				c.channel_score = c.channel_score + p.score																	# ...add up the scores.
+				c.score = c.score + p.score																									# ...add up the scores.
 			end
 			c.save
 		end
-		@top_channels = @channels.order(:channel_score).limit(10).reverse unless @channels.empty?
+		@top_channels = @channels.order(:score).limit(10).reverse unless @channels.empty?
 	end
 
 end

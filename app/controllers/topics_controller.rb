@@ -66,7 +66,7 @@ class TopicsController < ApplicationController
 			:public_viewing => (params[:publicviewing] == "publicviewing"),
 			:public_comments => (params[:publiccomments] == "publiccomments"),
 			:kind => params[:type],
-			:channel_score => 0
+			:score => 0
 		}
 
 		@post = Post.new(post_params)

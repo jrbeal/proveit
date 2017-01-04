@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	before_action :configure_devise_permitted_parameters, if: :devise_controller?
 	before_action :authenticate_prover!, :except => [:help, :about, :contact, :news, :motivation]
 	before_action :top_provers
-	before_action :top_marquee
+	before_action :marquee
 	before_action :top_channels
 
 	def homepage
@@ -154,9 +154,9 @@ class ApplicationController < ActionController::Base
 		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
 	end
 
-	def top_marquee
-		@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
-	end
+	# def top_marquee
+	# 	@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
+	# end
 
 	def top_channels
 		@channels = Topic.where(kind: Post::COMMENT, private: false, lone_wolf: true)		# Get all channels
@@ -171,4 +171,17 @@ class ApplicationController < ActionController::Base
 		@top_channels = @channels.order(:score).limit(10).reverse unless @channels.empty?
 	end
 
+	def marquee
+		@topics = Topic.where(private: true, public_viewing: true, public_comments: true)
+
+		@topics.each do |t|
+			@posts = Post.where(topic_id: t)	# includes comments (on purpose)
+			t.score = 0.0;
+			@posts.each do |p|
+				t.score = t.score + p.score
+			end
+			t.save
+		end
+		@marquee = @topics.order(:score).limit(10).reverse unless @topics.empty?
+	end
 end

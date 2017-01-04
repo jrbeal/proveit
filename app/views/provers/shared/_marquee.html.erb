@@ -2,10 +2,12 @@
 	Marquee
 </div>
 
-<% @top_topics.each do |t| %>
-	<hr size="1" noshade>
-	<div class="marqueeline">
-		<% post = Post.where(topic_id: t.id, level: 0).first %>
-		<%= link_to post.message, post, {:style=>'color:blue;'} %>
-	</div>
+<% unless @marquee == nil %>
+	<% @marquee.each do |t|  %>
+		<hr size="1" noshade>
+		<div class="marqueeline">
+			<% post = Post.where(topic_id: t.id, level: 0).first %>
+			<%= link_to post.message, post, {:style=>'color:blue;'} %>
+		</div>
+	<% end %>
 <% end %>

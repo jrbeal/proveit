@@ -248,6 +248,6 @@ function postReady() {
 	$('#pubcomments').hide();
 
 	$('#createcancelbutton').on("click", function () {
-		history.back();
+		window.location = '/'
 	});
 };

@@ -14,20 +14,10 @@
 				<%= label_tag(:profile, "Profile") %>
 				<%= radio_button_tag(:profile, "posts") %>
 				<%= label_tag(:profile, "Posts") %>
-				<!--<%= radio_button_tag(:profile, "account") if @owner  %>-->
-				<!--<%= label_tag(:profile, "Account") if @owner %>-->
-				<!--<%= radio_button_tag(:profile, "password") if @owner %>-->
-				<!--<%= label_tag(:profile, "Password") if @owner %>-->
 				<%= radio_button_tag(:profile, "settings") if @owner %>
 				<%= label_tag(:profile, "Settings") if @owner %>
 				<%= radio_button_tag(:profile, "filters") if @owner %>
-				<%= label_tag(:profile, "Channels") if @owner %>
-				<!--<%= radio_button_tag(:profile, "mobile") if @owner %>-->
-				<!--<%= label_tag(:profile, "Mobile") if @owner %>-->
-				<!--<%= radio_button_tag(:profile, "email") if @owner %>-->
-				<!--<%= label_tag(:profile, "Email") if @owner %>-->
-				<!--<%= radio_button_tag(:profile, "apps") if @owner %>-->
-				<!--<%= label_tag(:profile, "Apps") if @owner %>-->
+				<%= label_tag(:profile, "Filters") if @owner %>
 				<%= radio_button_tag(:profile, "rating") %>
 				<%= label_tag(:profile, "Rating") %>
 				<% if current_prover.administrator? %>

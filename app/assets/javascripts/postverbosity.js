@@ -96,18 +96,56 @@ $(function () {
 	});
 })
 
+var $prevpostVerbosity;
+
 $(function () {
 	$('.jumptovlevel4').on("click", function (e) {
 		var $tgt = $(e.target);
 		var $postVerbosityTextSelector = '#post' + $tgt.attr("data-postid").toString() + 'verbosity';
+		var $postVerbosity = parseInt($($postVerbosityTextSelector).text());
 		var $postSelector = '#post' + $tgt.attr("data-postid").toString();
-		$($postVerbosityTextSelector).text("4");
-
-		console.log("Switching to post verbosity level 4.");
-		$($postSelector).find(".vlevel5").hide();
-		$($postSelector).find(".vlevel4").fadeIn();
-		$($postSelector).find(".vlevel3").fadeIn();
-		$($postSelector).find(".postimage").fadeIn();
-		$($postSelector).find(".vlevel2").fadeIn();
+		switch ($($postSelector).find(".jumptovlevel4").text()) {
+			case "[+]":
+				if ($postVerbosity < 4) {
+					$prevpostVerbosity = $postVerbosity;
+					console.log("Jumping up to verbosity level 4 (for this post).");
+					$($postSelector).find(".vlevel5").hide();
+					$($postSelector).find(".vlevel4").fadeIn();
+					$($postSelector).find(".vlevel3").fadeIn();
+					$($postSelector).find(".postimage").fadeIn();
+					$($postSelector).find(".vlevel2").fadeIn();
+					$($postSelector).find(".jumptovlevel4").text("[-]");
+				}
+				$($postVerbosityTextSelector).text("4");
+				break;
+			case "[-]":
+				console.log("Dropping to previous verbosity level (for this post).");
+				switch ($prevpostVerbosity) {
+					case 1:
+						$($postSelector).find(".vlevel5").hide();
+						$($postSelector).find(".vlevel4").hide();
+						$($postSelector).find(".vlevel3").hide();
+						$($postSelector).find(".postimage").hide();
+						$($postSelector).find(".vlevel2").hide();
+						break;
+					case 2:
+						$($postSelector).find(".vlevel5").hide();
+						$($postSelector).find(".vlevel4").hide();
+						$($postSelector).find(".vlevel3").hide();
+						$($postSelector).find(".postimage").hide();
+						$($postSelector).find(".vlevel2").fadeIn();
+						break;
+					case 3:
+						$($postSelector).find(".vlevel5").hide();
+						$($postSelector).find(".vlevel4").hide();
+						$($postSelector).find(".vlevel3").fadeIn();
+						$($postSelector).find(".postimage").fadeIn();
+						$($postSelector).find(".vlevel2").fadeIn();
+						break;
+				}
+				$($postSelector).find(".jumptovlevel4").text("[+]");
+				$($postVerbosityTextSelector).text($prevpostVerbosity);
+				break;
+		}
 	});
 })

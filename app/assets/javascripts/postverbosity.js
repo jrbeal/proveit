@@ -96,8 +96,6 @@ $(function () {
 	});
 })
 
-var $prevpostVerbosity;
-
 $(function () {
 	$('.jumptovlevel4').on("click", function (e) {
 		var $tgt = $(e.target);
@@ -107,7 +105,6 @@ $(function () {
 		switch ($($postSelector).find(".jumptovlevel4").text()) {
 			case "[+]":
 				if ($postVerbosity < 4) {
-					$prevpostVerbosity = $postVerbosity;
 					console.log("Jumping up to verbosity level 4 (for this post).");
 					$($postSelector).find(".vlevel5").hide();
 					$($postSelector).find(".vlevel4").fadeIn();
@@ -119,33 +116,54 @@ $(function () {
 				$($postVerbosityTextSelector).text("4");
 				break;
 			case "[-]":
-				console.log("Dropping to previous verbosity level (for this post).");
-				switch ($prevpostVerbosity) {
-					case 1:
-						$($postSelector).find(".vlevel5").hide();
-						$($postSelector).find(".vlevel4").hide();
-						$($postSelector).find(".vlevel3").hide();
-						$($postSelector).find(".postimage").hide();
-						$($postSelector).find(".vlevel2").hide();
-						break;
-					case 2:
-						$($postSelector).find(".vlevel5").hide();
-						$($postSelector).find(".vlevel4").hide();
-						$($postSelector).find(".vlevel3").hide();
-						$($postSelector).find(".postimage").hide();
-						$($postSelector).find(".vlevel2").fadeIn();
-						break;
-					case 3:
-						$($postSelector).find(".vlevel5").hide();
-						$($postSelector).find(".vlevel4").hide();
-						$($postSelector).find(".vlevel3").fadeIn();
-						$($postSelector).find(".postimage").fadeIn();
-						$($postSelector).find(".vlevel2").fadeIn();
-						break;
-				}
-				$($postSelector).find(".jumptovlevel4").text("[+]");
-				$($postVerbosityTextSelector).text($prevpostVerbosity);
-				break;
+				$.ajax({
+					url: '/verbosity.json?',
+					type: 'GET',
+					success: function (resp) {
+						verbosity = resp.verbosity;
+						console.log("Returning to master verbosity level (for this post).");
+						switch (verbosity) {
+							case 1:
+								$($postSelector).find(".vlevel5").hide();
+								$($postSelector).find(".vlevel4").hide();
+								$($postSelector).find(".vlevel3").hide();
+								$($postSelector).find(".postimage").hide();
+								$($postSelector).find(".vlevel2").hide();
+								break;
+							case 2:
+								$($postSelector).find(".vlevel5").hide();
+								$($postSelector).find(".vlevel4").hide();
+								$($postSelector).find(".vlevel3").hide();
+								$($postSelector).find(".postimage").hide();
+								$($postSelector).find(".vlevel2").fadeIn();
+								break;
+							case 3:
+								$($postSelector).find(".vlevel5").hide();
+								$($postSelector).find(".vlevel4").hide();
+								$($postSelector).find(".vlevel3").fadeIn();
+								$($postSelector).find(".postimage").fadeIn();
+								$($postSelector).find(".vlevel2").fadeIn();
+								break;
+							case 4:
+								$($postSelector).find(".vlevel5").hide();
+								$($postSelector).find(".vlevel4").fadeIn();
+								$($postSelector).find(".vlevel3").fadeIn();
+								$($postSelector).find(".postimage").fadeIn();
+								$($postSelector).find(".vlevel2").fadeIn();
+								break;
+							case 5:
+								$($postSelector).find(".vlevel5").fadeIn();
+								$($postSelector).find(".vlevel4").fadeIn();
+								$($postSelector).find(".vlevel3").fadeIn();
+								$($postSelector).find(".postimage").fadeIn();
+								$($postSelector).find(".vlevel2").fadeIn();
+								break;
+						}
+						$($postSelector).find(".jumptovlevel4").text("[+]");
+						$($postVerbosityTextSelector).text(verbosity);
+					}
+				})
+			break;
 		}
 	});
 })

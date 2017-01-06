@@ -79,7 +79,7 @@
 								<% end %>
 							</em>
 
-							<% unless post.support.empty? %>
+							<% unless post.support.empty? || post.prover.verbosity > 3 %>
 								&nbsp <%= link_to "[+]", "#", :class => "jumptovlevel4", :data => {:postid => post.id} %>
 						<% end %>
 						</div>

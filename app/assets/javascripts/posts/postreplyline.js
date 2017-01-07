@@ -110,7 +110,6 @@ $(function() {
 		var $tgt = $(e.target);
 		switch ($tgt.attr("data-kind")) {
 			case 'initiator':
-//				console.log("initiator!");
 				if ($('#kidtype_comment').is(':checked')) {
 					$('#commentreply').show();
 				} else {
@@ -118,13 +117,10 @@ $(function() {
 				}
 			break;
 			case 'comment':
-//				console.log("comment!");
 				$('#commentreply').show();
 			break;
 			default:
-//				console.log("Unknown post type");
 			case 'opinion':
-//				console.log("opinion!");
 				if ($('#kidtype_comment').is(':checked')) {
 					$('#commentreply').show();
 				} else {

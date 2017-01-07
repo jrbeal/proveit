@@ -135,6 +135,33 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+		case params[:kind]
+			when Post::OPINION
+				if params[:message].length < 1
+					flash[:alert] = "Please enter an opinion"
+					redirect_to :back
+					return
+				elsif params[:support].length < 1
+					flash[:alert] = "Please enter justification for: " + params[:message]
+					redirect_to :back
+					return
+				end
+			when Post::INITIATOR
+				if params[:message].length < 1
+					flash[:alert] = "Please enter an initiator question, comment, quote or directive"
+					redirect_to :back
+					return
+				end
+			when Post::COMMENT
+				if params[:message].length < 1
+					flash[:alert] = "Please enter a comment"
+					redirect_to :back
+					return
+				end
+			else
+				puts "Invalid team type"
+		end
+
 		post_params = {
 			:message => params[:message],
 			:support => params[:support],

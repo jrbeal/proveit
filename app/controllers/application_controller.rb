@@ -46,8 +46,9 @@ class ApplicationController < ActionController::Base
 			@filter = Filter.find_by sitedefault: true		# or the first default filter we can find.
 		end
 
-		@posts = Post.all 									#
+
 																				# Start filtering...
+		@posts = Post.all.includes(:topic)
 		@posts = @posts.where.not(kind: Post::OPINION) unless @filter.opinions || @posts.empty?
 		@posts = @posts.where.not(kind: Post::INITIATOR) unless @filter.initiators || @posts.empty?
 		@posts = @posts.where.not(kind: Post::COMMENT) unless @filter.comments || @posts.empty?
@@ -118,11 +119,18 @@ class ApplicationController < ActionController::Base
 
 		# Now sort the results...
 		order = @filter.descending ? :desc : :asc
-
 		@posts = @posts.order(updated_at: order) if @filter.sort_by_updated_at && !@posts.empty?
 		@posts = @posts.order(created_at: order) if @filter.sort_by_created_at && !@posts.empty?
 		@posts = @posts.order(views: order) if @filter.sort_by_views && !@posts.empty?
 		@posts = @posts.order(points: order) if @filter.sort_by_votes && !@posts.empty?
+
+		if @filter.sort_by_scores && !@posts.empty?
+			@posts = @posts.sort do |p1, p2|
+				t1 = p1.topic.score || 0
+				t2 = p2.topic.score || 0
+				t2 <=> t1
+			end
+		end
 
 		# Now eliminate all posts not within any of the categories selected. (Had to do this last because "select" is NOT
 		# an ActiveRecord method and it returns a standard Ruby array instead of an ActiveRecord Relation.)
@@ -153,10 +161,6 @@ class ApplicationController < ActionController::Base
 	def top_provers
 		@top_provers = Prover.all.order(:rating).limit(20).reverse_order
 	end
-
-	# def top_marquee
-	# 	@top_topics = Topic.where(private: true, public_comments: true).limit(10).order(:updated_at).reverse_order
-	# end
 
 	def top_channels
 		@channels = Topic.where(kind: Post::COMMENT, private: false, lone_wolf: true)		# Get all channels

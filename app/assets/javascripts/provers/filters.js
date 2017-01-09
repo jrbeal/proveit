@@ -53,6 +53,7 @@ function filters() {
 					$('input[name="sort"][value="sort_by_updated_at"]').prop('checked', filter.sort_by_updated_at);
 					$('input[name="sort"][value="sort_by_views"]').prop('checked', filter.sort_by_views);
 					$('input[name="sort"][value="sort_by_votes"]').prop('checked', filter.sort_by_votes);
+					$('input[name="sort"][value="sort_by_scores"]').prop('checked', filter.sort_by_scores);
 					$('input[name="descending"][value="true"]').prop('checked', filter.descending);
 					$('input[name="descending"][value="false"]').prop('checked', !filter.descending);
 					$('.myfiltername').val(filter.name);

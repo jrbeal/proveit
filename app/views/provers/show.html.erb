@@ -259,7 +259,7 @@
 									<div class="profilepagediv2">
 										<b>Administrator:</b> &nbsp
 										<%= radio_button_tag :sitedefault, 'true', true %>
-										<%= label_tag 'Site default' %> &nbsp
+										<%= label_tag 'Site Default' %> &nbsp
 										<%= radio_button_tag :sitedefault, 'false' %>
 										<%= label_tag 'Custom' %> &nbsp
 									</div>
@@ -286,9 +286,9 @@
 								<div class="profilepagediv2">
 									<b>Types:</b> &nbsp
 									<%= check_box_tag 'lone_wolf', 'true', false %>
-									<%= label_tag 'Lone wolf' %> &nbsp
+									<%= label_tag 'Lone Wolf' %> &nbsp
 									<%= check_box_tag 'bookmarks', 'true', false %>
-									<%= label_tag 'My bookmarks' %> &nbsp
+									<%= label_tag 'My Bookmarks' %> &nbsp
 									<%= check_box_tag 'following', 'true', false %>
 									<%= label_tag 'Following' %> &nbsp
 									<%= check_box_tag 'privateposts', 'true', false %>
@@ -317,7 +317,7 @@
 									<%= radio_button_tag(:level, "zero") %>
 									<%= label_tag(:level, "Zero") %> &nbsp
 									<%= radio_button_tag(:level, "nonzero") %>
-									<%= label_tag(:level, "Non-zero") %> &nbsp
+									<%= label_tag(:level, "Non-Zero") %> &nbsp
 								</div>
 							</div>
 						</div>
@@ -342,13 +342,15 @@
 							<div class="profilepagediv2">
 								<b>By:</b> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_updated_at", true) %>
-								<%= label_tag(:sort, "Updated date") %> &nbsp
+								<%= label_tag(:sort, "Updated Date") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_created_at") %>
-								<%= label_tag(:sort, "Created date") %> &nbsp
+								<%= label_tag(:sort, "Created Date") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_views") %>
 								<%= label_tag(:sort, "Views") %> &nbsp
 								<%= radio_button_tag(:sort, "sort_by_votes") %>
 								<%= label_tag(:sort, "Popularity") %> &nbsp
+								<%= radio_button_tag(:sort, "sort_by_scores") %>
+								<%= label_tag(:sort, "Topic Score") %> &nbsp
 							</div>
 							<div class="profilepagediv2">
 								<b>Order:</b> &nbsp

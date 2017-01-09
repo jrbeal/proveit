@@ -68,7 +68,7 @@ function postReady() {
 		$(".submit_text.support_text").text("Justification:");
 		$("#public label").text("Lone Wolf?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter supporting justification here. For an opinion to be true it must be supported by valid justification.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'For an opinion to be true it must be supported by valid justification.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').show();
 			$('#private').hide();

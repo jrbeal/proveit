@@ -63,7 +63,12 @@ class FiltersController < ApplicationController
 
 		if params[:myfiltername].length > 0
 			filter_params[:name] = params[:myfiltername]
-			filter = Filter.find_by prover_id: current_prover.id, name: params[:myfiltername]
+			if params[:sitedefault] == "true"
+				filter = Filter.find_by prover_id: nil, name: params[:myfiltername]
+			else
+				filter = Filter.find_by prover_id: current_prover.id, name: params[:myfiltername]
+			end
+
 			if filter																										# filter already exists so...
 				filter.update(filter_params)															# ...update it...
 				filter.categories.delete_all															# ...and clear out its category records.

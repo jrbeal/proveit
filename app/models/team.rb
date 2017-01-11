@@ -23,11 +23,13 @@ class Team < ActiveRecord::Base
 	end
 
 	def team_membership
-		# topic.root.message + " [" + self.team_type + "]"
+		@post = Post.where(:topic_id => topic.id, :level => 0).first
+		@post.message + " [" + self.team_type + "]"
 	end
 
 	def team_ownership
-		# topic.root.message + " [" + self.team_type + "]"
+		@post = Post.where(:topic_id => topic.id, :level => 0).first
+		@post.message
 	end
 
 	def prover_name

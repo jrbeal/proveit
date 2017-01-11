@@ -18,11 +18,14 @@ class ProversController < ApplicationController
 		@customfilters = Filter.where(:prover_id => current_prover, :sitedefault => false).order(name: :desc)
 		@defaultfilters = Filter.where(:sitedefault => true).order(name: :desc)
 		@categories = Category.all.order(name: :asc)
-		@teammembership = Team.where(:prover_id => @prover)
+		@teams = Team.where(:prover_id => @prover)				# Array of all team members
 		@teamownership = []
-		@teammembership.each do |team|
-			if team.topic.prover == current_prover
-				@teamownership.push(team)
+		@teammembership = []
+		@teams.each do |t|
+			if t.topic.prover == current_prover							# If team topic originator is same as current prover...
+				@teamownership.push(t)												# ...push to owner array
+			else																						# else...
+				@teammembership.push(t)												# ...push to member array
 			end
 		end
 																											# We must have a fallacy folder.

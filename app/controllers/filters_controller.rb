@@ -141,6 +141,7 @@ class FiltersController < ApplicationController
 				:sort_by_updated_at,
 				:sort_by_views,
 				:sort_by_votes,
+				:sort_by_scores,
 				:who_id)
     end
 end

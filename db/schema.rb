@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107193307) do
+ActiveRecord::Schema.define(version: 20170113212911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,10 @@ ActiveRecord::Schema.define(version: 20170107193307) do
     t.integer  "offspring_comments"
     t.integer  "prover_id"
     t.string   "url"
+    t.integer  "lockedby_id"
   end
+
+  add_index "posts", ["lockedby_id"], name: "index_posts_on_lockedby_id", using: :btree
 
   create_table "provers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -223,6 +226,7 @@ ActiveRecord::Schema.define(version: 20170107193307) do
   add_foreign_key "likes", "provers"
   add_foreign_key "posts", "posts", column: "parent_id"
   add_foreign_key "posts", "provers"
+  add_foreign_key "posts", "provers", column: "lockedby_id"
   add_foreign_key "posts", "topics"
   add_foreign_key "provers", "filters", column: "cur_filter"
   add_foreign_key "teams", "provers"

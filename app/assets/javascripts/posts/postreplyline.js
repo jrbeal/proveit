@@ -129,4 +129,61 @@ $(function() {
 			break;
 		}
 	});
+
+	$('#editpost').on("click", function (e) {
+		$('#kids').hide();
+		var $tgt = $(e.target);
+		var $postid = $tgt.attr("data-id");
+		var $postkind = $tgt.attr("data-kind");
+
+		$.ajax({
+			url: '/posts/' + $postid + '/edit' + '.json?' + $.param({"id": $postid}),
+			type: 'GET',
+			success: function (resp) {
+
+				var $message = resp.message;
+				var $support = resp.support;
+				var $url = resp.url;
+				console.log("Post requested is " + $postid + " with message " + $message);
+
+				//		Populate the message, support, and url fields
+
+				switch ($postkind) {
+					case 'initiator':
+						if ($('#kidtype_comment').is(':checked')) {
+							$('#commentreply').show();
+							$('#commentopinion').val($message);
+							$('#commentsupport').val($support);
+							$('#commenturl').val($url);
+						} else {
+							$('#initiatorreply').show();
+							$('#initiatoropinion').val($message);
+							$('#initiatorsupport').val($support);
+							$('#initiatorurl').val($url);
+						}
+						break;
+					case 'comment':
+						$('#commentreply').show();
+						$('#commentopinion').val($message);
+						$('#commentsupport').val($support);
+						$('#commenturl').val($url);
+						break;
+					case 'opinion':
+					default:
+						if ($('#kidtype_comment').is(':checked')) {
+							$('#commentreply').show();
+							$('#commentopinion').val($message);
+							$('#commentsupport').val($support);
+							$('#commenturl').val($url);
+						} else {
+							$('#opinionreply').show();
+							$('#objectionopinion').val($message);
+							$('#objectionsupport').val($support);
+							$('#objectionurl').val($url);
+						}
+						break;
+				}
+			}
+		});
+	});
 });

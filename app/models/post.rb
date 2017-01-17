@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
 	belongs_to :parent, :class_name => "Post", :foreign_key => "parent_id"
 	belongs_to :prover, :class_name => "Prover", :foreign_key => "prover_id"
 	belongs_to :topic, :class_name => "Topic", :foreign_key	=> "topic_id"
+	belongs_to :lockedby, :class_name => "Prover", :foreign_key => "lockedby_id"
 
 	has_many :bookmarks, :foreign_key => "post", :dependent => :destroy
 	has_many :likes, :dependent => :destroy

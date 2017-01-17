@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:getpost, :show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
-  end
+	end
 
   # GET /posts/1
   # GET /posts/1.json
@@ -107,7 +107,13 @@ class PostsController < ApplicationController
 
     # GET /posts/1/edit
   def edit
-  end
+		Rails.logger.info "We have an edit request"
+
+		respond_to do |format|
+			format.html { }
+			format.json { render :json => {:message => @post.message, :support => @post.support, :url => @post.url}.to_json }
+		end
+	end
 
 	def setdecayfactor																								# Method to set the decay factor
 		weeks = (params[:weeks] ? params[:weeks] : 26).to_i()						# Use params[:weeks] else 26 if not set
@@ -176,8 +182,6 @@ class PostsController < ApplicationController
 		@post.prover = current_prover
 
 		@post.save!
-
-
 
 		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
   end

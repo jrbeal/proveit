@@ -181,7 +181,17 @@ class PostsController < ApplicationController
 		@post.topic = Topic.find params[:topic]
 		@post.prover = current_prover
 
-		@post.save!
+		puts "Here we are"
+		puts params[:replyoredit]
+
+		case params[:replyoredit]
+			when "reply"
+				puts "Replying"
+				@post.save!
+			when "edit"
+				puts "Editing"
+				@post.update(post_params)
+		end
 
 		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
   end

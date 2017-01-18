@@ -114,6 +114,7 @@ $(function() {
 					$('#commentopinion').val("");
 					$('#commentsupport').val("");
 					$('#commenturl').val("");
+					$('#commenttypeline').show();
 					$('#commentreply').show();
 				} else {
 					$('#initiatoropinion').val("");
@@ -126,6 +127,7 @@ $(function() {
 				$('#commentopinion').val("");
 				$('#commentsupport').val("");
 				$('#commenturl').val("");
+				$('#commenttypeline').show();
 				$('#commentreply').show();
 			break;
 			default:
@@ -134,15 +136,19 @@ $(function() {
 					$('#commentopinion').val("");
 					$('#commentsupport').val("");
 					$('#commenturl').val("");
+					$('#commenttypeline').show();
 					$('#commentreply').show();
 				} else {
 					$('#objectionopinion').val("");
 					$('#objectionsupport').val("");
 					$('#objectionurl').val("");
+					$('#objectiontypeline').show();
 					$('#opinionreply').show();
 				}
 			break;
 		}
+
+		$('#replyoredit').val('reply');
 	});
 
 	$('#editpost').on("click", function (e) {
@@ -165,39 +171,29 @@ $(function() {
 
 				switch ($postkind) {
 					case 'initiator':
-						if ($('#kidtype_comment').is(':checked')) {
-							$('#commentreply').show();
-							$('#commentopinion').val($message);
-							$('#commentsupport').val($support);
-							$('#commenturl').val($url);
-						} else {
-							$('#initiatorreply').show();
-							$('#initiatoropinion').val($message);
-							$('#initiatorsupport').val($support);
-							$('#initiatorurl').val($url);
-						}
+						$('#initiatoropinion').val($message);
+						$('#initiatorsupport').val($support);
+						$('#initiatorurl').val($url);
+						$('#initiatorreply').show();
 						break;
 					case 'comment':
-						$('#commentreply').show();
 						$('#commentopinion').val($message);
 						$('#commentsupport').val($support);
 						$('#commenturl').val($url);
+						$('#commenttypeline').hide();
+						$('#commentreply').show();
 						break;
 					case 'opinion':
 					default:
-						if ($('#kidtype_comment').is(':checked')) {
-							$('#commentreply').show();
-							$('#commentopinion').val($message);
-							$('#commentsupport').val($support);
-							$('#commenturl').val($url);
-						} else {
-							$('#opinionreply').show();
-							$('#objectionopinion').val($message);
-							$('#objectionsupport').val($support);
-							$('#objectionurl').val($url);
-						}
+						$('#objectionopinion').val($message);
+						$('#objectionsupport').val($support);
+						$('#objectionurl').val($url);
+						$('#objectiontypeline').hide();
+						$('#opinionreply').show();
 						break;
 				}
+
+				$('#replyoredit').val('edit');
 			}
 		});
 	});

@@ -40,7 +40,7 @@
 	<div id="replies" class="sidepadding toppadding20">
 		<div id="opinionreply">
 			<form action="<%= posts_path %>" method="post">
-				<div style="display: flex; flex-direction: row; justify-content: flex-start">
+				<div id="objectiontypeline" style="display: flex; flex-direction: row; justify-content: flex-start">
 					<div style="width:14%">
 						<b>Objection Type:</b>
 					</div>
@@ -101,6 +101,7 @@
 				<%= hidden_field_tag :parentpost, @post.id %>
 				<%= hidden_field_tag :topic, @post.topic.id %>
 				<%= hidden_field_tag :kind, Post::OPINION %>
+				<%= hidden_field_tag :replyoredit, "" %>
 
 				<div class="toppadding10">
 					<%= submit_tag("Submit")%>
@@ -156,7 +157,7 @@
 
 		<div id="commentreply">
 			<form action="<%= posts_path %>" method="post">
-				<div style="display: flex; flex-direction: row; justify-content: flex-start">
+				<div id="commenttypeline" style="display: flex; flex-direction: row; justify-content: flex-start">
 					<div style="width:14%">
 						<b>Comment Type:</b>
 					</div>

@@ -1,7 +1,7 @@
 <body>
   <div class="sidepadding spacing">
     <%= link_to 'Home', root_path %>
-    <%= link_to_unless @post.parent == nil, 'Up', @post.parent %>
+    <%= link_to_unless @post.parent == nil, 'Parent', @post.parent %>
 		<%= link_to_unless @post.parent == nil,  'OP', top(@post) %>
 
  	  <div class="right" style="margin-right: 5px;">

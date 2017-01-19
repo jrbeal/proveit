@@ -142,30 +142,30 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
 		case params[:kind]
-			when Post::OPINION
-				if params[:message].length < 1
-					flash[:alert] = "Please enter an opinion"
-					redirect_to :back
-					return
-				elsif params[:support].length < 1
-					flash[:alert] = "Please enter justification for: " + params[:message]
-					redirect_to :back
-					return
-				end
-			when Post::INITIATOR
-				if params[:message].length < 1
-					flash[:alert] = "Please enter an initiator question, comment, quote or directive"
-					redirect_to :back
-					return
-				end
-			when Post::COMMENT
-				if params[:message].length < 1
-					flash[:alert] = "Please enter a comment"
-					redirect_to :back
-					return
-				end
-			else
-				puts "Invalid team type"
+		when Post::OPINION
+			if params[:message].length < 1
+				flash[:alert] = "Please enter an opinion"
+				redirect_to :back
+				return
+			elsif params[:support].length < 1
+				flash[:alert] = "Please enter justification for: " + params[:message]
+				redirect_to :back
+				return
+			end
+		when Post::INITIATOR
+			if params[:message].length < 1
+				flash[:alert] = "Please enter an initiator question, comment, quote or directive"
+				redirect_to :back
+				return
+			end
+		when Post::COMMENT
+			if params[:message].length < 1
+				flash[:alert] = "Please enter a comment"
+				redirect_to :back
+				return
+			end
+		else
+			puts "Invalid team type"
 		end
 
 		post_params = {
@@ -175,25 +175,21 @@ class PostsController < ApplicationController
 			:url => params[:url],
 		}
 
-		@post = Post.new(post_params)
-
-		@post.parent = Post.find params[:parentpost]
-		@post.topic = Topic.find params[:topic]
-		@post.prover = current_prover
-
-		puts "Here we are"
-		puts params[:replyoredit]
-
 		case params[:replyoredit]
-			when "reply"
-				puts "Replying"
-				@post.save!
-			when "edit"
-				puts "Editing"
-				@post.update(post_params)
+		when "reply"
+			@post = Post.new(post_params)
+			@post.parent = Post.find params[:parentpost]
+			@post.topic = Topic.find params[:topic]
+			@post.prover = current_prover
+			@post.save!
+			redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
+		when "edit"
+			@post = Post.find(params[:parentpost])
+			@post.update(post_params)
+			redirect_to :controller => 'posts', :action => 'show', :id => @post
+		else
+			puts "Invalid response"
 		end
-
-		redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
   end
 
   # PATCH/PUT /posts/1

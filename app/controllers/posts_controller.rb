@@ -182,11 +182,11 @@ class PostsController < ApplicationController
 			@post.topic = Topic.find params[:topic]
 			@post.prover = current_prover
 			@post.save!
-			redirect_to :controller => 'posts', :action => 'show', :id => @post.parent
+			redirect_to :back
 		when "edit"
 			@post = Post.find(params[:parentpost])
 			@post.update(post_params)
-			redirect_to :controller => 'posts', :action => 'show', :id => @post
+			redirect_to :back
 		else
 			puts "Invalid response"
 		end

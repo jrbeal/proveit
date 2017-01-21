@@ -37,183 +37,77 @@
 	  </div>
   </div>
 
-	<div id="replies" class="sidepadding toppadding20">
-		<div id="opinionreply">
-			<form action="<%= posts_path %>" method="post">
-				<div id="objectiontypeline" style="display: flex; flex-direction: row; justify-content: flex-start">
-					<div style="width:14%">
-						<b>Objection Type:</b>
-					</div>
-					<div>
-						<%= radio_button_tag(:objectiontype, "manual", true)%>
-						<%= label_tag(:objectiontype, "Manual") %>
-						<%= radio_button_tag(:objectiontype, "fallacy") %>
-						<%= label_tag(:objectiontype, "Template") %>
-						<%= radio_button_tag(:objectiontype, "mediationrequest") %>
-						<%= label_tag(:objectiontype, "Mediation Request") %>
-					</div>
+	<div id="postreply" class="sidepadding toppadding20">
+		<form action="<%= posts_path %>" method="post">
+			<div id="objectiontypeline" style="display: flex; flex-direction: row; justify-content: flex-start">
+				<div id="objectiontypelabel" style="width:14%">
+					<b>Reply Type:</b>
 				</div>
-
-				<div id="templates">
-					<div class="toppadding10">
-						<div class="submit_text" id="objectiontemplatefolder">
-							Templates:
-						</div>
-						<div class="flexContainer_row_center_start">
-							<textarea id="templatekeyword" class="message" name="keywords" rows="1" cols="30" placeholder="Enter keyword here."></textarea>
-							&nbsp <button name="Filter" type="button" id="filtertemplates">
-								Search
-							</button>
-						</div>
-					</div>
-
-					<div id="objectionfallacy" class="toppadding5" style="margin-left:14%">
-						<% results = @fallacies + @subfolders %>
-						<% results = results.sort { |a, b| a.name <=> b.name } %>
-						<%= select_tag 'objectionfallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
-					</div>
-				</div>
-
-				<div class="toppadding10">
-					<div class="submit_text message_text">
-						In my opinion:
-					</div>
-					<textarea id="objectionopinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
-				</div>
-				<div class="toppadding5">
-					<div class="submit_text support_text">
-						Justification:
-					</div>
-					<textarea id="objectionsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="For an opinion to be true it must be supported by valid justification."></textarea>
-				</div>
-				<div class="toppadding5">
-					<div class="submit_text support_url">
-						URL (Optional):
-					</div>
-					<textarea id="objectionurl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
-				</div>
-
 				<div>
-					<hr size="2" noshade>
+					<%= radio_button_tag(:objectiontype, "manual", true)%>
+					<%= label_tag(:objectiontype, "Manual") %>
+					<%= radio_button_tag(:objectiontype, "fallacy") %>
+					<%= label_tag(:objectiontype, "Template") %>
+					<%= radio_button_tag(:objectiontype, "mediationrequest") %>
+					<%= label_tag(:objectiontype, "Mediation Request") %>
 				</div>
-
-				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-				<%= hidden_field_tag :parentpost, @post.id %>
-				<%= hidden_field_tag :topic, @post.topic.id %>
-				<%= hidden_field_tag :kind, Post::OPINION %>
-				<%= hidden_field_tag :replyoredit, "" %>
-
-				<div class="toppadding10">
-					<%= submit_tag("Submit")%>
-					<button class="right sidepadding" name="Cancel" type="button" id="cancelopinionreply">
-						Cancel
-					</button>
-				</div>
-			</form>
-		</div>
-
-		<div id="initiatorreply">
-			<div id="create">
-				<form action="<%= posts_path %>" method="post">
-
-					<div class="toppadding10">
-						<div class="submit_text message_text">
-							Opinion:
-						</div>
-						<textarea id="initiatoropinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter opinion here. Be as concise as possible."></textarea>
-					</div>
-					<div class="toppadding5">
-						<div class="submit_text support_text">
-							Justification:
-						</div>
-						<textarea id="initiatorsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="For an opinion to be true it must be supported by valid justification."></textarea>
-					</div>
-					<div class="toppadding5">
-						<div class="submit_text support_url">
-							URL (Optional):
-						</div>
-						<textarea id="initiatorurl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
-					</div>
-
-					<div>
-						<hr size="2" noshade>
-					</div>
-
-					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-					<%= hidden_field_tag :parentpost, @post.id %>
-					<%= hidden_field_tag :topic, @post.topic.id %>
-					<%= hidden_field_tag :kind, Post::OPINION %>
-
-					<div class="toppadding10">
-						<%= submit_tag("Submit")%>
-						<button class="right sidepadding" name="Cancel" type="button" id="cancelinitiatorreply">
-							Cancel
-						</button>
-					</div>
-
-				</form>
 			</div>
-		</div>
 
-		<div id="commentreply">
-			<form action="<%= posts_path %>" method="post">
-				<div id="commenttypeline" style="display: flex; flex-direction: row; justify-content: flex-start">
-					<div style="width:14%">
-						<b>Comment Type:</b>
+			<div id="templates">
+				<div class="toppadding10">
+					<div class="submit_text" id="templatefolder">
+						Templates:
 					</div>
-					<div>
-						<%= radio_button_tag(:commenttype, "manual", true)%>
-						<%= label_tag(:commenttype, "Manual") %>
-						<%= radio_button_tag(:commenttype, "fallacy") %>
-						<%= label_tag(:commenttype, "Template") %>
-						<%= radio_button_tag(:commenttype, "mediationrequest") %>
-						<%= label_tag(:commenttype, "Mediation Request") %>
+					<div class="flexContainer_row_center_start">
+						<textarea id="templatekeyword" class="message" name="keywords" rows="1" cols="30" placeholder="Enter keyword here."></textarea>
+						&nbsp <button name="Filter" type="button" id="filtertemplates">
+						Search
+					</button>
 					</div>
 				</div>
 
-				<div id="commentfallacy" class="toppadding10" style="margin-left:14%">
-					<div id="commenttemplatepath">Templates:</div>
-
+				<div id="fallacy" class="toppadding5" style="margin-left:14%">
 					<% results = @fallacies + @subfolders %>
 					<% results = results.sort { |a, b| a.name <=> b.name } %>
-					<%= select_tag 'commentfallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					<%= select_tag 'fallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
 				</div>
+			</div>
 
-				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-				<%= hidden_field_tag :parentpost, @post.id %>
-				<%= hidden_field_tag :topic, @post.topic.id %>
-				<%= hidden_field_tag :kind, Post::COMMENT %>
+			<div class="toppadding10">
+				<div id="replymessagelabel" class="submit_text message_text">
+					Message:
+				</div>
+				<textarea id="message" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter objection here. Be as concise as possible."></textarea>
+			</div>
+			<div class="toppadding5">
+				<div id="replysupportlabel" class="submit_text support_text">
+					Support:
+				</div>
+				<textarea id="support" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="For an opinion to be true it must be supported by valid justification."></textarea>
+			</div>
+			<div class="toppadding5">
+				<div id="replyurllabel" class="submit_text support_url">
+					URL (Optional):
+				</div>
+				<textarea id="url" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
+			</div>
 
-				<div class="toppadding10">
-					<div class="submit_text message_text">
-						Comment:
-					</div>
-					<textarea id="commentopinion" class="message message_placeholder" name="message" rows="1" cols="100" placeholder="Enter comment here."></textarea>
-				</div>
-				<div class="toppadding5">
-					<div class="submit_text support_text">
-						Supplemental (Optional):
-					</div>
-					<textarea id="commentsupport" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="Enter additional comments here."></textarea>
-				</div>
-				<div class="toppadding5">
-					<div class="submit_text support_url">
-						URL (Optional):
-					</div>
-					<textarea id="commenturl" class="message support_placeholder" name="url" rows="1" cols="100" placeholder="Enter related link here."></textarea>
-				</div>
+			<div>
+				<hr size="2" noshade>
+			</div>
 
-				<div>
-					<hr size="2" noshade>
-				</div>
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+			<%= hidden_field_tag :parentpost, @post.id %>
+			<%= hidden_field_tag :topic, @post.topic.id %>
+			<%= hidden_field_tag :kind %>
+			<%= hidden_field_tag :replyoredit %>
 
-				<div class="toppadding10">
-					<%= submit_tag("Submit")%>
-					<button class="right sidepadding" name="Cancel" type="button" id="cancelcommentreply">
-						Cancel
-					</button>
-				</div>
-			</form>
-		</div>
+			<div class="toppadding10">
+				<%= submit_tag("Submit")%>
+				<button class="right sidepadding" name="Cancel" type="button" id="cancelreply">
+					Cancel
+				</button>
+			</div>
+		</form>
 	</div>
 </body>

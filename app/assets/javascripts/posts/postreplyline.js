@@ -110,45 +110,73 @@ $(function() {
 		var $tgt = $(e.target);
 		switch ($tgt.attr("data-kind")) {
 			case 'initiator':
+				$('#message').val("");
+				$('#support').val("");
+				$('#url').val("");
 				if ($('#kidtype_comment').is(':checked')) {
-					$('#commentopinion').val("");
-					$('#commentsupport').val("");
-					$('#commenturl').val("");
-					$('#commenttypeline').show();
-					$('#commentreply').show();
+					$('#objectiontypelabel').text("Comment Type:");
+					$('#objectiontypeline').show();
+					$('#replymessagelabel').text("Comment:");
+					$('#message').attr('placeholder', "Enter comment here.");
+					$('#replysupportlabel').text("Supplemental (Optional):");
+					$('#support').attr('placeholder', "Enter additional comments here.");
+					$('#replyurllabel').text("URL (Optional):");
+					$('#url').attr('placeholder', "Enter related link here.");
+					$('#kind').val('comment')
 				} else {
-					$('#initiatoropinion').val("");
-					$('#initiatorsupport').val("");
-					$('#initiatorurl').val("");
-					$('#initiatorreply').show();
+					$('#objectiontypeline').hide();
+					$('#replymessagelabel').text("In my opinion:");
+					$('#message').attr('placeholder', "Enter opinion here. Be as concise as possible");
+					$('#replysupportlabel').text("Justification:");
+					$('#support').attr('placeholder', "For an opinion to be true, it must be supported by valid justification.");
+					$('#replyurllabel').text("URL (Optional):");
+					$('#url').attr('placeholder', "Enter related link here.");
+					$('#kind').val('opinion')
 				}
-			break;
+				break;
 			case 'comment':
-				$('#commentopinion').val("");
-				$('#commentsupport').val("");
-				$('#commenturl').val("");
-				$('#commenttypeline').show();
-				$('#commentreply').show();
-			break;
+				$('#objectiontypelabel').text("Comment Type:");
+				$('#objectiontypeline').show();
+				$('#replymessagelabel').text("Comment:");
+				$('#message').val("");
+				$('#message').attr('placeholder', "Enter comment here.");
+				$('#replysupportlabel').text("Supplemental (Optional):");
+				$('#support').val("");
+				$('#support').attr('placeholder', "Enter additional comments here.");
+				$('#replyurllabel').text("URL (Optional):");
+				$('#url').val("");
+				$('#url').attr('placeholder', "Enter related link here.");
+				$('#kind').val('comment')
+				break;
 			default:
 			case 'opinion':
+				$('#message').val("");
+				$('#support').val("");
+				$('#url').val("");
 				if ($('#kidtype_comment').is(':checked')) {
-					$('#commentopinion').val("");
-					$('#commentsupport').val("");
-					$('#commenturl').val("");
-					$('#commenttypeline').show();
-					$('#commentreply').show();
+					$('#objectiontypelabel').text("Comment Type:");
+					$('#replymessagelabel').text("Comment:");
+					$('#message').attr('placeholder', "Enter comment here.");
+					$('#replysupportlabel').text("Supplemental (Optional):");
+					$('#support').attr('placeholder', "Enter additional comments here.");
+					$('#replyurllabel').text("URL (Optional):");
+					$('#url').attr('placeholder', "Enter related link here.");
+					$('#kind').val('comment')
 				} else {
-					$('#objectionopinion').val("");
-					$('#objectionsupport').val("");
-					$('#objectionurl').val("");
-					$('#objectiontypeline').show();
-					$('#opinionreply').show();
+					$('#objectiontypelabel').text("Objection Type:");
+					$('#replymessagelabel').text("In my opinion:");
+					$('#message').attr('placeholder', "Enter objection here. Be as concise as possible");
+					$('#replysupportlabel').text("Justification:");
+					$('#support').attr('placeholder', "For an opinion to be true, it must be supported by valid justification.");
+					$('#replyurllabel').text("URL (Optional):");
+					$('#url').attr('placeholder', "Enter related link here.");
+					$('#kind').val('opinion')
 				}
-			break;
+				$('#objectiontypeline').show();
+				break;
 		}
-
 		$('#replyoredit').val('reply');
+		$('#postreply').show();
 	});
 
 	$('#editpost').on("click", function (e) {
@@ -156,6 +184,8 @@ $(function() {
 		var $tgt = $(e.target);
 		var $postid = $tgt.attr("data-id");
 		var $postkind = $tgt.attr("data-kind");
+
+		$('#objectiontypeline').hide();
 
 		$.ajax({
 			url: '/posts/' + $postid + '/edit' + '.json?' + $.param({"id": $postid}),
@@ -165,35 +195,45 @@ $(function() {
 				var $message = resp.message;
 				var $support = resp.support;
 				var $url = resp.url;
-				console.log("Post requested is " + $postid + " with message " + $message);
-
-				//		Populate the message, support, and url fields
+				console.log("Post requested is " + $postid + " with message '" + $message + "'");
 
 				switch ($postkind) {
 					case 'initiator':
-						$('#initiatoropinion').val($message);
-						$('#initiatorsupport').val($support);
-						$('#initiatorurl').val($url);
-						$('#initiatorreply').show();
+						$('#replymessagelabel').text("Initiator:");
+						$('#message').attr('placeholder', "Enter thought provoking question, comment, quote or directive here. Be as concise as possible.");
+						$('#message').val($message);
+						$('#replysupportlabel').text("Supplemental (Optional):");
+						$('#support').attr('placeholder', "Enter additional comments here.");
+						$('#support').val($support);
+						$('#replyurllabel').text("URL (Optional):");
+						$('#url').val($url);
+						$('#kind').val('initiator')
 						break;
 					case 'comment':
-						$('#commentopinion').val($message);
-						$('#commentsupport').val($support);
-						$('#commenturl').val($url);
-						$('#commenttypeline').hide();
-						$('#commentreply').show();
+						$('#replymessagelabel').text("Comment:");
+						$('#message').attr('placeholder', "Enter comment here.");
+						$('#message').val($message);
+						$('#replysupportlabel').text("Supplemental (Optional):");
+						$('#support').attr('placeholder', "Enter additional comments here.");
+						$('#support').val($support);
+						$('#replyurllabel').text("URL (Optional):");
+						$('#url').val($url);
+						$('#kind').val('comment')
 						break;
 					case 'opinion':
 					default:
-						$('#objectionopinion').val($message);
-						$('#objectionsupport').val($support);
-						$('#objectionurl').val($url);
-						$('#objectiontypeline').hide();
-						$('#opinionreply').show();
+						$('#replymessagelabel').text("In my opinion:");
+						$('#message').val($message);
+						$('#replysupportlabel').text("Justification:");
+						$('#support').val($support);
+						$('#replyurllabel').text("URL (Optional):");
+						$('#url').val($url);
+						$('#kind').val('opinion')
 						break;
 				}
 
 				$('#replyoredit').val('edit');
+				$('#postreply').show();
 			}
 		});
 	});

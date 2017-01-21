@@ -188,7 +188,6 @@ $(function() {
 		var $postid = $tgt.attr("data-id");
 		var $postkind = $tgt.attr("data-kind");
 
-		$('#templates').hide();
 		$('#objectiontypeline').hide();
 
 		$.ajax({

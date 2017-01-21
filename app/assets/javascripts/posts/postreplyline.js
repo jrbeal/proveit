@@ -115,7 +115,11 @@ $(function() {
 				$('#url').val("");
 				if ($('#kidtype_comment').is(':checked')) {
 					$('#objectiontypelabel').text("Comment Type:");
-					$('#templates').hide();
+					if ($('#objectiontype_fallacy').is(':checked')) {
+						$('#templates').show();
+					} else {
+						$('#templates').hide();
+					}
 					$('#objectiontypeline').show();
 					$('#replymessagelabel').text("Comment:");
 					$('#message').attr('placeholder', "Enter comment here.");
@@ -137,7 +141,11 @@ $(function() {
 				break;
 			case 'comment':
 				$('#objectiontypelabel').text("Comment Type:");
-				$('#templates').hide();
+				if ($('#objectiontype_fallacy').is(':checked')) {
+					$('#templates').show();
+				} else {
+					$('#templates').hide();
+				}
 				$('#objectiontypeline').show();
 				$('#replymessagelabel').text("Comment:");
 				$('#message').val("");
@@ -174,7 +182,11 @@ $(function() {
 					$('#url').attr('placeholder', "Enter related link here.");
 					$('#kind').val('opinion')
 				}
-				$('#templates').hide();
+				if ($('#objectiontype_fallacy').is(':checked')) {
+					$('#templates').show();
+				} else {
+					$('#templates').hide();
+				}
 				$('#objectiontypeline').show();
 				break;
 		}
@@ -188,6 +200,7 @@ $(function() {
 		var $postid = $tgt.attr("data-id");
 		var $postkind = $tgt.attr("data-kind");
 
+		$('#templates').hide();
 		$('#objectiontypeline').hide();
 
 		$.ajax({

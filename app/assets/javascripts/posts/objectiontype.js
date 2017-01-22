@@ -4,19 +4,19 @@ $(function() {
 		var $tgt = $(e.target);
 		if ($tgt.val() == "manual") {
 			$('#templates').hide();
-			$('#objectionopinion').val("");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
+			$('#message').val("");
+			$('#support').val("");
+			$('#url').val("");
 		} else if ($tgt.val() == "fallacy") {
 			$('#templates').show();
-			$('#objectionopinion').val("");
-			$('#objectionsupport').val("");
-			$('#objectionurl').val("");
+			$('#message').val("");
+			$('#support').val("");
+			$('#url').val("");
 		} else if ($tgt.val() == "mediationrequest") {
 			$('#templates').hide();
-			$('#objectionopinion').val("Requesting mediation.");
-			$('#objectionsupport').val("Describe impasse here.");
-			$('#objectionurl').val("");
+			$('#message').val("Requesting mediation.");
+			$('#support').val("Describe impasse here. Note that this will simply post a request for mediation. Future improvements will include notifications to actual mediators.");
+			$('#url').val("");
 		}
 	});
 });

@@ -65,10 +65,10 @@ function postReady() {
 
 	$('#type_opinion').on("click", function () {
 		$(".submit_text.message_text").text("In my opinion:");
-		$(".submit_text.support_text").text("Justification:");
+		$(".submit_text.support_text").text("Supplemental (Optional):");
 		$("#public label").text("Lone Wolf?");
-		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter opinion here. Be as concise as possible.';
-		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'For an opinion to be true it must be supported by valid justification.';
+		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter initial opinion here. Be as concise as possible.';
+		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter supporting information here as desired, however, justification is not required for initial opinions.';
 		if ($('#format_public').is(':checked')) {
 			$('#public').show();
 			$('#private').hide();

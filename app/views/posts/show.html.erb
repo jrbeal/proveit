@@ -22,7 +22,7 @@
 			<% if @post.lockedby == nil %>
 				<%= link_to "Reply", "#", :id => "createkid", :data => {:id => @post.id, :kind => @post.kind} %>
  				<% if (@kids.empty? && (@post.prover == current_prover || current_prover.administrator )) || current_prover.administrator %>
-					<%= link_to "Edit", "#", :id => "editpost", :data => {:id => @post.id, :kind => @post.kind} %>
+					<%= link_to "Edit", "#", :id => "editpost", :data => {:id => @post.id, :kind => @post.kind, :level => @post.level} %>
 				<% end %>
 			<% end %>
 			<%= link_to "Collapse", "#", :action => "hide", :id => "collapse" %>
@@ -83,7 +83,7 @@
 				<div id="replysupportlabel" class="submit_text support_text">
 					Support:
 				</div>
-				<textarea id="support" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="For an opinion to be true it must be supported by valid justification."></textarea>
+				<textarea id="support" class="message message_placeholder" name="support" rows="10" cols="100" placeholder="For an objection to be true it must be supported with valid justification."></textarea>
 			</div>
 			<div class="toppadding5">
 				<div id="replyurllabel" class="submit_text support_url">

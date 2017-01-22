@@ -143,8 +143,8 @@ $(function() {
 					$('#objectiontypeline').hide();
 					$('#replymessagelabel').text("In my opinion:");
 					$('#message').attr('placeholder', "Enter opinion here. Be as concise as possible");
-					$('#replysupportlabel').text("Justification:");
-					$('#support').attr('placeholder', "For an opinion to be true, it must be supported by valid justification.");
+					$('#replysupportlabel').text("Supplemental (Optional):");
+					$('#support').attr('placeholder', "Enter supporting information here as desired, however, justification is not required for initial opinions.");
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
 					$('#kind').val('opinion')
@@ -188,7 +188,7 @@ $(function() {
 					$('#replymessagelabel').text("In my opinion:");
 					$('#message').attr('placeholder', "Enter objection here. Be as concise as possible");
 					$('#replysupportlabel').text("Justification:");
-					$('#support').attr('placeholder', "For an opinion to be true, it must be supported by valid justification.");
+					$('#support').attr('placeholder', "For an objection to be true, it must be supported with valid justification.");
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
 					$('#kind').val('opinion')
@@ -210,6 +210,7 @@ $(function() {
 		var $tgt = $(e.target);
 		var $postid = $tgt.attr("data-id");
 		var $postkind = $tgt.attr("data-kind");
+		var $postlevel = $tgt.attr("data-level");
 
 		// Locking the post -- so other users can't edit or respond to it (until it's unlocked)
 		$.ajax({
@@ -259,8 +260,16 @@ $(function() {
 					case 'opinion':
 					default:
 						$('#replymessagelabel').text("In my opinion:");
+						if ($postlevel == 0) {
+							$('#message').attr('placeholder', "Enter initial opinion here. Be as concise as possible.");
+							$('#replysupportlabel').text("Supplemental (Optional):");
+							$('#support').attr('placeholder', "Enter supporting information here as desired, however, justification is not required for initial opinions.");
+						} else {
+							$('#message').attr('placeholder', "Enter objection here. Be as concise as possible.");
+							$('#replysupportlabel').text("Justification:");
+							$('#support').attr('placeholder', "For an objection to be true it must be supported with valid justification.");
+						}
 						$('#message').val($message);
-						$('#replysupportlabel').text("Justification:");
 						$('#support').val($support);
 						$('#replyurllabel').text("URL (Optional):");
 						$('#url').val($url);

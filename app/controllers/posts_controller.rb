@@ -141,31 +141,40 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-		case params[:kind]
-		when Post::OPINION
-			if params[:message].length < 1
-				flash[:alert] = "Please enter an opinion"
-				redirect_to :back
-				return
-			elsif params[:support].length < 1
-				flash[:alert] = "Please enter justification for: " + params[:message]
-				redirect_to :back
-				return
-			end
-		when Post::INITIATOR
-			if params[:message].length < 1
-				flash[:alert] = "Please enter an initiator question, comment, quote or directive"
-				redirect_to :back
-				return
-			end
-		when Post::COMMENT
-			if params[:message].length < 1
-				flash[:alert] = "Please enter a comment"
-				redirect_to :back
-				return
-			end
-		else
-			puts "Invalid team type"
+		@post = Post.find(params[:parentpost])	# This is the post we're editing or replying to...
+		@post.lockedby_id = nil									# Release the lock now.
+
+		case params[:kind]											# Make sure the content meets the minimum requirements.
+			when Post::OPINION
+				if params[:message].length < 1
+					flash[:alert] = "Please enter an opinion"
+					@post.save!
+					redirect_to :back
+					return
+				elsif params[:replyoredit] == "reply" and @post.level > 0
+					if params[:support].length < 1
+						flash[:alert] = "Please enter justification for: " + params[:message]
+						@post.save!
+						redirect_to :back
+						return
+					end
+				end
+			when Post::INITIATOR
+				if params[:message].length < 1
+					flash[:alert] = "Please enter an initiator question, comment, quote or directive"
+					@post.save!
+					redirect_to :back
+					return
+				end
+			when Post::COMMENT
+				if params[:message].length < 1
+					flash[:alert] = "Please enter a comment"
+					@post.save!
+					redirect_to :back
+					return
+				end
+			else
+				puts "Invalid team type"
 		end
 
 		post_params = {
@@ -177,23 +186,19 @@ class PostsController < ApplicationController
 		}
 
 		case params[:replyoredit]
-		when "reply"
-			@post = Post.new(post_params)
-			@post.parent = Post.find params[:parentpost]
-			@post.topic = Topic.find params[:topic]
-			@post.prover = current_prover
-			@post.save!
-			@post.parent.update(:lockedby_id => nil)
-			redirect_to :back
-		when "edit"
-			@post = Post.find(params[:parentpost])
-			@post.update(post_params)
-			redirect_to :back
-		else
-			puts "Invalid response"
+			when "reply"
+				@newpost = Post.new(post_params)
+				@newpost.parent = @post
+				@newpost.topic = Topic.find params[:topic]
+				@newpost.prover = current_prover
+				@newpost.save!
+				redirect_to :back
+			when "edit"
+				@post.update(post_params)
+				redirect_to :back
+			else
+				puts "Invalid response"
 		end
-
-
   end
 
   # PATCH/PUT /posts/1

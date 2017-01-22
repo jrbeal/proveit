@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 	post 'verbosity'		=> 'provers#setverbosity'
 	post 'profiletab'		=> 'provers#setprofiletab'
 	post 'kidtype'			=> 'provers#setkidtype'
+	post 'lockpost'			=> 'posts#lock'
+	post 'unlockpost'		=> 'posts#unlock'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
@@ -35,7 +37,7 @@ Rails.application.routes.draw do
 	delete 'fallacies'	=> 'fallacies#destroy'
 	delete 'fallacyfolders'	=> 'fallacyfolders#destroy'
 
-	put 'fallacies'	=> 'fallacies#update'
+	put 'fallacies'			=> 'fallacies#update'
 
 	resources :filters
 	resources :categories

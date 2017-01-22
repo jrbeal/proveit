@@ -20,13 +20,13 @@
   <div id="kids" class="toppadding10">
     <div id= "kidtype" class="sidepadding spacing">
 			<% if @post.lockedby == nil %>
-				<%= link_to "Reply", "#", :id => "createkid", :data => {:kind => @post.kind} %>
+				<%= link_to "Reply", "#", :id => "createkid", :data => {:id => @post.id, :kind => @post.kind} %>
  				<% if (@kids.empty? && (@post.prover == current_prover || current_prover.administrator )) || current_prover.administrator %>
 					<%= link_to "Edit", "#", :id => "editpost", :data => {:id => @post.id, :kind => @post.kind} %>
 				<% end %>
 			<% end %>
-			<%= link_to "Collapse", "#", :id => "collapse" %>
-			<%= link_to "Expand", "#", :id => "expand" %>
+			<%= link_to "Collapse", "#", :action => "hide", :id => "collapse" %>
+			<%= link_to "Expand", "#", :action => "hide", :id => "expand" %>
 			<div class="right sidepadding">
 				<%= genpostbuttons(@post) %>
 			</div>

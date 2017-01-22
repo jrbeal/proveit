@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:getpost, :show, :edit, :update, :destroy]
+  before_action :set_post, only: [:lock, :unlock, :show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -173,6 +173,7 @@ class PostsController < ApplicationController
 			:support => params[:support],
 			:kind => params[:kind],
 			:url => params[:url],
+			:lockedby_id => nil
 		}
 
 		case params[:replyoredit]
@@ -182,6 +183,7 @@ class PostsController < ApplicationController
 			@post.topic = Topic.find params[:topic]
 			@post.prover = current_prover
 			@post.save!
+			@post.parent.update(:lockedby_id => nil)
 			redirect_to :back
 		when "edit"
 			@post = Post.find(params[:parentpost])
@@ -190,6 +192,8 @@ class PostsController < ApplicationController
 		else
 			puts "Invalid response"
 		end
+
+
   end
 
   # PATCH/PUT /posts/1
@@ -214,7 +218,19 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
+	end
+
+	def lock
+		@post.update(:lockedby => current_prover)
+
+		render :nothing => true
+	end
+
+	def unlock
+		@post.update(:lockedby => nil)
+
+		render :nothing => true
+	end
 
   private
 

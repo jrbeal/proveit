@@ -108,6 +108,17 @@ $(function() {
 	$('#createkid').on("click", function (e) {
 		$('#kids').hide();
 		var $tgt = $(e.target);
+		var $postid = $tgt.attr("data-id");
+
+		// Locking the post -- so other users can't edit it respond to it (until it's unlocked)
+		$.ajax({
+			url: '/lockpost?' + $.param({"id": $postid}),
+			type: 'POST',
+			success: function () {
+				console.log("Post " + $postid + " is now locked.")
+			}
+		})
+
 		switch ($tgt.attr("data-kind")) {
 			case 'initiator':
 				$('#message').val("");
@@ -199,6 +210,15 @@ $(function() {
 		var $tgt = $(e.target);
 		var $postid = $tgt.attr("data-id");
 		var $postkind = $tgt.attr("data-kind");
+
+		// Locking the post -- so other users can't edit or respond to it (until it's unlocked)
+		$.ajax({
+			url: '/lockpost?' + $.param({"id": $postid}),
+			type: 'POST',
+			success: function () {
+				console.log("Post " + $postid + " is now locked.")
+			}
+		})
 
 		$('#templates').hide();
 		$('#objectiontypeline').hide();

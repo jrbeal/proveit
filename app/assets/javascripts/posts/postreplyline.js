@@ -134,19 +134,25 @@ $(function() {
 					$('#objectiontypeline').show();
 					$('#replymessagelabel').text("Comment:");
 					$('#message').attr('placeholder', "Enter comment here.");
+					$('#message').css('background-color', 'lightblue');
 					$('#replysupportlabel').text("Supplemental (Optional):");
 					$('#support').attr('placeholder', "Enter additional comments here.");
+					$('#support').css('background-color', 'lightblue');
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
+					$('#url').css('background-color', 'lightblue');
 					$('#kind').val('comment')
 				} else {
 					$('#objectiontypeline').hide();
 					$('#replymessagelabel').text("In my opinion:");
 					$('#message').attr('placeholder', "Enter opinion here. Be as concise as possible");
+					$('#message').css('background-color', 'lightgreen');
 					$('#replysupportlabel').text("Supplemental (Optional):");
 					$('#support').attr('placeholder', "Enter supporting information here as desired, however, justification is not required for initial opinions.");
+					$('#support').css('background-color', 'lightgreen');
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
+					$('#url').css('background-color', 'lightgreen');
 					$('#kind').val('opinion')
 				}
 				break;
@@ -161,12 +167,15 @@ $(function() {
 				$('#replymessagelabel').text("Comment:");
 				$('#message').val("");
 				$('#message').attr('placeholder', "Enter comment here.");
+				$('#message').css('background-color', 'lightblue');
 				$('#replysupportlabel').text("Supplemental (Optional):");
 				$('#support').val("");
 				$('#support').attr('placeholder', "Enter additional comments here.");
+				$('#support').css('background-color', 'lightblue');
 				$('#replyurllabel').text("URL (Optional):");
 				$('#url').val("");
 				$('#url').attr('placeholder', "Enter related link here.");
+				$('#url').css('background-color', 'lightblue');
 				$('#kind').val('comment')
 				break;
 			default:
@@ -178,19 +187,25 @@ $(function() {
 					$('#objectiontypelabel').text("Comment Type:");
 					$('#replymessagelabel').text("Comment:");
 					$('#message').attr('placeholder', "Enter comment here.");
+					$('#message').css('background-color', 'lightblue');
 					$('#replysupportlabel').text("Supplemental (Optional):");
 					$('#support').attr('placeholder', "Enter additional comments here.");
+					$('#support').css('background-color', 'lightblue');
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
+					$('#url').css('background-color', 'lightblue');
 					$('#kind').val('comment')
 				} else {
 					$('#objectiontypelabel').text("Objection Type:");
 					$('#replymessagelabel').text("In my opinion:");
 					$('#message').attr('placeholder', "Enter objection here. Be as concise as possible");
+					$('#message').css('background-color', 'lightgreen');
 					$('#replysupportlabel').text("Justification:");
 					$('#support').attr('placeholder', "For an objection to be true, it must be supported with valid justification.");
+					$('#support').css('background-color', 'lightgreen');
 					$('#replyurllabel').text("URL (Optional):");
 					$('#url').attr('placeholder', "Enter related link here.");
+					$('#url').css('background-color', 'lightgreen');
 					$('#kind').val('opinion')
 				}
 				if ($('#objectiontype_fallacy').is(':checked')) {
@@ -239,22 +254,28 @@ $(function() {
 						$('#replymessagelabel').text("Initiator:");
 						$('#message').attr('placeholder', "Enter thought provoking question, comment, quote or directive here. Be as concise as possible.");
 						$('#message').val($message);
+						$('#message').css('background-color', 'lightyellow');
 						$('#replysupportlabel').text("Supplemental (Optional):");
 						$('#support').attr('placeholder', "Enter additional comments here.");
 						$('#support').val($support);
+						$('#support').css('background-color', 'lightyellow');
 						$('#replyurllabel').text("URL (Optional):");
 						$('#url').val($url);
+						$('#url').css('background-color', 'lightyellow');
 						$('#kind').val('initiator')
 						break;
 					case 'comment':
 						$('#replymessagelabel').text("Comment:");
 						$('#message').attr('placeholder', "Enter comment here.");
 						$('#message').val($message);
+						$('#message').css('background-color', 'lightblue');
 						$('#replysupportlabel').text("Supplemental (Optional):");
 						$('#support').attr('placeholder', "Enter additional comments here.");
 						$('#support').val($support);
+						$('#support').css('background-color', 'lightblue');
 						$('#replyurllabel').text("URL (Optional):");
 						$('#url').val($url);
+						$('#url').css('background-color', 'lightblue');
 						$('#kind').val('comment')
 						break;
 					case 'opinion':
@@ -270,9 +291,12 @@ $(function() {
 							$('#support').attr('placeholder', "For an objection to be true it must be supported with valid justification.");
 						}
 						$('#message').val($message);
+						$('#message').css('background-color', 'lightgreen');
 						$('#support').val($support);
+						$('#support').css('background-color', 'lightgreen');
 						$('#replyurllabel').text("URL (Optional):");
 						$('#url').val($url);
+						$('#url').css('background-color', 'lightgreen');
 						$('#kind').val('opinion')
 						break;
 				}

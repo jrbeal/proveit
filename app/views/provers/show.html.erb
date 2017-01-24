@@ -185,18 +185,17 @@
 					</div>
 					<div class="profilepagediv2">
 						<div id="teamownership">
-							<b>Owner:</b> &nbsp
+							<b>Owner:</b> &nbsp Opinions: &nbsp
 							<% if @teamownership.count > 0 %>
 								<%= select_tag 'teamownership_dropdown', options_from_collection_for_select(@teamownership, "id", "team_ownership") %> &nbsp
-								Manage: &nbsp
+								Members: &nbsp
 								<%= select_tag 'provers_dropdown3', options_from_collection_for_select(@provers, "id", "provername") %> &nbsp
 								Under Construction! &nbsp
 						<% else %>
-								You are not the originator of teams right now.
+								You are not the owner of any teams right now.
 							<% end %>
 						</div>
 					</div>
-
 				</div>
 
 				<div class="profilepagediv1">

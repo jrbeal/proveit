@@ -110,7 +110,8 @@ $(function() {
 		var $tgt = $(e.target);
 		var $postid = $tgt.attr("data-id");
 
-		// Locking the post -- so other users can't edit it respond to it (until it's unlocked)
+		// Locking the post -- so other users can't edit it, respond to it, or delete it (until it's unlocked)
+		// (Only do this when creating new objections.)
 		$.ajax({
 			url: '/lockpost?' + $.param({"id": $postid}),
 			type: 'POST',
@@ -227,7 +228,8 @@ $(function() {
 		var $postkind = $tgt.attr("data-kind");
 		var $postlevel = $tgt.attr("data-level");
 
-		// Locking the post -- so other users can't edit or respond to it (until it's unlocked)
+		// Locking the post -- so other users can't edit it, respond to it, or delete it (until it's unlocked)
+		// (Only do this when editing initiators and objections.)
 		$.ajax({
 			url: '/lockpost?' + $.param({"id": $postid}),
 			type: 'POST',

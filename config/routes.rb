@@ -27,10 +27,11 @@ Rails.application.routes.draw do
 	post 'kidtype'			=> 'provers#setkidtype'
 	post 'lockpost'			=> 'posts#lock'
 	post 'unlockpost'		=> 'posts#unlock'
+	post 'like'					=> 'likes#createlike'
 
 	delete 'follows' 		=> 'follows#destroy'
 	delete 'bookmarks' 	=> 'bookmarks#destroy'
-	delete 'likes' 			=> 'likes#destroy'
+	delete 'unlike' 		=> 'likes#destroylike'
 	delete 'teams' 			=> 'teams#destroy'
 	delete 'filters'		=> 'filters#destroy'
 	delete 'categories'	=> 'categories#destroy'

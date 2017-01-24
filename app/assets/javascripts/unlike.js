@@ -9,7 +9,7 @@ $(function() {
 				console.log("Got current prover.");
 				id = resp.currentprover.id;
 				$.ajax({
-					url: '/likes?' + $.param({"prover": id, "post": $parent.attr("data-post")}),
+					url: '/unlike?' + $.param({"prover": id, "post": $parent.attr("data-post")}),
 					type: 'DELETE',
 					success: function (resp) {
 						console.log("Unliked this post.");

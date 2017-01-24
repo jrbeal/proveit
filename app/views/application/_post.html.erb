@@ -12,7 +12,7 @@
 
 						<%= post.prover.rating.round(2) %>, &nbsp
 
-						<% if already_following(post.prover.id) %>
+						<% if following(post.prover.id) %>
 							<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{post.prover.id}"} %>
 						<% else %>
 							<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{post.prover.id}"} %>
@@ -126,17 +126,23 @@
 							<%= level(post) %> &nbsp
 						<% end %>
 
-						<% if already_bookmarked(post) %>
+						<% if bookmarked(post) %>
 							<%= link_to "Unbookmark", "#", :class => "unbookmark1", :data => {:post => "#{post.id}"} %>,
 						<% else %>
 							<%= link_to "Bookmark", "#", :class => "bookmark", :data => {:post => "#{post.id}"} %>,
 						<% end %> &nbsp &nbsp
-						<% if already_liked(post) %>
+
+						<% if liked(post) %>
 							<%= link_to image_tag('thumbs-up-blue.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
 						<% else %>
-							<%= link_to image_tag('thumbs-up-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}"} %>
+							<%= link_to image_tag('thumbs-up-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => true} %>
 						<% end %> &nbsp
-						<%= post.points %>
+						<%= post.points %> &nbsp
+						<% if disliked(post) %>
+							<%= link_to image_tag('thumbs-down-blue.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
+						<% else %>
+							<%= link_to image_tag('thumbs-down-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => false} %>
+						<% end %> &nbsp
 					</div>
 
 					<div class="flexContainer_row_center_end">

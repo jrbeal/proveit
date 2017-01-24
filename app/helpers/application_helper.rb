@@ -1,13 +1,17 @@
 module ApplicationHelper
-	def already_following(prover_id)
+	def following(prover_id)
 		current_prover.follows? Prover.find(prover_id)
 	end
 
-	def already_bookmarked(post)
+	def bookmarked(post)
 		(Bookmark.where(:owner => current_prover.id, :post => post)).size > 0
 	end
 
-	def already_liked(post)
-		(Like.where(:prover => current_prover.id, :post => post)).size > 0
+	def liked(post)
+		(Like.where(:prover => current_prover.id, :post => post, :likes => true)).size > 0
+	end
+
+	def disliked(post)
+		(Like.where(:prover => current_prover.id, :post => post, :likes => false)).size > 0
 	end
 end

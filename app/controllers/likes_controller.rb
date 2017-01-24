@@ -23,17 +23,38 @@ class LikesController < ApplicationController
 
 	# POST /likes
 	# POST /likes.json
-	def create
-
+	def createlike
 		@post = Post.find(params[:post])
 
 		like_params = {
 			:prover => Prover.find(params[:prover]),
-			:post => @post
+			:post => @post,
+			:likes => params[:likes],
 		}
 
+		# First look for any existing likes (or dislikes) for this post (by this user)...
+		if params[:prover].present? && params[:post].present?
+			@like = Like.where(:prover => params[:prover], :post => params[:post])
+		end
+
+		# If it finds any, delete them...
+		@like.each do |l|
+			@post = Post.find(l.post_id)
+			if l.likes
+				@post.update_column(:points, @post.points - 1)
+			else
+				@post.update_column(:points, @post.points + 1)
+			end
+			l.destroy
+		end
+
+		# Now create a new like with the parameters given...
 		@like = Like.new(like_params)
-		@post.update_column(:points, @post.points+1)
+		if @like.likes == true
+			@post.update_column(:points, @post.points + 1)
+		else
+			@post.update_column(:points, @post.points - 1)
+		end
 
 		respond_to do |format|
 			if @like.save
@@ -62,7 +83,7 @@ class LikesController < ApplicationController
 
 	# DELETE /like/1
 	# DELETE /like/1.json
-	def destroy
+	def destroylike
 		if params[:prover].present? && params[:post].present?
 			@like = Like.where(:prover => params[:prover], :post => params[:post])
 		elsif params[:id].present?
@@ -70,9 +91,13 @@ class LikesController < ApplicationController
 		end
 
 		@like.each do |l|
-			l.destroy
 			@post = Post.find(l.post_id)
-			@post.update_column(:points, @post.points-1)
+			if l.likes
+				@post.update_column(:points, @post.points-1)
+			else
+				@post.update_column(:points, @post.points+1)
+			end
+			l.destroy
 		end
 
 		render :text => "Nothing"

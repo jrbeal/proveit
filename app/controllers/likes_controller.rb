@@ -33,6 +33,7 @@ class LikesController < ApplicationController
 		}
 
 		# First look for any existing likes (or dislikes) for this post (by this user)...
+		# (Sometimes a user will like something, then dislike it -- which creates a two-point swing)
 		if params[:prover].present? && params[:post].present?
 			@like = Like.where(:prover => params[:prover], :post => params[:post])
 		end

@@ -58,18 +58,19 @@
 					<div class="submit_text" id="templatefolder">
 						Templates:
 					</div>
-					<div class="flexContainer_row_center_start">
-						<textarea id="templatekeyword" class="message" name="keywords" rows="1" cols="30" placeholder="Enter keyword here."></textarea>
-						&nbsp <button name="Filter" type="button" id="filtertemplates">
-						Search
-					</button>
-					</div>
+					<!--<div class="flexContainer_row_center_start">-->
+						<!--<textarea id="templatekeyword" class="message" name="keywords" rows="1" cols="30" placeholder="Enter keyword here."></textarea>-->
+						<!--&nbsp <button name="Filter" type="button" id="searchtemplates">-->
+						<!--Search-->
+					<!--</button>-->
+					<!--</div>-->
 				</div>
 
 				<div id="fallacy" class="toppadding5" style="margin-left:14%">
 					<% results = @fallacies + @subfolders %>
 					<% results = results.sort { |a, b| a.name <=> b.name } %>
 					<%= select_tag 'fallacylist', options_from_collection_for_select(results, "id", "name"), :class => 'fallacies', :size => 6, :style => 'overflow-y: auto; width: 100%' %> &nbsp &nbsp
+					<%= hidden_field_tag :rootfolder, @folder %>
 				</div>
 			</div>
 

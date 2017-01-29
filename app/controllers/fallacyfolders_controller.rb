@@ -47,11 +47,6 @@ class FallacyfoldersController < ApplicationController
 			end
 		end
 
-		# @subfolders = Fallacyfolder.where(parent: @folder.id)
-		# @subfolders.each do |folder|
-		# 	folder.search
-		# end
-
 		@results = @results.sort { |a, b| a.name <=> b.name }
 
 		@folder.parent ? @parentid = @folder.parent.id : @parentid = nil

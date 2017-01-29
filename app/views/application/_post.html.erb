@@ -29,22 +29,22 @@
 
 						<% if post.lockedby != nil %>
 							<%= image_tag('lock2.png', :size => '15x14') %> &nbsp
-						<% else %>
-							<% unless featured == "true"%>
-								<% if current_prover.administrator %>
-									<% if post.parent == nil %>
-										<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
-									<% else %>
-										<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
-									<% end %>
+						<% end %>
+
+						<% unless featured == "true"%>
+							<% if current_prover.administrator %>
+								<% if post.parent == nil %>
+									<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
 								<% else %>
-									<% if current_prover == post.prover %>
-										<% if post.offspring_opinions == 0 %>
-											<% if post.parent == nil %>
-												<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
-											<% else %>
-												<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
-											<% end %>
+									<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
+								<% end %>
+							<% else %>
+								<% if current_prover == post.prover %>
+									<% if post.offspring_opinions == 0 %>
+										<% if post.parent == nil %>
+											<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletetopic", :data => {:topic => "#{post.topic.id}"} %> &nbsp
+										<% else %>
+											<%= link_to image_tag('trash.png', :size => '15x15'), '#', :class => "deletepost", :data => {:post => "#{post.id}"} %> &nbsp
 										<% end %>
 									<% end %>
 								<% end %>

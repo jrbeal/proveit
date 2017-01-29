@@ -446,6 +446,8 @@
 							<b>Users:</b> &nbsp
 							<%= select_tag 'myprovers', options_from_collection_for_select(@provers, "id", "provername"), :class => 'myprovers' %> &nbsp &nbsp
 							<%= link_to "Delete", "#", :id => "proverdeletebutton" %> &nbsp &nbsp &nbsp &nbsp
+							<%= link_to "Promote", "#", :id => "proverpromotebutton" %> &nbsp &nbsp &nbsp &nbsp
+							<%= link_to "Demote", "#", :id => "proverdemotebutton" %> &nbsp &nbsp &nbsp &nbsp
 						</div>
 					</div>
 					<div class="profilepagediv2">

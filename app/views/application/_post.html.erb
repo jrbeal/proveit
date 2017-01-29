@@ -133,15 +133,15 @@
 						<% end %> &nbsp &nbsp
 
 						<% if liked(post) %>
-							<%= link_to image_tag('thumbs-up-blue.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
+							<%= link_to image_tag('thumbs-up-blue.png', :size => '15x12'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
 						<% else %>
-							<%= link_to image_tag('thumbs-up-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => true} %>
+							<%= link_to image_tag('thumbs-up-gray.png', :size => '15x12'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => true} %>
 						<% end %> &nbsp
 						<%= post.points %> &nbsp
 						<% if disliked(post) %>
-							<%= link_to image_tag('thumbs-down-blue.png', :size => '15x15'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
+							<%= link_to image_tag('thumbs-down-blue.png', :size => '15x12'), '#', :class => "unlike", :data => {:post => "#{post.id}"} %>
 						<% else %>
-							<%= link_to image_tag('thumbs-down-gray.png', :size => '15x15'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => false} %>
+							<%= link_to image_tag('thumbs-down-gray.png', :size => '15x12'), '#', :class => "like", :data => {:post => "#{post.id}", :likes => false} %>
 						<% end %> &nbsp
 					</div>
 

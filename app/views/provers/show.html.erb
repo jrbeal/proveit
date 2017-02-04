@@ -33,10 +33,12 @@
 				(<%= @prover.first_name %>
 				<%= @prover.last_name %>) &nbsp
 				<% if !@owner %>
+					<% followtxt = "Follow (" + @prover.followees.count.to_s  + ")"%>
+					<% unfollowtxt = "Unfollow (" + @prover.followees.count.to_s + ")"%>
 					<% if following(@prover.id) %>
-						<%= link_to "Unfollow", "#", :class => "unfollow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
+						<%= link_to unfollowtxt, "#", :class => "unfollow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
 					<% else %>
-						<%= link_to "Follow", "#", :class => "follow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
+						<%= link_to followtxt, "#", :class => "follow fontsize10", :data => {:prover_id => "#{@prover.id}"} %>
 					<% end %>
 				<% end %>
 			</div>

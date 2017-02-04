@@ -12,8 +12,8 @@
 
 						<%= post.prover.rating.round(2) %>, &nbsp
 
-						<% followtxt = "Follow (" + post.prover.followers.count.to_s  + ")"%>
-						<% unfollowtxt = "Unfollow (" + post.prover.followers.count.to_s + ")"%>
+						<% followtxt = "Follow (" + post.prover.followees.count.to_s  + ")"%>
+						<% unfollowtxt = "Unfollow (" + post.prover.followees.count.to_s + ")"%>
 
 						<% if following(post.prover.id) %>
 							<%= link_to unfollowtxt, "#", :class => "unfollow", :data => {:prover_id => "#{post.prover.id}"} %>

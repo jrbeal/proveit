@@ -12,10 +12,13 @@
 
 						<%= post.prover.rating.round(2) %>, &nbsp
 
+						<% followtxt = "Follow (" + post.prover.followers.count.to_s  + ")"%>
+						<% unfollowtxt = "Unfollow (" + post.prover.followers.count.to_s + ")"%>
+
 						<% if following(post.prover.id) %>
-							<%= link_to "Unfollow", "#", :class => "unfollow", :data => {:prover_id => "#{post.prover.id}"} %>
+							<%= link_to unfollowtxt, "#", :class => "unfollow", :data => {:prover_id => "#{post.prover.id}"} %>
 						<% else %>
-							<%= link_to "Follow", "#", :class => "follow", :data => {:prover_id => "#{post.prover.id}"} %>
+							<%= link_to followtxt, "#", :class => "follow", :data => {:prover_id => "#{post.prover.id}"} %>
 						<% end %> &nbsp
 					</div>
 

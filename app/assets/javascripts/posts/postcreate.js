@@ -7,6 +7,8 @@ function postReady() {
 	selectedNames1.push(user);
 
 	$('#team2members').hide();
+	$(".message.message_placeholder").css('background-color', 'lightgreen');
+	$(".message.support_placeholder").css('background-color', 'lightgreen');
 
 	$("#provers_dropdown1").on("click", function (e) {
 		var id = $("#provers_dropdown1").val();
@@ -68,7 +70,9 @@ function postReady() {
 		$(".submit_text.support_text").text("Supplemental (Optional):");
 		$("#public label").text("Lone Wolf?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter initial opinion here. Be as concise as possible.';
+		$(".message.message_placeholder").css('background-color', 'lightgreen');
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter supporting information here as desired, however, justification is not required for initial opinions.';
+		$(".message.support_placeholder").css('background-color', 'lightgreen');
 		if ($('#format_public').is(':checked')) {
 			$('#public').show();
 			$('#private').hide();
@@ -97,7 +101,9 @@ function postReady() {
 		$(".submit_text.message_text").text("Initiator:");
 		$(".submit_text.support_text").text("Supplemental (Optional):");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter thought provoking question, comment, quote or directive here. Be as concise as possible.';
+		$(".message.message_placeholder").css('background-color', 'lightyellow');
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional comments here.';
+		$(".message.support_placeholder").css('background-color', 'lightyellow');
 		if ($('#format_public').is(':checked')) {
 			$('#public').hide();
 			$('#private').hide();
@@ -128,7 +134,9 @@ function postReady() {
 
 		$("#public label").text("Channel?");
 		document.getElementsByClassName('message message_placeholder')[0].placeholder = 'Enter casual comment here.';
+		$(".message.message_placeholder").css('background-color', 'lightblue');
 		document.getElementsByClassName('message support_placeholder')[0].placeholder = 'Enter additional comments here.';
+		$(".message.support_placeholder").css('background-color', 'lightblue');
 		$('#private').hide();
 		$('#postteam2').hide();
 		if ($('#format_public').is(':checked')) {
